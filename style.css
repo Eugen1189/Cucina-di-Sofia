@@ -261,7 +261,7 @@ main {
     }
 }
 
-/* ✨ НОВИЙ КОД: АНІМАЦІЯ ПЛАВАННЯ */
+/* ✨ NEW CODE: FLOATING ANIMATION */
 @keyframes floatAnimation {
   0% { transform: translate(0, 0) rotate(var(--initial-rotate, 0deg)); }
   25% { transform: translate(5px, -10px) rotate(calc(var(--initial-rotate, 0deg) + 3deg)); }
@@ -270,7 +270,7 @@ main {
   100% { transform: translate(0, 0) rotate(var(--initial-rotate, 0deg)); }
 }
 
-/* Оновлюємо клас .ingredient */
+/* Update .ingredient class */
 .ingredient {
     position: absolute;
     z-index: 2;
@@ -278,14 +278,14 @@ main {
     filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
     transition: transform 0.2s ease-out;
 
-    /* ✨ ЗАСТОСОВУЄМО АНІМАЦІЮ */
+    /* ✨ APPLY ANIMATION */
     animation-name: floatAnimation;
-    animation-duration: 15s; /* Тривалість одного циклу */
-    animation-iteration-count: infinite; /* Повторювати вічно */
-    animation-timing-function: ease-in-out; /* Плавний рух */
+    animation-duration: 15s; /* Duration of one cycle */
+    animation-iteration-count: infinite; /* Repeat forever */
+    animation-timing-function: ease-in-out; /* Smooth movement */
 }
 
-/* ===== КРОК 2.1: АНІМАЦІЯ "ПЛАВАННЯ" ===== */
+/* ===== STEP 2.1: FLOATING ANIMATION ===== */
 @keyframes floatAnimation {
   0% { transform: translate(0, 0); }
   25% { transform: translate(5px, -10px); }
@@ -294,13 +294,13 @@ main {
   100% { transform: translate(0, 0); }
 }
 
-/* ===== КРОК 2.2: ЗАСТОСУВАННЯ АНІМАЦІЇ ДО ВСІХ ІНГРЕДІЄНТІВ ===== */
+/* ===== STEP 2.2: APPLYING ANIMATION TO ALL INGREDIENTS ===== */
 .ingredient {
     position: absolute;
-    z-index: 1; /* ✨ Інгредієнти позаду головної страви */
+    z-index: 1; /* ✨ Ingredients behind main dish */
     filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
     
-    /* ✨ ЗАСТОСОВУЄМО АНІМАЦІЮ */
+    /* ✨ APPLY ANIMATION */
     animation-name: floatAnimation;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
@@ -364,211 +364,11 @@ main {
 }
 
 
-/* ===== PANINI INGREDIENTS POSITIONING ===== */
-/* 7 ingredients positioned around the main panini image */
-/* Each has unique size, position, rotation, and animation duration */
-
-/* --- PANINI INGREDIENTS --- */
-.arugula-1 { 
-    width: 100px; 
-    top: 20%; 
-    left: 25%; 
-    transform: rotate(-25deg); 
-    animation: floatAnimation 18s ease-in-out infinite;
-}
-.prosciutto-1 { 
-    width: 180px; 
-    top: 55%; 
-    left: 20%; 
-    transform: rotate(15deg); 
-    animation: floatAnimation 16s ease-in-out infinite;
-    z-index: 1; 
-}
-.mozzarella-1 { 
-    width: 130px; 
-    top: 15%; 
-    right: 20%; 
-    transform: rotate(20deg); 
-    animation: floatAnimation 20s ease-in-out infinite;
-}
-.croutons-1 { 
-    width: 110px; 
-    bottom: 15%; 
-    left: 25%; 
-    transform: rotate(-20deg); 
-    animation: floatAnimation 15s ease-in-out infinite;
-}
-
-
-/* ===== КРОК 2.4: ГЛИБОКА ТА ПРИРОДНА КОМПОЗИЦІЯ (Pizza) ===== */
-
-/* Базилік */
-.basil-1 {
-    width: 120px; /* Менше для глибини */
-    top: 8%;
-    left: 10%; /* Наближаємо до центру */
-    transform: rotate(-12deg);
-    animation-duration: 17s;
-    animation-delay: -2s;
-    z-index: 2; /* Середній план */
-}
-.basil-2 {
-    width: 90px; /* Маленький листок */
-    top: 25%;
-    right: 12%; /* Наближаємо до центру */
-    transform: rotate(15deg);
-    animation-duration: 15s;
-    animation-delay: -8s;
-    z-index: 3; /* Попереду */
-}
-
-/* Томати */
-.tomato-1 {
-    width: 85px; /* Менше для глибини */
-    bottom: 15%;
-    left: 6%; /* Наближаємо до центру */
-    transform: rotate(8deg);
-    animation-duration: 19s;
-    animation-delay: -4s;
-    z-index: 1; /* Позаду */
-}
-.tomato-2 {
-    width: 70px; /* Маленький томат */
-    top: 15%;
-    right: 8%; /* Наближаємо до центру */
-    transform: rotate(-20deg);
-    animation-duration: 14s;
-    animation-delay: -9s;
-    z-index: 4; /* ✨ Найближче */
-}
-
-/* Оливки */
-.olive-1 {
-    width: 60px; /* Маленька оливка */
-    top: 30%;
-    left: 20%; /* Наближаємо до центру */
-    transform: rotate(10deg);
-    animation-duration: 16s;
-    animation-delay: -6s;
-    z-index: 2; /* Середній план */
-}
-.olive-2 {
-    width: 50px; /* Найменша оливка */
-    bottom: 20%;
-    right: 15%; /* Наближаємо до центру */
-    transform: rotate(-25deg);
-    animation-duration: 18s;
-    animation-delay: -1s;
-    z-index: 3; /* Попереду */
-}
-
-/* ===== КРОК 2.5: ГЛИБОКА ТА ПРИРОДНА КОМПОЗИЦІЯ (Pasta) ===== */
-
-/* Фарфалле */
-.farfalle-1 {
-    width: 100px; /* Менше для глибини */
-    bottom: 8%;
-    right: 15%; /* Наближаємо до центру */
-    transform: rotate(-8deg);
-    animation-duration: 17s;
-    animation-delay: -3s;
-    z-index: 2; /* Середній план */
-}
-.farfalle-2 {
-    width: 80px; /* Маленька паста */
-    top: 12%;
-    left: 18%; /* Наближаємо до центру */
-    transform: rotate(15deg);
-    animation-duration: 15s;
-    animation-delay: -7s;
-    z-index: 3; /* Попереду */
-}
-
-/* Пармезан */
-.parmesan-1 {
-    width: 140px; /* Менше для глибини */
-    top: 5%;
-    right: 5%; /* Наближаємо до центру */
-    transform: rotate(5deg);
-    animation-duration: 20s;
-    animation-delay: -5s;
-    z-index: 1; /* Позаду */
-}
-.parmesan-2 {
-    width: 110px; /* Менший шматочок */
-    bottom: 12%;
-    left: 12%; /* Наближаємо до центру */
-    transform: rotate(-18deg);
-    animation-duration: 16s;
-    animation-delay: -2s;
-    z-index: 4; /* ✨ Найближче */
-}
-
-/* Розмарин */
-.rosemary-1 {
-    width: 120px; /* Менше для глибини */
-    top: 18%;
-    left: 5%; /* Наближаємо до центру */
-    transform: rotate(12deg);
-    animation-duration: 18s;
-    animation-delay: -4s;
-    z-index: 2; /* Середній план */
-}
-.rosemary-2 {
-    width: 90px; /* Маленька гілочка */
-    bottom: 25%;
-    right: 8%; /* Наближаємо до центру */
-    transform: rotate(-10deg);
-    animation-duration: 14s;
-    animation-delay: -8s;
-    z-index: 3; /* Попереду */
-}
-
-/* ===== Анімація "дихання" для головної страви ===== */
-
-@keyframes pulseAnimation {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.02); /* Ледь помітне збільшення */
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.product-image {
-    position: relative; /* ✨ Обов'язково для роботи z-index */
-    z-index: 2;         /* ✨ Паніні буде середнім шаром */
-    max-width: 500px; /* Limit maximum size */
-    width: 60%;
-    /* Shadow to create depth effect */
-    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
-    
-    /* ✨ Додаємо анімацію */
-    animation: pulseAnimation 8s ease-in-out infinite;
-}
-
-
-/* ===== 4. ДОДАЙТЕ СЮДИ ПОЗИЦІОНУВАННЯ ДЛЯ PIZZA ТА PASTA ===== */
-
-/* ===== CONTENT VISIBILITY CONTROL ===== */
-/* All content is hidden by default to prevent flickering */
-/* JavaScript will show elements when needed */
-.product-image,
-.ingredient,
-h1,
-.order-button {
-    opacity: 0;
-    visibility: hidden;
-}
-
 /* =================================================================== */
-/* ===== ФІНАЛЬНЕ ПОЗИЦІОНУВАННЯ ДЛЯ ВСІХ ІНГРЕДІЄНТІВ ===== */
+/* ===== FINAL POSITIONING FOR ALL INGREDIENTS ===== */
 /* =================================================================== */
 
-/* --- СЛАЙД: PANINI --- */
+/* --- SLIDE: PANINI --- */
 .arugula-1 { width: 100px; top: 18%; left: 22%; transform: rotate(-25deg); animation-duration: 18s; z-index: 3; }
 .arugula-2 { width: 80px; bottom: 25%; right: 28%; transform: rotate(15deg); animation-duration: 15s; z-index: 1; }
 .prosciutto-1 { width: 180px; top: 55%; left: 20%; transform: rotate(15deg); animation-duration: 16s; z-index: 1; }
@@ -577,11 +377,7 @@ h1,
 .mozzarella-2 { width: 100px; bottom: 18%; left: 30%; transform: rotate(-10deg); animation-duration: 22s; z-index: 3; }
 .croutons-1 { width: 110px; bottom: 15%; left: 22%; transform: rotate(-20deg); animation-duration: 15s; z-index: 3; }
 
-/* ===== PIZZA INGREDIENTS POSITIONING ===== */
-/* 6 ingredients positioned around the main pizza image */
-/* Each has unique size, position, rotation, and animation duration */
-
-/* --- PIZZA INGREDIENTS --- */
+/* --- SLIDE: PIZZA --- */
 .basil-1 { width: 130px; top: 15%; left: 20%; transform: rotate(20deg); animation-duration: 17s; z-index: 3; }
 .pepperoni-1 { width: 100px; bottom: 20%; right: 22%; transform: rotate(-15deg); animation-duration: 20s; z-index: 1; }
 .tomato-1 { width: 90px; top: 25%; right: 18%; transform: rotate(10deg); animation-duration: 15s; z-index: 3; }
@@ -589,17 +385,47 @@ h1,
 .olive-1 { width: 80px; top: 55%; left: 25%; transform: rotate(-20deg); animation-duration: 18s; z-index: 3; }
 .olive-2 { width: 70px; top: 18%; right: 35%; transform: rotate(30deg); animation-duration: 16s; z-index: 3; }
 
-/* ===== PASTA INGREDIENTS POSITIONING ===== */
-/* 6 ingredients positioned around the main pasta image */
-/* Each has unique size, position, rotation, and animation duration */
-
-/* --- PASTA INGREDIENTS --- */
+/* --- SLIDE: PASTA --- */
 .parmesan-1 { width: 200px; top: 10%; right: 15%; transform: rotate(15deg); animation-duration: 22s; z-index: 3; }
 .parmesan-2 { width: 150px; bottom: 15%; left: 18%; transform: rotate(-10deg); animation-duration: 19s; z-index: 1; }
 .farfalle-1 { width: 120px; bottom: 15%; right: 25%; transform: rotate(-25deg); animation-duration: 16s; z-index: 3; }
 .farfalle-2 { width: 100px; top: 20%; left: 22%; transform: rotate(20deg); animation-duration: 20s; z-index: 3; }
 .rosemary-1 { width: 150px; bottom: 25%; left: 15%; transform: rotate(10deg); animation-duration: 18s; z-index: 3; }
 .rosemary-2 { width: 120px; top: 15%; right: 30%; transform: rotate(-15deg); animation-duration: 21s; z-index: 1; }
+
+
+
+
+/* ===== BREATHING ANIMATION FOR MAIN DISH ===== */
+
+@keyframes pulseAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02); /* Barely noticeable increase */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.product-image {
+    position: relative; /* ✨ Required for z-index to work */
+    z-index: 2;         /* ✨ Panini will be middle layer */
+    max-width: 500px; /* Limit maximum size */
+    width: 60%;
+    /* Shadow to create depth effect */
+    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
+    
+    /* ✨ Add animation */
+    animation: pulseAnimation 8s ease-in-out infinite;
+}
+
+
+/* ===== 4. ADD POSITIONING FOR PIZZA AND PASTA HERE ===== */
+
+
 
 /* ===== USER EXPERIENCE (UX) ENHANCEMENTS ===== */
 /* Interactive hover effects for buttons and navigation */
@@ -623,6 +449,19 @@ h1,
     transition: transform var(--transition-fast), 
                 background-color var(--transition-fast), 
                 color var(--transition-fast);
+}
+
+
+/* ===== CONTENT VISIBILITY CONTROL ===== */
+/* All content is hidden by default to prevent flickering */
+/* JavaScript will show elements when needed */
+.product-image,
+.ingredient,
+h1,
+.order-button,
+.description-block {
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* Preloader spinner animation */

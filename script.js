@@ -2,18 +2,6 @@
 const body = document.body;
 let isAnimating = false; // Flag to prevent animation conflicts
 
-// ===== PRELOADER FUNCTIONALITY =====
-// Hides the loading screen after site initialization
-function hidePreloader() {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.display = 'none';
-        }, 500);
-    }
-}
-
 // ===== BACKGROUND COLOR MANAGEMENT =====
 // Changes page background color based on active slide
 function setBackgroundColor(swiper) {
@@ -22,23 +10,20 @@ function setBackgroundColor(swiper) {
     body.style.backgroundColor = bgColor;
 }
 
-// ===== ASSEMBLY ANIMATION =====
+// ===== STABLE ASSEMBLY ANIMATION =====
 // Shows elements when slide becomes active
 function runAssemblyAnimation(activeSlide) {
     if (!activeSlide) return;
     isAnimating = true;
 
-    // Find elements that are hidden by default (CSS)
-    // Added .description-block to the animation
     const elements = activeSlide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
     
-    // Animate them to visible state
     gsap.to(elements, {
         duration: 1,
-        autoAlpha: 1, // GSAP automatically sets opacity: 1, visibility: visible
+        autoAlpha: 1,
         scale: 1,
         y: '0',
-        stagger: 0.08, // Staggered appearance for natural effect
+        stagger: 0.08,
         ease: "power2.out",
         onComplete: () => {
             isAnimating = false;
@@ -46,16 +31,13 @@ function runAssemblyAnimation(activeSlide) {
     });
 }
 
-// ===== DISASSEMBLY ANIMATION =====
+// ===== STABLE DISASSEMBLY ANIMATION =====
 // Hides elements when slide becomes inactive
 function runDisassemblyAnimation(slide) {
     if (!slide) return;
     
-    // Find visible elements
-    // Added .description-block to the animation
     const elements = slide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
     
-    // Animate them to hidden state, resetting their positions
     gsap.to(elements, {
         duration: 0.5,
         autoAlpha: 0,
@@ -65,7 +47,7 @@ function runDisassemblyAnimation(slide) {
     });
 }
 
-// ===== SWIPER CONFIGURATION =====
+// ===== STABLE SWIPER CONFIGURATION =====
 // Main slider configuration with fade effect
 const swiper = new Swiper('.swiper', {
   loop: false, // Disabled to prevent animation conflicts and ensure stable behavior
@@ -86,8 +68,6 @@ const swiper = new Swiper('.swiper', {
     init: function (swiper) {
         setBackgroundColor(swiper);
         runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
-        // Hide preloader after initialization
-        setTimeout(hidePreloader, 1000);
     },
     slideChangeTransitionStart: function (swiper) {
         setBackgroundColor(swiper);
