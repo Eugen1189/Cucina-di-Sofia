@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cucina Italiana 🇮🇹</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Простий прелоадер -->
+    <div id="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #F5EFE1; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease;">
+        <div style="text-align: center; color: #333;">
+            <div style="width: 50px; height: 50px; border: 3px solid #ddd; border-top: 3px solid #333; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+            <p style="font-family: 'Arial', sans-serif; font-size: 18px; margin: 0;">Loading...</p>
+        </div>
+    </div>
+
+    <main role="main" aria-label="Italian Food Showcase">
+        <div class="swiper" role="region" aria-label="Food slideshow">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide" data-bg-color="#F5EFE1">
+                    <div class="slide-content">
+                        <h1>PANINI</h1>
+                        
+                        <div class="description-block">
+                            <h3>Prosciutto e Mozzarella</h3>
+                            <p>Класичний італійський паніні зі свіжою моцарелою, пікантним прошуто та ноткою руколи на хрусткому хлібі чіабата.</p>
+                        </div>
+                        
+                        <img class="product-image" src="images/panini.png" alt="Panini Italiano">
+                        
+                        <img class="ingredient arugula-1" src="images/arugula-1.png" alt="Arugula leaf">
+                        <img class="ingredient arugula-2" src="images/arugula-2.png" alt="Arugula leaf">
+                        <img class="ingredient prosciutto-1" src="images/prosciutto-1.png" alt="Slice of prosciutto">
+                        <img class="ingredient prosciutto-2" src="images/prosciutto-2.png" alt="Slice of prosciutto">
+                        <img class="ingredient mozzarella-1" src="images/mozzarella-1.png" alt="Ball of mozzarella">
+                        <img class="ingredient mozzarella-2" src="images/mozzarella-2.png" alt="Ball of mozzarella">
+                        <img class="ingredient croutons-1" src="images/croutons-1.png" alt="Croutons">
+                        
+                        <button class="order-button">Ordina Ora</button>
+                    </div>
+                </div>
+
+                <div class="swiper-slide" data-bg-color="#D9534F">
+                    <div class="slide-content">
+                        <h1>PIZZA</h1>
+                        
+                        <div class="description-block">
+                            <h3>Margherita Classica</h3>
+                            <p>Традиційна італійська піца з томатним соусом, свіжою моцарелою, базиліком та оливковою олією на тонкому тісті.</p>
+                        </div>
+                        
+                        <img class="product-image" loading="lazy" src="images/pizza.png" alt="Pizza Pepperoni">
+                        
+                        <img class="ingredient basil-1" loading="lazy" src="images/basil-1.png" alt="Basil leaf">
+                        <img class="ingredient pepperoni-1" loading="lazy" src="images/basil-2.png" alt="Pepperoni">
+                        <img class="ingredient tomato-1" loading="lazy" src="images/tomato-1.png" alt="Tomato">
+                        <img class="ingredient tomato-2" loading="lazy" src="images/tomato-2.png" alt="Cherry tomatoes">
+                        <img class="ingredient olive-1" loading="lazy" src="images/olive-1.png" alt="Olive">
+                        <img class="ingredient olive-2" loading="lazy" src="images/olive-2.png" alt="Olive">
+                        
+                        <button class="order-button">Ordina Ora</button>
+                    </div>
+                </div>
+
+                <div class="swiper-slide" data-bg-color="#849458">
+                    <div class="slide-content">
+                        <h1>PASTA</h1>
+                        
+                        <div class="description-block">
+                            <h3>Pasta al Pesto</h3>
+                            <p>Ароматна паста з домашнім песто з базиліку, пармезану, кедрових горіхів та оливкової олії на фарфалле.</p>
+                        </div>
+                        
+                        <img class="product-image" loading="lazy" src="images/pasta.png" alt="Pasta al Pesto">
+                        
+                        <img class="ingredient parmesan-1" loading="lazy" src="images/parmesan-1.png" alt="Parmesan">
+                        <img class="ingredient parmesan-2" loading="lazy" src="images/parmesan-2.png" alt="Parmesan">
+                        <img class="ingredient farfalle-1" loading="lazy" src="images/farfalle-1.png" alt="Farfalle pasta">
+                        <img class="ingredient farfalle-2" loading="lazy" src="images/farfalle-2.png" alt="Farfalle pasta">
+                        <img class="ingredient rosemary-1" loading="lazy" src="images/rosemary-1.png" alt="Rosemary sprig">
+                        <img class="ingredient rosemary-2" loading="lazy" src="images/rosemary-2.png" alt="Rosemary sprig">
+                        
+                        <button class="order-button">Ordina Ora</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="swiper-button-prev" aria-label="Previous slide" tabindex="0"></div>
+            <div class="swiper-button-next" aria-label="Next slide" tabindex="0"></div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
