@@ -305,6 +305,48 @@ const masterTl = gsap.timeline({
             introScreen.style.pointerEvents = 'none'; // Запобігаємо перехопленню кліків
         }
         initializeMainSite(); // Коли інтро завершено, ініціалізуємо основний сайт
+        
+        // =======================================================
+        // ГОЛОВНА ЛОГІКА (ЗАПУСКАЄТЬСЯ ПІСЛЯ ЗАВАНТАЖЕННЯ СТОРІНКИ)
+        // =======================================================
+        
+        // --- 1. Відображаємо всі категорії товарів ---
+        renderMenuItems('bevande', 'drinks-container'); // ID контейнера для напоїв
+        
+        // --- 2. Логіка відкриття/закриття кошика ---
+        const cartIcon = document.getElementById('cart-icon');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+
+        // Відкрити кошик по кліку на іконку
+        if (cartIcon) {
+            cartIcon.addEventListener('click', () => {
+                cartModal.classList.remove('hidden');
+            });
+        }
+
+        // Закрити кошик по кліку на хрестик
+        if (closeCartBtn) {
+            closeCartBtn.addEventListener('click', () => {
+                cartModal.classList.add('hidden');
+            });
+        }
+
+        // Закрити кошик по кліку на фон
+        if (cartModal) {
+            cartModal.addEventListener('click', (event) => {
+                if (event.target === cartModal) {
+                    cartModal.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Закрити кошик по клавіші ESC (додаємо до існуючого обробника)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !cartModal.classList.contains('hidden')) {
+                cartModal.classList.add('hidden');
+            }
+        });
     }
 });
 
