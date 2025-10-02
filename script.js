@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Створюємо "режисерську" послідовність для всього сайту
     const masterTl = gsap.timeline({
-        // Викликаємо функцію ініціалізації ОСНОВНОГО сайту ПІСЛЯ завершення інтро
-        onComplete: initializeMainSite
+        onComplete: initializeMainSite // Викликаємо ініціалізацію після завершення інтро
     });
 
     // Фаза 1: Поява назви ресторану
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stagger: 0.1
     });
 
-    // Фаза 2: Пауза з мінімальною затримкою для читання
+    // Фаза 2: Пауза
     masterTl.to({}, { duration: 1 });
 
     // Фаза 3: "Штори" роз'їжджаються
@@ -39,15 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 1.5,
         xPercent: 100,
         ease: "power2.inOut"
-    }, "<"); // "<" - почати одночасно з попередньою анімацією
+    }, "<");
 
     // Фаза 4: Ефект "Театральних куліс"
-    // Показуємо основний контент під час роз'їзду штор
     masterTl.to(mainContent, {
         duration: 1.2,
         autoAlpha: 1,
         ease: "power2.out"
-    }, "-=1.5"); // Починаємо анімацію контенту одночасно з розсуванням штор
+    }, "-=1.5");
 });
 
 
@@ -96,7 +94,8 @@ function initializeMainSite() {
       on: {
         init: function (swiper) {
             setBackgroundColor(swiper);
-            runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+            // Прибираємо виклик анімації звідси, бо контент вже видимий після інтро
+            // runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
         },
         slideChangeTransitionStart: function (swiper) {
             setBackgroundColor(swiper);

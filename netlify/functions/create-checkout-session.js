@@ -1,59 +1,37 @@
+// Підключаємо бібліотеку Stripe і передаємо їй наш секретний ключ з налаштувань Netlify
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async function(event) {
     try {
-        const { product_name, quantity = 1 } = JSON.parse(event.body);
-        
-        if (!product_name) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: 'Product name is required' }),
-            };
-        }
-
-        // Отримуємо ціну з products.js (у реальному проєкті це може бути база даних)
-        const productsResponse = await fetch(`${process.env.URL}/.netlify/functions/products`);
-        const products = await productsResponse.json();
-        
-        const productData = products[product_name];
-        if (!productData) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: 'Product not found' }),
-            };
-        }
-
-        // Створюємо Stripe checkout session
+        // У майбутньому сюди можна передавати дані про товар і ціну з фронтенду.
+        // Зараз для тренування ми створимо один товар з фіксованою ціною.
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
                 {
-                    price: productData.price_id,
-                    quantity: quantity,
+                    price_data: {
+                        currency: 'eur', // Валюта платежу
+                        product_data: {
+                            name: 'Замовлення з Cucina Italiana',
+                        },
+                        unit_amount: 2500, // Ціна в найдрібніших одиницях (2500 центів = 25.00 EUR)
+                    },
+                    quantity: 1,
                 },
             ],
             mode: 'payment',
-            success_url: `${process.env.URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.URL}/cancel`,
-            metadata: {
-                product_name: product_name,
-                product_price: productData.price,
-            },
+            // URL, на які Stripe перенаправить користувача після оплати
+            success_url: `https://fascinating-souffle-ea05d3.netlify.app/success.html`,
+            cancel_url: `https://fascinating-souffle-ea05d3.netlify.app/`,
         });
 
+        // Повертаємо ID сесії фронтенду
         return {
             statusCode: 200,
-            body: JSON.stringify({ 
-                sessionId: session.id,
-                url: session.url 
-            }),
+            body: JSON.stringify({ id: session.id }),
         };
-
     } catch (error) {
-        console.error('Stripe checkout error:', error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: 'Internal server error' }),
-        };
+        console.error("Помилка створення сесії Stripe:", error);
+        return { statusCode: 500, body: error.toString() };
     }
 };
