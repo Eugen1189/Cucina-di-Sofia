@@ -73,8 +73,8 @@ function renderMenuItems(category, containerId) {
             <h3 class="product-name">${item.name}</h3>
             <p class="product-description">${item.description}</p>
             <div class="product-footer">
-                <span class="product-price">${item.price} грн</span>
-                <button class="add-to-cart-btn" data-id="${item.id}">Додати</button>
+                <span class="product-price">${item.price} EUR</span>
+                <button class="add-to-cart-btn" data-id="${item.id}">Aggiungi</button>
             </div>
         </div>
     `).join('');
