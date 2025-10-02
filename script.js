@@ -57,14 +57,20 @@ let cartItems = [];
 // =======================================================
 
 function renderMenuItems(category, containerId) {
+    console.log(`Rendering items for category "${category}" in container "${containerId}"`);
+    
     const container = document.getElementById(containerId);
     if (!container) {
         console.error(`Контейнер з ID "${containerId}" не знайдено!`);
         return;
     }
+    
+    console.log(`Container found:`, container);
 
     // 1. Фільтруємо меню, щоб отримати товари тільки потрібної категорії
     const itemsToRender = menu.filter(item => item.category === category);
+    
+    console.log(`Found ${itemsToRender.length} items for category "${category}":`, itemsToRender);
 
     // 2. Генеруємо HTML-картку для кожного товару
     const html = itemsToRender.map(item => `
@@ -80,7 +86,9 @@ function renderMenuItems(category, containerId) {
     `).join('');
 
     // 3. Вставляємо згенерований HTML у контейнер
+    console.log(`Generated HTML:`, html);
     container.innerHTML = html;
+    console.log(`Successfully rendered ${itemsToRender.length} items in container`);
 }
 
 // --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
@@ -311,6 +319,7 @@ const masterTl = gsap.timeline({
         // =======================================================
         
         // --- 1. Відображаємо всі категорії товарів ---
+        console.log('Starting to render beverages...');
         renderMenuItems('bevande', 'drinks-container'); // ID контейнера для напоїв
         
         // --- 2. Логіка відкриття/закриття кошика ---
