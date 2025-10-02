@@ -3,6 +3,20 @@
 /* ====================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Перевірка чи завантажилась GSAP
+    if (typeof gsap === 'undefined') {
+        console.error('GSAP не завантажилась! Перевірте підключення до інтернету та CDN.');
+        // Якщо GSAP не завантажилась, просто прибираємо інтро
+        const mainContent = document.querySelector('main');
+        const introScreen = document.getElementById('intro-screen');
+        if (mainContent) mainContent.style.display = 'block';
+        if (introScreen) introScreen.style.display = 'none';
+        initializeMainSite();
+        return;
+    }
+
+    console.log('GSAP завантажилась успішно!');
+
     // Знаходимо всі необхідні елементи на старті
     const panelLeft = document.querySelector('.panel-left');
     const panelRight = document.querySelector('.panel-right');
@@ -86,6 +100,13 @@ function initializeMainSite() {
     }
 
     // --- ІНІЦІАЛІЗАЦІЯ SWIPER ---
+    if (typeof Swiper === 'undefined') {
+        console.error('Swiper не завантажився! Перевірте підключення до інтернету та CDN.');
+        return;
+    }
+
+    console.log('Swiper завантажився успішно!');
+    
     const swiper = new Swiper('.swiper', {
       loop: false, effect: 'fade',
       fadeEffect: { crossFade: true },
