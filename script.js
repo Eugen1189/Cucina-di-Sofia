@@ -91,6 +91,77 @@ function renderMenuItems(category, containerId) {
     console.log(`Successfully rendered ${itemsToRender.length} items in container`);
 }
 
+// =======================================================
+// ЛОГІКА КОШИКА
+// =======================================================
+
+// Масив для товарів у кошику (ми його оголосили раніше)
+// let cartItems = []; 
+
+function addToCart(productId) {
+    // Шукаємо, чи є вже такий товар у кошику
+    const existingItem = cartItems.find(item => item.id === productId);
+
+    if (existingItem) {
+        // Якщо є, просто збільшуємо кількість
+        existingItem.quantity++;
+    } else {
+        // Якщо немає, знаходимо товар у головному меню
+        const itemToAdd = menu.find(item => item.id === productId);
+        if (itemToAdd) {
+            // і додаємо його в кошик з кількістю 1
+            cartItems.push({ ...itemToAdd, quantity: 1 });
+        }
+    }
+
+    // Після кожної зміни викликаємо функцію оновлення кошика
+    updateCart();
+}
+
+function updateCart() {
+    // Оновлюємо лічильник товарів на іконці кошика
+    const cartCounter = document.getElementById('cart-counter');
+    const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    if (cartCounter) {
+        cartCounter.textContent = totalItems;
+    }
+
+    // Оновлюємо відображення товарів у модальному вікні кошика
+    const cartItemsContainer = document.getElementById('cart-items-container');
+    if (!cartItemsContainer) return;
+
+    if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="empty-cart">Il tuo carrello è vuoto</p>';
+        return;
+    }
+
+    // Генеруємо HTML для товарів у кошику
+    const cartHTML = cartItems.map(item => `
+        <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+            <div class="cart-item-details">
+                <h4>${item.name}</h4>
+                <span class="cart-item-price">${item.price} EUR</span>
+                <span class="cart-item-quantity">Qty: ${item.quantity}</span>
+            </div>
+            <div class="cart-item-controls">
+                <button class="remove-item-btn" data-id="${item.id}">-</button>
+                <span class="item-total">${item.price * item.quantity} EUR</span>
+                <button class="add-item-btn" data-id="${item.id}">+</button>
+            </div>
+        </div>
+    `).join('');
+
+    cartItemsContainer.innerHTML = cartHTML;
+
+    // Оновлюємо загальну суму
+    const cartTotalPrice = document.getElementById('cart-total-price');
+    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    if (cartTotalPrice) {
+        cartTotalPrice.textContent = `${totalPrice} EUR`;
+    }
+}
+
 // --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
 
 // Функція для ініціалізації основного сайту (слайдер, кнопки, паралакс)
@@ -358,6 +429,47 @@ const masterTl = gsap.timeline({
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !cartModal.classList.contains('hidden')) {
                 cartModal.classList.add('hidden');
+            }
+        });
+
+        // --- 3. Делегування подій dla кнопок додавання в кошик ---
+        document.addEventListener('click', (event) => {
+            // Якщо клік по кнопці "add-to-cart-btn"
+            if (event.target.classList.contains('add-to-cart-btn')) {
+                const productId = parseInt(event.target.dataset.id);
+                console.log('Adding product to cart:', productId);
+                addToCart(productId);
+                
+                // Додаємо візуальний ефект
+                event.target.style.transform = 'scale(0.95)';
+                event.target.textContent = '✓';
+                setTimeout(() => {
+                    event.target.style.transform = '';
+                    event.target.textContent = 'Aggiungi';
+                }, 200);
+            }
+
+            // Якщо клік по кнопці збільшення кількості товару
+            if (event.target.classList.contains('add-item-btn')) {
+                const productId = parseInt(event.target.dataset.id);
+                addToCart(productId);
+            }
+
+            // Якщо клік по кнопці зменшення кількості товару
+            if (event.target.classList.contains('remove-item-btn')) {
+                const productId = parseInt(event.target.dataset.id);
+                const existingItem = cartItems.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    if (existingItem.quantity > 1) {
+                        existingItem.quantity--;
+                    } else {
+                        // Видаляємо товар з кошика
+                        const index = cartItems.indexOf(existingItem);
+                        cartItems.splice(index, 1);
+                    }
+                    updateCart();
+                }
             }
         });
     }
