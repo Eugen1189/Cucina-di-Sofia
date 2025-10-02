@@ -42,7 +42,7 @@ function renderMenuItems(category, containerId) {
             <div class="product-footer">
                 <span class="product-price">${item.price} грн</span>
                 
-                <button class="add-to-cart-btn" data-id="${item.id}">Додати</button> 
+                <button class="add-to-cart-btn" data-id="${item.id}">Aggiungi al carrello</button> 
                 
             </div>
         </div>
