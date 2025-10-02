@@ -20,36 +20,7 @@ const menu = [
 
 let cartItems = [];
 
-// =======================================================
-// ЛОГІКА ВІДОБРАЖЕННЯ ТОВАРІВ
-// =======================================================
-
-function renderMenuItems(category, containerId) {
-    const container = document.getElementById(containerId);
-    // Перевірка, чи існує контейнер
-    if (!container) {
-        console.error(`ПОМИЛКА: HTML-контейнер з id="${containerId}" НЕ ЗНАЙДЕНО!`);
-        return;
-    }
-    const itemsToRender = menu.filter(item => item.category === category);
-    
-    // Створюємо HTML для всіх карток
-    const html = itemsToRender.map(item => `
-        <div class="product-card">
-            <img src="${item.image}" alt="${item.name}" class="product-image">
-            <h3 class="product-name">${item.name}</h3>
-            <p class="product-description">${item.description || ''}</p> 
-            <div class="product-footer">
-                <span class="product-price">${item.price} грн</span>
-                
-                <button class="add-to-cart-btn" data-id="${item.id}">Aggiungi al carrello</button> 
-                
-            </div>
-        </div>
-    `).join('');
-
-    container.innerHTML = html;
-}
+// Секції товарів видалено - усі кнопки кошика знаходяться в Swiper слайдах
 
 function addToCart(productId) {
     console.log(`КРОК 3: Функція addToCart спрацювала для товару ID: ${productId}`);
@@ -89,11 +60,7 @@ function updateCart() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log("КРОК 1: Сторінка завантажена. Запускаємо скрипт.");
 
-    // Відображаємо товари (перевірте ваші реальні ID контейнерів!)
-    renderMenuItems('panini', 'panini-container');
-    renderMenuItems('pizza', 'pizza-container');
-    renderMenuItems('pasta', 'pasta-container');
-    renderMenuItems('bevande', 'drinks-container');
+    // Секції товарів видалено - товари доступні тільки через Swiper слайди"
 
     // Завантажуємо кошик
     const savedCart = localStorage.getItem('shoppingCart');
