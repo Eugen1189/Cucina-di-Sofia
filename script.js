@@ -99,29 +99,40 @@ function renderMenuItems(category, containerId) {
 // let cartItems = []; 
 
 function addToCart(productId) {
+    console.log("=== addToCart викликана ===");
+    console.log("ProductID:", productId);
+    
     // Шукаємо, чи є вже такий товар у кошику
     const existingItem = cartItems.find(item => item.id === productId);
+    console.log("Існуючий товар:", existingItem);
 
     if (existingItem) {
-        // Якщо є, просто збільшуємо кількість
+        // Якщо є, проекстно збільшуємо кількість
         existingItem.quantity++;
+        console.log("Збільшили кількість:", existingItem.quantity);
     } else {
         // Якщо немає, знаходимо товар у головному меню
         const itemToAdd = menu.find(item => item.id === productId);
+        console.log("Товар з меню:", itemToAdd);
         if (itemToAdd) {
             // і додаємо його в кошик з кількістю 1
             cartItems.push({ ...itemToAdd, quantity: 1 });
+            console.log("Додано новий товар до кошика");
         }
     }
 
+    console.log("Поточний кошик:", cartItems);
     // Після кожної зміни викликаємо функцію оновлення кошика
     updateCart();
 }
 
 function updateCart() {
+    console.log("=== updateCart викликана ===");
     const cartContainer = document.getElementById('cart-items-container');
     const cartCounter = document.getElementById('cart-counter');
     const cartTotalPrice = document.getElementById('cart-total-price');
+    
+    console.log("Знайдені елементи:", { cartContainer, cartCounter, cartTotalPrice });
     
     // 1. Очищуємо контейнер перед оновленням
     cartContainer.innerHTML = '';
@@ -151,26 +162,27 @@ function updateCart() {
 
     // 5. Зберігаємо кошик у localStorage, щоб він не зникав після перезавантаження
     localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
+    console.log("Кошик збережено в localStorage:", totalQuantity, "товарів на", totalPrice, "грн");
 }
 
 // =======================================================
-// ГОЛОВНА ЛОГІКА (ОНОВЛЕНА)
+// ГОЛОВНА ЛОГІКА (ВЕРСІЯ ДЛЯ НАЛАГОДЖЕННЯ)
 // =======================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Завантажуємо кошик з localStorage ---
+    // --- 1. Завантаження кошика з localStorage ---
     const savedCart = localStorage.getItem('shoppingCart');
     if (savedCart) {
         cartItems = JSON.parse(savedCart);
-        updateCart(); // Оновлюємо відображення одразу
+        updateCart();
     }
 
-    // --- 2. Відображаємо всі категорії товарів ---
-    renderMenuItems('panini', 'panini-container'); 
-    renderMenuItems('pizza', 'pizza-container');   
-    renderMenuItems('pasta', 'pasta-container');   
-    renderMenuItems('bevande', 'drinks-container'); 
-    
+    // --- 2. Відображення товарів ---
+    renderMenuItems('panini', 'panini-container');
+    renderMenuItems('pizza', 'pizza-container');
+    renderMenuItems('pasta', 'pasta-container');
+    renderMenuItems('bevande', 'drinks-container');
+
     // --- 3. Логіка відкриття/закриття кошика ---
     const cartIcon = document.getElementById('cart-icon');
     const cartModal = document.getElementById('cart-modal');
@@ -182,11 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target === cartModal) cartModal.classList.add('hidden');
     });
 
-    // --- 4. Делегування подій для кнопок "Додати" ---
+    // --- 4. ДЕЛЕГУВАННЯ ПОДІЙ (з console.log) ---
+    console.log("Слухач кліків готовий до роботи!"); // Перевірка, що код дійшов сюди
+
     document.body.addEventListener('click', (event) => {
-        // Перевіряємо, чи клікнули ми саме на кнопку з класом 'add-to-cart-btn'
+        console.log("Клікнули по:", event.target); // Покаже, на який елемент ми натиснули
+
         if (event.target.classList.contains('add-to-cart-btn')) {
-            const productId = parseInt(event.target.dataset.id); // Отримуємо id товару
+            console.log("Клік по кнопці 'Додати!' - Успіх!"); // Перевірка, що кнопка розпізнана
+            
+            const productId = parseInt(event.target.dataset.id);
+            console.log("Отримали ID товару:", productId); // Перевірка, чи зчитався ID
+            
             addToCart(productId);
         }
     });
