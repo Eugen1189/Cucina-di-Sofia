@@ -8,14 +8,14 @@
 
 // --- 1. МОДЕЛЬ ДАНИХ ---
 const menu = [
-  { id: 1, name: 'Prosciutto e Mozzarella', price: 150, image: 'images/panini.png', category: 'panini' },
-  { id: 2, name: 'Caprese', price: 130, image: 'images/panini.png', category: 'panini' },
+  { id: 1, name: 'Prosciutto e Mozzarella', description: 'Класичний італійський паніні зі свіжою моцарелою та пікантним прошутто', price: 150, image: 'images/panini.png', category: 'panini' },
+  { id: 2, name: 'Caprese', description: 'Соковиті томати, моцарела ді буфала та свіжий базилік', price: 130, image: 'images/panini.png', category: 'panini' },
   // Додайте сюди ваші піци та пасти з правильними категоріями
-  { id: 201, name: 'Pizza Margherita', price: 200, image: 'images/pizza.png', category: 'pizza' },
-  { id: 301, name: 'Pasta Carbonara', price: 180, image: 'images/pasta.png', category: 'pasta' },
+  { id: 201, name: 'Pizza Margherita', description: 'Піца італійська традиційна з томатним соусом та свіжою моцарелою', price: 200, image: 'images/pizza.png', category: 'pizza' },
+  { id: 301, name: 'Pasta Carbonara', description: 'Ароматна паста з песто, приготованим вручну з базиліку та пармезану', price: 180, image: 'images/pasta.png', category: 'pasta' },
   // Напої
-  { id: 101, name: 'Aranciata Rossa', price: 60, image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' },
-  { id: 102, name: 'Acqua Minerale', price: 40, image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' }
+  { id: 101, name: 'Aranciata Rossa', description: 'Освіжаюча італійська содова з соком червоних апельсинів', price: 60, image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' },
+  { id: 102, name: 'Acqua Minerale', description: 'Чиста мінеральна вода, газована або негазована', price: 40, image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' }
 ];
 
 let cartItems = [];
@@ -26,19 +26,23 @@ let cartItems = [];
 
 function renderMenuItems(category, containerId) {
     const container = document.getElementById(containerId);
-    if (!container) return; // Коротка перевірка
-
+    // Перевірка, чи існує контейнер
+    if (!container) {
+        console.error(`ПОМИЛКА: HTML-контейнер з id="${containerId}" НЕ ЗНАЙДЕНО!`);
+        return;
+    }
     const itemsToRender = menu.filter(item => item.category === category);
+    
+    // Створюємо HTML для всіх карток
     const html = itemsToRender.map(item => `
         <div class="product-card">
             <img src="${item.image}" alt="${item.name}" class="product-image">
             <h3 class="product-name">${item.name}</h3>
-            <p class="product-description">${item.description}</p>
+            <p class="product-description">${item.description || ''}</p> 
             <div class="product-footer">
                 <span class="product-price">${item.price} грн</span>
-
                 
-                <button class="add-to-cart-btn" data-id="${item.id}">Додати в кошик</button> 
+                <button class="add-to-cart-btn" data-id="${item.id}">Додати</button> 
                 
             </div>
         </div>
