@@ -250,6 +250,28 @@ main {
         bottom: 10%; /* Adjust position */
     }
     
+    /* --- АДАПТИВНА СТИЛІЗАЦІЯ НАПОЇВ --- */
+    .drinks-display {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .drink-item {
+        padding: 1rem;
+        width: 90%;
+        max-width: 250px;
+    }
+    
+    .drink-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .drink-item h4 {
+        font-size: 1rem;
+    }
+    
     /* Hide some ingredients on very small screens to reduce clutter */
     .olive, .farfalle {
         display: none;
@@ -438,6 +460,56 @@ main {
 .farfalle-2 { width: 100px; top: 20%; left: 22%; transform: rotate(20deg); animation-duration: 20s; z-index: 3; }
 .rosemary-1 { width: 150px; bottom: 25%; left: 15%; transform: rotate(10deg); animation-duration: 18s; z-index: 3; }
 .rosemary-2 { width: 120px; top: 15%; right: 30%; transform: rotate(-15deg); animation-duration: 21s; z-index: 1; }
+
+/* --- СЛАЙД: НАПОЇ --- */
+.drinks-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 3rem;
+    z-index: 2;
+}
+
+.drink-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.drink-item:hover {
+    transform: scale(1.05);
+}
+
+.drink-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid var(--pizza-bg);
+}
+
+.drink-item h4 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--pizza-bg);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.drink-item span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--pasta-bg);
+}
 
 
 

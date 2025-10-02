@@ -253,6 +253,10 @@ function initializeMainSite() {
                     product = menu.find(item => item.category === 'pizza');
                 } else if (slideTitle.includes('pasta') || slideTitle.includes('паста')) {
                     product = menu.find(item => item.category === 'pasta');
+                } else if (slideTitle.includes('bevande') || slideTitle.includes('напої')) {
+                    // Для слайда напоїв показуємо модальне вікно "Bevande Italiane"
+                    openModal('Bevande Italiane');
+                    return;
                 }
                 
                 // Використовуємо дані з меню або fallback на назву слайда
