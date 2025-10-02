@@ -1,9 +1,5 @@
-// ===== BASIC SETTINGS =====
-const body = document.body;
-let isAnimating = false; // Flag to prevent animation conflicts
-
 /* ====================================================== */
-/* ===== ЛОГІКА ІНТРО-ЕКРАНУ ТА ЯСУТЕЦЬ ІНІЦІАЛІЗАЦІЇ САЙТУ ===== */
+/* ===== ЛОГІКА ІНТРО-ЕКРАНУ ТА ІНІЦІАЛІЗАЦІЇ САЙТУ ===== */
 /* ====================================================== */
 
 // Знаходимо елементи
@@ -17,128 +13,124 @@ const mainContent = document.querySelector('main');
 gsap.set(mainContent, { autoAlpha: 0 });
 
 // Створюємо "режисерську" послідовність для всього сайту
-const masterTl = gsap.timeline();
+const masterTl = gsap.timeline({
+    // ✨ ВИКЛИКАЄМО ІНІЦІАЛІЗАЦІЮ ПІСЛЯ ЗАВЕРШЕННЯ ВСІЄЇ АНІМАЦІЇ
+    onComplete: initializePage 
+});
 
 // Фаза 1: Поява назви ресторану
 masterTl.to(introTitles, {
     duration: 1.5,
-    autoAlpha: 1, // Плавно робимо видимим
+    autoAlpha: 1,
     ease: "power2.out",
-    stagger: 0.1 // Букви з'являються з невеликою затримкою
+    stagger: 0.1
 });
 
-// Фаза 2: Пауза, щоб глядач встиг прочитати
-masterTl.to({}, { duration: 1 }); // Пуста анімація для паузи в 1 секунду
+// Фаза 2: Пауза
+masterTl.to({}, { duration: 1 });
 
-// Фаза 3: "Штори" від'їжджаються
+// Фаза 3: "Штори" роз'їжджаються
 masterTl.to(panelLeft, {
-    duration: 1.2,
-    xPercent: -100, // Зсуваємо ліву панель на 100% її ширини вліво
+    duration: 1.5, // Трохи довше для плавності
+    xPercent: -100,
     ease: "power2.inOut"
 });
 masterTl.to(panelRight, {
-    duration: 1.2,
-    xPercent: 100, // Зсуваємо праву панель на 100% її ширини вправо
+    duration: 1.5,
+    xPercent: 100,
     ease: "power2.inOut"
-}, "<"); // "<" - почати одночасно з попередньою анімацією
+}, "<"); // Почати одночасно
 
-// Фаза 4: Одночасно з розсуванням штор, плавно з'являється основний контент
-masterTl.to(mainContent, {
-    duration: 1,
-    autoAlpha: 1
-}, "-=1.0"); // Починаємо за 1с до завершення розсування
-
-// Фаза 5: Запускаємо анімацію першого слайда
-// Використовуємо .call() для виклику нашої основної функції
-masterTl.call(initializePage);
+// ✨ ФАЗА 4: НОВИЙ ЕФЕКТ "ТЕАТРАЛЬНИХ КУЛІС" ✨
+// Основний контент проявляється і трохи наближається, поки штори роз'їжджаються
+masterTl.fromTo(mainContent, 
+    { autoAlpha: 0, scale: 0.95 }, // Початковий стан (невидимий і трохи зменшений)
+    { 
+        duration: 1.2, 
+        autoAlpha: 1, 
+        scale: 1, // Фінальний стан (видимий і нормального розміру)
+        ease: "power2.out" 
+    }, 
+    "-=1.2" // Починаємо анімацію контенту за 1.2с до кінця розсування штор
+);
 
 // =======================================================
-// Весь код сайту тепер живе всередині цієї функції
+// Весь ваш попередній код тепер живе всередині цієї функції
 function initializePage() {
-    // ===== BACKGROUND COLOR MANAGEMENT =====
-    // Changes page background color based on active slide
+    
+    // --- БАЗОВІ НАЛАШТУВАННЯ ---
+    const body = document.body;
+    let isAnimating = false;
+
     function setBackgroundColor(swiper) {
-    const activeSlide = swiper.slides[swiper.activeIndex];
-    const bgColor = activeSlide.dataset.bgColor;
-    body.style.backgroundColor = bgColor;
-}
-
-// ===== STABLE ASSEMBLY ANIMATION =====
-// Shows elements when slide becomes active
-function runAssemblyAnimation(activeSlide) {
-    if (!activeSlide) return;
-    isAnimating = true;
-
-    const elements = activeSlide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
-    
-    gsap.to(elements, {
-        duration: 1,
-        autoAlpha: 1,
-        scale: 1,
-        y: '0',
-        stagger: 0.08,
-        ease: "power2.out",
-        onComplete: () => {
-            isAnimating = false;
-        }
-    });
-}
-
-// ===== STABLE DISASSEMBLY ANIMATION =====
-// Hides elements when slide becomes inactive
-function runDisassemblyAnimation(slide) {
-    if (!slide) return;
-    
-    const elements = slide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
-    
-    gsap.to(elements, {
-        duration: 0.5,
-        autoAlpha: 0,
-        scale: 0.9,
-        y: '+=20',
-        ease: "power2.in"
-    });
-}
-
-// ===== STABLE SWIPER CONFIGURATION =====
-// Main slider configuration with fade effect
-const swiper = new Swiper('.swiper', {
-  loop: false, // Disabled to prevent animation conflicts and ensure stable behavior
-  effect: 'fade', // Smooth crossfade between slides
-  fadeEffect: {
-    crossFade: true // One slide fades out while next fades in
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  speed: 1000, // Transition duration in milliseconds
-  allowTouchMove: false, // Disabled for desktop experience
-  // Prevents premature rendering of next slide
-  watchSlidesProgress: true,
-  
-  on: {
-    init: function (swiper) {
-        setBackgroundColor(swiper);
-        runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
-    },
-    slideChangeTransitionStart: function (swiper) {
-        setBackgroundColor(swiper);
-        runDisassemblyAnimation(swiper.slides[swiper.previousIndex]);
-    },
-    slideChangeTransitionEnd: function (swiper) {
-        runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const bgColor = activeSlide.dataset.bgColor;
+        body.style.backgroundColor = bgColor;
     }
-  }
-});
 
-/* ====================================================== */
-/* ===== ЛОГІКА МОДАЛЬНОГО ВІКНА З AJAX-ВІДПРАВКОЮ ===== */
-/* ====================================================== */
+    // --- АНІМАЦІЇ ---
+    function runAssemblyAnimation(activeSlide) {
+        if (!activeSlide) return;
+        isAnimating = true;
+        const elements = activeSlide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
+        gsap.to(elements, {
+            duration: 1, autoAlpha: 1, scale: 1, y: '0',
+            stagger: 0.08, ease: "power2.out",
+            onComplete: () => { isAnimating = false; }
+        });
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
+    function runDisassemblyAnimation(slide) {
+        if (!slide) return;
+        const elements = slide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
+        gsap.to(elements, {
+            duration: 0.5, autoAlpha: 0, scale: 0.9, y: '+=20',
+            ease: "power2.in"
+        });
+    }
 
-    // Знаходимо всі елементи
+    // --- ІНІЦІАЛІЗАЦІЯ SWIPER ---
+    const swiper = new Swiper('.swiper', {
+      loop: false, effect: 'fade',
+      fadeEffect: { crossFade: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      speed: 1000, allowTouchMove: false, watchSlidesProgress: true,
+      on: {
+        init: function (swiper) {
+            setBackgroundColor(swiper);
+            runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+        },
+        slideChangeTransitionStart: function (swiper) {
+            setBackgroundColor(swiper);
+            runDisassemblyAnimation(swiper.slides[swiper.previousIndex]);
+        },
+        slideChangeTransitionEnd: function (swiper) {
+            runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+        }
+      }
+    });
+
+    // --- ПАРАЛАКС-ЕФЕКТ ---
+    window.addEventListener('mousemove', (e) => {
+        if (isAnimating) return; // Prevent parallax during animations
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const activeIngredients = activeSlide.querySelectorAll('.ingredient');
+        
+        // Apply parallax movement based on mouse position
+        gsap.to(activeIngredients, {
+            duration: 1,
+            x: (i, target) => (window.innerWidth / 2 - mouseX) / (50 + i * 5),
+            y: (i, target) => (window.innerHeight / 2 - mouseY) / (50 + i * 5),
+            ease: "power1.out"
+        });
+    });
+
+    /* ====================================================== */
+    /* ===== ЛОГІКА МОДАЛЬНОГО ВІКНА (БЕЗ DOMContentLoaded) ===== */
+    /* ====================================================== */
+    
     const orderModal = document.getElementById('order-modal');
     const orderForm = document.getElementById('order-form');
     const successMessage = document.getElementById('form-success-message');
@@ -182,11 +174,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ✨ ГОЛОВНА ЛОГІКА: Перехоплення відгрузки форми ✨
+    // ✨ ГОЛОВНА ЛОГІКА: Перехоплення отправки форми ✨
     orderForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        // ✨ КРОК А: ВМИКАЄМО СТАН ЗАВАНТАЖЕННЯ ✨
+        // ✨ КРОК А: ВМИКАУЄМО СТАН ЗАВАНТАЖЕННЯ ✨
         const submitButton = document.getElementById('submit-button');
         submitButton.classList.add('is-loading');
 
@@ -220,24 +212,4 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.classList.remove('is-loading');
         });
     });
-});
-
-// ===== PARALLAX EFFECT =====
-// Interactive mouse movement effect for ingredients
-window.addEventListener('mousemove', (e) => {
-    if (isAnimating) return; // Prevent parallax during animations
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    const activeSlide = swiper.slides[swiper.activeIndex];
-    const activeIngredients = activeSlide.querySelectorAll('.ingredient');
-    
-    // Apply parallax movement based on mouse position
-    gsap.to(activeIngredients, {
-        duration: 1,
-        x: (i, target) => (window.innerWidth / 2 - mouseX) / (50 + i * 5),
-        y: (i, target) => (window.innerHeight / 2 - mouseY) / (50 + i * 5),
-        ease: "power1.out"
-    });
-});
-
-} // Кінець функції initializePage
+}
