@@ -2,6 +2,56 @@
 // ✨ ФІНАЛЬНА, СПРОЩЕНА ТА СТАБІЛЬНА ВЕРСІЯ SCRIPT.JS ✨
 // =================================================================
 
+// =======================================================
+// МОДЕЛЬ ДАНИХ (НАШЕ МЕНЮ)
+// =======================================================
+const menu = [
+  {
+    id: 1,
+    name: 'Prosciutto e Mozzarella',
+    description: 'Класичний італійський паніні зі свіжою моцарелою, пікантним прошутто та руколою.',
+    price: 150,
+    image: 'images/panini.png', // Використовуємо локальні зображення
+    category: 'panini'
+  },
+  {
+    id: 2,
+    name: 'Margherita Classica', 
+    description: 'Піца італійська традиційна з томатним соусом, свіжою моцарелою, базиліком.',
+    price: 250,
+    image: 'images/pizza.png', // Використовуємо локальні зображення
+    category: 'pizza'
+  },
+  {
+    id: 3,
+    name: 'Pasta al Pesto',
+    description: 'Ароматна паста з песто, приготованим вручну з базиліку, пармезану та горіхів.',
+    price: 200,
+    image: 'images/pasta.png', // Використовуємо локальні зображення  
+    category: 'pasta'
+  },
+  // --- Нова категорія: Напої ---
+  {
+    id: 101,
+    name: 'Aranciata Rossa',
+    description: 'Освіжаюча італійська содова з соком червоних апельсинів.',
+    price: 60,
+    image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+    category: 'bevande' 
+  },
+  {
+    id: 102,
+    name: 'Acqua Minerale',
+    description: 'Чиста мінеральна вода, газована або негазована.',
+    price: 40,
+    image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+    category: 'bevande'
+  }
+];
+
+// Поки що пустий масив для товарів у кошику
+let cartItems = [];
+
 // --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
 
 // Функція для ініціалізації основного сайту (слайдер, кнопки, паралакс)
@@ -152,7 +202,23 @@ function initializeMainSite() {
         orderButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const activeSlide = swiper.slides[swiper.activeIndex];
-                const productName = activeSlide.querySelector('h1').textContent;
+                
+                // Знаходимо відповідний продукт в меню за назвою слайда
+                const slideTitle = activeSlide.querySelector('h1').textContent.toLowerCase();
+                let product = null;
+                
+                // Визначаємо продукт за назвою слайда
+                if (slideTitle.includes('panini') || slideTitle.includes('паніні')) {
+                    product = menu.find(item => item.category === 'panini');
+                } else if (slideTitle.includes('pizza') || slideTitle.includes('піца')) {
+                    product = menu.find(item => item.category === 'pizza');
+                } else if (slideTitle.includes('pasta') || slideTitle.includes('паста')) {
+                    product = menu.find(item => item.category === 'pasta');
+                }
+                
+                // Використовуємо дані з меню або fallback на назву слайда
+                const productName = product ? product.name : slideTitle;
+                console.log('Обрані дані продукту:', product);
                 openModal(productName);
             });
         });
