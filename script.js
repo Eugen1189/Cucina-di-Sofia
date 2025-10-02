@@ -103,14 +103,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Головний слухач кліків
     document.body.addEventListener('click', (event) => {
+        // Перевірка на клік по кнопці "Додати" (це у вас вже є)
         if (event.target.classList.contains('add-to-cart-btn')) {
-            console.log("КРОК 2: Клік по кнопці 'Додати' зафіксовано!");
             const productId = parseInt(event.target.dataset.id);
             addToCart(productId);
         }
         
+        // 👇 ДОДАЙТЕ ЦЮ НОВУ ПЕРЕВІРКУ 👇
+        // Перевірка на клік по кнопці "Видалити"
         if (event.target.classList.contains('remove-from-cart-btn')) {
-            console.log("КРОК удаления: Клік по кнопці 'Видалити' зафіксовано!");
             const productId = parseInt(event.target.dataset.id);
             removeFromCart(productId);
         }
