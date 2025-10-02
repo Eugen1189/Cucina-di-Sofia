@@ -3,53 +3,21 @@
 // =================================================================
 
 // =======================================================
-// МОДЕЛЬ ДАНИХ (НАШЕ МЕНЮ)
+// ЄДИНИЙ БЛОК ЛОГІКИ КОШИКА (ВЕРСІЯ 3.0)
 // =======================================================
+
+// --- 1. МОДЕЛЬ ДАНИХ ---
 const menu = [
-  {
-    id: 1,
-    name: 'Prosciutto e Mozzarella',
-    description: 'Класичний італійський паніні зі свіжою моцарелою, пікантним прошутто та руколою.',
-    price: 150,
-    image: 'images/panini.png', // Використовуємо локальні зображення
-    category: 'panini'
-  },
-  {
-    id: 2,
-    name: 'Margherita Classica', 
-    description: 'Піца італійська традиційна з томатним соусом, свіжою моцарелою, базиліком.',
-    price: 250,
-    image: 'images/pizza.png', // Використовуємо локальні зображення
-    category: 'pizza'
-  },
-  {
-    id: 3,
-    name: 'Pasta al Pesto',
-    description: 'Ароматна паста з песто, приготованим вручну з базиліку, пармезану та горіхів.',
-    price: 200,
-    image: 'images/pasta.png', // Використовуємо локальні зображення  
-    category: 'pasta'
-  },
-  // --- Нова категорія: Напої ---
-  {
-    id: 101,
-    name: 'Aranciata Rossa',
-    description: 'Освіжаюча італійська содова з соком червоних апельсинів.',
-    price: 60,
-    image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    category: 'bevande' 
-  },
-  {
-    id: 102,
-    name: 'Acqua Minerale',
-    description: 'Чиста мінеральна вода, газована або негазована.',
-    price: 40,
-    image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    category: 'bevande'
-  }
+  { id: 1, name: 'Prosciutto e Mozzarella', price: 150, image: 'images/panini.png', category: 'panini' },
+  { id: 2, name: 'Caprese', price: 130, image: 'images/panini.png', category: 'panini' },
+  // Додайте сюди ваші піци та пасти з правильними категоріями
+  { id: 201, name: 'Pizza Margherita', price: 200, image: 'images/pizza.png', category: 'pizza' },
+  { id: 301, name: 'Pasta Carbonara', price: 180, image: 'images/pasta.png', category: 'pasta' },
+  // Напої
+  { id: 101, name: 'Aranciata Rossa', price: 60, image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' },
+  { id: 102, name: 'Acqua Minerale', price: 40, image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' }
 ];
 
-// Поки що пустий масив для товарів у кошику
 let cartItems = [];
 
 // =======================================================
@@ -79,18 +47,9 @@ function renderMenuItems(category, containerId) {
     container.innerHTML = html;
 }
 
-// =======================================================
-// ЛОГІКА КОШИКА
-// =======================================================
-
-// Масив для товарів у кошику (ми його оголосили раніше)
-// let cartItems = []; 
-
 function addToCart(productId) {
-    console.log(`Функція addToCart викликана для товару з ID: ${productId}`); // Додайте цей рядок
-    
+    console.log(`КРОК 3: Функція addToCart спрацювала для товару ID: ${productId}`);
     const existingItem = cartItems.find(item => item.id === productId);
-
     if (existingItem) {
         existingItem.quantity++;
     } else {
@@ -99,104 +58,78 @@ function addToCart(productId) {
             cartItems.push({ ...itemToAdd, quantity: 1 });
         }
     }
-    
-    console.log("Поточний стан кошика:", cartItems); // Подивимось на масив після змін
     updateCart();
 }
 
 function updateCart() {
-    console.log("=== updateCart викликана ===");
+    console.log('КРОК 4: Оновлюємо вигляд кошика. Поточний склад:', cartItems);
     const cartContainer = document.getElementById('cart-items-container');
     const cartCounter = document.getElementById('cart-counter');
     const cartTotalPrice = document.getElementById('cart-total-price');
     
-    console.log("Знайдені елементи:", { cartContainer, cartCounter, cartTotalPrice });
-    
-    // 1. Очищуємо контейнер перед оновленням
-    cartContainer.innerHTML = '';
-
-    if (cartItems.length === 0) {
-        cartContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
-    } else {
-        // 2. Генеруємо HTML для кожного товару в кошику
-        cartItems.forEach(item => {
-            const cartItemHTML = `
-                <div class="cart-item">
-                    <span>${item.name} (x${item.quantity})</span>
-                    <span>${item.price * item.quantity} грн</span>
-                </div>
-            `;
-            cartContainer.innerHTML += cartItemHTML;
-        });
+    if (!cartContainer || !cartCounter || !cartTotalPrice) {
+        console.error("ПОМИЛКА: Не знайдено один з HTML-елементів кошика!");
+        return;
     }
-
-    // 3. Рахуємо загальну кількість товарів та загальну суму
+    
+    // Оновлення лічильника
     const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-    // 4. Оновлюємо лічильник на іконці та загальну суму
     cartCounter.textContent = totalQuantity;
-    cartTotalPrice.textContent = `${totalPrice} грн`;
 
-    // 5. Зберігаємо кошик у localStorage, щоб він не зникав після перезавантаження
+    // Збереження в localStorage
     localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
-    console.log("Кошик збережено в localStorage:", totalQuantity, "товарів на", totalPrice, "грн");
+    console.log('КРОК 5: Кошик збережено в localStorage.');
 }
 
-// =======================================================
-// ГОЛОВНА ЛОГІКА (ВЕРСІЯ ДЛЯ НАЛАГОДЖЕННЯ)
-// =======================================================
-
+// --- 3. ЗАПУСК ПІСЛЯ ЗАВАНТАЖЕННЯ СТОРІНКИ ---
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Завантаження кошика з localStorage ---
-    const savedCart = localStorage.getItem('shoppingCart');
-    if (savedCart) {
-        cartItems = JSON.parse(savedCart);
-        updateCart();
-    }
+    console.log("КРОК 1: Сторінка завантажена. Запускаємо скрипт.");
 
-    // --- 2. Відображення товарів ---
+    // Відображаємо товари (перевірте ваші реальні ID контейнерів!)
     renderMenuItems('panini', 'panini-container');
     renderMenuItems('pizza', 'pizza-container');
     renderMenuItems('pasta', 'pasta-container');
     renderMenuItems('bevande', 'drinks-container');
 
-    // --- 3. Логіка відкриття/закриття кошика ---
+    // Завантажуємо кошик
+    const savedCart = localStorage.getItem('shoppingCart');
+    if (savedCart) {
+        cartItems = JSON.parse(savedCart);
+        updateCart();
+    }
+    
+    // Головний слухач кліків
+    document.body.addEventListener('click', (event) => {
+        if (event.target.classList.contains('add-to-cart-btn')) {
+            console.log("КРОК 2: Клік по кнопці 'Додати' зафіксовано!");
+            const productId = parseInt(event.target.dataset.id);
+            addToCart(productId);
+        }
+    });
+    
+    // Логіка модального вікна кошика (перевірте ID!)
     const cartIcon = document.getElementById('cart-icon');
     const cartModal = document.getElementById('cart-modal');
     const closeCartBtn = document.getElementById('close-cart-btn');
 
-    cartIcon.addEventListener('click', () => cartModal.classList.remove('hidden'));
-    closeCartBtn.addEventListener('click', () => cartModal.classList.add('hidden'));
-    cartModal.addEventListener('click', (event) => {
-        if (event.target === cartModal) cartModal.classList.add('hidden');
-    });
-
-    // Форма замовлення відкривається тільки через кнопки Swiper слайдів
-
-    // --- 4. ДЕЛЕГУВАННЯ ПОДІЙ (з console.log) ---
-    console.log("Слухач кліків готовий до роботи!"); // Перевірка, що код дійшов сюди
-
-    document.body.addEventListener('click', (event) => {
-        console.log("Клікнули по:", event.target); // Покаже, на який елемент ми натиснули
-
-        if (event.target.classList.contains('add-to-cart-btn')) {
-            console.log("Клік по кнопці 'Додати!' - Успіх!"); // Перевірка, що кнопка розпізнана
-            
-            const productId = parseInt(event.target.dataset.id);
-            console.log("Отримали ID товару:", productId); // Перевірка, чи зчитався ID
-            
-            addToCart(productId);
-        }
-    });
-
-    // Зберігаємо дані для доступу з інтро
-    window.cartLogic = {
-        initializeCart: function() {
-            // Ініціалізація кошика буде викликана після завантаження intro
-            updateCart();
-        }
-    };
+    if (cartIcon && cartModal && closeCartBtn) {
+        cartIcon.addEventListener('click', () => {
+            // Додатково оновимо вигляд товарів у кошику при відкритті
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            cartItemsContainer.innerHTML = '';
+            if (cartItems.length === 0) {
+                 cartItemsContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
+            } else {
+                 cartItems.forEach(item => {
+                    cartItemsContainer.innerHTML += `<div class="cart-item"><span>${item.name} (x${item.quantity})</span><span>${item.price * item.quantity} грн</span></div>`;
+                 });
+            }
+            const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-total-price').textContent = `${totalPrice} грн`;
+            cartModal.classList.remove('hidden');
+        });
+        closeCartBtn.addEventListener('click', () => cartModal.classList.add('hidden'));
+    }
 });
 
 // --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
