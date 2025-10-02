@@ -119,47 +119,38 @@ function addToCart(productId) {
 }
 
 function updateCart() {
-    // Оновлюємо лічильник товарів на іконці кошика
+    const cartContainer = document.getElementById('cart-items-container');
     const cartCounter = document.getElementById('cart-counter');
-    const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    if (cartCounter) {
-        cartCounter.textContent = totalItems;
-    }
-
-    // Оновлюємо відображення товарів у модальному вікні кошика
-    const cartItemsContainer = document.getElementById('cart-items-container');
-    if (!cartItemsContainer) return;
+    const cartTotalPrice = document.getElementById('cart-total-price');
+    
+    // 1. Очищуємо контейнер перед оновленням
+    cartContainer.innerHTML = '';
 
     if (cartItems.length === 0) {
-        cartItemsContainer.innerHTML = '<p class="empty-cart">Il tuo carrello è vuoto</p>';
-        return;
+        cartContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
+    } else {
+        // 2. Генеруємо HTML для кожного товару в кошику
+        cartItems.forEach(item => {
+            const cartItemHTML = `
+                <div class="cart-item">
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>${item.price * item.quantity} грн</span>
+                </div>
+            `;
+            cartContainer.innerHTML += cartItemHTML;
+        });
     }
 
-    // Генеруємо HTML для товарів у кошику
-    const cartHTML = cartItems.map(item => `
-        <div class="cart-item">
-            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-            <div class="cart-item-details">
-                <h4>${item.name}</h4>
-                <span class="cart-item-price">${item.price} EUR</span>
-                <span class="cart-item-quantity">Qty: ${item.quantity}</span>
-            </div>
-            <div class="cart-item-controls">
-                <button class="remove-item-btn" data-id="${item.id}">-</button>
-                <span class="item-total">${item.price * item.quantity} EUR</span>
-                <button class="add-item-btn" data-id="${item.id}">+</button>
-            </div>
-        </div>
-    `).join('');
-
-    cartItemsContainer.innerHTML = cartHTML;
-
-    // Оновлюємо загальну суму
-    const cartTotalPrice = document.getElementById('cart-total-price');
+    // 3. Рахуємо загальну кількість товарів та загальну суму
+    const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    if (cartTotalPrice) {
-        cartTotalPrice.textContent = `${totalPrice} EUR`;
-    }
+
+    // 4. Оновлюємо лічильник на іконці та загальну суму
+    cartCounter.textContent = totalQuantity;
+    cartTotalPrice.textContent = `${totalPrice} грн`;
+
+    // 5. Зберігаємо кошик у localStorage, щоб він не зникав після перезавантаження
+    localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
 }
 
 // --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
@@ -393,11 +384,18 @@ const masterTl = gsap.timeline({
         // ГОЛОВНА ЛОГІКА (ЗАПУСКАЄТЬСЯ ПІСЛЯ ЗАВАНТАЖЕННЯ СТОРІНКИ)
         // =======================================================
         
-        // --- 1. Відображаємо всі категорії товарів ---
+        // --- 1. Відновлюємо кошик з localStorage ---
+        const savedCart = localStorage.getItem('shoppingCart');
+        if (savedCart) {
+            cartItems = JSON.parse(savedCart);
+            updateCart(); // Оновлюємо відображення кошика
+        }
+
+        // --- 2. Відображаємо всі категорії товарів ---
         console.log('Starting to render beverages...');
         renderMenuItems('bevande', 'drinks-container'); // ID контейнера для напоїв
         
-        // --- 2. Логіка відкриття/закриття кошика ---
+        // --- 3. Логіка відкриття/закриття кошика ---
         const cartIcon = document.getElementById('cart-icon');
         const cartModal = document.getElementById('cart-modal');
         const closeCartBtn = document.getElementById('close-cart-btn');
