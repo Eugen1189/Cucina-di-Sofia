@@ -19,6 +19,11 @@
         </div>
     </div>
 
+    <!-- Іконка кошика -->
+    <div id="cart-icon" class="cart-button">
+        🛒 <span id="cart-counter">0</span>
+    </div>
+
     <main role="main" aria-label="Italian Food Showcase">
         <div class="swiper" role="region" aria-label="Food slideshow">
             <div class="swiper-wrapper">
@@ -165,6 +170,30 @@
                     <div class="spinner hidden"></div>
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- Модальне вікно кошика -->
+    <div id="cart-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ваше замовлення</h2>
+                <span id="close-cart-btn" class="close-button">&times;</span>
+            </div>
+            
+            <div id="cart-items-container">
+            </div>
+
+            <div class="cart-summary">
+                <div id="drink-suggestion" class="suggestion hidden">
+                </div>
+                <div class="cart-total">
+                    <strong>Всього:</strong>
+                    <span id="cart-total-price">0 грн</span>
+                </div>
+                <button id="checkout-btn" class="primary-button">Оформити замовлення</button>
+            </div>
         </div>
     </div>
 </body>

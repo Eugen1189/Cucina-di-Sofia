@@ -519,6 +519,123 @@ main {
     flex-wrap: wrap;
 }
 
+/* ===== ІКОНКА КОШИКА ===== */
+.cart-button {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    background-color: var(--pizza-bg);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+}
+
+.cart-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    background-color: #c83e2b;
+}
+
+#cart-counter {
+    font-size: 1rem;
+    margin-top: 0.2rem;
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+}
+
+/* ===== МОДАЛЬНЕ ВІКНО КОШИКА ===== */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    color: var(--pizza-bg);
+}
+
+.close-button {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: var(--pizza-bg);
+}
+
+#cart-items-container {
+    min-height: 200px;
+    margin-bottom: 2rem;
+}
+
+.cart-summary {
+    border-top: 2px solid #eee;
+    padding-top: 2rem;
+}
+
+.suggestion {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--pasta-bg);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+}
+
+.primary-button {
+    width: 100%;
+    background-color: var(--pizza-bg);
+    color: white;
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+    background-color: #c83e2b;
+}
+
+.primary-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 
 /* ===== CONTENT VISIBILITY CONTROL ===== */
 /* All content is hidden by default to prevent flickering */
