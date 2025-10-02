@@ -38,14 +38,10 @@ function addToCart(productId) {
 
 function removeFromCart(productId) {
     console.log(`КРОК удаления: Функція removeFromCart спрацювала для товару ID: ${productId}`);
-    const existingItem = cartItems.find(item => item.id === productId);
-    if (existingItem) {
-        if (existingItem.quantity > 1) {
-            existingItem.quantity--;
-        } else {
-            cartItems = cartItems.filter(item => item.id !== productId);
-        }
-    }
+    // Створюємо новий масив, який не включає товар із вказаним ID
+    cartItems = cartItems.filter(item => item.id !== productId);
+    
+    // Оновлюємо вигляд кошика
     updateCart();
 }
 
