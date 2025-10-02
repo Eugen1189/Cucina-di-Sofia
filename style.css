@@ -24,25 +24,48 @@ body {
     overflow: hidden; /* Hide everything that goes beyond screen boundaries */
 }
 
-/* ===== INTRO SCREEN STYLES ===== */
+/* ===== СТИЛІ ДЛЯ ІНТРО-ЕКРАНУ "ШТОРИ" ===== */
+
 #intro-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #F5EFE1; /* Або інший колір */
+    z-index: 10000;
+    overflow: hidden; /* Ховаємо все, що виходить за межі */
+}
+
+.intro-panel {
+    position: absolute;
+    top: 0;
+    width: 50vw; /* Кожна панель займає половину екрану */
+    height: 100%;
+    background-color: #F5EFE1; /* Колір фону */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+}
+
+.panel-left {
+    left: 0;
+}
+
+.panel-right {
+    right: 0;
 }
 
 .intro-title {
     font-family: var(--font-heading);
     font-size: 6vw;
     color: #333;
-    opacity: 0; /* Початково невидимий для анімації */
+    /* Початково невидимий для анімації */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Створюємо ілюзію єдиного тексту */
+    width: 50vw; /* Розтягуємо контейнер тексту на всю панель */
+    text-align: center;
 }
 
 
@@ -642,4 +665,17 @@ h1,
 
 #submit-button.is-loading .spinner {
     display: block; /* Показуємо спінер */
+}
+
+/* ===== СТИЛІ ДЛЯ ПОЛЯ "АДРЕСА ДОСТАВКИ" ===== */
+
+#order-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    resize: vertical; /* Дозволяє користувачу розтягувати поле по висоті */
 }

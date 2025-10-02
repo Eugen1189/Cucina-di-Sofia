@@ -11,7 +11,12 @@
 </head>
 <body>
     <div id="intro-screen">
-        <h2 class="intro-title">Cucina Italiana</h2>
+        <div class="intro-panel panel-left">
+            <h2 class="intro-title">Cucina</h2>
+        </div>
+        <div class="intro-panel panel-right">
+            <h2 class="intro-title">Italiana</h2>
+        </div>
     </div>
 
     <main role="main" aria-label="Italian Food Showcase">
@@ -122,6 +127,9 @@
                 
                 <label for="email">La tua email:</label>
                 <input type="email" id="email" name="email" required>
+                
+                <label for="address">Indirizzo di consegna:</label>
+                <textarea id="address" name="address" rows="3" placeholder="Città, strada, edificio, appartamento" required></textarea>
                 
                 <label for="message">Messaggio:</label>
                 <textarea id="message" name="message" rows="4"></textarea>

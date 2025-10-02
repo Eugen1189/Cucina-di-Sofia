@@ -2,25 +2,62 @@
 const body = document.body;
 let isAnimating = false; // Flag to prevent animation conflicts
 
-// Новий код для анімації інтро
+/* ====================================================== */
+/* ===== ЛОГІКА ІНТРО-ЕКРАНУ ТА ЯСУТЕЦЬ ІНІЦІАЛІЗАЦІЇ САЙТУ ===== */
+/* ====================================================== */
+
+// Знаходимо елементи
 const introScreen = document.querySelector('#intro-screen');
-const introTitle = document.querySelector('.intro-title');
+const panelLeft = document.querySelector('.panel-left');
+const panelRight = document.querySelector('.panel-right');
+const introTitles = document.querySelectorAll('.intro-title');
 const mainContent = document.querySelector('main');
 
-// Ховаємо основний контент на старті
+// Одразу ховаємо основний контент
 gsap.set(mainContent, { autoAlpha: 0 });
 
-const introTl = gsap.timeline();
+// Створюємо "режисерську" послідовність для всього сайту
+const masterTl = gsap.timeline();
 
-introTl
-    .to(introTitle, { duration: 1.5, autoAlpha: 1, ease: "power2.out" })
-    .to(introTitle, { duration: 1, autoAlpha: 0, delay: 1, ease: "power2.in" })
-    .to(introScreen, { duration: 1.2, yPercent: -100, ease: "power2.inOut" })
-    .to(mainContent, { duration: 0.5, autoAlpha: 1 }, "-=0.8"); // Показуємо основний контент
+// Фаза 1: Поява назви ресторану
+masterTl.to(introTitles, {
+    duration: 1.5,
+    autoAlpha: 1, // Плавно робимо видимим
+    ease: "power2.out",
+    stagger: 0.1 // Букви з'являються з невеликою затримкою
+});
 
-// ===== BACKGROUND COLOR MANAGEMENT =====
-// Changes page background color based on active slide
-function setBackgroundColor(swiper) {
+// Фаза 2: Пауза, щоб глядач встиг прочитати
+masterTl.to({}, { duration: 1 }); // Пуста анімація для паузи в 1 секунду
+
+// Фаза 3: "Штори" від'їжджаються
+masterTl.to(panelLeft, {
+    duration: 1.2,
+    xPercent: -100, // Зсуваємо ліву панель на 100% її ширини вліво
+    ease: "power2.inOut"
+});
+masterTl.to(panelRight, {
+    duration: 1.2,
+    xPercent: 100, // Зсуваємо праву панель на 100% її ширини вправо
+    ease: "power2.inOut"
+}, "<"); // "<" - почати одночасно з попередньою анімацією
+
+// Фаза 4: Одночасно з розсуванням штор, плавно з'являється основний контент
+masterTl.to(mainContent, {
+    duration: 1,
+    autoAlpha: 1
+}, "-=1.0"); // Починаємо за 1с до завершення розсування
+
+// Фаза 5: Запускаємо анімацію першого слайда
+// Використовуємо .call() для виклику нашої основної функції
+masterTl.call(initializePage);
+
+// =======================================================
+// Весь код сайту тепер живе всередині цієї функції
+function initializePage() {
+    // ===== BACKGROUND COLOR MANAGEMENT =====
+    // Changes page background color based on active slide
+    function setBackgroundColor(swiper) {
     const activeSlide = swiper.slides[swiper.activeIndex];
     const bgColor = activeSlide.dataset.bgColor;
     body.style.backgroundColor = bgColor;
@@ -202,3 +239,5 @@ window.addEventListener('mousemove', (e) => {
         ease: "power1.out"
     });
 });
+
+} // Кінець функції initializePage
