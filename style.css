@@ -799,7 +799,10 @@ main {
 .ingredient,
 h1,
 .order-button,
-.description-block {
+.description-block,
+.drinks-display,
+.drink-item,
+.drink-image {
     opacity: 0;
     visibility: hidden;
 }

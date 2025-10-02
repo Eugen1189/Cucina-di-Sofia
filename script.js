@@ -107,7 +107,7 @@ function initializeMainSite() {
     function runAssemblyAnimation(activeSlide) {
         if (!activeSlide) return;
         isAnimating = true;
-        const elements = activeSlide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
+        const elements = activeSlide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block, .drinks-display, .drink-item, .drink-image');
         gsap.to(elements, {
             duration: 1, autoAlpha: 1, scale: 1, y: '0',
             stagger: 0.08, ease: "power2.out",
@@ -117,7 +117,7 @@ function initializeMainSite() {
 
     function runDisassemblyAnimation(slide) {
         if (!slide) return;
-        const elements = slide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block');
+        const elements = slide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block, .drinks-display, .drink-item, .drink-image');
         gsap.to(elements, {
             duration: 0.5, autoAlpha: 0, scale: 0.9, y: '+=20',
             ease: "power2.in"
