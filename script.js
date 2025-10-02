@@ -35,7 +35,6 @@ function initializeMainSite() {
         });
     }
 
-    console.log('Створюємо Swiper instance...');
     const swiper = new Swiper('.swiper', {
         loop: false, effect: 'fade',
         fadeEffect: { crossFade: true },
@@ -43,8 +42,6 @@ function initializeMainSite() {
         speed: 1000, allowTouchMove: false, watchSlidesProgress: true,
         on: {
             init: function (swiper) {
-                console.log('Swiper ініціалізований! Active index:', swiper.activeIndex);
-                console.log('Кілікіст слайдів:', swiper.slides.length);
                 setBackgroundColor(swiper);
                 // Запускаємо анімацію для першого слайда, який вже видимий
                 runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
@@ -154,25 +151,8 @@ function initializeMainSite() {
 
         orderButtons.forEach(button => {
             button.addEventListener('click', () => {
-                console.log('Кнопка натиснута!');
-                console.log('Swiper:', swiper);
-                console.log('Active slide:', swiper.slides[swiper.activeIndex]);
-                
                 const activeSlide = swiper.slides[swiper.activeIndex];
-        
-                if (!activeSlide) {
-                    console.error('Active slide не знайдено!');
-                    return;
-                }
-                
-                const productElement = activeSlide.querySelector('h1');
-                if (!productElement) {
-                    console.error('H1 продукту не знайдено!');
-                    return;
-                }
-                
-                const productName = productElement.textContent;
-                console.log('Назва продукту:', productName);
+                const productName = activeSlide.querySelector('h1').textContent;
                 openModal(productName);
             });
         });

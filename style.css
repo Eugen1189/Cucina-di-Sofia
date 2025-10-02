@@ -34,7 +34,6 @@ body {
     height: 100vh;
     z-index: 10000;
     overflow: hidden; /* Ховаємо все, що виходить за межі */
-    display: none; /* Temporarily hide for debugging */
 }
 
 .intro-panel {
@@ -505,8 +504,8 @@ main {
 h1,
 .order-button,
 .description-block {
-    opacity: 1 !important;  /* Temporarily make visible for debugging */
-    visibility: visible !important;
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* Preloader spinner animation */
