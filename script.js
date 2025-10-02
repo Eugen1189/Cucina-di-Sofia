@@ -481,36 +481,30 @@ masterTl
     .to({}, { duration: 1 }) // Пауза
     .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
     .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
-    .to(mainContent, { 
-        duration: 1.5, 
-        autoAlpha: 1, 
-        x: 0, 
-        scale: 1,
-        ease: "power3.out" 
-    }, "-=1.2")
+    .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
     .fromTo('#drinks-section', { 
         opacity: 0, 
-        x: 100, 
-        y: 50, 
-        scale: 0.8 
+        x: 120, 
+        y: 80, 
+        scale: 0.7 
     }, { 
         opacity: 1, 
         x: 0, 
         y: 0, 
         scale: 1, 
-        duration: 1.2, 
+        duration: 1.5, 
         ease: "power3.out" 
-    }, "-=0.8")
+    }, "-=1.0")
     .fromTo('#cart-icon', { 
         opacity: 0, 
-        x: 80, 
-        y: -60, 
-        scale: 0.3 
+        x: 100, 
+        y: -80, 
+        scale: 0.2 
     }, { 
         opacity: 1, 
         x: 0, 
         y: 0, 
         scale: 1, 
-        duration: 1, 
-        ease: "back.out(1.2)" 
-    }, "-=0.6");
+        duration: 1.3, 
+        ease: "back.out(1.5)" 
+    }, "-=0.8");
