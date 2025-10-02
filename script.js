@@ -370,4 +370,5 @@ masterTl
     .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
     .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
     .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
-    .fromTo('#drinks-section', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, "-=0.7");
+    .fromTo('#drinks-section', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, "-=0.7")
+    .fromTo('#cart-icon', { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 1 }, "-=0.7");

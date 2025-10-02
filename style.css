@@ -812,6 +812,11 @@ h1,
     opacity: 0;
 }
 
+/* Іконка кошика для анімації */
+#cart-icon {
+    opacity: 0;
+}
+
 /* Preloader spinner animation */
 @keyframes spin {
     0% { transform: rotate(0deg); }
