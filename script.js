@@ -153,6 +153,53 @@ function updateCart() {
     localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
 }
 
+// =======================================================
+// ГОЛОВНА ЛОГІКА (ОНОВЛЕНА)
+// =======================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. Завантажуємо кошик з localStorage ---
+    const savedCart = localStorage.getItem('shoppingCart');
+    if (savedCart) {
+        cartItems = JSON.parse(savedCart);
+        updateCart(); // Оновлюємо відображення одразу
+    }
+
+    // --- 2. Відображаємо всі категорії товарів ---
+    renderMenuItems('panini', 'panini-container'); 
+    renderMenuItems('pizza', 'pizza-container');   
+    renderMenuItems('pasta', 'pasta-container');   
+    renderMenuItems('bevande', 'drinks-container'); 
+    
+    // --- 3. Логіка відкриття/закриття кошика ---
+    const cartIcon = document.getElementById('cart-icon');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCartBtn = document.getElementById('close-cart-btn');
+
+    cartIcon.addEventListener('click', () => cartModal.classList.remove('hidden'));
+    closeCartBtn.addEventListener('click', () => cartModal.classList.add('hidden'));
+    cartModal.addEventListener('click', (event) => {
+        if (event.target === cartModal) cartModal.classList.add('hidden');
+    });
+
+    // --- 4. Делегування подій для кнопок "Додати" ---
+    document.body.addEventListener('click', (event) => {
+        // Перевіряємо, чи клікнули ми саме на кнопку з класом 'add-to-cart-btn'
+        if (event.target.classList.contains('add-to-cart-btn')) {
+            const productId = parseInt(event.target.dataset.id); // Отримуємо id товару
+            addToCart(productId);
+        }
+    });
+
+    // Зберігаємо дані для доступу з інтро
+    window.cartLogic = {
+        initializeCart: function() {
+            // Ініціалізація кошика буде викликана після завантаження intro
+            updateCart();
+        }
+    };
+});
+
 // --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
 
 // Функція для ініціалізації основного сайту (слайдер, кнопки, паралакс)
@@ -187,26 +234,26 @@ function initializeMainSite() {
     }
 
     const swiper = new Swiper('.swiper', {
-        loop: false, effect: 'fade',
-        fadeEffect: { crossFade: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        speed: 1000, allowTouchMove: false, watchSlidesProgress: true,
-        on: {
-            init: function (swiper) {
-                setBackgroundColor(swiper);
+      loop: false, effect: 'fade',
+      fadeEffect: { crossFade: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      speed: 1000, allowTouchMove: false, watchSlidesProgress: true,
+      on: {
+        init: function (swiper) {
+            setBackgroundColor(swiper);
                 // Запускаємо анімацію для першого слайда, який вже видимий
-                runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
-            },
-            slideChangeTransitionStart: function (swiper) {
-                setBackgroundColor(swiper);
-                runDisassemblyAnimation(swiper.slides[swiper.previousIndex]);
-            },
-            slideChangeTransitionEnd: function (swiper) {
-                runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
-            }
+            runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+        },
+        slideChangeTransitionStart: function (swiper) {
+            setBackgroundColor(swiper);
+            runDisassemblyAnimation(swiper.slides[swiper.previousIndex]);
+        },
+        slideChangeTransitionEnd: function (swiper) {
+            runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
         }
+      }
     });
-    
+
     // Паралакс-ефект для інградієнтів
     window.addEventListener('mousemove', (e) => {
         if (isAnimating) return;
@@ -221,82 +268,82 @@ function initializeMainSite() {
             ease: "power1.out"
         });
     });
-    
+
     // Ініціалізація логіки модального вікна
     const orderModal = document.getElementById('order-modal');
     if (orderModal) {
-        const orderForm = document.getElementById('order-form');
-        const successMessage = document.getElementById('form-success-message');
-        const closeModalBtn = document.querySelector('.close-modal-btn');
-        const orderButtons = document.querySelectorAll('.order-button');
-        const hiddenProductNameInput = document.getElementById('product-name');
+    const orderForm = document.getElementById('order-form');
+    const successMessage = document.getElementById('form-success-message');
+    const closeModalBtn = document.querySelector('.close-modal-btn');
+    const orderButtons = document.querySelectorAll('.order-button');
+    const hiddenProductNameInput = document.getElementById('product-name');
 
-        function openModal(productName) {
-            orderForm.classList.remove('hidden');
-            successMessage.classList.add('hidden');
+    function openModal(productName) {
+        orderForm.classList.remove('hidden');
+        successMessage.classList.add('hidden');
             orderForm.reset();
-            hiddenProductNameInput.value = productName;
-            orderModal.classList.remove('hidden');
-        }
+        hiddenProductNameInput.value = productName;
+        orderModal.classList.remove('hidden');
+    }
 
-        function closeModal() {
-            orderModal.classList.add('hidden');
-        }
+    function closeModal() {
+        orderModal.classList.add('hidden');
+    }
+    
+    // Функція для оплати карткою через Stripe
+    function handleStripePayment(formData, submitButton) {
+        fetch("/.netlify/functions/create-checkout-session", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                product_name: formData.get('product'),
+                quantity: 1
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                throw new Error('No checkout URL received');
+            }
+        })
+        .catch((error) => {
+            console.error('Stripe Error:', error);
+            alert("Помилка з платежем карткою. Спробуйте оплату заради доставкою.");
+            submitButton.classList.remove('is-loading');
+        });
+    }
+    
+    // Функція для оплати готівкою при доставці
+    function handleCashPayment(formData, submitButton) {
+        fetch("/.netlify/functions/telegram-notifier", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString(),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(() => {
+            orderForm.classList.add('hidden');
+            successMessage.classList.remove('hidden');
 
-        // Функція для оплати карткою через Stripe
-        function handleStripePayment(formData, submitButton) {
-            fetch("/.netlify/functions/create-checkout-session", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    product_name: formData.get('product'),
-                    quantity: 1
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.url) {
-                    window.location.href = data.url;
-                } else {
-                    throw new Error('No checkout URL received');
-                }
-            })
-            .catch((error) => {
-                console.error('Stripe Error:', error);
-                alert("Помилка з платежем карткою. Спробуйте оплату заради доставкою.");
-                submitButton.classList.remove('is-loading');
-            });
-        }
-        
-        // Функція для оплати готівкою при доставці
-        function handleCashPayment(formData, submitButton) {
-            fetch("/.netlify/functions/telegram-notifier", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString(),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(() => {
-                orderForm.classList.add('hidden');
-                successMessage.classList.remove('hidden');
-
-                setTimeout(() => {
-                    closeModal();
-                }, 3000);
-            })
-            .catch((error) => {
-                alert("Сталася помилка. Спробуйте ще раз.");
-                console.error('Fetch Error:', error);
-            })
-            .finally(() => {
-                submitButton.classList.remove('is-loading');
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        })
+        .catch((error) => {
+            alert("Сталася помилка. Спробуйте ще раз.");
+            console.error('Fetch Error:', error);
+        })
+        .finally(() => {
+            submitButton.classList.remove('is-loading');
             });
         }
 
@@ -380,96 +427,10 @@ const masterTl = gsap.timeline({
         }
         initializeMainSite(); // Коли інтро завершено, ініціалізуємо основний сайт
         
-        // =======================================================
-        // ГОЛОВНА ЛОГІКА (ЗАПУСКАЄТЬСЯ ПІСЛЯ ЗАВАНТАЖЕННЯ СТОРІНКИ)
-        // =======================================================
-        
-        // --- 1. Відновлюємо кошик з localStorage ---
-        const savedCart = localStorage.getItem('shoppingCart');
-        if (savedCart) {
-            cartItems = JSON.parse(savedCart);
-            updateCart(); // Оновлюємо відображення кошика
+        // Отримуємо доступ до глобальної функції cartLogic через DOMContentLoaded
+        if (window.cartLogic) {
+            window.cartLogic.initializeCart();
         }
-
-        // --- 2. Відображаємо всі категорії товарів ---
-        console.log('Starting to render beverages...');
-        renderMenuItems('bevande', 'drinks-container'); // ID контейнера для напоїв
-        
-        // --- 3. Логіка відкриття/закриття кошика ---
-        const cartIcon = document.getElementById('cart-icon');
-        const cartModal = document.getElementById('cart-modal');
-        const closeCartBtn = document.getElementById('close-cart-btn');
-
-        // Відкрити кошик по кліку на іконку
-        if (cartIcon) {
-            cartIcon.addEventListener('click', () => {
-                cartModal.classList.remove('hidden');
-            });
-        }
-
-        // Закрити кошик по кліку на хрестик
-        if (closeCartBtn) {
-            closeCartBtn.addEventListener('click', () => {
-                cartModal.classList.add('hidden');
-            });
-        }
-
-        // Закрити кошик по кліку на фон
-        if (cartModal) {
-            cartModal.addEventListener('click', (event) => {
-                if (event.target === cartModal) {
-                    cartModal.classList.add('hidden');
-                }
-            });
-        }
-        
-        // Закрити кошик по клавіші ESC (додаємо до існуючого обробника)
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !cartModal.classList.contains('hidden')) {
-                cartModal.classList.add('hidden');
-            }
-        });
-
-        // --- 3. Делегування подій dla кнопок додавання в кошик ---
-        document.addEventListener('click', (event) => {
-            // Якщо клік по кнопці "add-to-cart-btn"
-            if (event.target.classList.contains('add-to-cart-btn')) {
-                const productId = parseInt(event.target.dataset.id);
-                console.log('Adding product to cart:', productId);
-                addToCart(productId);
-                
-                // Додаємо візуальний ефект
-                event.target.style.transform = 'scale(0.95)';
-                event.target.textContent = '✓';
-                setTimeout(() => {
-                    event.target.style.transform = '';
-                    event.target.textContent = 'Aggiungi';
-                }, 200);
-            }
-
-            // Якщо клік по кнопці збільшення кількості товару
-            if (event.target.classList.contains('add-item-btn')) {
-                const productId = parseInt(event.target.dataset.id);
-                addToCart(productId);
-            }
-
-            // Якщо клік по кнопці зменшення кількості товару
-            if (event.target.classList.contains('remove-item-btn')) {
-                const productId = parseInt(event.target.dataset.id);
-                const existingItem = cartItems.find(item => item.id === productId);
-                
-                if (existingItem) {
-                    if (existingItem.quantity > 1) {
-                        existingItem.quantity--;
-                    } else {
-                        // Видаляємо товар з кошика
-                        const index = cartItems.indexOf(existingItem);
-                        cartItems.splice(index, 1);
-                    }
-                    updateCart();
-                }
-            }
-        });
     }
 });
 
