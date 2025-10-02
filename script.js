@@ -200,7 +200,15 @@ gsap.set(mainContent, { autoAlpha: 0 });
 
 // Створюємо головну анімаційну послідовність
 const masterTl = gsap.timeline({
-    onComplete: initializeMainSite // Коли інтро завершено, ініціалізуємо основний сайт
+    onComplete: () => {
+        // Повністю прибираємо інtro-екран з DOM після анімації
+        const introScreen = document.getElementById('intro-screen');
+        if (introScreen) {
+            introScreen.style.display = 'none'; // Повністю прибираємо елемент
+            introScreen.style.pointerEvents = 'none'; // Запобігаємо перехопленню кліків
+        }
+        initializeMainSite(); // Коли інтро завершено, ініціалізуємо основний сайт
+    }
 });
 
 // Додаємо анімації в послідовність
