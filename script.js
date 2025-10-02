@@ -36,8 +36,21 @@ function addToCart(productId) {
     updateCart();
 }
 
+function removeFromCart(productId) {
+    console.log(`КРОК удаления: Функція removeFromCart спрацювала для товару ID: ${productId}`);
+    const existingItem = cartItems.find(item => item.id === productId);
+    if (existingItem) {
+        if (existingItem.quantity > 1) {
+            existingItem.quantity--;
+        } else {
+            cartItems = cartItems.filter(item => item.id !== productId);
+        }
+    }
+    updateCart();
+}
+
 function updateCart() {
-    console.log('КРОК 4: Оновлюємо вигляд кошика. Поточний склад:', cartItems);
+    console.log('Оновлюємо вигляд кошика. Поточний склад:', cartItems);
     const cartContainer = document.getElementById('cart-items-container');
     const cartCounter = document.getElementById('cart-counter');
     const cartTotalPrice = document.getElementById('cart-total-price');
@@ -47,13 +60,36 @@ function updateCart() {
         return;
     }
     
-    // Оновлення лічильника
-    const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    cartCounter.textContent = totalQuantity;
+    // 1. Очищуємо контейнер перед оновленням
+    cartContainer.innerHTML = '';
 
-    // Збереження в localStorage
+    if (cartItems.length === 0) {
+        cartContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
+    } else {
+        // 2. Генеруємо HTML для кожного товару в кошику (з кнопкою видалення)
+        cartItems.forEach(item => {
+            const cartItemHTML = `
+                <div class="cart-item">
+                    <span class="cart-item-name">${item.name} (x${item.quantity})</span>
+                    <span class="cart-item-price">${item.price * item.quantity} грн</span>
+                    
+                    <button class="remove-from-cart-btn" data-id="${item.id}">❌</button> 
+                </div>
+            `;
+            cartContainer.innerHTML += cartItemHTML;
+        });
+    }
+
+    // 3. Рахуємо загальну кількість та суму (цей код у вас вже є)
+    const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    // 4. Оновлюємо лічильник та суму
+    cartCounter.textContent = totalQuantity;
+    cartTotalPrice.textContent = `${totalPrice} грн`;
+
+    // 5. Зберігаємо кошик у localStorage
     localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
-    console.log('КРОК 5: Кошик збережено в localStorage.');
 }
 
 // --- 3. ЗАПУСК ПІСЛЯ ЗАВАНТАЖЕННЯ СТОРІНКИ ---
@@ -75,6 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("КРОК 2: Клік по кнопці 'Додати' зафіксовано!");
             const productId = parseInt(event.target.dataset.id);
             addToCart(productId);
+        }
+        
+        if (event.target.classList.contains('remove-from-cart-btn')) {
+            console.log("КРОК удаления: Клік по кнопці 'Видалити' зафіксовано!");
+            const productId = parseInt(event.target.dataset.id);
+            removeFromCart(productId);
         }
     });
     
