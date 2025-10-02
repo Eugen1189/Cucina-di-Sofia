@@ -131,6 +131,25 @@
                 <label for="address">Indirizzo di consegna:</label>
                 <textarea id="address" name="address" rows="3" placeholder="Città, strada, edificio, appartamento" required></textarea>
                 
+                <label>Metodo di pagamento:</label>
+                <div class="payment-options">
+                    <label class="payment-option" for="payment-cash">
+                        <input type="radio" id="payment-cash" name="payment" value="cash" checked>
+                        <div class="payment-box">
+                            <span class="payment-icon">💰</span>
+                            <span class="payment-text">Pagamento alla consegna</span>
+                        </div>
+                    </label>
+                    
+                    <label class="payment-option" for="payment-card">
+                        <input type="radio" id="payment-card" name="payment" value="card">
+                        <div class="payment-box">
+                            <span class="payment-icon">💳</span>
+                            <span class="payment-text">Pagamento con carta</span>
+                        </div>
+                    </label>
+                </div>
+                
                 <label for="message">Messaggio:</label>
                 <textarea id="message" name="message" rows="4"></textarea>
                 

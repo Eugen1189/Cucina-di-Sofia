@@ -679,3 +679,57 @@ h1,
     font-size: 1rem;
     resize: vertical; /* Дозволяє користувачу розтягувати поле по висоті */
 }
+
+#order-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background-color: white;
+}
+
+/* ===== СТИЛІ ДЛЯ ІНТЕРФЕЙСУ ВИБОРУ ПЛАТЕЖУ ===== */
+#order-form .payment-options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#order-form .payment-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+#order-form .payment-option input[type="radio"] {
+    display: none;
+}
+
+#order-form .payment-box {
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+#order-form .payment-option input[type="radio"]:checked + .payment-box {
+    border-color: #333;
+    background: #f8f9fa;
+    box-shadow: 0 0 10px rgba(51, 51, 51, 0.1);
+}
+
+#order-form .payment-icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+#order-form .payment-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+}

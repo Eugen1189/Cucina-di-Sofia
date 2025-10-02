@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Completato - Cucina Italiana</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #F5EFE1;
+            font-family: var(--font-body);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .success-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .success-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .order-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .btn-back {
+            background: #333;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .btn-back:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        <h1>Grazie per il tuo ordine!</h1>
+        <p>Il tuo pagamento è stato completato con successo.</p>
+        
+        <div class="order-info" id="order-info">
+            <h3>Dettagli Ordine</h3>
+            <p><strong>Ordine ID:</strong> <span id="session-id">Caricamento...</span></p>
+            <p><strong>Stato:</strong> Pagamento confermato</p>
+            <p>Riceverai un'email di conferma e ti contatteremo presto per la consegna.</p>
+        </div>
+        
+        <a href="index.html" class="btn-back">Torna al Menu</a>
+    </div>
+
+    <script>
+        // Ектрагуємо session_id з URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        
+        if (sessionId) {
+            document.getElementById('session-id').textContent = sessionId;
+        } else {
+            document.getElementById('session-id').textContent = 'Ordine confermato';
+        }
+    </script>
+</body>
+</html>

@@ -2,61 +2,59 @@
 /* ===== ЛОГІКА ІНТРО-ЕКРАНУ ТА ІНІЦІАЛІЗАЦІЇ САЙТУ ===== */
 /* ====================================================== */
 
-// Знаходимо елементи
-const introScreen = document.querySelector('#intro-screen');
-const panelLeft = document.querySelector('.panel-left');
-const panelRight = document.querySelector('.panel-right');
-const introTitles = document.querySelectorAll('.intro-title');
-const mainContent = document.querySelector('main');
+document.addEventListener('DOMContentLoaded', () => {
+    // Знаходимо всі необхідні елементи на старті
+    const panelLeft = document.querySelector('.panel-left');
+    const panelRight = document.querySelector('.panel-right');
+    const introTitles = document.querySelectorAll('.intro-title');
+    const mainContent = document.querySelector('main');
 
-// Одразу ховаємо основний контент
-gsap.set(mainContent, { autoAlpha: 0 });
+    // Одразу ховаємо основний контент
+    gsap.set(mainContent, { autoAlpha: 0 });
 
-// Створюємо "режисерську" послідовність для всього сайту
-const masterTl = gsap.timeline({
-    // ✨ ВИКЛИКАЄМО ІНІЦІАЛІЗАЦІЮ ПІСЛЯ ЗАВЕРШЕННЯ ВСІЄЇ АНІМАЦІЇ
-    onComplete: initializePage 
+    // Створюємо "режисерську" послідовність для всього сайту
+    const masterTl = gsap.timeline({
+        // Викликаємо функцію ініціалізації ОСНОВНОГО сайту ПІСЛЯ завершення інтро
+        onComplete: initializeMainSite
+    });
+
+    // Фаза 1: Поява назви ресторану
+    masterTl.to(introTitles, {
+        duration: 1.5,
+        autoAlpha: 1,
+        ease: "power2.out",
+        stagger: 0.1
+    });
+
+    // Фаза 2: Пауза з мінімальною затримкою для читання
+    masterTl.to({}, { duration: 1 });
+
+    // Фаза 3: "Штори" роз'їжджаються
+    masterTl.to(panelLeft, {
+        duration: 1.5,
+        xPercent: -100,
+        ease: "power2.inOut"
+    });
+    masterTl.to(panelRight, {
+        duration: 1.5,
+        xPercent: 100,
+        ease: "power2.inOut"
+    }, "<"); // "<" - почати одночасно з попередньою анімацією
+
+    // Фаза 4: Ефект "Театральних куліс"
+    // Показуємо основний контент під час роз'їзду штор
+    masterTl.to(mainContent, {
+        duration: 1.2,
+        autoAlpha: 1,
+        ease: "power2.out"
+    }, "-=1.5"); // Починаємо анімацію контенту одночасно з розсуванням штор
 });
 
-// Фаза 1: Поява назви ресторану
-masterTl.to(introTitles, {
-    duration: 1.5,
-    autoAlpha: 1,
-    ease: "power2.out",
-    stagger: 0.1
-});
 
-// Фаза 2: Пауза
-masterTl.to({}, { duration: 1 });
-
-// Фаза 3: "Штори" роз'їжджаються
-masterTl.to(panelLeft, {
-    duration: 1.5, // Трохи довше для плавності
-    xPercent: -100,
-    ease: "power2.inOut"
-});
-masterTl.to(panelRight, {
-    duration: 1.5,
-    xPercent: 100,
-    ease: "power2.inOut"
-}, "<"); // Почати одночасно
-
-// ✨ ФАЗА 4: НОВИЙ ЕФЕКТ "ТЕАТРАЛЬНИХ КУЛІС" ✨
-// Основний контент проявляється і трохи наближається, поки штори роз'їжджаються
-masterTl.fromTo(mainContent, 
-    { autoAlpha: 0, scale: 0.95 }, // Початковий стан (невидимий і трохи зменшений)
-    { 
-        duration: 1.2, 
-        autoAlpha: 1, 
-        scale: 1, // Фінальний стан (видимий і нормального розміру)
-        ease: "power2.out" 
-    }, 
-    "-=1.2" // Починаємо анімацію контенту за 1.2с до кінця розсування штор
-);
-
-// =======================================================
-// Весь ваш попередній код тепер живе всередині цієї функції
-function initializePage() {
+// =================================================================
+// ✨ ВЕСЬ КОД ДЛЯ РОБОТИ ОСНОВНОГО САЙТУ ЖИВЕ ТУТ ✨
+// =================================================================
+function initializeMainSite() {
     
     // --- БАЗОВІ НАЛАШТУВАННЯ ---
     const body = document.body;
@@ -68,7 +66,7 @@ function initializePage() {
         body.style.backgroundColor = bgColor;
     }
 
-    // --- АНІМАЦІЇ ---
+    // --- АНІМАЦІЇ СЛАЙДІВ ---
     function runAssemblyAnimation(activeSlide) {
         if (!activeSlide) return;
         isAnimating = true;
@@ -112,13 +110,11 @@ function initializePage() {
 
     // --- ПАРАЛАКС-ЕФЕКТ ---
     window.addEventListener('mousemove', (e) => {
-        if (isAnimating) return; // Prevent parallax during animations
+        if (isAnimating) return;
         const mouseX = e.clientX;
         const mouseY = e.clientY;
         const activeSlide = swiper.slides[swiper.activeIndex];
         const activeIngredients = activeSlide.querySelectorAll('.ingredient');
-        
-        // Apply parallax movement based on mouse position
         gsap.to(activeIngredients, {
             duration: 1,
             x: (i, target) => (window.innerWidth / 2 - mouseX) / (50 + i * 5),
@@ -128,9 +124,10 @@ function initializePage() {
     });
 
     /* ====================================================== */
-    /* ===== ЛОГІКА МОДАЛЬНОГО ВІКНА (БЕЗ DOMContentLoaded) ===== */
+    /* ===== ЛОГІКА МОДАЛЬНОГО ВІКНА ЗАМОВЛЕННЯ ===== */
     /* ====================================================== */
     
+    // Знаходимо елементи модального вікна
     const orderModal = document.getElementById('order-modal');
     const orderForm = document.getElementById('order-form');
     const successMessage = document.getElementById('form-success-message');
@@ -146,7 +143,6 @@ function initializePage() {
         orderForm.classList.remove('hidden');
         successMessage.classList.add('hidden');
         orderForm.reset(); // Очищуємо поля
-        
         hiddenProductNameInput.value = productName;
         orderModal.classList.remove('hidden');
     }
@@ -161,7 +157,7 @@ function initializePage() {
         button.addEventListener('click', () => {
             const activeSlide = swiper.slides[swiper.activeIndex];
             const productName = activeSlide.querySelector('h1').textContent;
-            openModal(productName);
+            openModal(productName); // Функція openModal() з вашого коду
         });
     });
 
@@ -174,16 +170,55 @@ function initializePage() {
         }
     });
 
-    // ✨ ГОЛОВНА ЛОГІКА: Перехоплення отправки форми ✨
+    // ✨ ГОЛОВНА ЛОГІКА: Перехоплення відправки форми з підтримкою Stripe ✨
     orderForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        // ✨ КРОК А: ВМИКАУЄМО СТАН ЗАВАНТАЖЕННЯ ✨
+        // ✨ КРОК А: ВМИКАЄМО СТАН ЗАВАНТАЖЕННЯ ✨
         const submitButton = document.getElementById('submit-button');
         submitButton.classList.add('is-loading');
 
         const formData = new FormData(orderForm);
+        const paymentMethod = formData.get('payment');
         
+        if (paymentMethod === 'card') {
+            // Оплата карткою через Stripe
+            handleStripePayment(formData, submitButton);
+        } else {
+            // Класична оплата при доставці
+            handleCashPayment(formData, submitButton);
+        }
+    });
+    
+    // Функція для оплати карткою через Stripe
+    function handleStripePayment(formData, submitButton) {
+        fetch("/.netlify/functions/create-checkout-session", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                product_name: formData.get('product'),
+                quantity: 1
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                throw new Error('No checkout URL received');
+            }
+        })
+        .catch((error) => {
+            console.error('Stripe Error:', error);
+            alert("Помилка з платежем карткою. Спробуйте оплату заради доставкою.");
+            submitButton.classList.remove('is-loading');
+        });
+    }
+    
+    // Функція для оплати готівкою при доставці
+    function handleCashPayment(formData, submitButton) {
         fetch("/.netlify/functions/telegram-notifier", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -208,8 +243,7 @@ function initializePage() {
             console.error('Fetch Error:', error);
         })
         .finally(() => {
-            // ✨ КРОК Б: ВИМИКАЄМО СТАН ЗАВАНТАЖЕННЯ (завжди, і при успіху, і при помилці) ✨
             submitButton.classList.remove('is-loading');
         });
-    });
+    }
 }

@@ -14,6 +14,9 @@ exports.handler = async function(event) {
         const product = formData.get('product') || 'Невідома страва';
         // ✨ ОТРИМУЄМО НОВЕ ПОЛЕ "АДРЕСА"
         const address = formData.get('address') || 'Не вказано';
+        // ✨ ПЛАТЕЖНА ІНФОРМАЦІЯ
+        const paymentType = formData.get('payment') || 'Наступом після доставки';
+        const paymentStatus = 'Замовлення прийнято (через Telegram)';
         
         const botToken = process.env.TELEGRAM_BOT_TOKEN;
         const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -22,8 +25,8 @@ exports.handler = async function(event) {
             throw new Error("Секретні ключі Telegram не налаштовано на Netlify.");
         }
 
-        // ✨ ДОДАЄМО АДРЕСУ В ТЕКСТ ПОВІДОМЛЕННЯ
-        const message = `🔔 Нове замовлення!\n\n🍽️ Страва: ${product}\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n\n📍 Адреса: ${address}`;
+            // ✨ ДОДАЄМО АДРЕСУ ТА ПЛАТЕЖ В ТЕКСТ ПОВІДОМЛЕННЯ
+            const message = `🔔 Нове замовлення!\n\n🍽️ Страва: ${product}\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n\n📍 Адреса: ${address}\n💳 Платіж: ${paymentType}\n✅ Статус: ${paymentStatus}`;
         const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
         
         await axios.post(telegramUrl, {
