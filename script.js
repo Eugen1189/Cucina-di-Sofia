@@ -158,7 +158,7 @@ function initializeMainSite() {
     function runAssemblyAnimation(activeSlide) {
         if (!activeSlide) return;
         isAnimating = true;
-        const elements = activeSlide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block, .drinks-display, .drink-item, .drink-image');
+        const elements = activeSlide.querySelectorAll('.ingredient, .product-image, h1, .add-to-cart-btn, .description-block, .drinks-display, .drink-item, .drink-image');
         gsap.to(elements, {
             duration: 1, autoAlpha: 1, scale: 1, y: '0',
             stagger: 0.08, ease: "power2.out",
@@ -168,7 +168,7 @@ function initializeMainSite() {
 
     function runDisassemblyAnimation(slide) {
         if (!slide) return;
-        const elements = slide.querySelectorAll('.ingredient, .product-image, h1, .order-button, .description-block, .drinks-display, .drink-item, .drink-image');
+        const elements = slide.querySelectorAll('.ingredient, .product-image, h1, .add-to-cart-btn, .description-block, .drinks-display, .drink-item, .drink-image');
         gsap.to(elements, {
             duration: 0.5, autoAlpha: 0, scale: 0.9, y: '+=20',
             ease: "power2.in"
@@ -217,7 +217,6 @@ function initializeMainSite() {
     const orderForm = document.getElementById('order-form');
     const successMessage = document.getElementById('form-success-message');
     const closeModalBtn = document.querySelector('.close-modal-btn');
-    const orderButtons = document.querySelectorAll('.order-button');
     const hiddenProductNameInput = document.getElementById('product-name');
 
     function openModal(productName) {
@@ -383,19 +382,6 @@ masterTl
     .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
     .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
     .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
-    .fromTo('#drinks-section', { 
-        opacity: 0, 
-        x: 120, 
-        y: 80, 
-        scale: 0.7 
-    }, { 
-        opacity: 1, 
-        x: 0, 
-        y: 0, 
-        scale: 1, 
-        duration: 1.5, 
-        ease: "power3.out" 
-    }, "-=1.0")
     .fromTo('#cart-icon', { 
         opacity: 0, 
         x: 100, 
