@@ -52,6 +52,37 @@ const menu = [
 // Поки що пустий масив для товарів у кошику
 let cartItems = [];
 
+// =======================================================
+// ЛОГІКА ВІДОБРАЖЕННЯ ТОВАРІВ
+// =======================================================
+
+function renderMenuItems(category, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Контейнер з ID "${containerId}" не знайдено!`);
+        return;
+    }
+
+    // 1. Фільтруємо меню, щоб отримати товари тільки потрібної категорії
+    const itemsToRender = menu.filter(item => item.category === category);
+
+    // 2. Генеруємо HTML-картку для кожного товару
+    const html = itemsToRender.map(item => `
+        <div class="product-card">
+            <img src="${item.image}" alt="${item.name}" class="product-image">
+            <h3 class="product-name">${item.name}</h3>
+            <p class="product-description">${item.description}</p>
+            <div class="product-footer">
+                <span class="product-price">${item.price} грн</span>
+                <button class="add-to-cart-btn" data-id="${item.id}">Додати</button>
+            </div>
+        </div>
+    `).join('');
+
+    // 3. Вставляємо згенерований HTML у контейнер
+    container.innerHTML = html;
+}
+
 // --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
 
 // Функція для ініціалізації основного сайту (слайдер, кнопки, паралакс)
