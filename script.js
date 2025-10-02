@@ -57,38 +57,26 @@ let cartItems = [];
 // =======================================================
 
 function renderMenuItems(category, containerId) {
-    console.log(`Rendering items for category "${category}" in container "${containerId}"`);
-    
     const container = document.getElementById(containerId);
-    if (!container) {
-        console.error(`Контейнер з ID "${containerId}" не знайдено!`);
-        return;
-    }
-    
-    console.log(`Container found:`, container);
+    if (!container) return; // Коротка перевірка
 
-    // 1. Фільтруємо меню, щоб отримати товари тільки потрібної категорії
     const itemsToRender = menu.filter(item => item.category === category);
-    
-    console.log(`Found ${itemsToRender.length} items for category "${category}":`, itemsToRender);
-
-    // 2. Генеруємо HTML-картку для кожного товару
     const html = itemsToRender.map(item => `
         <div class="product-card">
             <img src="${item.image}" alt="${item.name}" class="product-image">
             <h3 class="product-name">${item.name}</h3>
             <p class="product-description">${item.description}</p>
             <div class="product-footer">
-                <span class="product-price">${item.price} EUR</span>
-                <button class="add-to-cart-btn" data-id="${item.id}">Aggiungi</button>
+                <span class="product-price">${item.price} грн</span>
+
+                
+                <button class="add-to-cart-btn" data-id="${item.id}">Додати в кошик</button> 
+                
             </div>
         </div>
     `).join('');
 
-    // 3. Вставляємо згенерований HTML у контейнер
-    console.log(`Generated HTML:`, html);
     container.innerHTML = html;
-    console.log(`Successfully rendered ${itemsToRender.length} items in container`);
 }
 
 // =======================================================
