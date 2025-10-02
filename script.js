@@ -172,17 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target === cartModal) cartModal.classList.add('hidden');
     });
 
-    // --- 3.1. Логіка кнопки оформлення замовлення ---
-    const checkoutBtn = document.getElementById('checkout-btn');
-    const orderFormModal = document.getElementById('order-modal'); // Форма замовлення
-
-    checkoutBtn.addEventListener('click', () => {
-        // 1. Закриваємо модальне вікно кошика
-        cartModal.classList.add('hidden');
-        
-        // 2. Відкриваємо фінальну форму замовлення
-        orderFormModal.classList.remove('hidden'); 
-    });
+    // Форма замовлення відкривається тільки через кнопки Swiper слайдів
 
     // --- 4. ДЕЛЕГУВАННЯ ПОДІЙ (з console.log) ---
     console.log("Слухач кліків готовий до роботи!"); // Перевірка, що код дійшов сюди
@@ -353,8 +343,8 @@ function initializeMainSite() {
         })
         .finally(() => {
             submitButton.classList.remove('is-loading');
-            });
-        }
+        });
+    }
 
         orderButtons.forEach(button => {
             button.addEventListener('click', () => {
