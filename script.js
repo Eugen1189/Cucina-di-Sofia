@@ -369,6 +369,36 @@ masterTl
     .to({}, { duration: 1 }) // Пауза
     .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
     .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
-    .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
-    .fromTo('#drinks-section', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, "-=0.7")
-    .fromTo('#cart-icon', { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 1 }, "-=0.7");
+    .to(mainContent, { 
+        duration: 1.5, 
+        autoAlpha: 1, 
+        x: 0, 
+        scale: 1,
+        ease: "power3.out" 
+    }, "-=1.2")
+    .fromTo('#drinks-section', { 
+        opacity: 0, 
+        x: 100, 
+        y: 50, 
+        scale: 0.8 
+    }, { 
+        opacity: 1, 
+        x: 0, 
+        y: 0, 
+        scale: 1, 
+        duration: 1.2, 
+        ease: "power3.out" 
+    }, "-=0.8")
+    .fromTo('#cart-icon', { 
+        opacity: 0, 
+        x: 80, 
+        y: -60, 
+        scale: 0.3 
+    }, { 
+        opacity: 1, 
+        x: 0, 
+        y: 0, 
+        scale: 1, 
+        duration: 1, 
+        ease: "back.out(1.2)" 
+    }, "-=0.6");

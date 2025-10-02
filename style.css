@@ -810,11 +810,18 @@ h1,
 /* Секція напоїв поза слайдером */
 #drinks-section {
     opacity: 0;
+    transform: translateX(100px) translateY(50px) scale(0.8);
 }
 
 /* Іконка кошика для анімації */
 #cart-icon {
     opacity: 0;
+    transform: translateX(50px) translateY(-50px) scale(0.5);
+}
+
+/* Основний контент для закулісного ефекту */
+main {
+    transform: translateX(-100px) scale(0.9);
 }
 
 /* Preloader spinner animation */
