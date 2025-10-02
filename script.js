@@ -96,26 +96,28 @@ const swiper = new Swiper('.swiper', {
 });
 
 /* ====================================================== */
-/* ===== ЛОГІКА МОДАЛЬНОГО ВІКНА ЗАМОВЛЕННЯ ===== */
+/* ===== ЛОГІКА МОДАЛЬНОГО ВІКНА З AJAX-ВІДПРАВКОЮ ===== */
 /* ====================================================== */
 
-// ✨ Чекаємо, поки весь HTML буде завантажено
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Знаходимо всі необхідні елементи
+    // Знаходимо всі елементи
     const orderModal = document.getElementById('order-modal');
+    const orderForm = document.getElementById('order-form');
+    const successMessage = document.getElementById('form-success-message');
     const closeModalBtn = document.querySelector('.close-modal-btn');
     const orderButtons = document.querySelectorAll('.order-button');
     const hiddenProductNameInput = document.getElementById('product-name');
 
-    // Перевіряємо, чи всі елементи знайдено, щоб уникнути помилок
-    if (!orderModal || !closeModalBtn || orderButtons.length === 0) {
-        console.error('Не вдалося знайти елементи модального вікна. Перевірте HTML.');
-        return;
-    }
+    if (!orderModal || !orderForm) return;
 
     // Функція для відкриття вікна
     function openModal(productName) {
+        // Скидаємо стан форми: показуємо форму, ховаємо повідомлення
+        orderForm.classList.remove('hidden');
+        successMessage.classList.add('hidden');
+        orderForm.reset(); // Очищуємо поля
+        
         hiddenProductNameInput.value = productName;
         orderModal.classList.remove('hidden');
     }
@@ -125,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         orderModal.classList.add('hidden');
     }
 
-    // Навішуємо обробники подій
+    // Навішуємо обробники на кнопки "Ordina Ora"
     orderButtons.forEach(button => {
         button.addEventListener('click', () => {
             const activeSlide = swiper.slides[swiper.activeIndex];
@@ -134,13 +136,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Обробники закриття вікна
     closeModalBtn.addEventListener('click', closeModal);
     orderModal.querySelector('.modal-overlay').addEventListener('click', closeModal);
-
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !orderModal.classList.contains('hidden')) {
             closeModal();
         }
+    });
+
+    // ✨ ГОЛОВНА ЛОГІКА: Перехоплення відгрузки форми ✨
+    orderForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Забороняємо стандартну відгрузку (і перезавантаження)
+
+        const formData = new FormData(orderForm);
+        
+        fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString(),
+        })
+        .then(() => {
+            // Успіх! Ховаємо форму і показуємо повідомлення
+            orderForm.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+
+            // Автоматично закриваємо вікно через 3 секунди
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        })
+        .catch((error) => {
+            alert("Сталася помилка. Спробуйте ще раз.");
+            console.error(error);
+        });
     });
 });
 

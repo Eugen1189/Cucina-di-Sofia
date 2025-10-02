@@ -600,3 +600,13 @@ h1,
 #order-form button:hover {
     background-color: #555;
 }
+
+/* Стилі для повідомлення про успішне замовлення */
+#form-success-message {
+    text-align: center;
+}
+#form-success-message h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
