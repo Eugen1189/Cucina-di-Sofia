@@ -565,9 +565,9 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
     margin-bottom: 2rem;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 1rem;
 }
 
 .modal-header h2 {
@@ -577,14 +577,19 @@ main {
 }
 
 .close-button {
-    font-size: 2rem;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
-    color: #999;
-    transition: color 0.3s ease;
 }
 
 .close-button:hover {
-    color: var(--pizza-bg);
+    color: black;
+}
+
+/* Клас для приховування елементів */
+.hidden {
+    display: none;
 }
 
 #cart-items-container {
@@ -688,12 +693,13 @@ h1,
 
 /* ===== СТИЛІ ДЛЯ МОДАЛЬНОГО ВІКНА ЗАМОВЛЕННЯ ===== */
 .modal {
-    position: fixed;
-    top: 0;
+    position: fixed; /* Залишається на місці при скролі */
+    z-index: 1000;  /* Буде поверх усіх інших елементів */
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -713,12 +719,13 @@ h1,
 }
 
 .modal-content {
-    position: relative;
-    background-color: #fff;
-    padding: 40px;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
     border-radius: 8px;
-    width: 90%;
-    max-width: 400px;
+    position: relative;
     font-family: var(--font-body);
 }
 
