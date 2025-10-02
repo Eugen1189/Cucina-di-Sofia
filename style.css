@@ -24,6 +24,27 @@ body {
     overflow: hidden; /* Hide everything that goes beyond screen boundaries */
 }
 
+/* ===== INTRO SCREEN STYLES ===== */
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5EFE1; /* Або інший колір */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.intro-title {
+    font-family: var(--font-heading);
+    font-size: 6vw;
+    color: #333;
+    opacity: 0; /* Початково невидимий для анімації */
+}
+
 
 /* STEP 2: SLIDER SETTINGS */
 main {
@@ -499,4 +520,83 @@ h1,
     font-family: var(--font-body);
     font-size: 1rem; /* 16px */
     line-height: 1.6;
+}
+
+/* ===== СТИЛІ ДЛЯ МОДАЛЬНОГО ВІКНА ЗАМОВЛЕННЯ ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    font-family: var(--font-body);
+}
+
+.modal-content h3 {
+    font-family: var(--font-heading);
+    margin-bottom: 20px;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#order-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#order-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#order-form button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#order-form button:hover {
+    background-color: #555;
 }

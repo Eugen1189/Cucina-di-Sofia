@@ -1,0 +1,1 @@
+/api/telegram-notifier https://your-domain.netlify.app/.netlify/functions/telegram-notifier 200
