@@ -99,30 +99,20 @@ function renderMenuItems(category, containerId) {
 // let cartItems = []; 
 
 function addToCart(productId) {
-    console.log("=== addToCart викликана ===");
-    console.log("ProductID:", productId);
+    console.log(`Функція addToCart викликана для товару з ID: ${productId}`); // Додайте цей рядок
     
-    // Шукаємо, чи є вже такий товар у кошику
     const existingItem = cartItems.find(item => item.id === productId);
-    console.log("Існуючий товар:", existingItem);
 
     if (existingItem) {
-        // Якщо є, проекстно збільшуємо кількість
         existingItem.quantity++;
-        console.log("Збільшили кількість:", existingItem.quantity);
     } else {
-        // Якщо немає, знаходимо товар у головному меню
         const itemToAdd = menu.find(item => item.id === productId);
-        console.log("Товар з меню:", itemToAdd);
         if (itemToAdd) {
-            // і додаємо його в кошик з кількістю 1
             cartItems.push({ ...itemToAdd, quantity: 1 });
-            console.log("Додано новий товар до кошика");
         }
     }
-
-    console.log("Поточний кошик:", cartItems);
-    // Після кожної зміни викликаємо функцію оновлення кошика
+    
+    console.log("Поточний стан кошика:", cartItems); // Подивимось на масив після змін
     updateCart();
 }
 
