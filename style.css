@@ -497,6 +497,28 @@ main {
                 color var(--transition-fast);
 }
 
+/* ===== СЕКЦІЯ НАПОЇВ ===== */
+.menu-section {
+    background-color: var(--pizza-bg);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.menu-section h2 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.slider-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 
 /* ===== CONTENT VISIBILITY CONTROL ===== */
 /* All content is hidden by default to prevent flickering */
