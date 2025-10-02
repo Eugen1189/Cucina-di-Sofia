@@ -610,3 +610,36 @@ h1,
     font-size: 2rem;
     margin-bottom: 15px;
 }
+
+/* ===== СТИЛІ ДЛЯ ІНДИКАТОРА ЗАВАНТАЖЕННЯ ===== */
+
+/* Анімація обертання */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Стиль самого спінера */
+.spinner {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+/* Стан кнопки під час завантаження */
+#submit-button.is-loading {
+    pointer-events: none; /* Блокуємо повторні натискання */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#submit-button.is-loading .button-text {
+    display: none; /* Ховаємо текст кнопки */
+}
+
+#submit-button.is-loading .spinner {
+    display: block; /* Показуємо спінер */
+}

@@ -147,28 +147,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ✨ ГОЛОВНА ЛОГІКА: Перехоплення відгрузки форми ✨
     orderForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Забороняємо стандартну відгрузку (і перезавантаження)
+        event.preventDefault();
+
+        // ✨ КРОК А: ВМИКАЄМО СТАН ЗАВАНТАЖЕННЯ ✨
+        const submitButton = document.getElementById('submit-button');
+        submitButton.classList.add('is-loading');
 
         const formData = new FormData(orderForm);
         
-        fetch("/", {
+        fetch("/.netlify/functions/telegram-notifier", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(formData).toString(),
         })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(() => {
-            // Успіх! Ховаємо форму і показуємо повідомлення
             orderForm.classList.add('hidden');
             successMessage.classList.remove('hidden');
 
-            // Автоматично закриваємо вікно через 3 секунди
             setTimeout(() => {
                 closeModal();
             }, 3000);
         })
         .catch((error) => {
             alert("Сталася помилка. Спробуйте ще раз.");
-            console.error(error);
+            console.error('Fetch Error:', error);
+        })
+        .finally(() => {
+            // ✨ КРОК Б: ВИМИКАЄМО СТАН ЗАВАНТАЖЕННЯ (завжди, і при успіху, і при помилці) ✨
+            submitButton.classList.remove('is-loading');
         });
     });
 });
