@@ -1814,3 +1814,125 @@ h1,
         filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.3));
     }
 }
+
+/* ======================================================= */
+/* ПОКРАЩЕНІ СТИЛІ ДЛЯ КОШИКА */
+/* ======================================================= */
+
+.cart-item {
+    display: flex; /* Вмикаємо Flexbox для вирівнювання */
+    align-items: center; /* Вирівнюємо все по центру по вертикалі */
+    justify-content: space-between; /* Розтягуємо елементи по ширині */
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+    border-bottom: none; /* Прибираємо лінію в останнього елемента */
+}
+
+.cart-item-image {
+    width: 60px; /* Фіксований розмір зображення */
+    height: 60px;
+    object-fit: cover; /* Зберігаємо пропорції зображення */
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.cart-item-details {
+    flex-grow: 1; /* Дозволяємо цьому блоку зайняти весь вільний простір */
+    display: flex;
+    flex-direction: column; /* Розташовуємо назву і кнопки одну під одною */
+    align-items: flex-start;
+}
+
+.cart-item-name {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+}
+
+.cart-item-price-section {
+    text-align: right;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    min-width: 80px; /* Задаємо мінімальну ширину, щоб ціни не "стрибали" */
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* ======================================================= */
+/* АДАПТИВНІ СТИЛІ ДЛЯ КОШИКА */
+/* ======================================================= */
+
+@media (max-width: 768px) {
+    .cart-item {
+        flex-wrap: wrap; /* Дозволяємо переносити елементи */
+        gap: 10px;
+    }
+    
+    .cart-item-image {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+    
+    .cart-item-details {
+        flex-grow: 1;
+        min-width: 150px; /* Мінімальна ширина для читабельності */
+    }
+    
+    .cart-item-name {
+        font-size: 14px;
+    }
+    
+    .cart-item-price-section {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+    
+    .cart-item-price {
+        min-width: auto;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-item {
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+    
+    .cart-item-image {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .cart-item-details {
+        min-width: 120px;
+    }
+    
+    .cart-item-name {
+        font-size: 13px;
+    }
+    
+    .quantity-btn {
+        padding: 5px 8px;
+        font-size: 14px;
+    }
+    
+    .cart-item-quantity {
+        font-size: 14px;
+        margin: 0 8px;
+    }
+}
