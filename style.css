@@ -1646,3 +1646,171 @@ h1,
         left: 15%;
     }
 }
+
+/* ======================================================= */
+/* НАЛАШТУВАННЯ ПАРАЛАКСУ ДЛЯ ДЕСКТОПІВ */
+/* ======================================================= */
+
+@media (min-width: 1024px) {
+
+    /* Збільшуємо загальний розмір головного продукту */
+    .product-image {
+        width: 500px !important;
+        max-width: 600px !important;
+    }
+
+    /* --- PANINI INGREDIENTI - ЗБІЛЬШЕНІ РОЗМІРИ ДЛЯ ДЕСКТОПУ --- */
+    
+    /* Rucola 1 */
+    .ingredient[alt="Foglia di rucola"].arugula-1 {
+        width: 150px;
+        top: 12%;
+        right: 20%;
+        z-index: 6;
+        transform: rotate(-20deg);
+    }
+
+    /* Rucola 2 */
+    .ingredient[alt="Foglia di rucola"].arugula-2 {
+        width: 130px;
+        bottom: 25%;
+        right: 30%;
+        z-index: 7;
+        transform: rotate(15deg);
+    }
+
+    /* Prosciutto 1 */
+    .ingredient[alt="Fetta di prosciutto"].prosciutto-1 {
+        width: 220px;
+        top: 40%;
+        left: 15%;
+        z-index: 3;
+        transform: rotate(12deg);
+    }
+
+    /* Prosciutto 2 */
+    .ingredient[alt="Fetta di prosciutto"].prosciutto-2 {
+        width: 200px;
+        top: 15%;
+        right: 20%;
+        z-index: 8;
+        transform: rotate(-8deg);
+    }
+
+    /* Mozzarella 1 */
+    .ingredient[alt="Pallina di mozzarella"].mozzarella-1 {
+        width: 180px;
+        top: 20%;
+        right: 10%;
+        z-index: 4;
+        transform: rotate(8deg);
+    }
+
+    /* Mozzarella 2 */
+    .ingredient[alt="Pallina di mozzarella"].mozzarella-2 {
+        width: 160px;
+        bottom: 20%;
+        left: 25%;
+        z-index: 9;
+        transform: rotate(-12deg);
+    }
+
+    /* Crotoni */
+    .ingredient[alt="Crotoni"] {
+        width: 130px;
+        bottom: 15%;
+        left: 35%;
+        z-index: 10;
+        transform: rotate(-25deg);
+    }
+
+    /* --- PIZZA INGREDIENTI - ЗБІЛЬШЕНІ РОЗМІРИ ДЛЯ ДЕСКТОПУ --- */
+
+    /* Basilico */
+    .ingredient[alt="Foglia di basilico"] {
+        width: 170px;
+        top: 15%;
+        left: 20%;
+        z-index: 5;
+        transform: rotate(25deg);
+    }
+
+    /* Peperoni */
+    .ingredient[alt="Peperoni"] {
+        width: 130px;
+        bottom: 20%;
+        right: 15%;
+        z-index: 3;
+        transform: rotate(-18deg);
+    }
+
+    /* Pomodoro */
+    .ingredient[alt="Pomodoro"] {
+        width: 120px;
+        top: 25%;
+        right: 15%;
+        z-index: 4;
+        transform: rotate(15deg);
+    }
+
+    /* Pomodorini */
+    .ingredient[alt="Pomodorini"] {
+        width: 90px;
+        bottom: 25%;
+        left: 20%;
+        z-index: 6;
+        transform: rotate(-12deg);
+    }
+
+    /* Oliva */
+    .ingredient[alt="Oliva"] {
+        width: 100px;
+        top: 55%;
+        left: 25%;
+        z-index: 7;
+        transform: rotate(20deg);
+    }
+
+    /* --- PASTA INGREDIENTI - ЗБІЛЬШЕНІ РОЗМІРИ ДЛЯ ДЕСКТОПУ --- */
+
+    /* Parmigiano */
+    .ingredient[alt="Parmigiano"] {
+        width: 250px;
+        top: 10%;
+        right: 5%;
+        z-index: 4;
+        transform: rotate(18deg);
+    }
+
+    /* Pasta Farfalle */
+    .ingredient[alt="Pasta farfalle"] {
+        width: 160px;
+        bottom: 15%;
+        right: 25%;
+        z-index: 3;
+        transform: rotate(-30deg);
+    }
+
+    /* Rosmarino */
+    .ingredient[alt="Rametto di rosmarino"] {
+        width: 190px;
+        bottom: 25%;
+        left: 15%;
+        z-index: 6;
+        transform: rotate(12deg);
+    }
+
+    /* --- ДОДАТКОВІ ЕФЕКТИ ДЛЯ ДЕСКТОПУ --- */
+    
+    /* Додаємо більш виражені тіні */
+    .ingredient {
+        filter: drop-shadow(8px 8px 15px rgba(0, 0, 0, 0.2));
+        transition: transform 0.3s ease;
+    }
+
+    /* Легкий hover ефект для інгредієнтів */
+    .ingredient:hover {
+        transform: scale(1.05) rotate(var(--hover-rotate, 0deg));
+        filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.3));
+    }
+}
