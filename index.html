@@ -20,7 +20,7 @@
     </div>
 
     <!-- Кнопка меню -->
-    <button id="open-menu-btn" class="menu-button">🍔 Меню</button>
+    <button id="open-menu-btn" class="menu-button">🍔 Menu</button>
 
     <!-- Іконка кошика -->
     <div id="cart-icon" class="cart-button">
@@ -100,82 +100,20 @@
 
                 <div class="swiper-slide" data-bg-color="#4A90E2" id="bevande-section">
                     <div class="slide-content">
-                        <h1>BEVANDE</h1>
-                        
-                        <div class="description-block">
-                            <h3>Bevande Italiane</h3>
-                            <p>Bevande fresche e tradizionali per accompagnare il tuo pasto italiano con Aranciata Rossa e Acqua Minerale.</p>
-                        </div>
-                        
-                        <div class="drinks-display">
-                            <div class="drink-item">
-                                <img class="drink-image" loading="lazy" src="https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Aranciata Rossa">
-                                <h4>Aranciata Rossa</h4>
-                                <span>60 EUR</span>
+                        <div class="water-promo-container">
+                            
+                            <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Acqua Minerale" class="water-bottle-image">
+                            
+                            <div class="water-promo-text">
+                                <h2>Bevande Italiane</h2>
+                                <p>Il modo migliore per accompagnare il tuo piatto — acqua italiana pura.</p>
                             </div>
                             
-                            <!-- SVG Glass Animation -->
-                            <div class="glass-animation-container">
-                                <svg id="glass-animation" width="150" height="200" viewBox="0 0 150 200">
-                                    <defs>
-                                        <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:0.8" />
-                                            <stop offset="100%" style="stop-color:#6495ED;stop-opacity:0.9" />
-                                        </linearGradient>
-                                        <filter id="waterShine">
-                                            <feGaussianBlur stdDeviation="1"/>
-                                            <feOffset dx="2" dy="2" result="offset"/>
-                                            <feMerge> 
-                                                <feMergeNode/>
-                                                <feMergeNode in="offset"/>
-                                            </feMerge>
-                                        </filter>
-                                    </defs>
-                                    
-                                    <!-- Water level -->
-                                    <path id="water" d="M25 190 H125 V90 Q125 70 75 70 Q25 70 25 90 Z" 
-                                          fill="url(#waterGradient)" 
-                                          filter="url(#waterShine)"
-                                          transform="translate(0, 120)" />
-                                    
-                                    <!-- Glass outline -->
-                                    <path id="glass-outline" 
-                                          d="M20 10 L130 10 L130 195 H20 Z" 
-                                          fill="none" 
-                                          stroke="#333" 
-                                          stroke-width="3" />
-                                    
-                                    <!-- Glass rim -->
-                                    <ellipse cx="75" cy="10" rx="55" ry="5" 
-                                             fill="none" 
-                                             stroke="#333" 
-                                             stroke-width="2"/>
-                                    
-                                    <!-- Water bubbles -->
-                                    <circle cx="60" cy="120" r="2" fill="white" opacity="0.6">
-                                        <animate attributeName="cy" values="120;110;120" dur="2s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <circle cx="90" cy="140" r="1.5" fill="white" opacity="0.4">
-                                        <animate attributeName="cy" values="140;130;140" dur="3s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <circle cx="45" cy="150" r="1" fill="white" opacity="0.5">
-                                        <animate attributeName="cy" values="150;140;150" dur="2.5s" repeatCount="indefinite"/>
-                                    </circle>
-                                </svg>
-                                <div class="glass-label">
-                                    <h4>Acqua Minerale</h4>
-                                    <span>40 EUR</span>
-                                </div>
-                            </div>
-                            
-                            <div class="drink-item">
-                                <img class="drink-image" loading="lazy" src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Acqua Minerale">
-                                <h4>Acqua Minerale</h4>
-                                <span>40 EUR</span>
-                            </div>
+                            <button class="add-to-cart-btn" data-id="101">
+                                Aggiungi per 40 EUR
+                            </button>
+
                         </div>
-                        
-                        <button class="add-to-cart-btn" data-id="101">Aggiungi al carrello</button>
                     </div>
                 </div>
 
@@ -283,26 +221,35 @@
         <div class="modal-overlay"></div>
         <div class="modal-content full-menu-content">
             <div class="modal-header">
-                <h2>Наше Меню</h2>
+                <h2>Il Nostro Menu</h2>
                 <span id="close-menu-btn" class="close-button">&times;</span>
             </div>
             
             <div class="menu-categories">
                 <section class="menu-category-section">
-                    <h3>Паніні</h3>
+                    <h3>Panini</h3>
                     <div id="menu-panini-container" class="menu-items-grid">
                     </div>
                 </section>
 
                 <section class="menu-category-section">
-                    <h3>Піца</h3>
+                    <h3>Pizza</h3>
                     <div id="menu-pizza-container" class="menu-items-grid">
                     </div>
                 </section>
                 
                 <section class="menu-category-section">
-                    <h3>Напої</h3>
+                    <h3>Bevande</h3>
                     <div id="menu-bevande-container" class="menu-items-grid">
+                        <div class="menu-item-card">
+                            <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Acqua Minerale" class="menu-item-image">
+                            <div class="menu-item-name">Acqua Minerale</div>
+                            <div class="menu-item-description">Acqua minerale pura dalle sorgenti italiane, gassata o naturale.</div>
+                            <div class="menu-item-price">40 EUR</div>
+                            <button class="menu-item-add-btn add-to-cart-btn" data-id="101">
+                                Aggiungi al carrello
+                            </button>
+                        </div>
                     </div>
                 </section>
             </div>

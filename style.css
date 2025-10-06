@@ -229,6 +229,196 @@ main {
     .ingredient {
         width: 120px; /* Much smaller base size */
     }
+
+    /* ======================================================= */
+    /* ЗБАЛАНСОВАНИЙ ВАРІАНТ ДЛЯ МОБІЛЬНИХ (ЗБЕРІГАЄ ЕСТЕТИКУ) */
+    /* ======================================================= */
+    
+    /* Варіант 2: Збалансований (Зберігає естетику) */
+    .slide-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around; /* Рівномірно розподіляє простір */
+        align-items: center;
+        text-align: center;
+        height: 100%; /* Важливо, щоб контейнер мав висоту */
+        padding: 20px 0;
+        position: relative; /* Важливо для абсолютного позиціонування інгредієнтів */
+    }
+
+    /* Крок 2: Налаштовуємо "Сцену" - центральну зону для страви та інгредієнтів */
+    .scene-zone {
+        flex-grow: 1; /* Ця зона займе весь доступний вільний простір */
+        position: relative; /* ОБОВ'ЯЗКОВО! Це база для позиціонування інгредієнтів */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 300px; /* Мінімальна висота для сцени */
+    }
+
+    /* Налаштовуємо основні елементи згідно з збалансованим підходом */
+    .description-block, 
+    .product-image, 
+    .add-to-cart-btn {
+        position: static !important; /* Скидаємо абсолютне позиціонування */
+        transform: none !important;  /* Скидаємо трансформації, якщо вони заважають */
+        width: 90%;       /* Обмежуємо ширину, щоб контент не прилипав до країв */
+        margin: 15px 0;   /* Додаємо вертикальні відступи для "повітря" */
+        flex-shrink: 0;   /* Запобігаємо стисканню елементів */
+    }
+
+    /* Головна страва в центрі */
+    .product-image {
+        max-width: 250px; /* Приклад обмеження розміру страви */
+        height: auto;
+        order: 2; /* Розміщуємо зображення після тексту */
+        z-index: 1; /* Нижче інгредієнтів */
+    }
+
+    /* Текст над зображенням */
+    .description-block {
+        order: 1; /* Розміщуємо текст перед зображенням */
+        max-width: 350px; /* Обмежуємо ширину тексту */
+    }
+
+    /* Кнопка під зображенням */
+    .add-to-cart-btn {
+        order: 3; /* Розміщуємо кнопку в кінці */
+        margin-top: 15px; /* Додатковий відступ для "повітря" */
+    }
+
+    /* Крок 3: Абсолютне позиціонування для інгредієнтів-"супутників" відносно сцени */
+    .ingredient {
+        display: block !important;
+        position: absolute; /* Абсолютне позиціонування відносно .scene-zone */
+        width: 45px; /* Компактний розмір для мобільних */
+        z-index: 2; /* Вище основного контенту */
+        animation: floatAnimation 15s ease-in-out infinite;
+        pointer-events: none; /* Запобігаємо перехопленню кліків */
+    }
+
+    /* Крок 3: Позиціонуємо інгредієнти як "супутників" навколо страви в межах сцени */
+    
+    /* PANINI - інгредієнти як супутники навколо паніні */
+    .ingredient[alt="Foglia di rucola"].arugula-1 { 
+        position: absolute;
+        top: 15%;
+        left: 10%;
+        width: 50px;
+    }
+    .ingredient[alt="Foglia di rucola"].arugula-2 { 
+        position: absolute;
+        top: 20%;
+        right: 15%;
+        width: 45px;
+    }
+    .ingredient[alt="Fetta di prosciutto"].prosciutto-1 { 
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 60px;
+    }
+    .ingredient[alt="Fetta di prosciutto"].prosciutto-2 { 
+        position: absolute;
+        top: 60%;
+        left: 8%;
+        width: 55px;
+    }
+    .ingredient[alt="Pallina di mozzarella"].mozzarella-1 { 
+        position: absolute;
+        top: 45%;
+        right: 8%;
+        width: 50px;
+    }
+    .ingredient[alt="Pallina di mozzarella"].mozzarella-2 { 
+        position: absolute;
+        top: 55%;
+        right: 12%;
+        width: 45px;
+    }
+    .ingredient[alt="Crotoni"].croutons-1 { 
+        position: absolute;
+        bottom: 20%;
+        left: 15%;
+        width: 40px;
+    }
+
+    /* PIZZA - інгредієнти як супутники навколо піци */
+    .ingredient[alt="Foglia di basilico"].basil-1 { 
+        position: absolute;
+        top: 15%;
+        left: 12%;
+        width: 50px;
+    }
+    .ingredient[alt="Peperoni"].pepperoni-1 { 
+        position: absolute;
+        top: 18%;
+        right: 10%;
+        width: 45px;
+    }
+    .ingredient[alt="Pomodoro"].tomato-1 { 
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 55px;
+    }
+    .ingredient[alt="Pomodorini"].tomato-2 { 
+        position: absolute;
+        top: 60%;
+        left: 8%;
+        width: 40px;
+    }
+    .ingredient[alt="Oliva"].olive-1 { 
+        position: absolute;
+        top: 45%;
+        right: 8%;
+        width: 35px;
+    }
+    .ingredient[alt="Oliva"].olive-2 { 
+        position: absolute;
+        bottom: 25%;
+        right: 15%;
+        width: 30px;
+    }
+
+    /* PASTA - інгредієнти як супутники навколо пасти */
+    .ingredient[alt="Parmigiano"].parmesan-1 { 
+        position: absolute;
+        top: 15%;
+        left: 10%;
+        width: 60px;
+    }
+    .ingredient[alt="Parmigiano"].parmesan-2 { 
+        position: absolute;
+        top: 20%;
+        right: 12%;
+        width: 55px;
+    }
+    .ingredient[alt="Pasta farfalle"].farfalle-1 { 
+        position: absolute;
+        top: 50%;
+        right: 5%;
+        width: 50px;
+    }
+    .ingredient[alt="Pasta farfalle"].farfalle-2 { 
+        position: absolute;
+        top: 60%;
+        right: 8%;
+        width: 45px;
+    }
+    .ingredient[alt="Rametto di rosmarino"].rosemary-1 { 
+        position: absolute;
+        top: 45%;
+        left: 8%;
+        width: 40px;
+    }
+    .ingredient[alt="Rametto di rosmarino"].rosemary-2 { 
+        position: absolute;
+        bottom: 20%;
+        left: 15%;
+        width: 35px;
+    }
     
     /* Individual positioning adjustments for mobile */
     .arugula { width: 160px; top: 8%; right: 15%; }
@@ -727,6 +917,55 @@ main {
     color: white;
     padding: 3rem 2rem;
     text-align: center;
+}
+
+/* ======================================================= */
+/* СТИЛІ ДЛЯ ПРОМО-БЛОКУ З ВОДОЮ */
+/* ======================================================= */
+
+.water-promo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    height: 100%; /* Щоб зайняти всю висоту слайду */
+}
+
+.water-bottle-image {
+    max-width: 250px; /* Розмір пляшки */
+    margin-bottom: 20px;
+    /* Можна додати анімацію появи */
+    animation: float 3s ease-in-out infinite;
+}
+
+.water-promo-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.water-promo-text p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    max-width: 400px;
+}
+
+/* Проста анімація "польоту" */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Адаптація для мобільних */
+@media (max-width: 768px) {
+    .water-bottle-image {
+        max-width: 180px;
+    }
+    .water-promo-text h2 {
+        font-size: 2rem;
+    }
 }
 
 .menu-section h2 {
@@ -1571,6 +1810,58 @@ h1,
     .ingredient[alt="Parmigiano"] { width: 170px; }
     .ingredient[alt="Pasta farfalle"] { width: 100px; }
     .ingredient[alt="Rametto di rosmarino"] { width: 130px; }
+
+    /* ======================================================= */
+    /* ПОСИЛЕНА АДАПТАЦІЯ ДЛЯ ПАРАЛАКС-БЛОКУ */
+    /* ======================================================= */
+
+    /* --- 1. Виправляємо положення тексту --- */
+    .parallax-container .product-info {
+        top: 70% !important; /* Зміщуємо блок значно нижче */
+        left: 50% !important; /* Центруємо по горизонталі */
+        transform: translate(-50%, -50%) !important; /* Точне центрування */
+        width: 90% !important; /* Задаємо ширину */
+    }
+    
+    .parallax-container .product-info h2 {
+        font-size: 2.2rem !important;
+    }
+    
+    .parallax-container .product-info p {
+        font-size: 1rem !important;
+    }
+
+    /* --- 2. Виправляємо положення стрілок слайдера --- */
+    .slider-arrow {
+        top: 50% !important; /* Вирівнюємо по центру по вертикалі */
+        transform: translateY(-50%) scale(1.2) !important;
+        z-index: 100 !important; /* Щоб були поверх інших елементів */
+    }
+
+    .slider-arrow.left { /* Припускаю, що у стрілок є класи .left та .right */
+        left: 10px !important; 
+    }
+
+    .slider-arrow.right {
+        right: 10px !important;
+    }
+
+    /* --- 3. Компактне розташування інгредієнтів (без змін, але залишаємо) --- */
+    .parallax-layer[alt="Basil"] {
+        width: 60px;
+        top: 25%;
+        left: 20%;
+    }
+    .parallax-layer[alt="Tomato"] {
+        width: 50px;
+        top: 30%;
+        left: 75%;
+    }
+    .parallax-layer[alt="Cheese"] {
+        width: 80px;
+        top: 55%;
+        left: 15%;
+    }
 }
 
 @media (max-width: 480px) {

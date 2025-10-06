@@ -14,8 +14,14 @@ const menu = [
   { id: 201, name: 'Pizza Margherita', description: 'Pizza italiana tradizionale con salsa di pomodoro e mozzarella fresca', price: 200, image: 'images/pizza.png', category: 'pizza' },
   { id: 301, name: 'Pasta Carbonara', description: 'Pasta aromatica con pesto fatto in casa con basilico e parmigiano', price: 180, image: 'images/pasta.png', category: 'pasta' },
   // Bevande
-  { id: 101, name: 'Aranciata Rossa', description: 'Bibita italiana rinfrescante con succo di arance rosse', price: 60, image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' },
-  { id: 102, name: 'Acqua Minerale', description: 'Acqua minerale pura, gassata o naturale', price: 40, image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' }
+  {
+    id: 101,
+    name: 'Acqua Minerale',
+    description: 'Acqua minerale pura dalle sorgenti italiane, gassata o naturale.',
+    price: 40,
+    image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+    category: 'bevande'
+  }
 ];
 
 let cartItems = [];
@@ -410,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Popoliamo le sezioni del menu con i prodotti
     renderMenuItems('panini', 'menu-panini-container');
     renderMenuItems('pizza', 'menu-pizza-container');
-    renderMenuItems('bevande', 'menu-bevande-container');
+    // renderMenuItems('bevande', 'menu-bevande-container'); // Закоментовано, оскільки HTML для напоїв прописаний вручну
 });
 
 // --- PRIMA DICHIARIAMO TUTTE LE FUNZIONI ---
