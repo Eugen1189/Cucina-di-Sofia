@@ -1444,3 +1444,205 @@ h1,
         transform: translateY(0);
     }
 }
+
+/* ======================================================= */
+/* СТИЛІ ДЛЯ УНІКАЛЬНИХ ІНГРЕДІЄНТІВ ЗА ALT-АТРИБУТАМИ */
+/* ======================================================= */
+
+/* --- PANINI INGREDIENTI --- */
+
+/* Rucola */
+.ingredient[alt="Foglia di rucola"] {
+    width: 120px;
+    top: 15%;
+    right: 25%;
+    z-index: 4;
+    transform: rotate(-15deg);
+}
+
+/* Prosciutto */
+.ingredient[alt="Fetta di prosciutto"] {
+    width: 180px;
+    top: 45%;
+    left: 20%;
+    z-index: 2;
+    transform: rotate(10deg);
+}
+
+/* Mozzarella */
+.ingredient[alt="Pallina di mozzarella"] {
+    width: 140px;
+    top: 25%;
+    right: 15%;
+    z-index: 3;
+    transform: rotate(5deg);
+}
+
+/* Crotoni */
+.ingredient[alt="Crotoni"] {
+    width: 100px;
+    bottom: 20%;
+    left: 30%;
+    z-index: 5;
+    transform: rotate(-20deg);
+}
+
+/* --- PIZZA INGREDIENTI --- */
+
+/* Basilico */
+.ingredient[alt="Foglia di basilico"] {
+    width: 130px;
+    top: 20%;
+    left: 25%;
+    z-index: 4;
+    transform: rotate(20deg);
+}
+
+/* Peperoni */
+.ingredient[alt="Peperoni"] {
+    width: 100px;
+    bottom: 25%;
+    right: 20%;
+    z-index: 2;
+    transform: rotate(-15deg);
+}
+
+/* Pomodoro */
+.ingredient[alt="Pomodoro"] {
+    width: 90px;
+    top: 30%;
+    right: 20%;
+    z-index: 3;
+    transform: rotate(10deg);
+}
+
+/* Pomodorini */
+.ingredient[alt="Pomodorini"] {
+    width: 70px;
+    bottom: 30%;
+    left: 25%;
+    z-index: 3;
+    transform: rotate(-10deg);
+}
+
+/* Oliva */
+.ingredient[alt="Oliva"] {
+    width: 80px;
+    top: 60%;
+    left: 30%;
+    z-index: 4;
+    transform: rotate(15deg);
+}
+
+/* --- PASTA INGREDIENTI --- */
+
+/* Parmigiano */
+.ingredient[alt="Parmigiano"] {
+    width: 200px;
+    top: 15%;
+    right: 10%;
+    z-index: 3;
+    transform: rotate(15deg);
+}
+
+/* Pasta Farfalle */
+.ingredient[alt="Pasta farfalle"] {
+    width: 120px;
+    bottom: 20%;
+    right: 30%;
+    z-index: 2;
+    transform: rotate(-25deg);
+}
+
+/* Rosmarino */
+.ingredient[alt="Rametto di rosmarino"] {
+    width: 150px;
+    bottom: 30%;
+    left: 20%;
+    z-index: 4;
+    transform: rotate(10deg);
+}
+
+/* ======================================================= */
+/* АДАПТАЦІЯ ІНГРЕДІЄНТІВ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ */
+/* ======================================================= */
+
+@media (max-width: 768px) {
+    /* Зменшуємо розміри для планшетів */
+    .ingredient[alt="Foglia di rucola"] { width: 100px; }
+    .ingredient[alt="Fetta di prosciutto"] { width: 150px; }
+    .ingredient[alt="Pallina di mozzarella"] { width: 120px; }
+    .ingredient[alt="Crotoni"] { width: 80px; }
+    .ingredient[alt="Foglia di basilico"] { width: 110px; }
+    .ingredient[alt="Peperoni"] { width: 85px; }
+    .ingredient[alt="Pomodoro"] { width: 75px; }
+    .ingredient[alt="Pomodorini"] { width: 60px; }
+    .ingredient[alt="Oliva"] { width: 70px; }
+    .ingredient[alt="Parmigiano"] { width: 170px; }
+    .ingredient[alt="Pasta farfalle"] { width: 100px; }
+    .ingredient[alt="Rametto di rosmarino"] { width: 130px; }
+}
+
+@media (max-width: 480px) {
+    /* Ще менші розміри для мобільних */
+    .ingredient[alt="Foglia di rucola"] { 
+        width: 80px; 
+        top: 12%;
+        right: 20%;
+    }
+    .ingredient[alt="Fetta di prosciutto"] { 
+        width: 120px; 
+        top: 40%;
+        left: 15%;
+    }
+    .ingredient[alt="Pallina di mozzarella"] { 
+        width: 100px; 
+        top: 20%;
+        right: 10%;
+    }
+    .ingredient[alt="Crotoni"] { 
+        width: 60px; 
+        bottom: 15%;
+        left: 25%;
+    }
+    .ingredient[alt="Foglia di basilico"] { 
+        width: 90px; 
+        top: 15%;
+        left: 20%;
+    }
+    .ingredient[alt="Peperoni"] { 
+        width: 70px; 
+        bottom: 20%;
+        right: 15%;
+    }
+    .ingredient[alt="Pomodoro"] { 
+        width: 60px; 
+        top: 25%;
+        right: 15%;
+    }
+    .ingredient[alt="Pomodorini"] { 
+        width: 50px; 
+        bottom: 25%;
+        left: 20%;
+    }
+    .ingredient[alt="Oliva"] { 
+        width: 55px; 
+        top: 55%;
+        left: 25%;
+    }
+    .ingredient[alt="Parmigiano"] { 
+        width: 140px; 
+        top: 10%;
+        right: 5%;
+    }
+    .ingredient[alt="Pasta farfalle"] { 
+        width: 80px; 
+        bottom: 15%;
+        right: 25%;
+    }
+    .ingredient[alt="Rametto di rosmarino"] { 
+        width: 110px; 
+        bottom: 25%;
+        left: 15%;
+    }
+}
