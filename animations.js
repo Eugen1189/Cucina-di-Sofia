@@ -8,7 +8,14 @@
 function setBackgroundColor(swiper) {
     const activeSlide = swiper.slides[swiper.activeIndex];
     const bgColor = activeSlide.dataset.bgColor;
-    document.body.style.backgroundColor = bgColor;
+    
+    console.log('Setting background color:', bgColor, 'for slide:', activeSlide.id || swiper.activeIndex);
+    
+    if (bgColor) {
+        document.body.style.backgroundColor = bgColor;
+    } else {
+        console.warn('No bgColor found for slide:', activeSlide);
+    }
 }
 
 function updateHeaderColor(swiper) {
@@ -101,6 +108,8 @@ export function initializeSwiper() {
                 this.params.on._toggleStoryUI(swiper); // Встановлюємо початковий стан
                 
                 console.log('Swiper initialized, active slide:', swiper.activeIndex);
+                // Встановлюємо початковий фон
+                setBackgroundColor(swiper);
                 // Запускаємо анімацію для першого, вже видимого, слайду
                 runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
                 updateHeaderColor(swiper); // Оновлюємо колір хедера
@@ -110,6 +119,8 @@ export function initializeSwiper() {
             slideChange: function (swiper) {
                 this.params.on._toggleStoryUI(swiper); // Оновлюємо стан при кожній зміні
 
+                // Оновлюємо фон
+                setBackgroundColor(swiper);
                 // Оновлюємо колір хедера
                 updateHeaderColor(swiper);
             },
