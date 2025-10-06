@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
             if (cartItems.length === 0) {
-                alert('Il tuo carrello è vuoto. Aggiungi prodotti prima di completare l\'ordine.');
+                showNotification('Il tuo carrello è vuoto. Aggiungi prodotti prima di completare l\'ordine.', 'warning', 4000);
                 return;
             }
             
@@ -268,6 +268,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // --- Sistema di notifiche soft ---
+    
+    // Funzione per mostrare notifiche soft invece di alert()
+    function showNotification(message, type = 'info', duration = 5000) {
+        // Rimuoviamo eventuali notifiche esistenti
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+        
+        // Creiamo la notifica
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        
+        // Definiamo le icone per ogni tipo
+        const icons = {
+            info: 'ℹ️',
+            success: '✅',
+            warning: '⚠️',
+            error: '❌'
+        };
+        
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">${icons[type] || icons.info}</span>
+                <span class="notification-text">${message}</span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+            </div>
+        `;
+        
+        // Aggiungiamo al DOM
+        document.body.appendChild(notification);
+        
+        // Mostriamo con animazione
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Auto-rimozione dopo la durata specificata
+        if (duration > 0) {
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, duration);
+        }
+    }
+
     // --- Logica chiusura finestra modale ORDINE ---
     
     // Troviamo la finestra modale e il pulsante di chiusura tramite i loro ID
@@ -396,7 +447,7 @@ function initializeMainSite() {
         })
         .catch((error) => {
             console.error('Stripe Error:', error);
-            alert("Помилка з платежем карткою. Спробуйте оплату заради доставкою.");
+            showNotification("Errore con il pagamento con carta. Prova il pagamento alla consegna.", 'error', 6000);
             submitButton.classList.remove('is-loading');
         });
     }
@@ -423,7 +474,7 @@ function initializeMainSite() {
             }, 3000);
         })
         .catch((error) => {
-            alert("Сталася помилка. Спробуйте ще раз.");
+            showNotification("Si è verificato un errore. Riprova.", 'error', 5000);
             console.error('Fetch Error:', error);
         })
         .finally(() => {
