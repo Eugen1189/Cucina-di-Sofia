@@ -1,26 +1,26 @@
 // =================================================================
-// ✨ ФІНАЛЬНА, СПРОЩЕНА ТА СТАБІЛЬНА ВЕРСІЯ SCRIPT.JS ✨
+// ✨ VERSIONE FINALE, SEMPLIFICATA E STABILE DI SCRIPT.JS ✨
 // =================================================================
 
 // =======================================================
-// ЄДИНИЙ БЛОК ЛОГІКИ КОШИКА (ВЕРСІЯ 3.0)
+// BLOCCO UNICO DELLA LOGICA DEL CARRELLO (VERSIONE 3.0)
 // =======================================================
 
-// --- 1. МОДЕЛЬ ДАНИХ ---
+// --- 1. MODELLO DATI ---
 const menu = [
-  { id: 1, name: 'Prosciutto e Mozzarella', description: 'Класичний італійський паніні зі свіжою моцарелою та пікантним прошутто', price: 150, image: 'images/panini.png', category: 'panini' },
-  { id: 2, name: 'Caprese', description: 'Соковиті томати, моцарела ді буфала та свіжий базилік', price: 130, image: 'images/panini.png', category: 'panini' },
-  // Додайте сюди ваші піци та пасти з правильними категоріями
-  { id: 201, name: 'Pizza Margherita', description: 'Піца італійська традиційна з томатним соусом та свіжою моцарелою', price: 200, image: 'images/pizza.png', category: 'pizza' },
-  { id: 301, name: 'Pasta Carbonara', description: 'Ароматна паста з песто, приготованим вручну з базиліку та пармезану', price: 180, image: 'images/pasta.png', category: 'pasta' },
-  // Напої
-  { id: 101, name: 'Aranciata Rossa', description: 'Освіжаюча італійська содова з соком червоних апельсинів', price: 60, image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' },
-  { id: 102, name: 'Acqua Minerale', description: 'Чиста мінеральна вода, газована або негазована', price: 40, image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' }
+  { id: 1, name: 'Prosciutto e Mozzarella', description: 'Panini italiano classico con mozzarella fresca e prosciutto saporito', price: 150, image: 'images/panini.png', category: 'panini' },
+  { id: 2, name: 'Caprese', description: 'Pomodori succosi, mozzarella di bufala e basilico fresco', price: 130, image: 'images/panini.png', category: 'panini' },
+  // Aggiungi qui le tue pizze e paste con le categorie corrette
+  { id: 201, name: 'Pizza Margherita', description: 'Pizza italiana tradizionale con salsa di pomodoro e mozzarella fresca', price: 200, image: 'images/pizza.png', category: 'pizza' },
+  { id: 301, name: 'Pasta Carbonara', description: 'Pasta aromatica con pesto fatto in casa con basilico e parmigiano', price: 180, image: 'images/pasta.png', category: 'pasta' },
+  // Bevande
+  { id: 101, name: 'Aranciata Rossa', description: 'Bibita italiana rinfrescante con succo di arance rosse', price: 60, image: 'https://images.unsplash.com/photo-1598991965487-9b23b37a4a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' },
+  { id: 102, name: 'Acqua Minerale', description: 'Acqua minerale pura, gassata o naturale', price: 40, image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'bevande' }
 ];
 
 let cartItems = [];
 
-// Секції товарів видалено - усі кнопки кошика знаходяться в Swiper слайдах
+// Sezioni prodotti rimosse - tutti i pulsanti del carrello si trovano negli slide Swiper
 
 function addToCart(productId) {
     console.log(`STEP 3: La funzione addToCart ha funzionato per il prodotto ID: ${productId}`);
@@ -120,7 +120,7 @@ function checkDrinkSuggestion() {
     }
 }
 
-// Функція addDrinkToCart видалена, оскільки нова версія використовує тільки текст
+// Funzione addDrinkToCart rimossa, poiché la nuova versione usa solo il testo
 
 function updateCart() {
     console.log('Aggiorniamo la vista del carrello. Contenuto attuale:', cartItems);
@@ -172,20 +172,20 @@ function updateCart() {
     localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
 }
 
-// --- 3. ЗАПУСК ПІСЛЯ ЗАВАНТАЖЕННЯ СТОРІНКИ ---
+// --- 3. AVVIO DOPO IL CARICAMENTO DELLA PAGINA ---
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("КРОК 1: Сторінка завантажена. Запускаємо скрипт.");
+    console.log("PASSO 1: Pagina caricata. Avviamo lo script.");
 
-    // Секції товарів видалено - товари доступні тільки через Swiper слайди"
+    // Sezioni prodotti rimosse - i prodotti sono disponibili solo attraverso gli slide Swiper
 
-    // Завантажуємо кошик
+    // Carichiamo il carrello
     const savedCart = localStorage.getItem('shoppingCart');
     if (savedCart) {
         cartItems = JSON.parse(savedCart);
         updateCart();
     }
     
-    // Головний слухач кліків
+    // Ascoltatore principale dei clic
     document.body.addEventListener('click', (event) => {
         const target = event.target;
 
@@ -346,9 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- СПОЧАТКУ ОГОЛОШУЄМО ВСІ ФУНКЦІЇ ---
+// --- PRIMA DICHIARIAMO TUTTE LE FUNZIONI ---
 
-// Функція для ініціалізації основного сайту (слайдер, кнопки, паралакс)
+// Funzione per l'inizializzazione del sito principale (slider, pulsanti, parallax)
 function initializeMainSite() {
     const body = document.body;
     let isAnimating = false;
@@ -387,7 +387,7 @@ function initializeMainSite() {
       on: {
         init: function (swiper) {
             setBackgroundColor(swiper);
-                // Запускаємо анімацію для першого слайда, який вже видимий
+                // Avviamo l'animazione per il primo slide, già visibile
             runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
         },
         slideChangeTransitionStart: function (swiper) {
@@ -400,7 +400,7 @@ function initializeMainSite() {
       }
     });
 
-    // Паралакс-ефект для інградієнтів
+    // Effetto parallax per gli ingredienti
     window.addEventListener('mousemove', (e) => {
         if (isAnimating) return;
         const mouseX = e.clientX;
@@ -415,7 +415,7 @@ function initializeMainSite() {
         });
     });
 
-    // Ініціалізація логіки модального вікна
+    // Inizializzazione della logica della finestra modale
     const orderModal = document.getElementById('order-modal');
     if (orderModal) {
     const orderForm = document.getElementById('order-form');
@@ -435,7 +435,7 @@ function initializeMainSite() {
         orderModal.classList.add('hidden');
     }
     
-    // Функція для оплати карткою через Stripe
+    // Funzione per il pagamento con carta tramite Stripe
     function handleStripePayment(formData, submitButton) {
         fetch("/.netlify/functions/create-checkout-session", {
             method: "POST",
@@ -462,7 +462,7 @@ function initializeMainSite() {
         });
     }
     
-    // Функція для оплати готівкою при доставці
+    // Funzione per il pagamento in contanti alla consegna
     function handleCashPayment(formData, submitButton) {
         fetch("/.netlify/functions/telegram-notifier", {
             method: "POST",
@@ -501,11 +501,11 @@ function initializeMainSite() {
             }
         });
         
-        // ✨ ГОЛОВНА ЛОГІКА: Перехоплення відправки форми з підтримкою Stripe ✨
+        // ✨ LOGICA PRINCIPALE: Intercettazione invio form con supporto Stripe ✨
         orderForm.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            // ✨ КРОК А: ВМИКАЄМО СТАН ЗАВАНТАЖЕННЯ ✨
+            // ✨ PASSAGGIO A: ATTIVIAMO STATO DI CARICAMENTO ✨
             const submitButton = document.getElementById('submit-button');
             submitButton.classList.add('is-loading');
 
@@ -513,52 +513,52 @@ function initializeMainSite() {
             const paymentMethod = formData.get('payment');
             
             if (paymentMethod === 'card') {
-                // Оплата карткою через Stripe
+                // Pagamento con carta tramite Stripe
                 handleStripePayment(formData, submitButton);
             } else {
-                // Класична оплата при доставці
+                // Pagamento classico alla consegna
                 handleCashPayment(formData, submitButton);
             }
         });
     }
 }
 
-// --- ТЕПЕР ЗАПУСКАЄМО ГОЛОВНУ ЛОГІКУ ---
+// --- ORA AVVIAMO LA LOGICA PRINCIPALE ---
 
-// Реєструємо ScrollTrigger плагін для GSAP
+// Registriamo il plugin ScrollTrigger per GSAP
 gsap.registerPlugin(ScrollTrigger);
 
-// Знаходимо елементи для інтро-анімації
+// Troviamo gli elementi per l'animazione intro
 const panelLeft = document.querySelector('.panel-left');
 const panelRight = document.querySelector('.panel-right');
 const introTitles = document.querySelectorAll('.intro-title');
 const mainContent = document.querySelector('main');
 
-// Ховаємо основний контент
+// Nascondiamo il contenuto principale
 gsap.set(mainContent, { autoAlpha: 0 });
 
-// Створюємо головну анімаційну послідовність
+// Creiamo la sequenza di animazione principale
 const masterTl = gsap.timeline({
     onComplete: () => {
-        // Повністю прибираємо інtro-екран з DOM після анімації
+        // Rimuoviamo completamente lo schermo intro dal DOM dopo l'animazione
         const introScreen = document.getElementById('intro-screen');
         if (introScreen) {
-            introScreen.style.display = 'none'; // Повністю прибираємо елемент
-            introScreen.style.pointerEvents = 'none'; // Запобігаємо перехопленню кліків
+            introScreen.style.display = 'none'; // Rimuoviamo completamente l'elemento
+            introScreen.style.pointerEvents = 'none'; // Preveniamo l'intercettazione dei clic
         }
-        initializeMainSite(); // Коли інтро завершено, ініціалізуємо основний сайт
+        initializeMainSite(); // Quando intro è completato, inizializziamo il sito principale
         
-        // Отримуємо доступ до глобальної функції cartLogic через DOMContentLoaded
+        // Otteniamo accesso alla funzione globale cartLogic tramite DOMContentLoaded
         if (window.cartLogic) {
             window.cartLogic.initializeCart();
         }
     }
 });
 
-// Додаємо анімації в послідовність
+// Aggiungiamo le animazioni alla sequenza
 masterTl
     .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
-    .to({}, { duration: 1 }) // Пауза
+    .to({}, { duration: 1 }) // Pausa
     .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
     .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
     .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
@@ -577,23 +577,23 @@ masterTl
     }, "-=0.8");
 
 // ===== SCROLL TRIGGER ANIMATION FOR GLASS WATER =====
-// Анімація води в стакані при скролі до секції напоїв
+// Animazione dell'acqua nel bicchiere quando si scorre alla sezione bevande
 gsap.to("#water", {
-    transform: "translate(0, 0)", // Рухаємо рідину вгору на її кінцеву позицію
+    transform: "translate(0, 0)", // Muoviamo il liquido verso la sua posizione finale
     scrollTrigger: {
-        trigger: "#bevande-section", // ID секції з напоями
-        start: "top center",      // Анімація почнеться, коли верх секції досягне центру екрана
-        end: "bottom center",     // Анімація закінчиться, коли низ секції досягне центру
-        scrub: true,              // "Прив'язує" анімацію до прогресу скролу
-        markers: false,           // Вимкнено маркери для продакшну (можна увімкнути для налагодження)
+        trigger: "#bevande-section", // ID della sezione bevande
+        start: "top center",      // L'animazione inizierà quando la parte superiore della sezione raggiunge il centro dello schermo
+        end: "bottom center",     // L'animazione finirà quando la parte inferiore della sezione raggiunge il centro
+        scrub: true,              // "Lega" l'animazione al progresso dello scroll
+        markers: false,           // Marcatori disabilitati per produzione (si può abilitare per debug)
         onUpdate: (self) => {
-            // Додаткова логіка при оновленні анімації (опціонально)
+            // Logica aggiuntiva durante l'aggiornamento dell'animazione (opzionale)
             console.log('Water animation progress:', self.progress);
         }
     }
 });
 
-// Додаткова анімація для пухирців у воді
+// Animazione aggiuntiva per le bolle nell'acqua
 gsap.to("#glass-animation circle", {
     scale: 1.2,
     opacity: 0.8,
@@ -601,7 +601,7 @@ gsap.to("#glass-animation circle", {
         trigger: "#bevande-section",
         start: "top center",
         end: "bottom center",
-        scrub: 0.5, // Менша чутливість для плавнішої анімації
+        scrub: 0.5, // Sensibilità ridotta per un'animazione più fluida
         markers: false
     }
 });
