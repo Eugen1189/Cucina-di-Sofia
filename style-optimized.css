@@ -1,0 +1,714 @@
+/* ======================================================= */
+/* OPTIMIZED CSS - Italian Restaurant */
+/* ======================================================= */
+
+/* STEP 1: FONT IMPORTS AND GLOBAL SETTINGS */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap');
+
+:root {
+    /* Typography */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+    
+    /* Colors */
+    --panini-bg: #F5EFE1;
+    --pizza-bg: #D9534F;
+    --pasta-bg: #849458;
+    --bevande-bg: #4A90E2;
+    --button-bg: #333;
+    --button-text: #fff;
+    --text-color: #333;
+    
+    /* Transitions */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.5s ease;
+    --transition-slow: 1s ease;
+    
+    /* Z-index layers */
+    --z-splash: 1;
+    --z-product: 2;
+    --z-ingredient: 3;
+    --z-description: 10;
+    --z-preloader: 9999;
+    
+    /* Ingredient positioning variables */
+    --ingredient-size-base: 220px;
+    --ingredient-size-tablet: 180px;
+    --ingredient-size-mobile: 45px;
+    
+    /* PANINI ingredient positions */
+    --panini-rucola-1-top: 5%;
+    --panini-rucola-1-right: 20%;
+    --panini-rucola-1-width: 300px;
+    --panini-rucola-1-rotate: -15deg;
+    
+    --panini-prosciutto-1-top: 15%;
+    --panini-prosciutto-1-left: 10%;
+    --panini-prosciutto-1-width: 320px;
+    --panini-prosciutto-1-rotate: 10deg;
+    
+    --panini-mozzarella-1-bottom: 0%;
+    --panini-mozzarella-1-left: 15%;
+    --panini-mozzarella-1-width: 280px;
+    --panini-mozzarella-1-rotate: 5deg;
+    
+    /* PIZZA ingredient positions */
+    --pizza-basil-top: 10%;
+    --pizza-basil-left: 15%;
+    --pizza-basil-width: 220px;
+    --pizza-basil-rotate: 20deg;
+    
+    --pizza-tomato-bottom: 15%;
+    --pizza-tomato-left: 10%;
+    --pizza-tomato-width: 180px;
+    --pizza-tomato-rotate: -10deg;
+    
+    --pizza-olive-top: 20%;
+    --pizza-olive-right: 15%;
+    --pizza-olive-width: 150px;
+    --pizza-olive-rotate: 15deg;
+    
+    /* PASTA ingredient positions */
+    --pasta-farfalle-bottom: 10%;
+    --pasta-farfalle-right: 15%;
+    --pasta-farfalle-width: 180px;
+    --pasta-farfalle-rotate: -25deg;
+    
+    --pasta-parmesan-top: 5%;
+    --pasta-parmesan-right: 10%;
+    --pasta-parmesan-width: 280px;
+    --pasta-parmesan-rotate: 15deg;
+    
+    --pasta-rosemary-top: 15%;
+    --pasta-rosemary-left: 10%;
+    --pasta-rosemary-width: 200px;
+    --pasta-rosemary-rotate: 10deg;
+}
+
+/* ======================================================= */
+/* RESET AND BASE STYLES */
+/* ======================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--panini-bg);
+    transition: background-color 0.8s ease;
+    overflow: hidden;
+}
+
+/* ======================================================= */
+/* INTRO SCREEN STYLES */
+/* ======================================================= */
+
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: var(--z-preloader);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.intro-panel {
+    position: absolute;
+    top: 0;
+    width: 50vw;
+    height: 100%;
+    background-color: var(--panini-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.panel-left { left: 0; }
+.panel-right { right: 0; }
+
+.intro-title {
+    font-family: var(--font-heading);
+    font-size: 6vw;
+    color: var(--text-color);
+    opacity: 0;
+    visibility: hidden;
+    width: 50vw;
+    text-align: center;
+}
+
+/* ======================================================= */
+/* MAIN CONTENT AND SLIDER */
+/* ======================================================= */
+
+main {
+    width: 100vw;
+    height: 100vh;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide-content {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hide inactive slides */
+.swiper-slide:not(.swiper-slide-active) .slide-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* ======================================================= */
+/* BACKGROUND TEXT AND PRODUCT IMAGE */
+/* ======================================================= */
+
+.slide-content h1 {
+    position: absolute;
+    z-index: var(--z-splash);
+    font-family: var(--font-heading);
+    font-size: 20vw;
+    color: rgba(0, 0, 0, 0.05);
+    text-transform: uppercase;
+}
+
+.product-image {
+    position: absolute;
+    z-index: var(--z-product);
+    max-width: 500px;
+    width: 60%;
+    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
+    animation: pulseAnimation 8s ease-in-out infinite;
+}
+
+/* ======================================================= */
+/* INGREDIENTS - OPTIMIZED WITH VARIABLES */
+/* ======================================================= */
+
+.ingredient {
+    position: absolute;
+    z-index: var(--z-ingredient);
+    width: var(--ingredient-size-base);
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
+    transition: transform var(--transition-fast);
+    animation: floatAnimation 15s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* PANINI ingredients */
+.ingredient[alt="Foglia di rucola"] {
+    top: var(--panini-rucola-1-top);
+    right: var(--panini-rucola-1-right);
+    width: var(--panini-rucola-1-width);
+    transform: rotate(var(--panini-rucola-1-rotate));
+}
+
+.ingredient[alt="Fetta di prosciutto"] {
+    top: var(--panini-prosciutto-1-top);
+    left: var(--panini-prosciutto-1-left);
+    width: var(--panini-prosciutto-1-width);
+    transform: rotate(var(--panini-prosciutto-1-rotate));
+}
+
+.ingredient[alt="Pallina di mozzarella"] {
+    bottom: var(--panini-mozzarella-1-bottom);
+    left: var(--panini-mozzarella-1-left);
+    width: var(--panini-mozzarella-1-width);
+    transform: rotate(var(--panini-mozzarella-1-rotate));
+}
+
+.ingredient[alt="Crotoni"] {
+    width: 100px;
+    bottom: 20%;
+    left: 30%;
+    z-index: 5;
+    transform: rotate(-20deg);
+}
+
+/* PIZZA ingredients */
+.ingredient[alt="Foglia di basilico"] {
+    top: var(--pizza-basil-top);
+    left: var(--pizza-basil-left);
+    width: var(--pizza-basil-width);
+    transform: rotate(var(--pizza-basil-rotate));
+}
+
+.ingredient[alt="Peperoni"] {
+    width: 100px;
+    bottom: 25%;
+    right: 20%;
+    z-index: 2;
+    transform: rotate(-15deg);
+}
+
+.ingredient[alt="Pomodoro"] {
+    bottom: var(--pizza-tomato-bottom);
+    left: var(--pizza-tomato-left);
+    width: var(--pizza-tomato-width);
+    transform: rotate(var(--pizza-tomato-rotate));
+}
+
+.ingredient[alt="Pomodorini"] {
+    width: 70px;
+    bottom: 30%;
+    left: 25%;
+    z-index: 3;
+    transform: rotate(-10deg);
+}
+
+.ingredient[alt="Oliva"] {
+    top: var(--pizza-olive-top);
+    right: var(--pizza-olive-right);
+    width: var(--pizza-olive-width);
+    transform: rotate(var(--pizza-olive-rotate));
+}
+
+/* PASTA ingredients */
+.ingredient[alt="Parmigiano"] {
+    top: var(--pasta-parmesan-top);
+    right: var(--pasta-parmesan-right);
+    width: var(--pasta-parmesan-width);
+    transform: rotate(var(--pasta-parmesan-rotate));
+}
+
+.ingredient[alt="Pasta farfalle"] {
+    bottom: var(--pasta-farfalle-bottom);
+    right: var(--pasta-farfalle-right);
+    width: var(--pasta-farfalle-width);
+    transform: rotate(var(--pasta-farfalle-rotate));
+}
+
+.ingredient[alt="Rametto di rosmarino"] {
+    top: var(--pasta-rosemary-top);
+    left: var(--pasta-rosemary-left);
+    width: var(--pasta-rosemary-width);
+    transform: rotate(var(--pasta-rosemary-rotate));
+}
+
+/* ======================================================= */
+/* BUTTONS AND INTERACTIVE ELEMENTS */
+/* ======================================================= */
+
+.add-to-cart-btn {
+    background-color: var(--pasta-bg);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    transition: all var(--transition-medium);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 200px;
+}
+
+.add-to-cart-btn.added {
+    background-color: #28a745;
+    border-color: #28a745;
+    cursor: default;
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+}
+
+.order-button {
+    position: absolute;
+    z-index: 4;
+    bottom: 15%;
+    padding: 15px 35px;
+    border: 2px solid var(--text-color);
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+/* ======================================================= */
+/* DESCRIPTION BLOCK */
+/* ======================================================= */
+
+.description-block {
+    position: absolute;
+    left: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 320px;
+    color: var(--text-color);
+    z-index: var(--z-description);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.description-block h3 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.description-block p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ======================================================= */
+/* WATER PROMO SECTION */
+/* ======================================================= */
+
+.water-promo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    height: 100%;
+}
+
+.water-bottle-image {
+    max-width: 250px;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.water-promo-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.water-promo-text p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    max-width: 400px;
+}
+
+/* ======================================================= */
+/* CART AND MODAL STYLES */
+/* ======================================================= */
+
+.cart-button {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    background-color: var(--pizza-bg);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-fast);
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+}
+
+#cart-counter {
+    font-size: 1rem;
+    margin-top: 0.2rem;
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+}
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #fff;
+    border: 2px solid var(--text-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all var(--transition-fast);
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    position: relative;
+    font-family: var(--font-body);
+}
+
+.close-button {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ======================================================= */
+/* ANIMATIONS - SINGLE DEFINITION */
+/* ======================================================= */
+
+@keyframes floatAnimation {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(5px, -10px); }
+    50% { transform: translate(-5px, 5px); }
+    75% { transform: translate(5px, 10px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes pulseAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes waterRise {
+    0% { transform: translate(0, 120px); }
+    100% { transform: translate(0, 80px); }
+}
+
+@keyframes ripple {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* ======================================================= */
+/* RESPONSIVE DESIGN */
+/* ======================================================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .product-image {
+        max-width: 300px;
+        width: 50%;
+    }
+    
+    .slide-content h1 {
+        font-size: 25vw;
+    }
+    
+    .ingredient {
+        width: var(--ingredient-size-tablet);
+    }
+    
+    .water-bottle-image {
+        max-width: 180px;
+    }
+    
+    .water-promo-text h2 {
+        font-size: 2rem;
+    }
+    
+    .menu-button {
+        top: 15px;
+        left: 15px;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .product-image {
+        max-width: 200px;
+        width: 60%;
+    }
+    
+    .slide-content h1 {
+        font-size: 20vw;
+    }
+    
+    .ingredient {
+        width: var(--ingredient-size-mobile);
+    }
+    
+    /* Mobile layout with Flexbox */
+    .slide-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        padding: 20px 0;
+        position: relative;
+    }
+    
+    .description-block, 
+    .product-image, 
+    .add-to-cart-btn {
+        position: static !important;
+        transform: none !important;
+        width: 90%;
+        margin: 15px 0;
+        flex-shrink: 0;
+    }
+    
+    .product-image {
+        max-width: 250px;
+        height: auto;
+        order: 2;
+        z-index: 1;
+    }
+    
+    .description-block {
+        order: 1;
+        max-width: 350px;
+    }
+    
+    .add-to-cart-btn {
+        order: 3;
+        margin-top: 15px;
+    }
+    
+    .menu-button {
+        top: 10px;
+        left: 10px;
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+}
+
+/* ======================================================= */
+/* ACCESSIBILITY */
+/* ======================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .swiper {
+        transition: none !important;
+    }
+    
+    body {
+        transition: none !important;
+    }
+    
+    .ingredient {
+        transition: none !important;
+    }
+}
+
+.order-button:focus,
+.swiper-button-prev:focus,
+.swiper-button-next:focus {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+}
+
+@media (prefers-contrast: high) {
+    .order-button {
+        border-width: 3px;
+        font-weight: 900;
+    }
+    
+    .slide-content h1 {
+        color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* ======================================================= */
+/* UTILITY CLASSES */
+/* ======================================================= */
+
+.hidden {
+    display: none;
+}
+
+/* Content visibility control */
+.product-image,
+.ingredient,
+h1,
+.order-button,
+.description-block,
+.drinks-display,
+.drink-item,
+.drink-image {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#cart-icon {
+    opacity: 0;
+    transform: translateX(100px) translateY(-80px) scale(0.2);
+}

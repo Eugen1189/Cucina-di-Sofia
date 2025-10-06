@@ -1,15 +1,93 @@
+/* ======================================================= */
+/* OPTIMIZED CSS - Italian Restaurant */
+/* ======================================================= */
+
 /* STEP 1: FONT IMPORTS AND GLOBAL SETTINGS */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap');
 
 :root {
+    /* Typography */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Lato', sans-serif;
 
-    /* Background colors defined in HTML */
+    /* Colors */
     --panini-bg: #F5EFE1;
     --pizza-bg: #D9534F;
     --pasta-bg: #849458;
+    --bevande-bg: #4A90E2;
+    --button-bg: #333;
+    --button-text: #fff;
+    --text-color: #333;
+    
+    /* Transitions */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.5s ease;
+    --transition-slow: 1s ease;
+    
+    /* Z-index layers */
+    --z-splash: 1;
+    --z-product: 2;
+    --z-ingredient: 3;
+    --z-description: 10;
+    --z-preloader: 9999;
+    
+    /* Ingredient positioning variables */
+    --ingredient-size-base: 280px; /* Збільшено з 220px */
+    --ingredient-size-tablet: 220px; /* Збільшено з 180px */
+    --ingredient-size-mobile: 70px; /* Збільшено з 45px */
+    
+    /* PANINI ingredient positions - розширена розкладка */
+    --panini-rucola-1-top: 20%;
+    --panini-rucola-1-right: 20%;
+    --panini-rucola-1-width: 180px;
+    --panini-rucola-1-rotate: -15deg;
+    
+    --panini-prosciutto-1-top: 25%;
+    --panini-prosciutto-1-left: 20%;
+    --panini-prosciutto-1-width: 160px;
+    --panini-prosciutto-1-rotate: 10deg;
+    
+    --panini-mozzarella-1-bottom: 20%;
+    --panini-mozzarella-1-left: 20%;
+    --panini-mozzarella-1-width: 180px;
+    --panini-mozzarella-1-rotate: 5deg;
+    
+    /* PIZZA ingredient positions - розширена розкладка */
+    --pizza-basil-top: 20%;
+    --pizza-basil-left: 20%;
+    --pizza-basil-width: 160px;
+    --pizza-basil-rotate: 20deg;
+    
+    --pizza-tomato-bottom: 20%;
+    --pizza-tomato-left: 15%;
+    --pizza-tomato-width: 140px;
+    --pizza-tomato-rotate: -10deg;
+    
+    --pizza-olive-top: 25%;
+    --pizza-olive-right: 20%;
+    --pizza-olive-width: 120px;
+    --pizza-olive-rotate: 15deg;
+    
+    /* PASTA ingredient positions - розширена розкладка */
+    --pasta-farfalle-bottom: 20%;
+    --pasta-farfalle-right: 20%;
+    --pasta-farfalle-width: 140px;
+    --pasta-farfalle-rotate: -25deg;
+    
+    --pasta-parmesan-top: 15%;
+    --pasta-parmesan-left: 20%;
+    --pasta-parmesan-width: 180px;
+    --pasta-parmesan-rotate: 15deg;
+    
+    --pasta-rosemary-top: 25%;
+    --pasta-rosemary-right: 15%;
+    --pasta-rosemary-width: 150px;
+    --pasta-rosemary-rotate: 10deg;
 }
+
+/* ======================================================= */
+/* RESET AND BASE STYLES */
+/* ======================================================= */
 
 * {
     margin: 0;
@@ -17,14 +95,22 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: var(--font-body);
-    background-color: var(--panini-bg); /* Initial background color */
-    transition: background-color 0.8s ease; /* Animation for smooth background change */
-    overflow: hidden; /* Hide everything that goes beyond screen boundaries */
+html, body {
+    height: 100%; /* ВАЖЛИВО: задаємо висоту 100% для html і body */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Ховаємо будь-який скрол */
 }
 
-/* ===== СТИЛІ ДЛЯ ІНТРО-ЕКРАНУ "ШТОРИ" ===== */
+body {
+    font-family: var(--font-body);
+    background-color: #f0f0f0; /* Світлий фоновий колір */
+}
+
+/* ======================================================= */
+/* INTRO SCREEN STYLES */
+/* ======================================================= */
 
 #intro-screen {
     position: fixed;
@@ -32,46 +118,40 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 10000;
-    overflow: hidden; /* Ховаємо все, що виходить за межі */
-    pointer-events: none; /* Запобігаємо перехопленню кліків із самого початку */
+    z-index: var(--z-preloader);
+    overflow: hidden;
+    pointer-events: none;
 }
 
 .intro-panel {
     position: absolute;
     top: 0;
-    width: 50vw; /* Кожна панель займає половину екрану */
+    width: 50vw;
     height: 100%;
-    background-color: #F5EFE1; /* Колір фону */
+    background-color: var(--panini-bg);
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: auto; /* Дозволяємо кліки для аніmaції */
+    pointer-events: auto;
 }
 
-.panel-left {
-    left: 0;
-}
-
-.panel-right {
-    right: 0;
-}
+.panel-left { left: 0; }
+.panel-right { right: 0; }
 
 .intro-title {
     font-family: var(--font-heading);
     font-size: 6vw;
-    color: #333;
-    /* Початково невидимий для анімації */
+    color: var(--text-color);
     opacity: 0;
     visibility: hidden;
-    
-    /* Створюємо ілюзію єдиного тексту */
-    width: 50vw; /* Розтягуємо контейнер тексту на всю панель */
+    width: 50vw;
     text-align: center;
 }
 
+/* ======================================================= */
+/* MAIN CONTENT AND SLIDER */
+/* ======================================================= */
 
-/* STEP 2: SLIDER SETTINGS */
 main {
     width: 100vw;
     height: 100vh;
@@ -86,6 +166,14 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 0 !important;
+    border: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    /* Прибираємо ефект скла, який ми не будемо використовувати */
+    background: transparent !important; 
+    backdrop-filter: none !important;
+    box-shadow: none !important;
 }
 
 .slide-content {
@@ -97,830 +185,525 @@ main {
     align-items: center;
 }
 
-
-/* STEP 3: LAYER POSITIONING AND STYLING */
-
-/* Background text */
-.slide-content h1 {
-    position: absolute;
-    z-index: 1;
-    font-family: var(--font-heading);
-    font-size: 20vw; /* Text size depends on screen width */
-    color: rgba(0, 0, 0, 0.05); /* Very transparent black */
-    text-transform: uppercase;
-}
-
-/* Main product image */
-.product-image {
-    position: absolute;
-    z-index: 3;
-    max-width: 500px; /* Limit maximum size */
-    width: 60%;
-    /* Shadow to create depth effect */
-    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
-}
-
-/* Order button */
-.order-button {
-    position: absolute;
-    z-index: 4;
-    bottom: 15%; /* Position at bottom of slide */
-    padding: 15px 35px;
-    border: 2px solid #333;
-    background-color: transparent;
-    color: #333;
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-
-/* STEP 4: INGREDIENT POSITIONING (PARALLAX) */
-.ingredient {
-    position: absolute;
-    z-index: 2; /* Between text and main photo */
-    width: 220px; /* INCREASED BASE SIZE! (was 150px) */
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
-    transition: transform 0.2s ease-out; /* Add smoothness for movement */
-}
-
-/* Individual positioning for Panini ingredients */
-.arugula { top: 5%; right: 20%; width: 300px; --initial-rotate: -15deg; }
-.prosciutto { top: 15%; left: 10%; width: 320px; --initial-rotate: 10deg; }
-.mozzarella { bottom: 0%; left: 15%; width: 280px; --initial-rotate: 5deg; }
-
-/* Individual positioning for Pizza ingredients */
-.basil { top: 10%; left: 15%; width: 220px; --initial-rotate: 20deg; }
-.tomato { bottom: 15%; left: 10%; width: 180px; --initial-rotate: -10deg; }
-.olive { top: 20%; right: 15%; width: 150px; --initial-rotate: 15deg; }
-
-/* Individual positioning for Pasta ingredients */
-.farfalle { bottom: 10%; right: 15%; width: 180px; --initial-rotate: -25deg; }
-.parmesan { top: 5%; right: 10%; width: 280px; --initial-rotate: 15deg; }
-.rosemary { top: 15%; left: 10%; width: 200px; --initial-rotate: 10deg; }
-
-
-/* STEP 5: NAVIGATION ARROWS STYLING */
-.swiper-button-prev, .swiper-button-next {
-    color: #333; /* Arrow color */
-}
-
-/* ✨ NEW CODE TO SOLVE THE PROBLEM ✨ */
-/* This code makes the content of all slides, EXCEPT the active one,
-  completely invisible. Swiper automatically changes the .swiper-slide-active class,
-  so this works automatically.
-*/
+/* Hide inactive slides */
 .swiper-slide:not(.swiper-slide-active) .slide-content {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
-/* ===== RESPONSIVE DESIGN FOR MOBILE DEVICES ===== */
+/* ======================================================= */
+/* АРТ-ОБ'ЄКТИ НАВІГАЦІЇ СЛАЙДЕРА */
+/* ======================================================= */
 
-/* Styles for tablets (up to 768px width) */
-@media (max-width: 768px) {
-    .product-image {
-        max-width: 300px; /* Reduce image size */
-        width: 50%; /* Make it more responsive */
-    }
-    
-    .slide-content h1 {
-        font-size: 25vw; /* Reduce text size */
-    }
-    
-    .ingredient {
-        width: 180px; /* Reduce base ingredient size */
-    }
-    
-    /* Individual positioning adjustments for tablets */
-    .arugula { width: 250px; }
-    .prosciutto { width: 270px; }
-    .mozzarella { width: 230px; }
-    .basil { width: 180px; }
-    .tomato { width: 150px; }
-    .olive { width: 120px; }
-    .farfalle { width: 150px; }
-    .parmesan { width: 230px; }
-    .rosemary { width: 170px; }
-    
-    .order-button {
-        padding: 12px 25px; /* Smaller button */
-        font-size: 14px;
-    }
+.swiper-button-prev,
+.swiper-button-next {
+    width: 60px !important;
+    height: 60px !important;
+    background: rgba(255, 255, 255, 0.3) !important; /* Напівпрозорий білий */
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 50% !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    transition: all 0.3s ease !important;
+    margin-top: -30px !important; /* Центруємо вертикально */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Styles for mobile phones (up to 480px width) */
-@media (max-width: 480px) {
-    .product-image {
-        max-width: 200px; /* Even smaller image */
-        width: 60%;
-    }
-    
-    .slide-content h1 {
-        font-size: 20vw; /* Smaller text */
-    }
-    
-    .ingredient {
-        width: 120px; /* Much smaller base size */
-    }
-
-    /* ======================================================= */
-    /* ЗБАЛАНСОВАНИЙ ВАРІАНТ ДЛЯ МОБІЛЬНИХ (ЗБЕРІГАЄ ЕСТЕТИКУ) */
-    /* ======================================================= */
-    
-    /* Варіант 2: Збалансований (Зберігає естетику) */
-    .slide-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around; /* Рівномірно розподіляє простір */
-        align-items: center;
-        text-align: center;
-        height: 100%; /* Важливо, щоб контейнер мав висоту */
-        padding: 20px 0;
-        position: relative; /* Важливо для абсолютного позиціонування інгредієнтів */
-    }
-
-    /* Крок 2: Налаштовуємо "Сцену" - центральну зону для страви та інгредієнтів */
-    .scene-zone {
-        flex-grow: 1; /* Ця зона займе весь доступний вільний простір */
-        position: relative; /* ОБОВ'ЯЗКОВО! Це база для позиціонування інгредієнтів */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        min-height: 300px; /* Мінімальна висота для сцени */
-    }
-
-    /* Налаштовуємо основні елементи згідно з збалансованим підходом */
-    .description-block, 
-    .product-image, 
-    .add-to-cart-btn {
-        position: static !important; /* Скидаємо абсолютне позиціонування */
-        transform: none !important;  /* Скидаємо трансформації, якщо вони заважають */
-        width: 90%;       /* Обмежуємо ширину, щоб контент не прилипав до країв */
-        margin: 15px 0;   /* Додаємо вертикальні відступи для "повітря" */
-        flex-shrink: 0;   /* Запобігаємо стисканню елементів */
-    }
-
-    /* Головна страва в центрі */
-    .product-image {
-        max-width: 250px; /* Приклад обмеження розміру страви */
-        height: auto;
-        order: 2; /* Розміщуємо зображення після тексту */
-        z-index: 1; /* Нижче інгредієнтів */
-    }
-
-    /* Текст над зображенням */
-    .description-block {
-        order: 1; /* Розміщуємо текст перед зображенням */
-        max-width: 350px; /* Обмежуємо ширину тексту */
-    }
-
-    /* Кнопка під зображенням */
-    .add-to-cart-btn {
-        order: 3; /* Розміщуємо кнопку в кінці */
-        margin-top: 15px; /* Додатковий відступ для "повітря" */
-    }
-
-    /* Крок 3: Абсолютне позиціонування для інгредієнтів-"супутників" відносно сцени */
-    .ingredient {
-        display: block !important;
-        position: absolute; /* Абсолютне позиціонування відносно .scene-zone */
-        width: 45px; /* Компактний розмір для мобільних */
-        z-index: 2; /* Вище основного контенту */
-        animation: floatAnimation 15s ease-in-out infinite;
-        pointer-events: none; /* Запобігаємо перехопленню кліків */
-    }
-
-    /* Крок 3: Позиціонуємо інгредієнти як "супутників" навколо страви в межах сцени */
-    
-    /* PANINI - інгредієнти як супутники навколо паніні */
-    .ingredient[alt="Foglia di rucola"].arugula-1 { 
-        position: absolute;
-        top: 15%;
-        left: 10%;
-        width: 50px;
-    }
-    .ingredient[alt="Foglia di rucola"].arugula-2 { 
-        position: absolute;
-        top: 20%;
-        right: 15%;
-        width: 45px;
-    }
-    .ingredient[alt="Fetta di prosciutto"].prosciutto-1 { 
-        position: absolute;
-        top: 50%;
-        left: 5%;
-        width: 60px;
-    }
-    .ingredient[alt="Fetta di prosciutto"].prosciutto-2 { 
-        position: absolute;
-        top: 60%;
-        left: 8%;
-        width: 55px;
-    }
-    .ingredient[alt="Pallina di mozzarella"].mozzarella-1 { 
-        position: absolute;
-        top: 45%;
-        right: 8%;
-        width: 50px;
-    }
-    .ingredient[alt="Pallina di mozzarella"].mozzarella-2 { 
-        position: absolute;
-        top: 55%;
-        right: 12%;
-        width: 45px;
-    }
-    .ingredient[alt="Crotoni"].croutons-1 { 
-        position: absolute;
-        bottom: 20%;
-        left: 15%;
-        width: 40px;
-    }
-
-    /* PIZZA - інгредієнти як супутники навколо піци */
-    .ingredient[alt="Foglia di basilico"].basil-1 { 
-        position: absolute;
-        top: 15%;
-        left: 12%;
-        width: 50px;
-    }
-    .ingredient[alt="Peperoni"].pepperoni-1 { 
-        position: absolute;
-        top: 18%;
-        right: 10%;
-        width: 45px;
-    }
-    .ingredient[alt="Pomodoro"].tomato-1 { 
-        position: absolute;
-        top: 50%;
-        left: 5%;
-        width: 55px;
-    }
-    .ingredient[alt="Pomodorini"].tomato-2 { 
-        position: absolute;
-        top: 60%;
-        left: 8%;
-        width: 40px;
-    }
-    .ingredient[alt="Oliva"].olive-1 { 
-        position: absolute;
-        top: 45%;
-        right: 8%;
-        width: 35px;
-    }
-    .ingredient[alt="Oliva"].olive-2 { 
-        position: absolute;
-        bottom: 25%;
-        right: 15%;
-        width: 30px;
-    }
-
-    /* PASTA - інгредієнти як супутники навколо пасти */
-    .ingredient[alt="Parmigiano"].parmesan-1 { 
-        position: absolute;
-        top: 15%;
-        left: 10%;
-        width: 60px;
-    }
-    .ingredient[alt="Parmigiano"].parmesan-2 { 
-        position: absolute;
-        top: 20%;
-        right: 12%;
-        width: 55px;
-    }
-    .ingredient[alt="Pasta farfalle"].farfalle-1 { 
-        position: absolute;
-        top: 50%;
-        right: 5%;
-        width: 50px;
-    }
-    .ingredient[alt="Pasta farfalle"].farfalle-2 { 
-        position: absolute;
-        top: 60%;
-        right: 8%;
-        width: 45px;
-    }
-    .ingredient[alt="Rametto di rosmarino"].rosemary-1 { 
-        position: absolute;
-        top: 45%;
-        left: 8%;
-        width: 40px;
-    }
-    .ingredient[alt="Rametto di rosmarino"].rosemary-2 { 
-        position: absolute;
-        bottom: 20%;
-        left: 15%;
-        width: 35px;
-    }
-    
-    /* Individual positioning adjustments for mobile */
-    .arugula { width: 160px; top: 8%; right: 15%; }
-    .prosciutto { width: 180px; top: 18%; left: 8%; }
-    .mozzarella { width: 140px; bottom: 2%; left: 12%; }
-    .basil { width: 120px; top: 12%; left: 12%; }
-    .tomato { width: 100px; bottom: 18%; left: 8%; }
-    .olive { width: 80px; top: 22%; right: 12%; }
-    .farfalle { width: 100px; bottom: 12%; right: 12%; }
-    .parmesan { width: 140px; top: 8%; right: 8%; }
-    .rosemary { width: 110px; top: 18%; left: 8%; }
-    
-    .order-button {
-        padding: 10px 20px; /* Even smaller button */
-        font-size: 12px;
-        bottom: 10%; /* Adjust position */
-    }
-    
-    /* --- АДАПТИВНА СТИЛІЗАЦІЯ НАПОЇВ --- */
-    .drinks-display {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1rem;
-    }
-    
-    .drink-item {
-        padding: 1rem;
-        width: 90%;
-        max-width: 250px;
-    }
-    
-    .drink-image {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .drink-item h4 {
-        font-size: 1rem;
-    }
-    
-    /* Glass animation responsive styles */
-    .glass-animation-container {
-        padding: 1rem;
-    }
-    
-    #glass-animation {
-        width: 120px;
-        height: 160px;
-    }
-    
-    .glass-label h4 {
-        font-size: 1rem;
-    }
-    
-    .glass-label span {
-        font-size: 0.9rem;
-    }
-    
-    /* Hide some ingredients on very small screens to reduce clutter */
-    .olive, .farfalle {
-        display: none;
-    }
-    
-    /* --- STILIZZAZIONE ADATTIVA CARRELLO PER MOBILE --- */
-    .cart-item {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        padding: 0.8rem 0;
-    }
-    
-    .cart-item-name {
-        min-width: 100%;
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .cart-item-controls {
-        order: 2;
-    }
-    
-    .quantity-btn {
-        width: 24px;
-        height: 24px;
-        font-size: 0.9rem;
-    }
-    
-    .cart-item-quantity {
-        font-size: 0.9rem;
-    }
-    
-    .cart-item-price {
-        order: 3;
-        min-width: 60px;
-        font-size: 0.9rem;
-    }
-    
-    .remove-from-cart-btn {
-        order: 4;
-        width: 26px;
-        height: 26px;
-        font-size: 1rem;
-    }
-    
-    /* Stili responsive per suggerimento bevande - non necessari per testo semplice */
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background: rgba(255, 255, 255, 0.7) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* ===== ACCESSIBILITY (A11Y) IMPROVEMENTS ===== */
-
-/* Disable animations for users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    /* Disable all animations and transitions */
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    /* Specifically disable Swiper transitions */
-    .swiper {
-        transition: none !important;
-    }
-    
-    /* Disable background color transitions */
-    body {
-        transition: none !important;
-    }
-    
-    /* Disable ingredient transitions */
-    .ingredient {
-        transition: none !important;
-    }
+.swiper-button-prev:active,
+.swiper-button-next:active {
+    transform: scale(0.95) !important;
 }
 
-/* Focus styles for keyboard navigation */
-.order-button:focus {
-    outline: 3px solid #007bff;
-    outline-offset: 2px;
+/* Стилізуємо саму іконку стрілки */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    color: white !important;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
 }
 
-.swiper-button-prev:focus,
-.swiper-button-next:focus {
-    outline: 3px solid #007bff;
-    outline-offset: 2px;
+/* Позиціонування стрілок */
+.swiper-button-prev {
+    left: 20px !important;
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .order-button {
-        border-width: 3px;
-        font-weight: 900;
-    }
-    
-    .slide-content h1 {
-        color: rgba(0, 0, 0, 0.1);
-    }
+.swiper-button-next {
+    right: 20px !important;
 }
 
-/* ✨ NEW CODE: FLOATING ANIMATION */
-@keyframes floatAnimation {
-  0% { transform: translate(0, 0) rotate(var(--initial-rotate, 0deg)); }
-  25% { transform: translate(5px, -10px) rotate(calc(var(--initial-rotate, 0deg) + 3deg)); }
-  50% { transform: translate(-5px, 0px) rotate(calc(var(--initial-rotate, 0deg) - 2deg)); }
-  75% { transform: translate(5px, 10px) rotate(calc(var(--initial-rotate, 0deg) + 2deg)); }
-  100% { transform: translate(0, 0) rotate(var(--initial-rotate, 0deg)); }
-}
-
-/* Update .ingredient class */
-.ingredient {
-    position: absolute;
-    z-index: 2;
-    width: 220px;
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
-    transition: transform 0.2s ease-out;
-
-    /* ✨ APPLY ANIMATION */
-    animation-name: floatAnimation;
-    animation-duration: 15s; /* Duration of one cycle */
-    animation-iteration-count: infinite; /* Repeat forever */
-    animation-timing-function: ease-in-out; /* Smooth movement */
-}
-
-/* ===== STEP 2.1: FLOATING ANIMATION ===== */
-@keyframes floatAnimation {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(5px, -10px); }
-  50% { transform: translate(-5px, 5px); }
-  75% { transform: translate(5px, 10px); }
-  100% { transform: translate(0, 0); }
-}
-
-/* ===== STEP 2.2: APPLYING ANIMATION TO ALL INGREDIENTS ===== */
-.ingredient {
-    position: absolute;
-    z-index: 1; /* ✨ Ingredients behind main dish */
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
-    
-    /* ✨ APPLY ANIMATION */
-    animation-name: floatAnimation;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-}
-
-/* ===== CSS VARIABLES ===== */
-:root {
-    /* Colors */
-    --primary-bg: #F5EFE1;
-    --pizza-bg: #D9534F;
-    --pasta-bg: #849458;
-    --button-bg: #333;
-    --button-text: #fff;
-    --text-color: #333;
-    --preloader-bg: #F5EFE1;
-    
-    /* Typography */
-    --font-heading: 'Georgia', serif;
-    --font-body: 'Arial', sans-serif;
-    
-    /* Transitions */
-    --transition-fast: 0.3s ease;
-    --transition-medium: 0.5s ease;
-    --transition-slow: 1s ease;
-    
-    /* Z-index layers */
-    --z-splash: 1;
-    --z-product: 2;
-    --z-ingredient: 3;
-    --z-description: 10;
-    --z-preloader: 9999;
-}
-
-/* ===== 1. KEY ANIMATIONS ===== */
-@keyframes floatAnimation {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-5px, 8px); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes pulseAnimation {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-  100% { transform: scale(1); }
-}
-
-/* ===== 2. GENERAL ELEMENT STYLES ===== */
-.product-image {
-    position: relative; /* Required for z-index to work */
-    z-index: var(--z-product); /* Middle layer */
-    max-width: 500px;
-    width: 60%;
-    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
-    animation: pulseAnimation 8s ease-in-out infinite;
-}
-
-.ingredient {
-    position: absolute;
-    z-index: var(--z-ingredient); /* Ingredients above main dish */
-    pointer-events: none;
-}
-
-
-/* =================================================================== */
-/* ===== FINAL POSITIONING FOR ALL INGREDIENTS ===== */
-/* =================================================================== */
-
-/* --- SLIDE: PANINI --- */
-.arugula-1 { width: 100px; top: 18%; left: 22%; transform: rotate(-25deg); animation-duration: 18s; z-index: 3; }
-.arugula-2 { width: 80px; bottom: 25%; right: 28%; transform: rotate(15deg); animation-duration: 15s; z-index: 1; }
-.prosciutto-1 { width: 180px; top: 55%; left: 20%; transform: rotate(15deg); animation-duration: 16s; z-index: 1; }
-.prosciutto-2 { width: 150px; top: 20%; right: 25%; transform: rotate(-10deg) scaleX(-1); animation-duration: 19s; z-index: 3; }
-.mozzarella-1 { width: 130px; top: 15%; right: 18%; transform: rotate(20deg); animation-duration: 20s; z-index: 1; }
-.mozzarella-2 { width: 100px; bottom: 18%; left: 30%; transform: rotate(-10deg); animation-duration: 22s; z-index: 3; }
-.croutons-1 { width: 110px; bottom: 15%; left: 22%; transform: rotate(-20deg); animation-duration: 15s; z-index: 3; }
-
-/* --- SLIDE: PIZZA --- */
-.basil-1 { width: 130px; top: 15%; left: 20%; transform: rotate(20deg); animation-duration: 17s; z-index: 3; }
-.pepperoni-1 { width: 100px; bottom: 20%; right: 22%; transform: rotate(-15deg); animation-duration: 20s; z-index: 1; }
-.tomato-1 { width: 90px; top: 25%; right: 18%; transform: rotate(10deg); animation-duration: 15s; z-index: 3; }
-.tomato-2 { width: 140px; bottom: 22%; left: 18%; transform: rotate(25deg); animation-duration: 21s; z-index: 1; }
-.olive-1 { width: 80px; top: 55%; left: 25%; transform: rotate(-20deg); animation-duration: 18s; z-index: 3; }
-.olive-2 { width: 70px; top: 18%; right: 35%; transform: rotate(30deg); animation-duration: 16s; z-index: 3; }
-
-/* --- SLIDE: PASTA --- */
-.parmesan-1 { width: 200px; top: 10%; right: 15%; transform: rotate(15deg); animation-duration: 22s; z-index: 3; }
-.parmesan-2 { width: 150px; bottom: 15%; left: 18%; transform: rotate(-10deg); animation-duration: 19s; z-index: 1; }
-.farfalle-1 { width: 120px; bottom: 15%; right: 25%; transform: rotate(-25deg); animation-duration: 16s; z-index: 3; }
-.farfalle-2 { width: 100px; top: 20%; left: 22%; transform: rotate(20deg); animation-duration: 20s; z-index: 3; }
-.rosemary-1 { width: 150px; bottom: 25%; left: 15%; transform: rotate(10deg); animation-duration: 18s; z-index: 3; }
-.rosemary-2 { width: 120px; top: 15%; right: 30%; transform: rotate(-15deg); animation-duration: 21s; z-index: 1; }
-
-/* --- СЛАЙД: НАПОЇ --- */
-.drinks-display {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    gap: 3rem;
-    z-index: 2;
-}
-
-.drink-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-.drink-image {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid var(--pizza-bg);
-}
-
-.drink-item h4 {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    color: var(--pizza-bg);
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
-.drink-item span {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--pasta-bg);
-}
-
-/* ===== STILI ANIMAZIONE BICCHIERE ===== */
-.glass-animation-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Effetti hover rimossi per elementi statici */
-
-#glass-animation {
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-}
-
-.glass-label h4 {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    color: var(--pizza-bg);
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
-.glass-label span {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--pasta-bg);
-}
-
-/* Animazione acqua che sale */
-@keyframes waterRise {
-    0% {
-        transform: translate(0, 120px);
-    }
-    100% {
-        transform: translate(0, 80px);
-    }
-}
-
-/* Effetto increspature acqua */
-@keyframes ripple {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(1.5);
-    }
-}
-
-.glass-animation-container::before {
+/* Додаткові ефекти для арт-об'єктів */
+.swiper-button-prev::before,
+.swiper-button-next::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100px;
-    height: 100px;
-    border: 2px solid rgba(100, 149, 237, 0.3);
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    animation: ripple 3s ease-out infinite;
-    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: -1;
 }
 
-
-
-
-/* ===== BREATHING ANIMATION FOR MAIN DISH ===== */
-
-@keyframes pulseAnimation {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.02); /* Barely noticeable increase */
-  }
-  100% {
-    transform: scale(1);
-  }
+.swiper-button-prev:hover::before,
+.swiper-button-next:hover::before {
+    width: 100%;
+    height: 100%;
 }
 
-.product-image {
-    position: relative; /* ✨ Required for z-index to work */
-    z-index: 2;         /* ✨ Panini will be middle layer */
-    max-width: 500px; /* Limit maximum size */
-    width: 60%;
-    /* Shadow to create depth effect */
-    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
-    
-    /* ✨ Add animation */
-    animation: pulseAnimation 8s ease-in-out infinite;
+/* Анімація пульсації для привернення уваги */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
 }
 
-
-/* ===== 4. ADD POSITIONING FOR PIZZA AND PASTA HERE ===== */
-
-
-
-/* ===== USER EXPERIENCE (UX) ENHANCEMENTS ===== */
-/* Interactive hover effects for buttons and navigation */
-
-/* Order button hover effect */
-/* Effetto hover rimosso per pulsante statico */
-
-/* Stili pulsante carrello (sostituire pulsante ordine) */
-.add-to-cart-btn {
-    background-color: var(--pasta-bg);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 1.1rem;
-    margin: 0 auto;
-    transition: all var(--transition-medium);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    min-width: 200px;
+.swiper-button-prev,
+.swiper-button-next {
+    animation: pulse 3s ease-in-out infinite;
 }
 
-/* Effetto hover rimosso per pulsante statico */
-
-.add-to-cart-btn.added {
-    background-color: #28a745; /* Зелений колір успіху */
-    border-color: #28a745;
-    cursor: default;
-    transform: translateX(-50%) scale(1.1);
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
-}
-
-/* Navigation arrows hover effect */
-/* Effetto hover rimosso per pulsante statico */
-
-/* Smooth transitions for all interactive elements */
-.order-button, .swiper-button-prev, .swiper-button-next, .add-to-cart-btn {
-    transition: transform var(--transition-fast), 
-                background-color var(--transition-fast), 
-                color var(--transition-fast);
-}
-
-/* ===== СЕКЦІЯ НАПОЇВ ===== */
-.menu-section {
-    background-color: var(--pizza-bg);
-    color: white;
-    padding: 3rem 2rem;
-    text-align: center;
+/* Приховуємо анімацію при hover */
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    animation: none;
 }
 
 /* ======================================================= */
-/* СТИЛІ ДЛЯ ПРОМО-БЛОКУ З ВОДОЮ */
+/* BACKGROUND TEXT AND PRODUCT IMAGE */
+/* ======================================================= */
+    
+.slide-content h1 {
+    position: absolute;
+    z-index: var(--z-splash);
+    font-family: var(--font-heading);
+    font-size: 20vw;
+    color: rgba(0, 0, 0, 0.05);
+    text-transform: uppercase;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0; /* Початково приховано для анімації */
+    visibility: hidden; /* Початково приховано для анімації */
+}
+
+.product-image {
+    position: absolute;
+    z-index: var(--z-product);
+    max-width: 650px;
+    width: 75%;
+    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
+    animation: pulseAnimation 8s ease-in-out infinite;
+    opacity: 0; /* Початково приховано для анімації */
+    transform: translateY(30px) scale(0.9); /* Початкове зміщення та масштаб */
+}
+
+/* ======================================================= */
+/* INGREDIENTS - OPTIMIZED WITH VARIABLES */
+/* ======================================================= */
+
+/* ======================================================= */
+/* СТИЛІ ДЛЯ СТВОРЕННЯ ГЛИБИНИ ІНГРЕДІЄНТІВ */
+/* ======================================================= */
+
+/* Motion Blur анімація для динамічних інгредієнтів */
+@keyframes motionBlur {
+    0% {
+        filter: blur(0.5px) brightness(1);
+        transform: translateX(0);
+    }
+    50% {
+        filter: blur(2.5px) brightness(1.1); /* В середині руху розмиття сильніше */
+        transform: translateX(15px);
+    }
+    100% {
+        filter: blur(0.5px) brightness(1);
+        transform: translateX(0);
+    }
+}
+
+/* Варіація motion blur для вертикального руху */
+@keyframes motionBlurVertical {
+    0% {
+        filter: blur(0.5px) brightness(1);
+        transform: translateY(0);
+    }
+    50% {
+        filter: blur(2px) brightness(1.05);
+        transform: translateY(-12px);
+    }
+    100% {
+        filter: blur(0.5px) brightness(1);
+        transform: translateY(0);
+    }
+}
+
+/* Варіація motion blur для діагонального руху */
+@keyframes motionBlurDiagonal {
+    0% {
+        filter: blur(0.5px) brightness(1);
+        transform: translate(0, 0);
+    }
+    50% {
+        filter: blur(2.2px) brightness(1.08);
+        transform: translate(10px, -8px);
+    }
+    100% {
+        filter: blur(0.5px) brightness(1);
+        transform: translate(0, 0);
+    }
+}
+
+/* ВАЖЛИВО: z-index працює тільки для позиціонованих елементів (position: absolute/relative/etc.) */
+
+    .product-image {
+    position: relative; /* Обов'язково для роботи z-index */
+    z-index: 10;
+}
+
+/* --- Інгредієнти на ПЕРЕДНЬОМУ плані --- */
+.ingredient.foreground {
+    transform: scale(1.15); /* Трохи збільшуємо */
+    filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.25)); /* Більш глибока тінь */
+    z-index: 11; /* Буде НАД головною стравою */
+}
+
+/* --- Інгредієнти на ЗАДНЬОМУ плані --- */
+.ingredient.background {
+    transform: scale(0.8); /* Зменшуємо */
+    filter: blur(1.5px) drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2)); /* Розмиття + легка тінь */
+    opacity: 0.85; /* Трохи зменшуємо контрастність */
+    z-index: 9;  /* Буде ЗА головною стравою */
+    animation-name: motionBlur, floatAnimation; /* Комбінуємо анімації */
+    animation-duration: 5s, 18s; /* Різна тривалість для кожної */
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.ingredient {
+    position: absolute;
+    z-index: var(--z-ingredient);
+    width: var(--ingredient-size-base);
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
+    transition: transform var(--transition-fast);
+    animation: floatAnimation 15s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0; /* Початково приховано для анімації */
+    transform: scale(0.8) translateY(20px); /* Початкове зміщення та масштаб */
+}
+
+/* PANINI ingredients */
+.ingredient[alt="Foglia di rucola"] {
+    top: var(--panini-rucola-1-top);
+    right: var(--panini-rucola-1-right);
+    width: var(--panini-rucola-1-width);
+    transform: rotate(var(--panini-rucola-1-rotate));
+}
+
+.ingredient[alt="Fetta di prosciutto"] {
+    top: var(--panini-prosciutto-1-top);
+    left: var(--panini-prosciutto-1-left);
+    width: var(--panini-prosciutto-1-width);
+    transform: rotate(var(--panini-prosciutto-1-rotate));
+}
+
+.ingredient[alt="Pallina di mozzarella"] {
+    bottom: var(--panini-mozzarella-1-bottom);
+    left: var(--panini-mozzarella-1-left);
+    width: var(--panini-mozzarella-1-width);
+    transform: rotate(var(--panini-mozzarella-1-rotate));
+}
+
+.ingredient[alt="Crotoni"] {
+    width: 100px;
+    bottom: 20%;
+    left: 30%;
+    z-index: 5;
+    transform: rotate(-20deg);
+}
+
+/* Спеціальні motion blur анімації для PANINI інгредієнтів */
+.ingredient[alt="Foglia di rucola"].background {
+    animation-name: motionBlurVertical, floatAnimation;
+    animation-duration: 4s, 16s;
+}
+
+.ingredient[alt="Fetta di prosciutto"].background {
+    animation-name: motionBlurDiagonal, floatAnimation;
+    animation-duration: 5.5s, 19s;
+}
+
+.ingredient[alt="Pallina di mozzarella"].background {
+    animation-name: motionBlur, floatAnimation;
+    animation-duration: 6s, 17s;
+}
+
+/* PIZZA ingredients */
+.ingredient[alt="Foglia di basilico"] {
+    top: var(--pizza-basil-top);
+    left: var(--pizza-basil-left);
+    width: var(--pizza-basil-width);
+    transform: rotate(var(--pizza-basil-rotate));
+}
+
+.ingredient[alt="Peperoni"] {
+    width: 100px;
+    bottom: 25%;
+    right: 20%;
+    z-index: 2;
+    transform: rotate(-15deg);
+}
+
+.ingredient[alt="Pomodoro"] {
+    bottom: var(--pizza-tomato-bottom);
+    left: var(--pizza-tomato-left);
+    width: var(--pizza-tomato-width);
+    transform: rotate(var(--pizza-tomato-rotate));
+}
+
+.ingredient[alt="Pomodorini"] {
+    width: 70px;
+    bottom: 30%;
+    left: 25%;
+    z-index: 3;
+    transform: rotate(-10deg);
+}
+
+.ingredient[alt="Oliva"] {
+    top: var(--pizza-olive-top);
+    right: var(--pizza-olive-right);
+    width: var(--pizza-olive-width);
+    transform: rotate(var(--pizza-olive-rotate));
+}
+
+/* Спеціальні motion blur анімації для PIZZA інгредієнтів */
+.ingredient[alt="Peperoni"].background {
+    animation-name: motionBlurVertical, floatAnimation;
+    animation-duration: 4.5s, 18s;
+}
+
+.ingredient[alt="Pomodorini"].background {
+    animation-name: motionBlurDiagonal, floatAnimation;
+    animation-duration: 5s, 16s;
+}
+
+.ingredient[alt="Oliva"].background {
+    animation-name: motionBlur, floatAnimation;
+    animation-duration: 6.5s, 20s;
+}
+
+/* PASTA ingredients */
+.ingredient[alt="Parmigiano"] {
+    top: var(--pasta-parmesan-top);
+    right: var(--pasta-parmesan-right);
+    width: var(--pasta-parmesan-width);
+    transform: rotate(var(--pasta-parmesan-rotate));
+}
+
+.ingredient[alt="Pasta farfalle"] {
+    bottom: var(--pasta-farfalle-bottom);
+    right: var(--pasta-farfalle-right);
+    width: var(--pasta-farfalle-width);
+    transform: rotate(var(--pasta-farfalle-rotate));
+}
+
+.ingredient[alt="Rametto di rosmarino"] {
+    top: var(--pasta-rosemary-top);
+    left: var(--pasta-rosemary-left);
+    width: var(--pasta-rosemary-width);
+    transform: rotate(var(--pasta-rosemary-rotate));
+}
+
+/* Спеціальні motion blur анімації для PASTA інгредієнтів */
+.ingredient[alt="Parmigiano"].background {
+    animation-name: motionBlurVertical, floatAnimation;
+    animation-duration: 4s, 17s;
+}
+
+.ingredient[alt="Pasta farfalle"].background {
+    animation-name: motionBlurDiagonal, floatAnimation;
+    animation-duration: 5.5s, 19s;
+}
+
+.ingredient[alt="Rametto di rosmarino"].background {
+    animation-name: motionBlur, floatAnimation;
+    animation-duration: 6s, 18s;
+}
+
+/* ======================================================= */
+/* BUTTONS AND INTERACTIVE ELEMENTS */
+/* ======================================================= */
+
+/* ======================================================= */
+/* ЄДИНИЙ СТИЛЬ ДЛЯ КНОПКИ "ДОДАТИ В КОШИК" V2.0 */
+/* ======================================================= */
+
+.add-to-cart-btn {
+    background-color: #2d2d2d; /* Темний елегантний фон */
+    color: white;
+    border: none;
+    border-radius: 50px; /* Створює ідеальну форму "пігулки" */
+    padding: 15px 30px; /* Оптимізовані відступи */
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1rem; /* 16px */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease; /* Плавні переходи */
+    box-shadow: 0 4px 15px rgba(45, 45, 45, 0.3);
+    
+    /* --- СТИЛІ ПОЗИЦІОНУВАННЯ --- */
+    position: absolute;
+    bottom: 12%; /* Відступ від нижнього краю екрану */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    opacity: 0; /* Початково приховано для анімації */
+    visibility: hidden; /* Початково приховано для анімації */
+    
+    /* Flexbox для іконки та тексту */
+    display: inline-flex; /* Для вирівнювання іконки і тексту */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Оптимізований gap */
+    
+    /* Преміальні ефекти */
+    overflow: hidden;
+    position: relative;
+}
+
+/* SVG іконка */
+.btn-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor; /* Змінюємо з stroke на fill */
+    transition: transform 0.3s ease; /* Спрощуємо transition */
+}
+
+/* Текст кнопки */
+.btn-text {
+    transition: all 0.3s ease;
+    transform: translateX(5px);
+}
+
+/* Ефект блиску при hover */
+.add-to-cart-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.add-to-cart-btn:hover::before {
+    left: 100%;
+}
+
+/* Ваш стиль для hover-ефекту */
+.add-to-cart-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* Анімація іконки при hover */
+.add-to-cart-btn:hover .btn-icon {
+    transform: scale(1.2); /* Спрощуємо до простого масштабування */
+}
+
+/* Анімація тексту при hover */
+.add-to-cart-btn:hover .btn-text {
+    transform: translateX(0);
+}
+
+/* Стиль для анімації після додавання в кошик */
+.add-to-cart-btn.added {
+    background: linear-gradient(135deg, #28a745 0%, #34ce57 100%); /* Зелений градієнт успіху */
+    cursor: default;
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+}
+
+/* Анімація іконки при додаванні */
+.add-to-cart-btn.added .btn-icon {
+    transform: translateX(0) scale(1.2);
+        opacity: 1;
+}
+
+/* Анімація тексту при додаванні */
+.add-to-cart-btn.added .btn-text {
+    transform: translateX(0);
+}
+    
+    .order-button {
+    position: absolute;
+    z-index: 4;
+    bottom: 15%;
+    padding: 15px 35px;
+    border: 2px solid var(--text-color);
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+/* ======================================================= */
+/* DESCRIPTION BLOCK */
+/* ======================================================= */
+
+.description-block {
+    position: absolute;
+    left: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 320px;
+    color: var(--text-color);
+    z-index: var(--z-description);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.description-block h3 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.description-block p {
+    font-family: var(--font-body);
+        font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ======================================================= */
+/* WATER PROMO SECTION */
 /* ======================================================= */
 
 .water-promo-container {
@@ -930,13 +713,12 @@ main {
     justify-content: center;
     text-align: center;
     padding: 40px 20px;
-    height: 100%; /* Щоб зайняти всю висоту слайду */
+    height: 100%;
 }
 
 .water-bottle-image {
-    max-width: 250px; /* Розмір пляшки */
+    max-width: 250px;
     margin-bottom: 20px;
-    /* Можна додати анімацію появи */
     animation: float 3s ease-in-out infinite;
 }
 
@@ -951,59 +733,82 @@ main {
     max-width: 400px;
 }
 
-/* Проста анімація "польоту" */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Адаптація для мобільних */
-@media (max-width: 768px) {
-    .water-bottle-image {
-        max-width: 180px;
-    }
-    .water-promo-text h2 {
-        font-size: 2rem;
-    }
-}
-
-.menu-section h2 {
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.slider-container {
+.water-promo-footer {
     display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* ===== ICONA CARRELLO ===== */
+.water-promo-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    font-family: var(--font-heading);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Pasta promo footer */
+.pasta-promo-footer {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.pasta-promo-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pasta-bg);
+    font-family: var(--font-heading);
+}
+
+/* ======================================================= */
+/* CART AND MODAL STYLES */
+/* ======================================================= */
+
 .cart-button {
     position: fixed;
-    top: 2rem;
-    right: 2rem;
-    z-index: 1000;
-    background-color: var(--pizza-bg);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 50%;
+    top: 20px;
+    right: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    font-size: 1.5rem;
-    font-weight: bold;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    min-width: 70px;
+    gap: 8px;
+    color: #333; /* Темний колір для контрасту */
 }
 
-/* Effetto hover rimosso per pulsante statico */
+.cart-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+}
 
 #cart-counter {
     font-size: 1rem;
@@ -1019,324 +824,100 @@ main {
     font-weight: 900;
 }
 
-/* ===== FINESTRA MODALE CARRELLO ===== */
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 2rem;
-}
+/* ======================================================= */
+/* ЕЛЕГАНТНА НАВІГАЦІЙНА ПАНЕЛЬ */
+/* ======================================================= */
 
-.modal-header h2 {
-    margin: 0;
-    font-family: var(--font-heading);
-    color: var(--pizza-bg);
-}
-
-/* Stili per prodotti nel carrello */
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee;
-    font-size: 1rem;
-    gap: 1rem;
-}
-
-.cart-item:last-child {
-    border-bottom: none;
-}
-
-.cart-item-name {
-    font-weight: 500;
-    color: var(--pizza-bg);
-    flex-grow: 1;
-    min-width: 150px;
-}
-
-.cart-item-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #f8f9fa;
-    padding: 0.3rem;
-    border-radius: 20px;
-    border: 1px solid #e9ecef;
-}
-
-.quantity-btn {
-    background-color: var(--pasta-bg);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-.quantity-btn:active {
-    transform: scale(0.95);
-}
-
-.cart-item-quantity {
-    font-weight: bold;
-    color: var(--pizza-bg);
-    min-width: 20px;
-    text-align: center;
-    font-size: 1rem;
-}
-
-.cart-item-price {
-    font-weight: bold;
-    color: var(--pasta-bg);
-    min-width: 80px;
-    text-align: right;
-}
-
-.remove-from-cart-btn {
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-.close-button {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-/* Classe per nascondere elementi */
-.hidden {
-    display: none;
-}
-
-/* ===== SCHEDE PRODOTTI ===== */
-.product-card {
-    background-color: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    width: 280px;
-    margin: 0 auto;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-.product-card .product-image {
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-.product-card .product-name {
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    color: var(--pizza-bg);
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
-.product-card .product-description {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-    height: 60px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-.product-footer {
+    padding: 25px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.product-card .product-price {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: var(--pasta-bg);
-}
-
-.add-to-cart-btn {
-    background-color: var(--pizza-bg);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-.add-to-cart-btn:active {
-    transform: scale(0.95);
-}
-
-#cart-items-container {
-    min-height: 200px;
-    margin-bottom: 2rem;
-}
-
-.cart-summary {
-    border-top: 2px solid #eee;
-    padding-top: 2rem;
-}
-
-.suggestion {
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #fff3cd; /* Світло-жовтий фон */
-    border: 1px solid #ffeeba;
-    border-radius: 5px;
-    color: #856404; /* Темно-жовтий текст */
-    text-align: center;
-    font-size: 0.9em;
-}
-
-/* Стилі для складного контенту видалені, оскільки нова версія використовує простий текст */
-
-.cart-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    font-weight: bold;
-}
-
-.primary-button {
-    width: 100%;
-    background-color: var(--pizza-bg);
-    color: white;
-    border: none;
-    padding: 1.2rem 2rem;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-/* Effetto hover rimosso per pulsante statico */
-
-.primary-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-
-/* ===== CONTENT VISIBILITY CONTROL ===== */
-/* All content is hidden by default to prevent flickering */
-/* JavaScript will show elements when needed */
-.product-image,
-.ingredient,
-h1,
-.order-button,
-.description-block,
-.drinks-display,
-.drink-item,
-.drink-image {
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Секція напоїв поза слайдером */
-#drinks-section {
-    opacity: 0;
-    transform: translateX(120px) translateY(80px) scale(0.7);
-}
-
-/* Іконка кошика для анімації */
-#cart-icon {
-    opacity: 0;
-    transform: translateX(100px) translateY(-80px) scale(0.2);
-}
-
-/* Основний контент для закулісного ефекту */
-
-/* Preloader spinner animation */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* ===== DESCRIPTION BLOCK STYLES ===== */
-/* Positioned on the left side of each slide with elegant typography */
-
-.description-block {
-    position: absolute;
-    left: 8%; /* Positioned on the left side */
-    top: 50%;
-    transform: translateY(-50%); /* Vertically centered */
-    max-width: 320px;
-    color: var(--text-color);
-    z-index: var(--z-description); /* Above other elements */
+    z-index: 1000;
     
-    /* Hidden by default for animation */
-    opacity: 0;
-    visibility: hidden;
+    /* ЗМІНИ ТУТ: */
+    background-color: transparent !important; /* !important для гарантії */
+    color: white; /* Початковий колір тексту - білий */
+    transition: color 0.8s ease; /* Плавна зміна кольору тексту */
 }
 
-.description-block h3 {
-    font-family: var(--font-heading);
-    font-size: 2.5rem; /* 40px */
-    margin-bottom: 15px;
+/* Новий клас для темного тексту на світлих слайдах */
+.main-header.text-dark {
+    color: #333;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
     font-weight: 700;
-    line-height: 1.2;
+    color: inherit; /* Наслідує колір від хедера */
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.8s ease; /* Плавна зміна кольору */
 }
 
-.description-block p {
-    font-family: var(--font-body);
-    font-size: 1rem; /* 16px */
-    line-height: 1.6;
+.main-nav {
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
-/* ===== СТИЛІ ДЛЯ МОДАЛЬНОГО ВІКНА ЗАМОВЛЕННЯ ===== */
+.nav-link {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: inherit; /* Наслідує колір від хедера */
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Темний hover для світлих слайдів */
+.main-header.text-dark .nav-link:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+.nav-link:active {
+    transform: translateY(0);
+}
+
+/* Modal styles */
 .modal {
-    position: fixed; /* Залишається на місці при скролі */
-    z-index: 1000;  /* Буде поверх усіх інших елементів */
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1355,1070 +936,2204 @@ h1,
     background-color: rgba(0, 0, 0, 0.6);
 }
 
+/* ======================================================= */
+/* MODAL MENU STYLES */
+/* ======================================================= */
+
 .modal-content {
     background-color: #fefefe;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 12px;
     position: relative;
     font-family: var(--font-body);
+    overflow-y: auto;
 }
 
-.modal-content h3 {
-    font-family: var(--font-heading);
-    margin-bottom: 20px;
+/* Стилі для модального вікна філософії */
+.philosophy-content {
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
-.close-modal-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
+.philosophy-body {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 20px;
 }
 
-#order-form label {
-    display: block;
-    margin-bottom: 8px;
+.philosophy-image-container {
+    flex: 1;
+    min-width: 300px;
 }
 
-#order-form input {
+.philosophy-image {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
 }
 
-#order-form button {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    background-color: #333;
-    color: #fff;
+.philosophy-image:hover {
+    transform: scale(1.02);
+}
+
+.philosophy-text-container {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.philosophy-text-container h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.philosophy-text-container p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.philosophy-text-container strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.philosophy-signature {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+    text-align: right;
+}
+
+.philosophy-signature p {
+    font-style: italic;
+    color: #777;
     font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin: 0;
 }
 
-/* Effetto hover rimosso per pulsante statico */
+/* Menu header */
+.menu-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--panini-bg);
+}
 
-/* Стилі для повідомлення про успішне замовлення */
-#form-success-message {
+.menu-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.menu-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Category filter buttons */
+.category-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    background: transparent;
+    border: 2px solid var(--pasta-bg);
+    color: var(--pasta-bg);
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: var(--pasta-bg);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(132, 148, 88, 0.3);
+}
+
+/* Menu items grid */
+.menu-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+/* Menu item card */
+.menu-item-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-medium);
+    position: relative;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column; /* Розташовуємо елементи вертикально */
+    justify-content: space-between; /* Розтягуємо контент на всю висоту */
+    height: 100%; /* Забезпечуємо однакову висоту всіх карток */
+}
+
+.menu-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item-card.special::before {
+    content: "⭐ Хіт";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.menu-item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+}
+
+.menu-item-card:hover .menu-item-image {
+    transform: scale(1.05);
+}
+
+.menu-item-info {
+    padding: 20px;
+}
+
+.menu-item-name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.menu-item-description {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    min-height: 60px;
+}
+
+.menu-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Притискаємо footer до низу */
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.menu-item-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pasta-bg);
+    font-family: var(--font-heading);
+}
+
+.menu-item-add-btn {
+    background-color: #2d2d2d; /* Темний елегантний фон */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* SVG іконка для кнопок в меню */
+.menu-item-add-btn .btn-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor; /* Змінюємо з stroke на fill */
+    transition: transform 0.3s ease; /* Спрощуємо transition */
+}
+
+/* Текст для кнопок в меню */
+.menu-item-add-btn .btn-text {
+    transition: all 0.3s ease;
+    transform: translateX(3px);
+}
+
+.menu-item-add-btn:hover {
+    background-color: #3d3d3d; /* Світліший відтінок при hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 45, 45, 0.4);
+}
+
+.menu-item-add-btn:hover .btn-icon {
+    transform: scale(1.2); /* Спрощуємо до простого масштабування */
+}
+
+.menu-item-add-btn:hover .btn-text {
+    transform: translateX(0);
+}
+
+.menu-item-add-btn:active {
+    transform: translateY(0);
+}
+
+/* Empty state */
+.menu-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.menu-empty-state h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.menu-empty-state p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Responsive menu */
+@media (max-width: 768px) {
+.modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    /* Мобільні стилі для модального вікна філософії */
+    .philosophy-body {
+    flex-direction: column;
+        gap: 20px;
+    }
+    
+    .philosophy-image-container {
+        min-width: 100%;
+    }
+    
+    .philosophy-text-container {
+        padding-left: 0;
+    }
+    
+    .philosophy-text-container h3 {
+        font-size: 1.5rem;
+    }
+    
+    .philosophy-text-container p {
+    font-size: 1rem;
+    }
+    
+    .menu-header h2 {
+    font-size: 2rem;
+    }
+    
+    .category-filters {
+        gap: 10px;
+    }
+    
+    .category-btn {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+    }
+    
+    .menu-items-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .menu-item-card {
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-filters {
+        flex-direction: column;
+    align-items: center;
+    }
+    
+    .category-btn {
+        width: 200px;
+    }
+    
+    .menu-item-info {
+        padding: 15px;
+    display: flex;
+    flex-direction: column;
+        flex-grow: 1;
+    }
+    
+    .menu-item-name {
+        font-size: 1.2rem;
+    }
+    
+    .menu-item-description {
+        font-size: 0.9rem;
+        min-height: 50px;
+        flex-grow: 1;
+    }
+    
+    .menu-item-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+        margin-top: 15px;
+    }
+    
+    .menu-item-price {
+        font-size: 1.2rem;
+    text-align: center;
+    }
+    
+    .menu-item-add-btn {
+    width: 100%;
+        padding: 12px 20px;
+    font-size: 1rem;
+    }
+}
+
+/* ======================================================= */
+/* ОРИГІНАЛЬНА КНОПКА ЗАКРИТТЯ МОДАЛЬНОГО ВІКНА */
+/* ======================================================= */
+
+.modal-header {
+    position: relative; /* Необхідно для позиціонування кнопки */
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--panini-bg);
+}
+
+.modal-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.close-button {
+    position: absolute; /* Позиціонуємо відносно .modal-header */
+    top: 10px;
+    right: 10px;
+
+    /* Дизайн */
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    
+    /* Стиль для "хрестика" */
+    font-size: 24px;
+    line-height: 36px; /* Вертикальне вирівнювання хрестика */
+    text-align: center;
+    color: #888;
+    
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    background-color: #e0e0e0;
+    color: #333;
+    transform: rotate(90deg); /* Ефект обертання при наведенні */
+}
+
+/* ======================================================= */
+/* ANIMATIONS - SINGLE DEFINITION */
+/* ======================================================= */
+
+@keyframes floatAnimation {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(5px, -10px); }
+    50% { transform: translate(-5px, 5px); }
+    75% { transform: translate(5px, 10px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes pulseAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes waterRise {
+    0% { transform: translate(0, 120px); }
+    100% { transform: translate(0, 80px); }
+}
+
+@keyframes ripple {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.5); }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================================================= */
+/* RESPONSIVE DESIGN */
+/* ======================================================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+    /* Навігаційна панель для планшетів */
+    .main-header {
+        padding: 12px 20px;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .main-nav {
+        gap: 20px;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+    
+    .cart-button {
+        top: 15px;
+        right: 20px;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    /* Арт-об'єкти навігації для планшетів */
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 50px !important;
+        height: 50px !important;
+        margin-top: -25px !important;
+    }
+    
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        font-size: 18px !important;
+    }
+    
+    .swiper-button-prev {
+        left: 15px !important;
+    }
+    
+    .swiper-button-next {
+        right: 15px !important;
+    }
+    
+    .swiper-slide {
+        width: 100% !important; /* Повноекранна ширина на планшетах */
+        height: 100% !important; /* Повноекранна висота на планшетах */
+        border-radius: 0 !important; /* Без заокруглених кутів */
+        backdrop-filter: none !important; /* Без ефекту скла */
+        -webkit-backdrop-filter: none !important;
+        background: transparent !important; /* Прозорий фон */
+        border: none !important; /* Без рамки */
+        box-shadow: none !important; /* Без тіні */
+    }
+    
+    .product-image {
+        max-width: 400px;
+        width: 65%;
+    }
+    
+    .slide-content h1 {
+        font-size: 25vw;
+    }
+    
+    .ingredient {
+        width: var(--ingredient-size-tablet);
+    }
+    
+    /* Планшетні стилі для ефекту глибини */
+    .ingredient.foreground {
+        transform: scale(1.12) !important; /* Проміжне збільшення для планшетів */
+        filter: drop-shadow(7px 7px 12px rgba(0, 0, 0, 0.22)) !important; /* Проміжна тінь */
+        z-index: 11 !important; /* Буде НАД головною стравою */
+    }
+    
+    .ingredient.background {
+        transform: scale(0.82) !important; /* Проміжне зменшення для планшетів */
+        filter: blur(1.2px) drop-shadow(2.5px 2.5px 4.5px rgba(0, 0, 0, 0.18)) !important; /* Проміжне розмиття */
+        opacity: 0.87 !important; /* Проміжна прозорість */
+        z-index: 9 !important; /* Буде ЗА головною стравою */
+        animation-name: motionBlur, floatAnimation !important; /* Комбінуємо анімації */
+        animation-duration: 6s, 20s !important; /* Трохи довша тривалість для планшетів */
+        animation-iteration-count: infinite !important;
+        animation-timing-function: ease-in-out !important;
+    }
+    
+    .water-bottle-image {
+        max-width: 180px;
+    }
+    
+    .water-promo-text h2 {
+        font-size: 2rem;
+    }
+    
+    .pasta-promo-footer {
+        position: static;
+        transform: none;
+        margin-top: 20px;
+        max-width: 90%;
+    }
+    
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    /* Навігаційна панель для мобільних */
+    .main-header {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+        order: 1;
+    }
+    
+    .main-nav {
+        gap: 15px;
+        order: 2;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+    
+    .cart-button {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        padding: 8px 12px;
+        font-size: 13px;
+        border-radius: 20px;
+    }
+    
+    /* Арт-об'єкти навігації для мобільних */
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 40px !important;
+        height: 40px !important;
+        margin-top: -20px !important;
+        background: rgba(255, 255, 255, 0.4) !important; /* Більш видимий на мобільних */
+    }
+    
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        font-size: 16px !important;
+    }
+    
+    .swiper-button-prev {
+        left: 10px !important;
+    }
+    
+    .swiper-button-next {
+        right: 10px !important;
+    }
+    
+    .swiper-slide {
+        width: 100% !important; /* Повноекранна ширина на мобільних */
+        height: 100% !important; /* Повноекранна висота на мобільних */
+        border-radius: 0 !important; /* Без заокруглених кутів */
+        backdrop-filter: none !important; /* Без ефекту скла */
+        -webkit-backdrop-filter: none !important;
+        background: transparent !important; /* Прозорий фон */
+        border: none !important; /* Без рамки */
+        box-shadow: none !important; /* Без тіні */
+    }
+    
+    .product-image {
+        max-width: 280px;
+        width: 70%;
+    }
+    
+    .slide-content h1 {
+        font-size: 20vw;
+    }
+    
+    .ingredient {
+        width: var(--ingredient-size-mobile);
+    }
+    
+    /* Mobile layout with Flexbox */
+    .slide-content {
+    display: flex;
+        flex-direction: column; /* Головний напрямок - стовпчик */
+        justify-content: space-between; /* Рівномірно розподілити простір */
+        padding: 60px 0 20px 0; /* Додаємо відступи зверху і знизу */
+    align-items: center;
+        text-align: center;
+        height: 100%;
+        position: relative;
+    }
+    
+    /* 1. Блок з текстом */
+    .description-block {
+        position: static !important; /* Скидаємо абсолютне позиціонування! */
+        transform: none !important;
+        order: 1; /* Перший по порядку */
+        text-align: center;
+        margin-bottom: 20px;
+        width: 90%;
+        flex-shrink: 0;
+        left: auto !important;
+        top: auto !important;
+        max-width: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* 2. Головне зображення страви */
+    .product-image {
+        position: static !important; /* Скидаємо абсолютне позиціонування! */
+        transform: none !important;
+        order: 2; /* Другий по порядку */
+        max-width: 90%; /* Збільшуємо розмір продукції */
+        margin: 0 auto 20px auto; /* Центруємо і додаємо відступ */
+        flex-shrink: 0;
+        z-index: 10 !important; /* Зберігаємо z-index для роботи з інгредієнтами */
+    }
+    
+    /* 3. Кнопка "Додати" */
+    .add-to-cart-btn {
+        position: static !important; /* Скидаємо абсолютне позиціонування! */
+        transform: none !important;
+        order: 3; /* Третя по порядку */
+        margin: 0 auto; /* Центруємо кнопку */
+        padding: 15px 35px; /* Зменшені відступи для мобільних */
+        font-size: 0.9rem; /* Трохи менший шрифт */
+        flex-shrink: 0;
+        bottom: auto !important;
+        left: auto !important;
+        z-index: auto !important;
+        gap: 10px; /* Зменшений gap для мобільних */
+    }
+    
+    /* SVG іконка для мобільних */
+    .add-to-cart-btn .btn-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Hover ефекти для мобільних */
+    .add-to-cart-btn:hover {
+        transform: none !important; /* Відключаємо hover трансформації на мобільних */
+        box-shadow: 0 8px 20px rgba(90, 107, 72, 0.3);
+    }
+    
+    
+    /* Приборкуємо декоративні інгредієнти */
+    .ingredient {
+        position: absolute; /* Інгредієнти залишаються абсолютними */
+        width: 80px; /* Збільшено з 60px */
+        z-index: -1; /* Ховаємо їх ЗА основний контент, щоб не заважали тексту */
+    }
+    
+    /* Мобільні стилі для ефекту глибини */
+    .ingredient.foreground {
+        transform: scale(1.1) !important; /* Менше збільшення на мобільних */
+        filter: drop-shadow(5px 5px 8px rgba(0, 0, 0, 0.2)) !important; /* Менша тінь */
+        z-index: 11 !important; /* Буде НАД головною стравою */
+    }
+    
+    .ingredient.background {
+        transform: scale(0.85) !important; /* Менше зменшення на мобільних */
+        filter: blur(1px) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.15)) !important; /* Менше розмиття */
+        opacity: 0.9 !important; /* Менше зменшення прозорості */
+        z-index: 9 !important; /* Буде ЗА головною стравою */
+        animation-name: motionBlur, floatAnimation !important; /* Комбінуємо анімації */
+        animation-duration: 7s, 22s !important; /* Найдовша тривалість для мобільних */
+        animation-iteration-count: infinite !important;
+        animation-timing-function: ease-in-out !important;
+    }
+    
+    /* Позиціонування для інгредієнтів паніні */
+    .ingredient[alt="Fetta di prosciutto"] {
+    top: 15%;
+        left: 10%;
+        width: 90px; /* Збільшено з 70px */
+    }
+    
+.ingredient[alt="Foglia di rucola"] {
+        top: 25%;
+    right: 25%;
+        width: 80px; /* Збільшено з 60px */
+    }
+    
+.ingredient[alt="Pallina di mozzarella"] {
+        bottom: 25%;
+        left: 30%;
+        width: 90px; /* Збільшено з 70px */
+    }
+    
+.ingredient[alt="Crotoni"] {
+        bottom: 28%;
+        right: 25%;
+        width: 70px; /* Збільшено з 50px */
+    }
+    
+    /* Позиціонування для інгредієнтів піци */
+.ingredient[alt="Foglia di basilico"] {
+        top: 25%;
+    left: 25%;
+        width: 75px; /* Збільшено з 55px */
+}
+
+.ingredient[alt="Pomodoro"] {
+    bottom: 25%;
+        left: 28%;
+        width: 85px; /* Збільшено з 65px */
+    }
+    
+.ingredient[alt="Pomodorini"] {
+    bottom: 30%;
+    left: 40%;
+        width: 65px; /* Збільшено з 45px */
+}
+
+.ingredient[alt="Oliva"] {
+        top: 28%;
+        right: 25%;
+        width: 70px; /* Збільшено з 50px */
+    }
+    
+    /* Позиціонування для інгредієнтів пасти - розділити пармезан і пасту */
+.ingredient[alt="Parmigiano"] {
+        top: 25%;
+        left: 25%;
+        width: 80px; /* Збільшено з 60px */
+    }
+    
+.ingredient[alt="Pasta farfalle"] {
+        bottom: 25%;
+        right: 28%;
+        width: 75px; /* Збільшено з 55px */
+    }
+    
+.ingredient[alt="Rametto di rosmarino"] {
+        top: 30%;
+        right: 25%;
+        width: 70px; /* Збільшено з 50px */
+    }
+}
+
+/* ======================================================= */
+/* ACCESSIBILITY */
+/* ======================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .swiper {
+        transition: none !important;
+    }
+    
+    body {
+        transition: none !important;
+        /* Повноекранний режим на мобільних */
+        display: block !important;
+        height: 100% !important;
+        width: 100% !important;
+    }
+    
+    .ingredient {
+        transition: none !important;
+    }
+}
+
+.order-button:focus,
+.swiper-button-prev:focus,
+.swiper-button-next:focus {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+}
+
+@media (prefers-contrast: high) {
+    .order-button {
+        border-width: 3px;
+        font-weight: 900;
+    }
+    
+    .slide-content h1 {
+        /* Варіант А: Зробити майже прозорим */
+        opacity: 0.03;
+        
+        /* Варіант Б (рекомендовано): Повністю приховати для чистоти */
+        display: none;
+        
+        /* Якщо вирішимо залишити текст, то по центру */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    width: 100%;
+    }
+}
+
+/* ======================================================= */
+/* CART STYLES */
+/* ======================================================= */
+
+.cart-modal .modal-content {
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.cart-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--panini-bg);
+}
+
+.cart-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.cart-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Cart items */
+.cart-items-container {
+    margin-bottom: 25px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-fast);
+    border: 1px solid #f0f0f0;
+}
+
+.cart-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cart-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.cart-item-controls {
+    display: flex;
+        align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--pasta-bg);
+    background: transparent;
+    color: var(--pasta-bg);
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn:hover {
+    background: var(--pasta-bg);
+    color: white;
+    transform: scale(1.1);
+}
+
+.cart-item-quantity {
+    font-weight: 600;
+    color: var(--text-color);
+    min-width: 20px;
     text-align: center;
 }
-#form-success-message h3 {
+
+.cart-item-price-section {
+    display: flex;
+        flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.cart-item-price {
+    font-weight: 700;
+    color: var(--pasta-bg);
+    font-size: 1.1rem;
+}
+
+.remove-from-cart-btn {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all var(--transition-fast);
+        display: flex;
+        align-items: center;
+    justify-content: center;
+}
+
+.remove-from-cart-btn:hover {
+    background: #ff3742;
+    transform: scale(1.1);
+}
+
+/* Cart total */
+.cart-total {
+    padding: 20px;
+    background: linear-gradient(135deg, var(--panini-bg), #f8f9fa);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+        margin-bottom: 10px;
+    }
+    
+.cart-total-label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.cart-total-price {
+    font-weight: 700;
+    color: var(--pasta-bg);
+    font-size: 1.3rem;
+}
+
+/* Empty cart state */
+.cart-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.cart-empty-state .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.cart-empty-state h3 {
     font-family: var(--font-heading);
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.cart-empty-state p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.cart-empty-state .go-to-menu-btn {
+    background: linear-gradient(45deg, var(--pasta-bg), #6b8e23);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cart-empty-state .go-to-menu-btn:hover {
+    background: linear-gradient(45deg, #6b8e23, var(--pasta-bg));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(132, 148, 88, 0.3);
+}
+
+/* Recommendations */
+.cart-recommendations {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border-radius: 12px;
+    border-left: 4px solid #ffc107;
+}
+
+.cart-recommendations h4 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-recommendations p {
+    color: #856404;
+    font-size: 0.95rem;
+    line-height: 1.5;
     margin-bottom: 15px;
 }
 
-/* ===== СТИЛІ ДЛЯ ІНДИКАТОРА ЗАВАНТАЖЕННЯ ===== */
-
-/* Анімація обертання */
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.recommendation-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid #ffeaa7;
 }
 
-/* Стиль самого спінера */
-.spinner {
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #fff;
+.recommendation-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+}
+
+.recommendation-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 12px;
+}
+
+.recommendation-item-info {
+        flex-grow: 1;
+}
+
+.recommendation-item-name {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.recommendation-item-price {
+    color: var(--pasta-bg);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Cart buttons */
+.cart-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.cart-actions .btn {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--pasta-bg);
+    color: var(--pasta-bg);
+}
+
+.btn-secondary:hover {
+    background: var(--pasta-bg);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--pasta-bg), #6b8e23);
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #6b8e23, var(--pasta-bg));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(132, 148, 88, 0.3);
+}
+
+/* Responsive cart */
+@media (max-width: 768px) {
+    .cart-modal .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .cart-item {
+        padding: 12px;
+    }
+    
+    .cart-item-image {
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+    }
+    
+    .cart-item-name {
+        font-size: 0.9rem;
+    }
+    
+    .cart-actions {
+        flex-direction: column;
+    }
+    
+    .cart-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .cart-item-image {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .cart-item-price-section {
+        align-items: center;
+        flex-direction: row;
+        gap: 15px;
+    }
+}
+
+/* ======================================================= */
+/* НОВИЙ ДИЗАЙН КОШИКА */
+/* ======================================================= */
+
+.cart-content {
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cart-content .modal-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+    border-bottom: none;
+}
+
+.cart-content .modal-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.cart-content .close-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
+    font-size: 18px;
+    transition: all 0.3s ease;
 }
 
-/* Стан кнопки під час завантаження */
-#submit-button.is-loading {
-    pointer-events: none; /* Блокуємо повторні натискання */
+.cart-content .close-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+/* Empty cart view */
+.empty-cart-view {
+    text-align: center;
+    padding: 60px 30px;
+    color: #666;
+}
+
+.empty-cart-view h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.empty-cart-view p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.primary-button {
+    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(45, 45, 45, 0.3);
+}
+
+.primary-button:hover {
+    background: linear-gradient(135deg, #3d3d3d 0%, #4d4d4d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(45, 45, 45, 0.4);
+}
+
+/* Cart summary */
+.cart-summary {
+    padding: 25px 30px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cart-total strong {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.cart-total span {
+    font-size: 1.4rem;
+    color: #2d2d2d;
+    font-weight: 700;
+}
+
+/* Responsive cart */
+@media (max-width: 768px) {
+    .cart-content {
+        width: 95%;
+        max-height: 95vh;
+        margin: 20px;
+    }
+    
+    .cart-content .modal-header {
+        padding: 20px 25px;
+    }
+    
+    .cart-content .modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .empty-cart-view {
+        padding: 40px 20px;
+    }
+    
+    .cart-summary {
+        padding: 20px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-content {
+        width: 98%;
+        margin: 10px;
+        border-radius: 15px;
+    }
+    
+    .cart-content .modal-header {
+        padding: 15px 20px;
+        border-radius: 15px 15px 0 0;
+    }
+    
+    .cart-content .modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .empty-cart-view {
+        padding: 30px 15px;
+    }
+    
+    .empty-cart-view h3 {
+        font-size: 1.3rem;
+    }
+    
+    .primary-button {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+    
+    .cart-summary {
+        padding: 15px 20px;
+        border-radius: 0 0 15px 15px;
+    }
+}
+
+/* ======================================================= */
+/* СТИЛІ ДЛЯ СЛАЙДУ-ІСТОРІЇ */
+/* ======================================================= */
+
+.story-slide-content {
+    position: relative; /* Додаємо, щоб відеофон працював коректно */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    overflow: hidden; /* Ховаємо все, що виходить за межі */
+}
+
+/* Відео фон для першого слайду */
+.story-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0.8;
+}
+
+/* Fallback фон для браузерів без підтримки відео */
+.story-fallback-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* Темний оверлей поверх відео для кращої читабельності тексту */
+.story-slide-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+    z-index: -1;
+}
+
+/* Фонове зображення для слайду з напоями */
+.slide-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.9); /* Трохи затемнюємо для читабельності */
+    z-index: 0;
+}
+
+.story-text-block {
+    max-width: 600px;
+    padding: 20px;
+    opacity: 0; /* Початково приховано для анімації */
+    transform: translateY(30px); /* Початкове зміщення */
+}
+
+.story-text-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; /* Збільшуємо розмір для ефектності */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 15px rgba(0,0,0,0.8);
+    font-weight: 700;
+}
+
+.story-text-block p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px; /* Збільшуємо відступ */
+    max-width: 500px; /* Обмежуємо ширину для читабельності */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.story-button {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 35px; /* Збільшуємо padding */
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    opacity: 0; /* Початково приховано для анімації */
+    transform: translateY(20px); /* Початкове зміщення */
+}
+
+.story-button:hover {
+    background: white;
+    color: #2d2d2d;
+}
+
+/* Responsive Design for Story Slide */
+@media (max-width: 768px) {
+    .story-text-block {
+        max-width: 90%;
+        padding: 15px;
+    }
+    
+    .story-text-block h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .story-text-block p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+    
+    .story-button {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+    
+    /* Мобільні стилі для відео */
+    .story-video-bg {
+        opacity: 0.7; /* Трохи менша прозорість на мобільних */
+    }
+    
+    .story-slide-content::before {
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)); /* Темніший оверлей на мобільних */
+    }
+    
+    .slide-background-image {
+        filter: brightness(0.8); /* Більше затемнюємо на планшетах */
+    }
+}
+
+@media (max-width: 480px) {
+    .story-text-block {
+        max-width: 95%;
+        padding: 10px;
+    }
+    
+    .story-text-block h2 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    
+    .story-text-block p {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .story-button {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+    }
+    
+    /* Мобільні стилі для відео на маленьких екранах */
+    .story-video-bg {
+        opacity: 0.6; /* Ще менша прозорість на маленьких екранах */
+    }
+    
+    .story-slide-content::before {
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)); /* Ще темніший оверлей */
+    }
+    
+    .slide-background-image {
+        filter: brightness(0.7); /* Ще більше затемнюємо на мобільних */
+    }
+}
+
+/* ======================================================= */
+/* STORIA SECTION */
+/* ======================================================= */
+
+.storia-section {
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #D2691E 100%);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.storia-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.storia-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.storia-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.storia-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.storia-slogan {
+    font-size: 1.4rem;
+    font-style: italic;
+    opacity: 0.9;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.storia-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.storia-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.storia-paragraph {
+    margin-bottom: 25px;
+    opacity: 0.95;
+}
+
+.storia-paragraph:first-child {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.storia-welcome {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.storia-image {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#submit-button.is-loading .button-text {
-    display: none; /* Ховаємо текст кнопки */
+.storia-placeholder {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-#submit-button.is-loading .spinner {
-    display: block; /* Показуємо спінер */
-}
-
-/* ===== СТИЛІ ДЛЯ ПОЛЯ "АДРЕСА ДОСТАВКИ" ===== */
-
-#order-form textarea {
-    width: 100%;
-    padding: 10px;
+.storia-icon {
+    font-size: 4rem;
+    display: block;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    resize: vertical; /* Дозволяє користувачу розтягувати поле по висоті */
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-#order-form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    background-color: white;
+.storia-placeholder p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* ===== СТИЛІ ДЛЯ ІНТЕРФЕЙСУ ВИБОРУ ПЛАТЕЖУ ===== */
-#order-form .payment-options {
+/* Responsive Design for Storia Section */
+@media (max-width: 768px) {
+    .storia-section {
+        padding: 60px 0;
+    }
+    
+    .storia-title {
+        font-size: 2.5rem;
+    }
+    
+    .storia-slogan {
+        font-size: 1.2rem;
+    }
+    
+    .storia-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .storia-text {
+        font-size: 1rem;
+        text-align: left;
+    }
+    
+    .storia-paragraph:first-child {
+        font-size: 1.1rem;
+    }
+    
+    .storia-welcome {
+        font-size: 1.1rem;
+        margin-top: 30px;
+    }
+    
+    .storia-placeholder {
+        padding: 30px;
+    }
+    
+    .storia-icon {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .storia-section {
+        padding: 40px 0;
+    }
+    
+    .storia-title {
+        font-size: 2rem;
+    }
+    
+    .storia-slogan {
+        font-size: 1rem;
+    }
+    
+    .storia-text {
+        font-size: 0.95rem;
+    }
+    
+    .storia-welcome {
+        font-size: 1rem;
+        padding: 15px;
+    }
+    
+    .storia-placeholder {
+        padding: 20px;
+    }
+    
+    .storia-icon {
+        font-size: 2.5rem;
+    }
+}
+
+/* ======================================================= */
+/* НОВИЙ ЕЛЕГАНТНИЙ ДИЗАЙН ДЛЯ ФОРМИ ЗАМОВЛЕННЯ */
+/* ======================================================= */
+
+/* --- Загальний контейнер форми --- */
+#order-form {
     display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 25px; /* Простір між секціями */
 }
 
-#order-form .payment-option {
+#order-form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+#order-form legend {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; /* 21px */
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+}
+
+/* --- Група "лейбл + поле вводу" --- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 0.9rem; /* 14.4px */
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #333;
+    box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.1);
+}
+
+/* --- Нові радіокнопки оплати --- */
+.payment-options-new {
+    display: flex;
+        gap: 15px;
+    }
+    
+.payment-option-new {
     flex: 1;
     cursor: pointer;
 }
 
-#order-form .payment-option input[type="radio"] {
-    display: none;
+.payment-option-new input[type="radio"] {
+    display: none; /* Ховаємо стандартну кнопку */
 }
 
-#order-form .payment-box {
-    padding: 15px;
-    border: 2px solid #ddd;
+.payment-box-new {
+        padding: 15px;
+    border: 1px solid #ddd;
     border-radius: 8px;
     text-align: center;
     transition: all 0.3s ease;
     background: white;
 }
 
-#order-form .payment-option input[type="radio"]:checked + .payment-box {
+.payment-option-new input[type="radio"]:checked + .payment-box-new {
     border-color: #333;
     background: #f8f9fa;
-    box-shadow: 0 0 10px rgba(51, 51, 51, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-#order-form .payment-icon {
-    display: block;
-    font-size: 2rem;
+.payment-box-new .payment-icon {
+    font-size: 1.8rem;
     margin-bottom: 8px;
 }
 
-#order-form .payment-text {
+.payment-box-new .payment-text {
     font-size: 0.9rem;
     font-weight: 500;
-    color: #333;
 }
 
-/* ======================================================= */
-/* АДАПТАЦІЯ ДЛЯ МОБІЛЬНИХ (БІЛЬШ СПЕЦИФІЧНА ВЕРСІЯ) */
-/* ======================================================= */
-
-/* --- Спочатку виправляємо зображення в кошику (для всіх екранів) --- */
-.cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.cart-item .cart-item-image {
-    width: 60px !important; /* !important для гарантії */
-    height: 60px !important;
-    min-width: 60px !important; /* Щоб зображення не стискалося */
-    object-fit: cover;
+/* --- Фінальна кнопка замовлення --- */
+.form-submit-btn {
+    width: 100%;
+    background-color: #2d2d2d; /* Елегантний темний */
+    color: white;
+    border: none;
+    padding: 18px;
     border-radius: 8px;
-    margin-right: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* --- Тепер мобільна адаптація --- */
-@media (max-width: 768px) {
+.form-submit-btn:hover {
+    background-color: #555;
+}
 
-    .slider-section .product-info {
-        width: 90%;
-        text-align: center;
-        left: 5%;
-        transform: translateY(-50%);
-    }
-
-    .slider-section .background-text {
-        font-size: 15vw;
-    }
-
-    #drinks-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    #drinks-container .product-card {
-        width: 80%;
-        margin-bottom: 15px;
-    }
-
-    #cart-modal .modal-content,
-    #order-modal .modal-content {
-        width: 95vw;
-        max-height: 85vh;
-        overflow-y: auto;
-    }
-
-    #order-modal .form-group input,
-    #order-modal .form-group textarea {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-    }
-    
-    #order-modal .payment-methods {
-        flex-direction: column;
-        gap: 10px;
-    }
+/* Стилі для стану завантаження (спінер) */
+.form-submit-btn.is-loading .button-text {
+    display: none;
+}
+.form-submit-btn.is-loading .spinner {
+    display: block;
+    margin: 0 auto;
 }
 
 /* ======================================================= */
-/* СИСТЕМА М'ЯКИХ СПОВІЩЕНЬ */
+/* UTILITY CLASSES */
 /* ======================================================= */
 
-.notification {
-    position: fixed;
+.hidden {
+    display: none;
+}
+
+/* Content visibility control */
+.product-image,
+.ingredient,
+h1,
+.order-button,
+.description-block,
+.drinks-display,
+.drink-item,
+.drink-image {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Water promo elements should be visible */
+.water-promo-container,
+.water-bottle-image,
+.water-promo-text,
+.water-promo-footer {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#cart-icon {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+}
+
+/* ======================================================= */
+/* СТИЛІ ДЛЯ ВИПРАВЛЕННЯ ЗНИКЛОГО КОШИКА */
+/* ======================================================= */
+
+#cart-icon {
+    display: flex !important; /* Гарантує, що елемент буде видимим */
+    opacity: 1 !important; /* Гарантує, що він не буде прозорим */
+    visibility: visible !important; /* Гарантує видимість */
+    position: fixed; /* Завжди на одному місці екрану */
     top: 20px;
     right: 20px;
-    background: #fff;
-    border-left: 4px solid #007bff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 16px 20px;
-    max-width: 350px;
-    z-index: 10000;
-    transform: translateX(100%);
-    opacity: 0;
-    transition: all 0.3s ease;
-    font-family: var(--font-body);
-}
-
-.notification.show {
-    transform: translateX(0);
-    opacity: 1;
-}
-
-.notification.error {
-    border-left-color: #dc3545;
-    background: #fff5f5;
-}
-
-.notification.warning {
-    border-left-color: #ffc107;
-    background: #fffbf0;
-}
-
-.notification.success {
-    border-left-color: #28a745;
-    background: #f0fff4;
-}
-
-.notification-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-.notification-icon {
-    font-size: 20px;
-    margin-top: 2px;
-}
-
-.notification-text {
-    flex: 1;
-    font-size: 14px;
-    line-height: 1.4;
+    z-index: 1001; /* Поверх більшості елементів */
+    
+    /* Інші стилі для красивого вигляду */
+    background-color: white;
     color: #333;
+        padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
-.notification-close {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #666;
-    padding: 0;
-    width: 20px;
-    height: 20px;
+#cart-icon:hover {
+    transform: scale(1.1);
+}
+
+#cart-counter {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #D9534F; /* Червоний, як у вашому бренді */
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.notification-close:hover {
-    color: #333;
-}
-
-/* Адаптація для мобільних */
-@media (max-width: 768px) {
-    .notification {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        max-width: none;
-        transform: translateY(-100%);
-    }
-    
-    .notification.show {
-        transform: translateY(0);
-    }
-}
-
-/* ======================================================= */
-/* СТИЛІ ДЛЯ УНІКАЛЬНИХ ІНГРЕДІЄНТІВ ЗА ALT-АТРИБУТАМИ */
-/* ======================================================= */
-
-/* --- PANINI INGREDIENTI --- */
-
-/* Rucola */
-.ingredient[alt="Foglia di rucola"] {
-    width: 120px;
-    top: 15%;
-    right: 25%;
-    z-index: 4;
-    transform: rotate(-15deg);
-}
-
-/* Prosciutto */
-.ingredient[alt="Fetta di prosciutto"] {
-    width: 180px;
-    top: 45%;
-    left: 20%;
-    z-index: 2;
-    transform: rotate(10deg);
-}
-
-/* Mozzarella */
-.ingredient[alt="Pallina di mozzarella"] {
-    width: 140px;
-    top: 25%;
-    right: 15%;
-    z-index: 3;
-    transform: rotate(5deg);
-}
-
-/* Crotoni */
-.ingredient[alt="Crotoni"] {
-    width: 100px;
-    bottom: 20%;
-    left: 30%;
-    z-index: 5;
-    transform: rotate(-20deg);
-}
-
-/* --- PIZZA INGREDIENTI --- */
-
-/* Basilico */
-.ingredient[alt="Foglia di basilico"] {
-    width: 130px;
-    top: 20%;
-    left: 25%;
-    z-index: 4;
-    transform: rotate(20deg);
-}
-
-/* Peperoni */
-.ingredient[alt="Peperoni"] {
-    width: 100px;
-    bottom: 25%;
-    right: 20%;
-    z-index: 2;
-    transform: rotate(-15deg);
-}
-
-/* Pomodoro */
-.ingredient[alt="Pomodoro"] {
-    width: 90px;
-    top: 30%;
-    right: 20%;
-    z-index: 3;
-    transform: rotate(10deg);
-}
-
-/* Pomodorini */
-.ingredient[alt="Pomodorini"] {
-    width: 70px;
-    bottom: 30%;
-    left: 25%;
-    z-index: 3;
-    transform: rotate(-10deg);
-}
-
-/* Oliva */
-.ingredient[alt="Oliva"] {
-    width: 80px;
-    top: 60%;
-    left: 30%;
-    z-index: 4;
-    transform: rotate(15deg);
-}
-
-/* --- PASTA INGREDIENTI --- */
-
-/* Parmigiano */
-.ingredient[alt="Parmigiano"] {
-    width: 200px;
-    top: 15%;
-    right: 10%;
-    z-index: 3;
-    transform: rotate(15deg);
-}
-
-/* Pasta Farfalle */
-.ingredient[alt="Pasta farfalle"] {
-    width: 120px;
-    bottom: 20%;
-    right: 30%;
-    z-index: 2;
-    transform: rotate(-25deg);
-}
-
-/* Rosmarino */
-.ingredient[alt="Rametto di rosmarino"] {
-    width: 150px;
-    bottom: 30%;
-    left: 20%;
-    z-index: 4;
-    transform: rotate(10deg);
-}
-
-/* ======================================================= */
-/* АДАПТАЦІЯ ІНГРЕДІЄНТІВ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ */
-/* ======================================================= */
-
-@media (max-width: 768px) {
-    /* Зменшуємо розміри для планшетів */
-    .ingredient[alt="Foglia di rucola"] { width: 100px; }
-    .ingredient[alt="Fetta di prosciutto"] { width: 150px; }
-    .ingredient[alt="Pallina di mozzarella"] { width: 120px; }
-    .ingredient[alt="Crotoni"] { width: 80px; }
-    .ingredient[alt="Foglia di basilico"] { width: 110px; }
-    .ingredient[alt="Peperoni"] { width: 85px; }
-    .ingredient[alt="Pomodoro"] { width: 75px; }
-    .ingredient[alt="Pomodorini"] { width: 60px; }
-    .ingredient[alt="Oliva"] { width: 70px; }
-    .ingredient[alt="Parmigiano"] { width: 170px; }
-    .ingredient[alt="Pasta farfalle"] { width: 100px; }
-    .ingredient[alt="Rametto di rosmarino"] { width: 130px; }
-
-    /* ======================================================= */
-    /* ПОСИЛЕНА АДАПТАЦІЯ ДЛЯ ПАРАЛАКС-БЛОКУ */
-    /* ======================================================= */
-
-    /* --- 1. Виправляємо положення тексту --- */
-    .parallax-container .product-info {
-        top: 70% !important; /* Зміщуємо блок значно нижче */
-        left: 50% !important; /* Центруємо по горизонталі */
-        transform: translate(-50%, -50%) !important; /* Точне центрування */
-        width: 90% !important; /* Задаємо ширину */
-    }
-    
-    .parallax-container .product-info h2 {
-        font-size: 2.2rem !important;
-    }
-    
-    .parallax-container .product-info p {
-        font-size: 1rem !important;
-    }
-
-    /* --- 2. Виправляємо положення стрілок слайдера --- */
-    .slider-arrow {
-        top: 50% !important; /* Вирівнюємо по центру по вертикалі */
-        transform: translateY(-50%) scale(1.2) !important;
-        z-index: 100 !important; /* Щоб були поверх інших елементів */
-    }
-
-    .slider-arrow.left { /* Припускаю, що у стрілок є класи .left та .right */
-        left: 10px !important; 
-    }
-
-    .slider-arrow.right {
-        right: 10px !important;
-    }
-
-    /* --- 3. Компактне розташування інгредієнтів (без змін, але залишаємо) --- */
-    .parallax-layer[alt="Basil"] {
-        width: 60px;
-        top: 25%;
-        left: 20%;
-    }
-    .parallax-layer[alt="Tomato"] {
-        width: 50px;
-        top: 30%;
-        left: 75%;
-    }
-    .parallax-layer[alt="Cheese"] {
-        width: 80px;
-        top: 55%;
-        left: 15%;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Ще менші розміри для мобільних */
-    .ingredient[alt="Foglia di rucola"] { 
-        width: 80px; 
-        top: 12%;
-        right: 20%;
-    }
-    .ingredient[alt="Fetta di prosciutto"] { 
-        width: 120px; 
-        top: 40%;
-        left: 15%;
-    }
-    .ingredient[alt="Pallina di mozzarella"] { 
-        width: 100px; 
-        top: 20%;
-        right: 10%;
-    }
-    .ingredient[alt="Crotoni"] { 
-        width: 60px; 
-        bottom: 15%;
-        left: 25%;
-    }
-    .ingredient[alt="Foglia di basilico"] { 
-        width: 90px; 
-        top: 15%;
-        left: 20%;
-    }
-    .ingredient[alt="Peperoni"] { 
-        width: 70px; 
-        bottom: 20%;
-        right: 15%;
-    }
-    .ingredient[alt="Pomodoro"] { 
-        width: 60px; 
-        top: 25%;
-        right: 15%;
-    }
-    .ingredient[alt="Pomodorini"] { 
-        width: 50px; 
-        bottom: 25%;
-        left: 20%;
-    }
-    .ingredient[alt="Oliva"] { 
-        width: 55px; 
-        top: 55%;
-        left: 25%;
-    }
-    .ingredient[alt="Parmigiano"] { 
-        width: 140px; 
-        top: 10%;
-        right: 5%;
-    }
-    .ingredient[alt="Pasta farfalle"] { 
-        width: 80px; 
-        bottom: 15%;
-        right: 25%;
-    }
-    .ingredient[alt="Rametto di rosmarino"] { 
-        width: 110px; 
-        bottom: 25%;
-        left: 15%;
-    }
-}
-
-/* ======================================================= */
-/* НАЛАШТУВАННЯ ПАРАЛАКСУ ДЛЯ ДЕСКТОПІВ */
-/* ======================================================= */
-
-@media (min-width: 1024px) {
-
-    /* Збільшуємо загальний розмір головного продукту */
-    .product-image {
-        width: 500px !important;
-        max-width: 600px !important;
-    }
-
-    /* --- PANINI INGREDIENTI - ЗБІЛЬШЕНІ РОЗМІРИ ДЛЯ ДЕСКТОПУ --- */
-    
-    /* Rucola 1 */
-    .ingredient[alt="Foglia di rucola"].arugula-1 {
-        width: 150px;
-        top: 12%;
-        right: 20%;
-        z-index: 6;
-        transform: rotate(-20deg);
-    }
-
-    /* Rucola 2 */
-    .ingredient[alt="Foglia di rucola"].arugula-2 {
-        width: 130px;
-        bottom: 25%;
-        right: 30%;
-        z-index: 7;
-        transform: rotate(15deg);
-    }
-
-    /* Prosciutto 1 */
-    .ingredient[alt="Fetta di prosciutto"].prosciutto-1 {
-        width: 220px;
-        top: 40%;
-        left: 15%;
-        z-index: 3;
-        transform: rotate(12deg);
-    }
-
-    /* Prosciutto 2 */
-    .ingredient[alt="Fetta di prosciutto"].prosciutto-2 {
-        width: 200px;
-        top: 15%;
-        right: 20%;
-        z-index: 8;
-        transform: rotate(-8deg);
-    }
-
-    /* Mozzarella 1 */
-    .ingredient[alt="Pallina di mozzarella"].mozzarella-1 {
-        width: 180px;
-        top: 20%;
-        right: 10%;
-        z-index: 4;
-        transform: rotate(8deg);
-    }
-
-    /* Mozzarella 2 */
-    .ingredient[alt="Pallina di mozzarella"].mozzarella-2 {
-        width: 160px;
-        bottom: 20%;
-        left: 25%;
-        z-index: 9;
-        transform: rotate(-12deg);
-    }
-
-    /* Crotoni */
-    .ingredient[alt="Crotoni"] {
-        width: 130px;
-        bottom: 15%;
-        left: 35%;
-        z-index: 10;
-        transform: rotate(-25deg);
-    }
-
-    /* --- PIZZA INGREDIENTI - ЗБІЛЬШЕНІ РОЗМІРИ ДЛЯ ДЕСКТОПУ --- */
-
-    /* Basilico */
-    .ingredient[alt="Foglia di basilico"] {
-        width: 170px;
-        top: 15%;
-        left: 20%;
-        z-index: 5;
-        transform: rotate(25deg);
-    }
-
-    /* Peperoni */
-    .ingredient[alt="Peperoni"] {
-        width: 130px;
-        bottom: 20%;
-        right: 15%;
-        z-index: 3;
-        transform: rotate(-18deg);
-    }
-
-    /* Pomodoro */
-    .ingredient[alt="Pomodoro"] {
-        width: 120px;
-        top: 25%;
-        right: 15%;
-        z-index: 4;
-        transform: rotate(15deg);
-    }
-
-    /* Pomodorini */
-    .ingredient[alt="Pomodorini"] {
-        width: 90px;
-        bottom: 25%;
-        left: 20%;
-        z-index: 6;
-        transform: rotate(-12deg);
-    }
-
-    /* Oliva */
-    .ingredient[alt="Oliva"] {
-        width: 100px;
-        top: 55%;
-        left: 25%;
-        z-index: 7;
-        transform: rotate(20deg);
-    }
-
-    /* --- PASTA INGREDIENTI - ЗБІЛЬШЕНІ РОЗМІРИ ДЛЯ ДЕСКТОПУ --- */
-
-    /* Parmigiano */
-    .ingredient[alt="Parmigiano"] {
-        width: 250px;
-        top: 10%;
-        right: 5%;
-        z-index: 4;
-        transform: rotate(18deg);
-    }
-
-    /* Pasta Farfalle */
-    .ingredient[alt="Pasta farfalle"] {
-        width: 160px;
-        bottom: 15%;
-        right: 25%;
-        z-index: 3;
-        transform: rotate(-30deg);
-    }
-
-    /* Rosmarino */
-    .ingredient[alt="Rametto di rosmarino"] {
-        width: 190px;
-        bottom: 25%;
-        left: 15%;
-        z-index: 6;
-        transform: rotate(12deg);
-    }
-
-    /* --- ДОДАТКОВІ ЕФЕКТИ ДЛЯ ДЕСКТОПУ --- */
-    
-    /* Додаємо більш виражені тіні */
-    .ingredient {
-        filter: drop-shadow(8px 8px 15px rgba(0, 0, 0, 0.2));
-        transition: transform 0.3s ease;
-    }
-
-    /* Легкий hover ефект для інгредієнтів */
-    .ingredient:hover {
-        transform: scale(1.05) rotate(var(--hover-rotate, 0deg));
-        filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.3));
-    }
-}
-
-/* ======================================================= */
-/* ПОКРАЩЕНІ СТИЛІ ДЛЯ КОШИКА */
-/* ======================================================= */
-
-.cart-item {
-    display: flex; /* Вмикаємо Flexbox для вирівнювання */
-    align-items: center; /* Вирівнюємо все по центру по вертикалі */
-    justify-content: space-between; /* Розтягуємо елементи по ширині */
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.cart-item:last-child {
-    border-bottom: none; /* Прибираємо лінію в останнього елемента */
-}
-
-.cart-item-image {
-    width: 60px; /* Фіксований розмір зображення */
-    height: 60px;
-    object-fit: cover; /* Зберігаємо пропорції зображення */
-    border-radius: 8px;
-    margin-right: 15px;
-}
-
-.cart-item-details {
-    flex-grow: 1; /* Дозволяємо цьому блоку зайняти весь вільний простір */
-    display: flex;
-    flex-direction: column; /* Розташовуємо назву і кнопки одну під одною */
-    align-items: flex-start;
-}
-
-.cart-item-name {
-    margin-bottom: 5px;
+    font-size: 12px;
     font-weight: bold;
-}
-
-.cart-item-controls {
-    display: flex;
-    align-items: center;
-}
-
-.cart-item-price-section {
-    text-align: right;
-}
-
-.cart-item-price {
-    font-weight: bold;
-    min-width: 80px; /* Задаємо мінімальну ширину, щоб ціни не "стрибали" */
-    display: block;
-    margin-bottom: 5px;
+    border: 2px solid white;
 }
 
 /* ======================================================= */
-/* АДАПТИВНІ СТИЛІ ДЛЯ КОШИКА */
+/* ПЛАВНЕ ПРИХОВУВАННЯ UI НА ПЕРШОМУ СЛАЙДІ */
 /* ======================================================= */
 
-@media (max-width: 768px) {
-    .cart-item {
-        flex-wrap: wrap; /* Дозволяємо переносити елементи */
-        gap: 10px;
-    }
-    
-    .cart-item-image {
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
-    }
-    
-    .cart-item-details {
-        flex-grow: 1;
-        min-width: 150px; /* Мінімальна ширина для читабельності */
-    }
-    
-    .cart-item-name {
-        font-size: 14px;
-    }
-    
-    .cart-item-price-section {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-    }
-    
-    .cart-item-price {
-        min-width: auto;
-        margin-bottom: 0;
-    }
+/* Додаємо плавність для появи/зникнення елементів */
+#cart-icon,
+.swiper-button-prev,
+.swiper-button-next {
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
-@media (max-width: 480px) {
-    .cart-item {
-        padding: 10px 0;
-        margin-bottom: 10px;
-    }
-    
-    .cart-item-image {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .cart-item-details {
-        min-width: 120px;
-    }
-    
-    .cart-item-name {
-        font-size: 13px;
-    }
-    
-    .quantity-btn {
-        padding: 5px 8px;
-        font-size: 14px;
-    }
-    
-    .cart-item-quantity {
-        font-size: 14px;
-        margin: 0 8px;
-    }
+/* Правила, які спрацюють, коли перший слайд активний */
+body.story-slide-active #cart-icon,
+body.story-slide-active .swiper-button-prev,
+body.story-slide-active .swiper-button-next {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Забороняємо кліки на невидимі елементи */
 }
 
 /* ======================================================= */
-/* СТИЛІ ДЛЯ КНОПКИ МЕНЮ */
+/* МОДАЛЬНЕ ВІКНО "LA NOSTRA STORIA" */
 /* ======================================================= */
 
-.menu-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: #fff;
-    border: 2px solid #333;
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-}
-
-.menu-button:hover {
-    background: #f8f9fa;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Адаптивність для мобільних */
-@media (max-width: 768px) {
-    .menu-button {
-        top: 15px;
-        left: 15px;
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .menu-button {
-        top: 10px;
-        left: 10px;
-        padding: 8px 10px;
-        font-size: 13px;
-    }
-}
-
-/* ======================================================= */
-/* СТИЛІ ДЛЯ МОДАЛЬНОГО ВІКНА МЕНЮ */
-/* ======================================================= */
-
-.full-menu-content {
-    max-width: 90vw;
+.story-content {
+    max-width: 800px; /* Робимо вікно ширшим */
     max-height: 90vh;
-    width: 1000px;
     overflow-y: auto;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.menu-categories {
-    padding: 20px;
+.story-content .modal-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+    border-bottom: none;
 }
 
-.menu-category-section {
-    margin-bottom: 40px;
-}
-
-.menu-category-section h3 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ddd;
-}
-
-.menu-items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 10px 0;
-}
-
-.menu-item-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 20px;
+.story-content .modal-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.story-content .close-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
     transition: all 0.3s ease;
 }
 
-.menu-item-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+.story-content .close-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
 }
 
-.menu-item-image {
+.story-body {
+    padding: 10px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.story-body img {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
 }
 
-.menu-item-name {
-    font-size: 18px;
-    font-weight: bold;
+.story-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 15px;
     color: #333;
-    margin-bottom: 10px;
 }
 
-.menu-item-description {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 15px;
-    line-height: 1.4;
+.story-text p {
+    line-height: 1.7;
+    color: #555;
+    text-align: justify; /* Вирівнювання тексту по ширині */
 }
 
-.menu-item-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #e74c3c;
-    margin-bottom: 15px;
+.story-text p:last-child {
+    text-align: center;
+    font-weight: 600;
+    color: #2d2d2d;
+    font-size: 1.2rem;
+    margin-bottom: 0;
 }
 
-.menu-item-add-btn {
-    background: #27ae60;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.menu-item-add-btn:hover {
-    background: #229954;
-}
-
-/* Адаптивність для модального вікна меню */
+/* Responsive story modal */
 @media (max-width: 768px) {
-    .full-menu-content {
-        max-width: 95vw;
+    .story-content {
+        width: 95%;
         max-height: 95vh;
-        width: auto;
+        margin: 20px;
     }
     
-    .menu-categories {
-        padding: 15px;
+    .story-content .modal-header {
+        padding: 20px 25px;
     }
     
-    .menu-category-section h3 {
-        font-size: 20px;
+    .story-content .modal-header h2 {
+        font-size: 1.5rem;
     }
     
-    .menu-items-grid {
-        grid-template-columns: 1fr;
+    .story-body {
+        padding: 20px 25px;
+        gap: 20px;
+    }
+    
+    .story-body img {
+        height: 250px;
+    }
+    
+    .story-text h3 {
+        font-size: 1.5rem;
+    }
+    
+    .story-text p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .story-content {
+        width: 98%;
+        margin: 10px;
+        border-radius: 15px;
+    }
+    
+    .story-content .modal-header {
+        padding: 15px 20px;
+        border-radius: 15px 15px 0 0;
+    }
+    
+    .story-content .modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .story-body {
+        padding: 15px 20px;
         gap: 15px;
     }
     
-    .menu-item-card {
-        padding: 15px;
+    .story-body img {
+        height: 200px;
+        border-radius: 10px;
     }
     
-    .menu-item-image {
-        height: 150px;
-    }
-}
-
-@media (max-width: 480px) {
-    .full-menu-content {
-        max-width: 98vw;
-        max-height: 98vh;
+    .story-text h3 {
+        font-size: 1.3rem;
     }
     
-    .menu-categories {
-        padding: 10px;
-    }
-    
-    .menu-category-section h3 {
-        font-size: 18px;
-        margin-bottom: 15px;
-    }
-    
-    .menu-item-card {
-        padding: 12px;
-    }
-    
-    .menu-item-image {
-        height: 120px;
-    }
-    
-    .menu-item-name {
-        font-size: 16px;
-    }
-    
-    .menu-item-description {
-        font-size: 13px;
-    }
-    
-    .menu-item-price {
-        font-size: 18px;
+    .story-text p {
+        font-size: 0.95rem;
+        text-align: left;
     }
 }

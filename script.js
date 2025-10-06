@@ -3,6 +3,40 @@
 // =================================================================
 
 // =======================================================
+// ALTERNATIVO: CODICE PER HEADER TRASPARENTE CON CLASSI CSS
+// =======================================================
+// Se vuoi implementare il cambio colore header direttamente qui,
+// puoi aggiungere questo codice nella sezione Swiper:
+
+/*
+const mainHeader = document.querySelector('.main-header');
+
+const swiper = new Swiper('.swiper', {
+  // ... tue configurazioni ...
+  on: {
+    init: function (swiper) {
+      // Controlla il colore del primo slide
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      if (activeSlide.classList.contains('text-dark-theme')) {
+        mainHeader.classList.add('text-dark');
+      } else {
+        mainHeader.classList.remove('text-dark');
+      }
+    },
+    slideChange: function (swiper) {
+      // Controlla il colore dello slide attivo ad ogni cambio
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      if (activeSlide.classList.contains('text-dark-theme')) {
+        mainHeader.classList.add('text-dark');
+      } else {
+        mainHeader.classList.remove('text-dark');
+      }
+    }
+  }
+});
+*/
+
+// =======================================================
 // BLOCCO UNICO DELLA LOGICA DEL CARRELLO (VERSIONE 3.0)
 // =======================================================
 
@@ -417,6 +451,36 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMenuItems('panini', 'menu-panini-container');
     renderMenuItems('pizza', 'menu-pizza-container');
     // renderMenuItems('bevande', 'menu-bevande-container'); // Закоментовано, оскільки HTML для напоїв прописаний вручну
+    
+    // Логіка для кнопки "Vai al Menu" в порожньому кошику
+    const goToMenuBtn = document.getElementById('go-to-menu-btn');
+    const cartModalForMenu = document.getElementById('cart-modal');
+    const fullMenuModalForCart = document.getElementById('full-menu-modal');
+
+    if (goToMenuBtn) {
+        goToMenuBtn.addEventListener('click', () => {
+            cartModalForMenu.classList.add('hidden');
+            fullMenuModalForCart.classList.remove('hidden');
+        });
+    }
+    
+    // "Оживляємо" посилання "La Nostra Storia"
+    const openStoryLink = document.getElementById('open-philosophy-link'); // Ми назвали його так раніше
+    const storyModal = document.getElementById('story-modal');
+    const closeStoryModal = document.getElementById('close-story-modal');
+
+    if (openStoryLink && storyModal && closeStoryModal) {
+        // Відкрити вікно
+        openStoryLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Запобігаємо переходу по посиланню
+            storyModal.classList.remove('hidden');
+        });
+
+        // Закрити вікно
+        closeStoryModal.addEventListener('click', () => {
+            storyModal.classList.add('hidden');
+        });
+    }
 });
 
 // --- PRIMA DICHIARIAMO TUTTE LE FUNZIONI ---
@@ -628,26 +692,54 @@ const masterTl = gsap.timeline({
     }
 });
 
-// Aggiungiamo le animazioni alla sequenza
-masterTl
-    .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
-    .to({}, { duration: 1 }) // Pausa
-    .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
-    .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
-    .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
-    .fromTo('#cart-icon', { 
-        opacity: 0, 
-        x: 100, 
-        y: -80, 
-        scale: 0.2 
-    }, { 
-        opacity: 1, 
-        x: 0, 
-        y: 0, 
-        scale: 1, 
-        duration: 1.3, 
-        ease: "back.out(1.5)" 
-    }, "-=0.8");
+// Controlliamo se l'utente ha già visitato il sito (ha elementi nel carrello)
+const hasVisitedBefore = localStorage.getItem('shoppingCart') !== null;
+
+if (hasVisitedBefore) {
+    // Se l'utente ha già visitato il sito, saltiamo l'animazione e mostriamo direttamente il contenuto
+    console.log("Utente ritornato - saltiamo l'animazione intro");
+    
+    // Nascondiamo immediatamente l'intro screen
+    const introScreen = document.getElementById('intro-screen');
+    if (introScreen) {
+        introScreen.style.display = 'none';
+    }
+    
+    // Mostriamo il contenuto principale
+    gsap.set(mainContent, { autoAlpha: 1 });
+    
+    // Inizializziamo il sito principale
+    initializeMainSite();
+    
+    // Inizializziamo il carrello
+    if (window.cartLogic) {
+        window.cartLogic.initializeCart();
+    }
+} else {
+    // Se è la prima visita, eseguiamo l'animazione completa
+    console.log("Prima visita - eseguiamo l'animazione intro");
+    
+    // Aggiungiamo le animazioni alla sequenza
+    masterTl
+        .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
+        .to({}, { duration: 1 }) // Pausa
+        .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
+        .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
+        .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
+        .fromTo('#cart-icon', { 
+            opacity: 0, 
+            x: 100, 
+            y: -80, 
+            scale: 0.2 
+        }, { 
+            opacity: 1, 
+            x: 0, 
+            y: 0, 
+            scale: 1, 
+            duration: 1.3, 
+            ease: "back.out(1.5)" 
+        }, "-=0.8");
+}
 
 // ===== SCROLL TRIGGER ANIMATION FOR GLASS WATER =====
 // Animazione dell'acqua nel bicchiere quando si scorre alla sezione bevande
