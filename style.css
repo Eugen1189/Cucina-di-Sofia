@@ -1936,3 +1936,48 @@ h1,
         margin: 0 8px;
     }
 }
+
+/* ======================================================= */
+/* СТИЛІ ДЛЯ КНОПКИ МЕНЮ */
+/* ======================================================= */
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #fff;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.menu-button:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивність для мобільних */
+@media (max-width: 768px) {
+    .menu-button {
+        top: 15px;
+        left: 15px;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-button {
+        top: 10px;
+        left: 10px;
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+}
