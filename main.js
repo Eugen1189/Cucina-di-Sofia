@@ -30,6 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inizializza Swiper immediatamente
     initializeSwiper();
     
+    // Додаткова гарантія видимості кнопок після завантаження
+    setTimeout(() => {
+        const activeSlide = document.querySelector('.swiper-slide-active');
+        if (activeSlide) {
+            const buttons = activeSlide.querySelectorAll('.add-to-cart-btn');
+            buttons.forEach(button => {
+                button.style.opacity = '1';
+                button.style.visibility = 'visible';
+                button.style.pointerEvents = 'auto';
+            });
+            console.log('Buttons visibility ensured for active slide:', activeSlide.id);
+        }
+    }, 2000); // Затримка 2 секунди для завершення всіх анімацій
+    
     // Renderizza elementi del menu
     renderMenuItems('panini', 'menu-panini-container');
     renderMenuItems('pizza', 'menu-pizza-container');
@@ -38,6 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Renderizza menu completo con filtri
     renderFullMenu();
+    
+    // Event listener для зміни слайдів - гарантує видимість кнопок
+    document.addEventListener('swiperSlideChange', () => {
+        setTimeout(() => {
+            const activeSlide = document.querySelector('.swiper-slide-active');
+            if (activeSlide) {
+                const buttons = activeSlide.querySelectorAll('.add-to-cart-btn');
+                buttons.forEach(button => {
+                    button.style.opacity = '1';
+                    button.style.visibility = 'visible';
+                    button.style.pointerEvents = 'auto';
+                });
+                console.log('Buttons visibility ensured after slide change:', activeSlide.id);
+            }
+        }, 100);
+    });
     
     // Event listener principale per i clic
     document.body.addEventListener('click', (event) => {

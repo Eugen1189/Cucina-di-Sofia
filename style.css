@@ -2988,6 +2988,43 @@ body.story-slide-active .swiper-button-next {
 }
 
 /* ======================================================= */
+/* ГАРАНТОВАНЕ ВІДОБРАЖЕННЯ КНОПКИ "ДОДАТИ" */
+/* ======================================================= */
+
+/* Це правило гарантує, що кнопка буде видимою на активному слайді */
+.swiper-slide-active .add-to-cart-btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+    /* Позиціонування, яке ми визначили раніше */
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* Додаткове правило для гарантованої видимості після GSAP анімації */
+.swiper-slide-active .add-to-cart-btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+/* Мобільні стилі для кнопки "Додати" */
+@media (max-width: 480px) {
+    .swiper-slide-active .add-to-cart-btn {
+        position: static !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin: 0 auto;
+        padding: 15px 35px;
+        font-size: 0.9rem;
+        z-index: auto !important;
+    }
+}
+
+/* ======================================================= */
 /* МОДАЛЬНЕ ВІКНО "LA NOSTRA STORIA" */
 /* ======================================================= */
 

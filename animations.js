@@ -37,7 +37,16 @@ function runAssemblyAnimation(activeSlide) {
         autoAlpha: 1, /* Використовуйте autoAlpha для видимості та прозорості */
         y: 0,
         stagger: 0.08,
-        ease: "power2.out"
+        ease: "power2.out",
+        onComplete: function() {
+            // Додаткова гарантія видимості кнопок після завершення анімації
+            const buttons = activeSlide.querySelectorAll('.add-to-cart-btn');
+            buttons.forEach(button => {
+                button.style.opacity = '1';
+                button.style.visibility = 'visible';
+                button.style.pointerEvents = 'auto';
+            });
+        }
     });
 }
 
@@ -114,6 +123,12 @@ export function initializeSwiper() {
                 console.log('Slide changed to:', swiper.activeIndex);
                 // Показуємо контент нового активного слайду
                 runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+                
+                // Діспетчимо подію для main.js
+                const event = new CustomEvent('swiperSlideChange', {
+                    detail: { activeIndex: swiper.activeIndex }
+                });
+                document.dispatchEvent(event);
             }
         }
     });
