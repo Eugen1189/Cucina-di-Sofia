@@ -1279,77 +1279,67 @@ h1,
 }
 
 /* ======================================================= */
-/* АДАПТАЦІЯ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ */
+/* АДАПТАЦІЯ ДЛЯ МОБІЛЬНИХ (БІЛЬШ СПЕЦИФІЧНА ВЕРСІЯ) */
 /* ======================================================= */
 
+/* --- Спочатку виправляємо зображення в кошику (для всіх екранів) --- */
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-item .cart-item-image {
+    width: 60px !important; /* !important для гарантії */
+    height: 60px !important;
+    min-width: 60px !important; /* Щоб зображення не стискалося */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+/* --- Тепер мобільна адаптація --- */
 @media (max-width: 768px) {
 
-    /* --- Загальні виправлення для слайдера --- */
-    .slider-section { /* Припускаю, що кожна секція має такий клас */
-        padding: 0 15px; /* Додаємо відступи з боків, щоб контент не прилипав до країв */
-    }
-
-    .product-info { /* Блок з описом товару */
-        width: 90%; /* Розтягуємо на всю ширину */
+    .slider-section .product-info {
+        width: 90%;
         text-align: center;
-        left: 5%; /* Центруємо */
+        left: 5%;
         transform: translateY(-50%);
     }
 
-    .background-text { /* Великі написи "PIZZA", "PASTA" */
-        font-size: 15vw; /* Робимо розмір шрифту залежним від ширини екрана */
-    }
-    
-    .slider-arrow { /* Стрілки слайдера */
-        transform: scale(1.2); /* Робимо стрілки трохи більшими для зручності */
+    .slider-section .background-text {
+        font-size: 15vw;
     }
 
-
-    /* --- Виправлення для блоку з напоями --- */
-    #drinks-container { /* Контейнер для карток з напоями */
-        display: flex;
-        flex-direction: column; /* Складаємо картки одну під одною */
-        align-items: center; /* Центруємо їх */
-        gap: 20px; /* Додаємо відстань між картками */
+    #drinks-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
     }
     
     #drinks-container .product-card {
-        width: 80%; /* Задаємо комфортну ширину для карток */
+        width: 80%;
         margin-bottom: 15px;
     }
 
-
-    /* --- Виправлення для модальних вікон (Кошик та Форма замовлення) --- */
-    .modal-content {
-        width: 95%; /* Модальне вікно займає майже весь екран */
-        max-height: 85vh; /* Обмежуємо висоту, щоб вміщалось на екрані */
-        overflow-y: auto; /* Додаємо скрол, якщо контенту забагато */
+    #cart-modal .modal-content,
+    #order-modal .modal-content {
+        width: 95vw;
+        max-height: 85vh;
+        overflow-y: auto;
     }
 
-
-    /* --- Виправлення для форми замовлення --- */
-    .form-group input,
-    .form-group textarea {
-        width: 100%; /* Поля вводу розтягуються на всю ширину */
-        padding: 12px;
-        font-size: 16px; /* Збільшуємо шрифт для читабельності */
-    }
-    
-    .payment-methods { /* Контейнер з вибором оплати */
-        flex-direction: column; /* Складаємо кнопки оплати одну під одною */
-        gap: 10px;
-    }
-    
-    .payment-methods .payment-option {
+    #order-modal .form-group input,
+    #order-modal .form-group textarea {
         width: 100%;
-    }
-
-
-    /* --- Виправлення для кнопок --- */
-    .add-to-cart-btn,
-    .primary-button { /* Усі основні кнопки */
-        padding: 15px; /* Робимо кнопки вищими, щоб легше було натискати */
+        padding: 12px;
         font-size: 16px;
+    }
+    
+    #order-modal .payment-methods {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
