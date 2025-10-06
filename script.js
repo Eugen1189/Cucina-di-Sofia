@@ -245,26 +245,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
             if (cartItems.length === 0) {
-                showNotification('Il tuo carrello è vuoto. Aggiungi prodotti prima di completare l\'ordine.', 'warning', 4000);
-                return;
+                // Se il carrello è vuoto
+                const cartTotal = document.getElementById('cart-total-price');
+                cartTotal.textContent = "Aggiungi prima i prodotti!";
+                cartTotal.style.color = 'red';
+
+                setTimeout(() => {
+                    // Ripristiniamo il testo e il colore dopo 2 secondi
+                    updateCart(); // Questa funzione aggiornerà la somma a "0 EUR"
+                    cartTotal.style.color = ''; // Ripristiniamo il colore originale
+                }, 2000);
+                
+            } else {
+                // Se ci sono prodotti nel carrello - apriamo il form dell'ordine
+                // Raccogliamo i dati sui prodotti nel carrello
+                const cartData = cartItems.map(item => ({
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price,
+                    total: item.price * item.quantity
+                }));
+                
+                // Calcoliamo l'importo totale
+                const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Apriamo la finestra modale dell'ordine con i dati del carrello
+                openCheckoutModal(cartData, totalAmount);
+                
+                // Chiudiamo la finestra modale del carrello
+                cartModal.classList.add('hidden');
             }
-            
-            // Raccogliamo i dati sui prodotti nel carrello
-            const cartData = cartItems.map(item => ({
-                name: item.name,
-                quantity: item.quantity,
-                price: item.price,
-                total: item.price * item.quantity
-            }));
-            
-            // Calcoliamo l'importo totale
-            const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            // Apriamo la finestra modale dell'ordine con i dati del carrello
-            openCheckoutModal(cartData, totalAmount);
-            
-            // Chiudiamo la finestra modale del carrello
-            cartModal.classList.add('hidden');
         });
     }
     
