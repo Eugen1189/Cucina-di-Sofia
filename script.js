@@ -179,6 +179,36 @@ function updateCart() {
     localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
 }
 
+// --- FUNZIONE PER RENDERIZZARE GLI ELEMENTI DEL MENU ---
+function renderMenuItems(category, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Contenitore non trovato: ${containerId}`);
+        return;
+    }
+
+    // Filtriamo i prodotti per categoria
+    const categoryItems = menu.filter(item => item.category === category);
+    
+    if (categoryItems.length === 0) {
+        container.innerHTML = '<p>Nessun prodotto disponibile in questa categoria.</p>';
+        return;
+    }
+
+    // Generiamo HTML per ogni prodotto
+    container.innerHTML = categoryItems.map(item => `
+        <div class="menu-item-card">
+            <img src="${item.image}" alt="${item.name}" class="menu-item-image">
+            <div class="menu-item-name">${item.name}</div>
+            <div class="menu-item-description">${item.description}</div>
+            <div class="menu-item-price">${item.price} EUR</div>
+            <button class="menu-item-add-btn add-to-cart-btn" data-id="${item.id}">
+                Aggiungi al carrello
+            </button>
+        </div>
+    `).join('');
+}
+
 // --- 3. AVVIO DOPO IL CARICAMENTO DELLA PAGINA ---
 document.addEventListener('DOMContentLoaded', () => {
     console.log("PASSO 1: Pagina caricata. Avviamo lo script.");
@@ -351,6 +381,36 @@ document.addEventListener('DOMContentLoaded', () => {
             orderModal.classList.add('hidden');
         });
     }
+
+    // --- LOGICA PER IL MENU COMPLETO ---
+    
+    // Troviamo gli elementi
+    const openMenuBtn = document.getElementById('open-menu-btn');
+    const fullMenuModal = document.getElementById('full-menu-modal');
+    const closeMenuBtn = document.getElementById('close-menu-btn');
+
+    if (openMenuBtn && fullMenuModal && closeMenuBtn) {
+        // Logica apertura/chiusura
+        openMenuBtn.addEventListener('click', () => {
+            fullMenuModal.classList.remove('hidden');
+        });
+        closeMenuBtn.addEventListener('click', () => {
+            fullMenuModal.classList.add('hidden');
+        });
+        
+        // Chiusura cliccando sull'overlay
+        const menuOverlay = fullMenuModal.querySelector('.modal-overlay');
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', () => {
+                fullMenuModal.classList.add('hidden');
+            });
+        }
+    }
+
+    // Popoliamo le sezioni del menu con i prodotti
+    renderMenuItems('panini', 'menu-panini-container');
+    renderMenuItems('pizza', 'menu-pizza-container');
+    renderMenuItems('bevande', 'menu-bevande-container');
 });
 
 // --- PRIMA DICHIARIAMO TUTTE LE FUNZIONI ---
