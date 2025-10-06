@@ -23,7 +23,7 @@ let cartItems = [];
 // Секції товарів видалено - усі кнопки кошика знаходяться в Swiper слайдах
 
 function addToCart(productId) {
-    console.log(`КРОК 3: Функція addToCart спрацювала для товару ID: ${productId}`);
+    console.log(`STEP 3: La funzione addToCart ha funzionato per il prodotto ID: ${productId}`);
     const existingItem = cartItems.find(item => item.id === productId);
     if (existingItem) {
         existingItem.quantity++;
@@ -37,54 +37,138 @@ function addToCart(productId) {
 }
 
 function removeFromCart(productId) {
-    console.log(`КРОК удаления: Функція removeFromCart спрацювала для товару ID: ${productId}`);
-    // Створюємо новий масив, який не включає товар із вказаним ID
+    console.log(`STEP rimozione: La funzione removeFromCart ha funzionato per il prodotto ID: ${productId}`);
+    // Creiamo un nuovo array che non include il prodotto con l'ID specificato
     cartItems = cartItems.filter(item => item.id !== productId);
     
-    // Оновлюємо вигляд кошика
+    // Aggiorniamo la vista del carrello
     updateCart();
 }
 
+function increaseQuantity(productId) {
+    console.log(`STEP incremento: La funzione increaseQuantity ha funzionato per il prodotto ID: ${productId}`);
+    const existingItem = cartItems.find(item => item.id === productId);
+    if (existingItem) {
+        existingItem.quantity++;
+        updateCart();
+    }
+}
+
+function decreaseQuantity(productId) {
+    console.log(`STEP decremento: La funzione decreaseQuantity ha funzionato per il prodotto ID: ${productId}`);
+    const existingItem = cartItems.find(item => item.id === productId);
+    if (existingItem) {
+        if (existingItem.quantity > 1) {
+            existingItem.quantity--;
+        } else {
+            // Se la quantità = 1, rimuoviamo il prodotto dal carrello
+            cartItems = cartItems.filter(item => item.id !== productId);
+        }
+        updateCart();
+    }
+}
+
+function openCheckoutModal(cartData, totalAmount) {
+    const orderModal = document.getElementById('order-modal');
+    const orderForm = document.getElementById('order-form');
+    const successMessage = document.getElementById('form-success-message');
+    const hiddenProductNameInput = document.getElementById('product-name');
+    
+    if (orderModal && orderForm) {
+        // Creiamo una stringa con i prodotti per l'invio
+        const productsList = cartData.map(item => 
+            `${item.name} x${item.quantity} - ${item.total} EUR`
+        ).join('\n');
+        
+        // Impostiamo i dati nel form
+        hiddenProductNameInput.value = `Ordine dal carrello:\n${productsList}\nTotale: ${totalAmount} EUR`;
+        
+        // Mostriamo il form e nascondiamo il messaggio di successo
+        orderForm.classList.remove('hidden');
+        successMessage.classList.add('hidden');
+        
+        // Reset del form
+        orderForm.reset();
+        hiddenProductNameInput.value = `Ordine dal carrello:\n${productsList}\nTotale: ${totalAmount} EUR`;
+        
+        // Apriamo la finestra modale
+        orderModal.classList.remove('hidden');
+        
+        // Puliamo il carrello dopo aver aperto il form dell'ordine
+        cartItems = [];
+        updateCart();
+    }
+}
+
+function checkDrinkSuggestion() {
+    const suggestionElement = document.getElementById('drink-suggestion');
+    if (!suggestionElement) return; // Se l'elemento non esiste, non facciamo nulla
+
+    // Controlliamo se c'è almeno un prodotto nel carrello che NON è una bevanda
+    const hasFood = cartItems.some(item => item.category !== 'bevande');
+    
+    // Controlliamo se c'è almeno una bevanda nel carrello
+    const hasDrinks = cartItems.some(item => item.category === 'bevande');
+
+    // Se c'è cibo ma non ci sono bevande, mostriamo il messaggio
+    if (hasFood && !hasDrinks) {
+        suggestionElement.textContent = 'Non vorresti aggiungere una bevanda al tuo ordine?';
+        suggestionElement.classList.remove('hidden');
+    } else {
+        // In tutti gli altri casi nascondiamo il messaggio
+        suggestionElement.classList.add('hidden');
+    }
+}
+
+// Функція addDrinkToCart видалена, оскільки нова версія використовує тільки текст
+
 function updateCart() {
-    console.log('Оновлюємо вигляд кошика. Поточний склад:', cartItems);
+    console.log('Aggiorniamo la vista del carrello. Contenuto attuale:', cartItems);
     const cartContainer = document.getElementById('cart-items-container');
     const cartCounter = document.getElementById('cart-counter');
     const cartTotalPrice = document.getElementById('cart-total-price');
     
     if (!cartContainer || !cartCounter || !cartTotalPrice) {
-        console.error("ПОМИЛКА: Не знайдено один з HTML-елементів кошика!");
+        console.error("ERRORE: Non trovato uno degli elementi HTML del carrello!");
         return;
     }
     
-    // 1. Очищуємо контейнер перед оновленням
+    // 1. Puliamo il contenitore prima dell'aggiornamento
     cartContainer.innerHTML = '';
 
     if (cartItems.length === 0) {
-        cartContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
+        cartContainer.innerHTML = '<p>Il tuo carrello è vuoto.</p>';
     } else {
-        // 2. Генеруємо HTML для кожного товару в кошику (з кнопкою видалення)
+        // 2. Generiamo HTML per ogni prodotto nel carrello (con pulsanti +/- e rimozione)
         cartItems.forEach(item => {
             const cartItemHTML = `
                 <div class="cart-item">
-                    <span class="cart-item-name">${item.name} (x${item.quantity})</span>
-                    <span class="cart-item-price">${item.price * item.quantity} грн</span>
-                    
-                    <button class="remove-from-cart-btn" data-id="${item.id}">❌</button> 
+                    <span class="cart-item-name">${item.name}</span>
+                    <div class="cart-item-controls">
+                        <button class="quantity-btn decrease-quantity-btn" data-id="${item.id}">-</button>
+                        <span class="cart-item-quantity">${item.quantity}</span>
+                        <button class="quantity-btn increase-quantity-btn" data-id="${item.id}">+</button>
+                    </div>
+                    <span class="cart-item-price">${item.price * item.quantity} EUR</span>
+                    <button class="remove-from-cart-btn" data-id="${item.id}">❌</button>
                 </div>
             `;
             cartContainer.innerHTML += cartItemHTML;
         });
     }
 
-    // 3. Рахуємо загальну кількість та суму (цей код у вас вже є)
+    // 3. Calcoliamo la quantità totale e la somma
     const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    // 4. Оновлюємо лічильник та суму
+    // 4. Aggiorniamo il contatore e la somma
     cartCounter.textContent = totalQuantity;
-    cartTotalPrice.textContent = `${totalPrice} грн`;
+    cartTotalPrice.textContent = `${totalPrice} EUR`;
 
-    // 5. Зберігаємо кошик у localStorage
+    // 5. Logica suggerimento bevande
+    checkDrinkSuggestion();
+
+    // 6. Salviamo il carrello nel localStorage
     localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
 }
 
@@ -103,42 +187,101 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Головний слухач кліків
     document.body.addEventListener('click', (event) => {
-        // Перевірка на клік по кнопці "Додати" (це у вас вже є)
-        if (event.target.classList.contains('add-to-cart-btn')) {
-            const productId = parseInt(event.target.dataset.id);
+        const target = event.target;
+
+        // --- LOGICA AGGIUNTA AL CARRELLO (AGGIORNATA) ---
+        if (target.classList.contains('add-to-cart-btn')) {
+            if (target.classList.contains('added')) return;
+
+            const productId = parseInt(target.dataset.id);
             addToCart(productId);
+
+            // Troviamo TUTTI i pulsanti per questo prodotto (originale e cloni)
+            const allButtonsForProduct = document.querySelectorAll(`.add-to-cart-btn[data-id="${productId}"]`);
+            
+            allButtonsForProduct.forEach(button => {
+                const originalText = button.textContent;
+                button.textContent = 'Aggiunto ✓';
+                button.classList.add('added');
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('added');
+                }, 1500);
+            });
         }
         
-        // 👇 ДОДАЙТЕ ЦЮ НОВУ ПЕРЕВІРКУ 👇
-        // Перевірка на клік по кнопці "Видалити"
-        if (event.target.classList.contains('remove-from-cart-btn')) {
-            const productId = parseInt(event.target.dataset.id);
+        // --- LOGICA GESTIONE CARRELLO (senza modifiche) ---
+        if (target.classList.contains('remove-from-cart-btn')) {
+            const productId = parseInt(target.dataset.id);
             removeFromCart(productId);
+        }
+        if (target.classList.contains('increase-quantity-btn')) {
+            const productId = parseInt(target.dataset.id);
+            increaseQuantity(productId);
+        }
+        if (target.classList.contains('decrease-quantity-btn')) {
+            const productId = parseInt(target.dataset.id);
+            decreaseQuantity(productId);
         }
     });
     
-    // Логіка модального вікна кошика (перевірте ID!)
+    // Logica finestra modale carrello (controllare ID!)
     const cartIcon = document.getElementById('cart-icon');
     const cartModal = document.getElementById('cart-modal');
     const closeCartBtn = document.getElementById('close-cart-btn');
 
     if (cartIcon && cartModal && closeCartBtn) {
         cartIcon.addEventListener('click', () => {
-            // Додатково оновимо вигляд товарів у кошику при відкритті
-            const cartItemsContainer = document.getElementById('cart-items-container');
-            cartItemsContainer.innerHTML = '';
-            if (cartItems.length === 0) {
-                 cartItemsContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
-            } else {
-                 cartItems.forEach(item => {
-                    cartItemsContainer.innerHTML += `<div class="cart-item"><span>${item.name} (x${item.quantity})</span><span>${item.price * item.quantity} грн</span></div>`;
-                 });
-            }
-            const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            document.getElementById('cart-total-price').textContent = `${totalPrice} грн`;
+            // Aggiorniamo il carrello usando la funzione updateCart corretta
+            updateCart();
             cartModal.classList.remove('hidden');
         });
         closeCartBtn.addEventListener('click', () => cartModal.classList.add('hidden'));
+    }
+    
+    // Gestore per il pulsante "Completa ordine"
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            if (cartItems.length === 0) {
+                alert('Il tuo carrello è vuoto. Aggiungi prodotti prima di completare l\'ordine.');
+                return;
+            }
+            
+            // Raccogliamo i dati sui prodotti nel carrello
+            const cartData = cartItems.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price,
+                total: item.price * item.quantity
+            }));
+            
+            // Calcoliamo l'importo totale
+            const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Apriamo la finestra modale dell'ordine con i dati del carrello
+            openCheckoutModal(cartData, totalAmount);
+            
+            // Chiudiamo la finestra modale del carrello
+            cartModal.classList.add('hidden');
+        });
+    }
+    
+    // --- Logica chiusura finestra modale ORDINE ---
+    
+    // Troviamo la finestra modale e il pulsante di chiusura tramite i loro ID
+    const orderModal = document.getElementById('order-modal');
+    const closeOrderModalBtn = document.getElementById('close-order-modal-btn');
+
+    // Verifichiamo se gli elementi esistono sulla pagina
+    if (orderModal && closeOrderModalBtn) {
+        
+        // Aggiungiamo il gestore dell'evento "click" al pulsante di chiusura
+        closeOrderModalBtn.addEventListener('click', () => {
+            // Aggiungiamo la classe .hidden per nascondere la finestra
+            orderModal.classList.add('hidden');
+        });
     }
 });
 
@@ -216,7 +359,7 @@ function initializeMainSite() {
     if (orderModal) {
     const orderForm = document.getElementById('order-form');
     const successMessage = document.getElementById('form-success-message');
-    const closeModalBtn = document.querySelector('.close-modal-btn');
+    const closeModalBtn = document.getElementById('close-order-modal-btn');
     const hiddenProductNameInput = document.getElementById('product-name');
 
     function openModal(productName) {
@@ -348,6 +491,9 @@ function initializeMainSite() {
 
 // --- ТЕПЕР ЗАПУСКАЄМО ГОЛОВНУ ЛОГІКУ ---
 
+// Реєструємо ScrollTrigger плагін для GSAP
+gsap.registerPlugin(ScrollTrigger);
+
 // Знаходимо елементи для інтро-анімації
 const panelLeft = document.querySelector('.panel-left');
 const panelRight = document.querySelector('.panel-right');
@@ -395,3 +541,33 @@ masterTl
         duration: 1.3, 
         ease: "back.out(1.5)" 
     }, "-=0.8");
+
+// ===== SCROLL TRIGGER ANIMATION FOR GLASS WATER =====
+// Анімація води в стакані при скролі до секції напоїв
+gsap.to("#water", {
+    transform: "translate(0, 0)", // Рухаємо рідину вгору на її кінцеву позицію
+    scrollTrigger: {
+        trigger: "#bevande-section", // ID секції з напоями
+        start: "top center",      // Анімація почнеться, коли верх секції досягне центру екрана
+        end: "bottom center",     // Анімація закінчиться, коли низ секції досягне центру
+        scrub: true,              // "Прив'язує" анімацію до прогресу скролу
+        markers: false,           // Вимкнено маркери для продакшну (можна увімкнути для налагодження)
+        onUpdate: (self) => {
+            // Додаткова логіка при оновленні анімації (опціонально)
+            console.log('Water animation progress:', self.progress);
+        }
+    }
+});
+
+// Додаткова анімація для пухирців у воді
+gsap.to("#glass-animation circle", {
+    scale: 1.2,
+    opacity: 0.8,
+    scrollTrigger: {
+        trigger: "#bevande-section",
+        start: "top center",
+        end: "bottom center",
+        scrub: 0.5, // Менша чутливість для плавнішої анімації
+        markers: false
+    }
+});

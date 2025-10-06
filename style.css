@@ -137,10 +137,7 @@ main {
     transition: all 0.3s ease;
 }
 
-.order-button:hover {
-    background-color: #333;
-    color: #fff;
-}
+/* Effetto hover rimosso per pulsante statico */
 
 
 /* STEP 4: INGREDIENT POSITIONING (PARALLAX) */
@@ -272,10 +269,70 @@ main {
         font-size: 1rem;
     }
     
+    /* Glass animation responsive styles */
+    .glass-animation-container {
+        padding: 1rem;
+    }
+    
+    #glass-animation {
+        width: 120px;
+        height: 160px;
+    }
+    
+    .glass-label h4 {
+        font-size: 1rem;
+    }
+    
+    .glass-label span {
+        font-size: 0.9rem;
+    }
+    
     /* Hide some ingredients on very small screens to reduce clutter */
     .olive, .farfalle {
         display: none;
     }
+    
+    /* --- STILIZZAZIONE ADATTIVA CARRELLO PER MOBILE --- */
+    .cart-item {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.8rem 0;
+    }
+    
+    .cart-item-name {
+        min-width: 100%;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .cart-item-controls {
+        order: 2;
+    }
+    
+    .quantity-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 0.9rem;
+    }
+    
+    .cart-item-quantity {
+        font-size: 0.9rem;
+    }
+    
+    .cart-item-price {
+        order: 3;
+        min-width: 60px;
+        font-size: 0.9rem;
+    }
+    
+    .remove-from-cart-btn {
+        order: 4;
+        width: 26px;
+        height: 26px;
+        font-size: 1rem;
+    }
+    
+    /* Stili responsive per suggerimento bevande - non necessari per testo semplice */
 }
 
 /* ===== ACCESSIBILITY (A11Y) IMPROVEMENTS ===== */
@@ -484,9 +541,7 @@ main {
     transition: transform 0.3s ease;
 }
 
-.drink-item:hover {
-    transform: scale(1.05);
-}
+/* Effetto hover rimosso per pulsante statico */
 
 .drink-image {
     width: 120px;
@@ -509,6 +564,78 @@ main {
     font-size: 1.1rem;
     font-weight: bold;
     color: var(--pasta-bg);
+}
+
+/* ===== STILI ANIMAZIONE BICCHIERE ===== */
+.glass-animation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effetti hover rimossi per elementi statici */
+
+#glass-animation {
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.glass-label h4 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--pizza-bg);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.glass-label span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--pasta-bg);
+}
+
+/* Animazione acqua che sale */
+@keyframes waterRise {
+    0% {
+        transform: translate(0, 120px);
+    }
+    100% {
+        transform: translate(0, 80px);
+    }
+}
+
+/* Effetto increspature acqua */
+@keyframes ripple {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+.glass-animation-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgba(100, 149, 237, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: ripple 3s ease-out infinite;
+    pointer-events: none;
 }
 
 
@@ -549,13 +676,9 @@ main {
 /* Interactive hover effects for buttons and navigation */
 
 /* Order button hover effect */
-.order-button:hover {
-    transform: scale(1.05);
-    background-color: var(--button-bg);
-    color: var(--button-text);
-}
+/* Effetto hover rimosso per pulsante statico */
 
-/* Cart button styles (замінити кнопку замовлення) */
+/* Stili pulsante carrello (sostituire pulsante ordine) */
 .add-to-cart-btn {
     background-color: var(--pasta-bg);
     color: white;
@@ -578,19 +701,18 @@ main {
     min-width: 200px;
 }
 
-.add-to-cart-btn:hover {
-    transform: translateX(-50%) scale(1.05);
-    background-color: #7b6a47;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    color: white;
+/* Effetto hover rimosso per pulsante statico */
+
+.add-to-cart-btn.added {
+    background-color: #28a745; /* Зелений колір успіху */
+    border-color: #28a745;
+    cursor: default;
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
 }
 
 /* Navigation arrows hover effect */
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-    transform: scale(1.1);
-    color: var(--text-color); /* More saturated color on hover */
-}
+/* Effetto hover rimosso per pulsante statico */
 
 /* Smooth transitions for all interactive elements */
 .order-button, .swiper-button-prev, .swiper-button-next, .add-to-cart-btn {
@@ -621,7 +743,7 @@ main {
     flex-wrap: wrap;
 }
 
-/* ===== ІКОНКА КОШИКА ===== */
+/* ===== ICONA CARRELLO ===== */
 .cart-button {
     position: fixed;
     top: 2rem;
@@ -642,11 +764,7 @@ main {
     min-width: 70px;
 }
 
-.cart-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    background-color: #c83e2b;
-}
+/* Effetto hover rimosso per pulsante statico */
 
 #cart-counter {
     font-size: 1rem;
@@ -662,7 +780,7 @@ main {
     font-weight: 900;
 }
 
-/* ===== МОДАЛЬНЕ ВІКНО КОШИКА ===== */
+/* ===== FINESTRA MODALE CARRELLO ===== */
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -678,7 +796,7 @@ main {
     color: var(--pizza-bg);
 }
 
-/* Стилі для товарів у кошику */
+/* Stili per prodotti nel carrello */
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -686,6 +804,7 @@ main {
     padding: 1rem 0;
     border-bottom: 1px solid #eee;
     font-size: 1rem;
+    gap: 1rem;
 }
 
 .cart-item:last-child {
@@ -696,13 +815,55 @@ main {
     font-weight: 500;
     color: var(--pizza-bg);
     flex-grow: 1;
-    margin-right: 1rem;
+    min-width: 150px;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f8f9fa;
+    padding: 0.3rem;
+    border-radius: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.quantity-btn {
+    background-color: var(--pasta-bg);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Effetto hover rimosso per pulsante statico */
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.cart-item-quantity {
+    font-weight: bold;
+    color: var(--pizza-bg);
+    min-width: 20px;
+    text-align: center;
+    font-size: 1rem;
 }
 
 .cart-item-price {
     font-weight: bold;
     color: var(--pasta-bg);
-    margin-right: 1rem;
+    min-width: 80px;
+    text-align: right;
 }
 
 .remove-from-cart-btn {
@@ -721,10 +882,7 @@ main {
     flex-shrink: 0;
 }
 
-.remove-from-cart-btn:hover {
-    background-color: #ff3742;
-    transform: scale(1.1);
-}
+/* Effetto hover rimosso per pulsante statico */
 
 .close-button {
     color: #aaa;
@@ -733,16 +891,14 @@ main {
     cursor: pointer;
 }
 
-.close-button:hover {
-    color: black;
-}
+/* Effetto hover rimosso per pulsante statico */
 
-/* Клас для приховування елементів */
+/* Classe per nascondere elementi */
 .hidden {
     display: none;
 }
 
-/* ===== КАРТКИ ТОВАРІВ ===== */
+/* ===== SCHEDE PRODOTTI ===== */
 .product-card {
     background-color: white;
     border-radius: 12px;
@@ -753,10 +909,7 @@ main {
     margin: 0 auto;
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
+/* Effetto hover rimosso per pulsante statico */
 
 .product-card .product-image {
     width: 100%;
@@ -811,10 +964,7 @@ main {
     font-size: 0.9rem;
 }
 
-.add-to-cart-btn:hover {
-    background-color: #c83e2b;
-    transform: scale(1.05);
-}
+/* Effetto hover rimosso per pulsante statico */
 
 .add-to-cart-btn:active {
     transform: scale(0.95);
@@ -831,12 +981,17 @@ main {
 }
 
 .suggestion {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--pasta-bg);
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #fff3cd; /* Світло-жовтий фон */
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    color: #856404; /* Темно-жовтий текст */
+    text-align: center;
+    font-size: 0.9em;
 }
+
+/* Стилі для складного контенту видалені, оскільки нова версія використовує простий текст */
 
 .cart-total {
     display: flex;
@@ -860,9 +1015,7 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.primary-button:hover {
-    background-color: #c83e2b;
-}
+/* Effetto hover rimosso per pulsante statico */
 
 .primary-button:disabled {
     background-color: #ccc;
@@ -1013,9 +1166,7 @@ h1,
     transition: background-color 0.3s ease;
 }
 
-#order-form button:hover {
-    background-color: #555;
-}
+/* Effetto hover rimosso per pulsante statico */
 
 /* Стилі для повідомлення про успішне замовлення */
 #form-success-message {
