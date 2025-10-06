@@ -431,33 +431,6 @@ function initializeMainSite() {
         });
     }
 
-        orderButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const activeSlide = swiper.slides[swiper.activeIndex];
-                
-                // Знаходимо відповідний продукт в меню за назвою слайда
-                const slideTitle = activeSlide.querySelector('h1').textContent.toLowerCase();
-                let product = null;
-                
-                // Визначаємо продукт за назвою слайда
-                if (slideTitle.includes('panini') || slideTitle.includes('паніні')) {
-                    product = menu.find(item => item.category === 'panini');
-                } else if (slideTitle.includes('pizza') || slideTitle.includes('піца')) {
-                    product = menu.find(item => item.category === 'pizza');
-                } else if (slideTitle.includes('pasta') || slideTitle.includes('паста')) {
-                    product = menu.find(item => item.category === 'pasta');
-                } else if (slideTitle.includes('bevande') || slideTitle.includes('напої')) {
-                    // Для слайда напоїв показуємо модальне вікно "Bevande Italiane"
-                    openModal('Bevande Italiane');
-                    return;
-                }
-                
-                // Використовуємо дані з меню або fallback на назву слайда
-                const productName = product ? product.name : slideTitle;
-                console.log('Обрані дані продукту:', product);
-                openModal(productName);
-            });
-        });
 
         closeModalBtn.addEventListener('click', closeModal);
         orderModal.querySelector('.modal-overlay').addEventListener('click', closeModal);
