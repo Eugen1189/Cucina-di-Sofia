@@ -139,18 +139,25 @@ function updateCart() {
     if (cartItems.length === 0) {
         cartContainer.innerHTML = '<p>Il tuo carrello è vuoto.</p>';
     } else {
-        // 2. Generiamo HTML per ogni prodotto nel carrello (con pulsanti +/- e rimozione)
+        // 2. Generiamo HTML per ogni prodotto nel carrello con nuova struttura
         cartItems.forEach(item => {
             const cartItemHTML = `
                 <div class="cart-item">
-                    <span class="cart-item-name">${item.name}</span>
-                    <div class="cart-item-controls">
-                        <button class="quantity-btn decrease-quantity-btn" data-id="${item.id}">-</button>
-                        <span class="cart-item-quantity">${item.quantity}</span>
-                        <button class="quantity-btn increase-quantity-btn" data-id="${item.id}">+</button>
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    
+                    <div class="cart-item-details">
+                        <span class="cart-item-name">${item.name}</span>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn decrease-quantity-btn" data-id="${item.id}">-</button>
+                            <span class="cart-item-quantity">${item.quantity}</span>
+                            <button class="quantity-btn increase-quantity-btn" data-id="${item.id}">+</button>
+                        </div>
                     </div>
-                    <span class="cart-item-price">${item.price * item.quantity} EUR</span>
-                    <button class="remove-from-cart-btn" data-id="${item.id}">❌</button>
+                    
+                    <div class="cart-item-price-section">
+                        <span class="cart-item-price">${item.price * item.quantity} EUR</span>
+                    <button class="remove-from-cart-btn" data-id="${item.id}">❌</button> 
+                    </div>
                 </div>
             `;
             cartContainer.innerHTML += cartItemHTML;
