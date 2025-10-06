@@ -492,8 +492,10 @@ function initializeMainSite() {
 
     function setBackgroundColor(swiper) {
         const activeSlide = swiper.slides[swiper.activeIndex];
-        const bgColor = activeSlide.dataset.bgColor;
+        const bgColor = activeSlide.dataset.bgColor || '#000000'; // Колір за замовчуванням - чорний
+        body.style.transition = 'background-color 0.8s ease'; // Плавна зміна фону
         body.style.backgroundColor = bgColor;
+        console.log('Setting background color:', bgColor, 'for slide:', activeSlide.id || swiper.activeIndex);
     }
 
     function runAssemblyAnimation(activeSlide) {
@@ -526,6 +528,9 @@ function initializeMainSite() {
             setBackgroundColor(swiper);
                 // Avviamo l'animazione per il primo slide, già visibile
             runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+        },
+        slideChange: function (swiper) {
+            setBackgroundColor(swiper); // Змінюємо фон при кожній зміні слайду
         },
         slideChangeTransitionStart: function (swiper) {
             setBackgroundColor(swiper);
