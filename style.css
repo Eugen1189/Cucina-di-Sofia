@@ -989,134 +989,9 @@ main {
 /* BURGER MENU - Mobile Navigation */
 /* ======================================================= */
 
-/* Приховуємо бургер на десктопі */
-.mobile-menu-button {
+/* --- Спочатку ховаємо мобільні елементи на десктопі --- */
+.mobile-menu-button, .mobile-menu-container {
     display: none;
-}
-
-/* Бургер-кнопка */
-.mobile-menu-button {
-    background: none;
-    border: none;
-    width: 30px;
-    height: 24px;
-    position: relative;
-    cursor: pointer;
-    z-index: 1001;
-    padding: 0;
-}
-
-.mobile-menu-button span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: currentColor;
-    position: absolute;
-    left: 0;
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-button span:nth-child(1) {
-    top: 0;
-}
-
-.mobile-menu-button span:nth-child(2) {
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.mobile-menu-button span:nth-child(3) {
-    bottom: 0;
-}
-
-/* Анімація бургера в "X" */
-.mobile-menu-button.active span:nth-child(1) {
-    top: 50%;
-    transform: translateY(-50%) rotate(45deg);
-}
-
-.mobile-menu-button.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.mobile-menu-button.active span:nth-child(3) {
-    bottom: 50%;
-    transform: translateY(50%) rotate(-45deg);
-}
-
-/* Контейнер мобільного меню */
-.mobile-menu-container {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 239, 225, 0.95));
-    backdrop-filter: blur(20px);
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
-    z-index: 999;
-    padding: 80px 30px 30px;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.mobile-menu-container.active {
-    right: 0;
-}
-
-/* Посилання в мобільному меню */
-.mobile-menu-link {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 15px 20px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.mobile-menu-link:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateX(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Кнопка бронювання в мобільному меню */
-.reserve-button-mobile {
-    background: linear-gradient(135deg, #D9534F, #C94541) !important;
-    color: white !important;
-    font-weight: 700;
-    margin-top: 10px;
-    border: none;
-}
-
-.reserve-button-mobile:hover {
-    background: linear-gradient(135deg, #C94541, #B33A36) !important;
-    transform: translateX(-5px) scale(1.02);
-}
-
-/* Overlay для закриття меню */
-.mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.mobile-menu-overlay.active {
-    opacity: 1;
-    pointer-events: all;
 }
 
 .logo {
@@ -1873,14 +1748,87 @@ main {
         padding: 12px 20px;
     }
     
-    /* Приховуємо desktop навігацію на мобільних */
+    /* Ховаємо десктопну навігацію */
     .desktop-nav {
         display: none !important;
     }
-    
-    /* Показуємо бургер-меню на мобільних */
+
+    /* Показуємо і стилізуємо кнопку "бургер" */
     .mobile-menu-button {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 2001; /* Поверх всього */
+    }
+
+    .mobile-menu-button span {
+        width: 30px;
+        height: 3px;
+        background: currentColor; /* Успадковує колір тексту хедера */
+        border-radius: 10px;
+        transition: all 0.3s linear;
+        position: relative;
+        transform-origin: 1px;
+    }
+
+    /* Анімація бургера в "X" при відкритті */
+    .mobile-menu-button.open span:nth-child(1) {
+        transform: rotate(45deg);
+    }
+
+    .mobile-menu-button.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-button.open span:nth-child(3) {
+        transform: rotate(-45deg);
+    }
+
+    /* Контейнер мобільного меню */
+    .mobile-menu-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        transform: translateX(100%); /* Сховано за екраном */
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-menu-container.open {
+        transform: translateX(0); /* Показати меню */
+    }
+
+    .mobile-menu-link {
+        color: white;
+        text-decoration: none;
+        font-size: 2rem;
+        margin: 20px 0;
+        font-family: 'Playfair Display', serif;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-menu-link:hover {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+
+    /* Кнопка бронювання в мобільному меню */
+    .reserve-button-mobile {
+        color: #D9534F !important;
+        font-weight: 700;
     }
     
     .logo {

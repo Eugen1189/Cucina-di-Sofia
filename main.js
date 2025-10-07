@@ -120,19 +120,18 @@ function handleReservationSubmit(event) {
 function initializeMobileMenu() {
     const menuToggle = document.getElementById('mobile-menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileOverlay = document.getElementById('mobile-menu-overlay');
     const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
     
-    if (!menuToggle || !mobileMenu || !mobileOverlay) {
+    if (!menuToggle || !mobileMenu) {
         console.warn('Mobile menu elements not found');
         return;
     }
     
     // Функція відкриття/закриття меню
     function toggleMobileMenu() {
-        const isActive = mobileMenu.classList.contains('active');
+        const isOpen = mobileMenu.classList.contains('open');
         
-        if (isActive) {
+        if (isOpen) {
             closeMobileMenu();
         } else {
             openMobileMenu();
@@ -140,24 +139,19 @@ function initializeMobileMenu() {
     }
     
     function openMobileMenu() {
-        mobileMenu.classList.add('active');
-        mobileOverlay.classList.add('active');
-        menuToggle.classList.add('active');
+        mobileMenu.classList.add('open');
+        menuToggle.classList.add('open');
         document.body.style.overflow = 'hidden'; // Блокуємо прокрутку фону
     }
     
     function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        mobileOverlay.classList.remove('active');
-        menuToggle.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        menuToggle.classList.remove('open');
         document.body.style.overflow = ''; // Відновлюємо прокрутку
     }
     
     // Event listener для бургер-кнопки
     menuToggle.addEventListener('click', toggleMobileMenu);
-    
-    // Event listener для overlay (закриття при кліку поза меню)
-    mobileOverlay.addEventListener('click', closeMobileMenu);
     
     // Event listeners для посилань в меню
     mobileMenuLinks.forEach(link => {
