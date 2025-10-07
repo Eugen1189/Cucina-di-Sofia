@@ -1793,6 +1793,37 @@ main {
     .mobile-menu-button.open span:nth-child(2) { opacity: 0; }
     .mobile-menu-button.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
     
+    /* Преміальний стиль для всіх модальних вікон на мобільних */
+    .modal-content {
+        background: #1C1C1E; /* Глибокий темно-сірий */
+        color: #F2F2F7; /* Світлий колір тексту */
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-header h2 {
+        color: #FFFFFF; /* Чистий білий для заголовків */
+    }
+
+    /* Оновлюємо стилі для контенту всередині модальних вікон */
+    .story-body img {
+        border-radius: 12px;
+    }
+    
+    .story-text p, .contact-item p {
+        color: #AEAEB2; /* М'який сірий для тексту */
+    }
+    
+    .contact-item strong {
+        color: #F2F2F7;
+    }
+    
     .logo {
         font-size: 1.5rem;
     }
