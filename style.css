@@ -158,133 +158,13 @@ main {
     height: 100vh;
 }
 
-.swiper {
+/* Hero Section (previously .swiper) */
+.hero-section {
     width: 100%;
     height: 100%;
-}
-
-.swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0 !important;
-    border: none !important;
-    width: 100% !important;
-    height: 100% !important;
-    /* Прибираємо ефект скла, який ми не будемо використовувати */
-    background: transparent !important; 
-    backdrop-filter: none !important;
-    box-shadow: none !important;
-}
-
-.slide-content {
-    position: relative;
-    width: 80%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Hide inactive slides */
-.swiper-slide:not(.swiper-slide-active) .slide-content {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-/* ======================================================= */
-/* АРТ-ОБ'ЄКТИ НАВІГАЦІЇ СЛАЙДЕРА */
-/* ======================================================= */
-
-.swiper-button-prev,
-.swiper-button-next {
-    width: 60px !important;
-    height: 60px !important;
-    background: rgba(255, 255, 255, 0.3) !important; /* Напівпрозорий білий */
-    border: 1px solid rgba(255, 255, 255, 0.5) !important;
-    border-radius: 50% !important;
-    backdrop-filter: blur(5px) !important;
-    -webkit-backdrop-filter: blur(5px) !important;
-    transition: all 0.3s ease !important;
-    margin-top: -30px !important; /* Центруємо вертикально */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-}
-
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-    background: rgba(255, 255, 255, 0.7) !important;
-    transform: scale(1.1) !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
-}
-
-.swiper-button-prev:active,
-.swiper-button-next:active {
-    transform: scale(0.95) !important;
-}
-
-/* Стилізуємо саму іконку стрілки */
-.swiper-button-prev::after,
-.swiper-button-next::after {
-    font-size: 20px !important;
-    font-weight: 900 !important;
-    color: white !important;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Позиціонування стрілок */
-.swiper-button-prev {
-    left: 20px !important;
-}
-
-.swiper-button-next {
-    right: 20px !important;
-}
-
-/* Додаткові ефекти для арт-об'єктів */
-.swiper-button-prev::before,
-.swiper-button-next::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
-    z-index: -1;
-}
-
-.swiper-button-prev:hover::before,
-.swiper-button-next:hover::before {
-    width: 100%;
-    height: 100%;
-}
-
-/* Анімація пульсації для привернення уваги */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    50% {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 0 10px rgba(255, 255, 255, 0.1);
-    }
-    100% {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-    animation: pulse 3s ease-in-out infinite;
-}
-
-/* Приховуємо анімацію при hover */
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-    animation: none;
 }
 
 /* ======================================================= */
@@ -337,7 +217,7 @@ main {
 }
 
 /* Анімація появи страви (контролюється через GSAP) */
-.swiper-slide-active .dish-container .product-image {
+.dish-container .product-image {
     animation: fadeInDish 1s ease-out forwards;
 }
 
@@ -1930,37 +1810,6 @@ main {
         font-size: 14px;
     }
     
-    /* Арт-об'єкти навігації для планшетів */
-    .swiper-button-prev,
-    .swiper-button-next {
-        width: 50px !important;
-        height: 50px !important;
-        margin-top: -25px !important;
-    }
-    
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-        font-size: 18px !important;
-    }
-    
-    .swiper-button-prev {
-        left: 15px !important;
-    }
-    
-    .swiper-button-next {
-        right: 15px !important;
-    }
-    
-    .swiper-slide {
-        width: 100% !important; /* Повноекранна ширина на планшетах */
-        height: 100% !important; /* Повноекранна висота на планшетах */
-        border-radius: 0 !important; /* Без заокруглених кутів */
-        backdrop-filter: none !important; /* Без ефекту скла */
-        -webkit-backdrop-filter: none !important;
-        background: transparent !important; /* Прозорий фон */
-        border: none !important; /* Без рамки */
-        box-shadow: none !important; /* Без тіні */
-    }
     
     .product-image {
         max-width: 400px;
@@ -2047,38 +1896,6 @@ main {
         border-radius: 20px;
     }
     
-    /* Арт-об'єкти навігації для мобільних */
-    .swiper-button-prev,
-    .swiper-button-next {
-        width: 40px !important;
-        height: 40px !important;
-        margin-top: -20px !important;
-        background: rgba(255, 255, 255, 0.4) !important; /* Більш видимий на мобільних */
-    }
-    
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-        font-size: 16px !important;
-    }
-    
-    .swiper-button-prev {
-        left: 10px !important;
-    }
-    
-    .swiper-button-next {
-        right: 10px !important;
-    }
-    
-    .swiper-slide {
-        width: 100% !important; /* Повноекранна ширина на мобільних */
-        height: 100% !important; /* Повноекранна висота на мобільних */
-        border-radius: 0 !important; /* Без заокруглених кутів */
-        backdrop-filter: none !important; /* Без ефекту скла */
-        -webkit-backdrop-filter: none !important;
-        background: transparent !important; /* Прозорий фон */
-        border: none !important; /* Без рамки */
-        box-shadow: none !important; /* Без тіні */
-    }
     
     .product-image {
         max-width: 280px;
