@@ -154,6 +154,7 @@ export const menu = [
         price: 40,
         image: 'images/acqua-minerale.png',
         category: 'bevande',
+        isSpecial: true,
         ingredients: [
             { name: 'Bottiglia di Vetro', nameIt: 'Bottiglia Riciclabile', image: 'images/ingredient-spring-water.png', weight: '500ml' },
             { name: 'Con Ghiaccio', nameIt: 'Ghiaccio Fresco', image: 'images/ingredient-minerals.png', weight: '-' },
