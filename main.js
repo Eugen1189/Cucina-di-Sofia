@@ -115,8 +115,8 @@ function initializeMenuGallery() {
         
         // Використовуємо масив menuCategories
         categoryContainer.innerHTML = menuCategories.map(cat => `
-            <li data-category="${cat.name}">
-                <div class="category-content">${cat.name}</div>
+            <li data-category="${cat.name}" class="category-card" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${cat.image}');">
+                <span class="category-card-title">${cat.name}</span>
             </li>
         `).join('');
     }
