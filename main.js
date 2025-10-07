@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeModals();
     initializeAnimations();
     initializeIntroAnimation();
+    initializeMobileMenu();
     
     // Inizializza Swiper immediatamente
     initializeSwiper();
@@ -92,7 +93,7 @@ function handleReservationSubmit(event) {
             successMessage.classList.remove('hidden');
             
             // Chiudi automaticamente dopo 3 secondi
-            setTimeout(() => {
+    setTimeout(() => {
                 closeModal('reservation-modal');
                 form.classList.remove('hidden');
                 successMessage.classList.add('hidden');
@@ -113,4 +114,72 @@ function handleReservationSubmit(event) {
         spinner.classList.add('hidden');
         buttonText.textContent = 'Invia Prenotazione';
     });
+}
+
+// --- MOBILE MENU FUNCTIONALITY ---
+function initializeMobileMenu() {
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+    
+    if (!menuToggle || !mobileMenu || !mobileOverlay) {
+        console.warn('Mobile menu elements not found');
+        return;
+    }
+    
+    // Функція відкриття/закриття меню
+    function toggleMobileMenu() {
+        const isActive = mobileMenu.classList.contains('active');
+        
+        if (isActive) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
+    
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        mobileOverlay.classList.add('active');
+        menuToggle.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Блокуємо прокрутку фону
+    }
+    
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        menuToggle.classList.remove('active');
+        document.body.style.overflow = ''; // Відновлюємо прокрутку
+    }
+    
+    // Event listener для бургер-кнопки
+    menuToggle.addEventListener('click', toggleMobileMenu);
+    
+    // Event listener для overlay (закриття при кліку поза меню)
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    
+    // Event listeners для посилань в меню
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const linkId = link.id;
+            
+            // Закриваємо мобільне меню
+            closeMobileMenu();
+            
+            // Обробляємо клік залежно від ID
+            if (linkId === 'mobile-open-menu') {
+                e.preventDefault();
+                openModal('menu-modal');
+            } else if (linkId === 'mobile-open-story') {
+                e.preventDefault();
+                openModal('story-modal');
+            } else if (linkId === 'mobile-open-reservation') {
+                e.preventDefault();
+                openModal('reservation-modal');
+            }
+        });
+    });
+    
+    console.log('✅ Mobile menu initialized');
 }

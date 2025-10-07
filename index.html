@@ -36,12 +36,28 @@
     <!-- Елегантна навігаційна панель -->
     <header class="main-header">
         <div class="logo">Cucina di Sofia</div>
-        <nav class="main-nav">
+        
+        <nav class="main-nav desktop-nav">
             <a href="#" id="open-menu-link" class="nav-link">Il Nostro Menu</a>
             <a href="#" id="open-philosophy-link" class="nav-link">La Nostra Storia</a>
         </nav>
-        <a href="#" id="open-reservation-btn" class="reserve-button">Prenota un tavolo</a>
+        
+        <a href="#" id="open-reservation-btn" class="reserve-button desktop-nav">Prenota un tavolo</a>
+
+        <button id="mobile-menu-toggle" class="mobile-menu-button" aria-label="Toggle mobile menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
+
+    <!-- Мобільне меню -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+    <div id="mobile-menu" class="mobile-menu-container">
+        <a href="#" class="mobile-menu-link" id="mobile-open-menu">Il Nostro Menu</a>
+        <a href="#" class="mobile-menu-link" id="mobile-open-story">La Nostra Storia</a>
+        <a href="#" class="mobile-menu-link reserve-button-mobile" id="mobile-open-reservation">Prenota un tavolo</a>
+    </div>
 
     <main role="main" aria-label="Italian Food Showcase">
         <div class="swiper" role="region" aria-label="Food slideshow">
