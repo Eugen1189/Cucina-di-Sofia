@@ -19,8 +19,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -67,11 +65,8 @@
     </div>
 
     <main role="main" aria-label="Italian Food Showcase">
-        <div class="swiper" role="region" aria-label="Food slideshow">
-            <div class="swiper-wrapper">
-
-                <div class="swiper-slide" data-bg-color="#2d2d2d">
-                    <div class="story-slide-content">
+        <div class="hero-section" data-bg-color="#2d2d2d">
+            <div class="story-slide-content">
                         <video class="story-video-bg" autoplay muted loop playsinline>
                             <source src="images/document_5415755719314013745.mp4" type="video/mp4">
                             <!-- Fallback для браузерів, які не підтримують відео -->
@@ -84,9 +79,6 @@
                             <a href="#menu" id="discover-menu-btn" class="story-button">Scopri il menu</a>
                         </div>
                     </div>
-                </div>
-
-            </div>
         </div>
     </main>
 
@@ -215,7 +207,6 @@
     </div>
 
     <!-- Скрипти -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="main.js" type="module"></script>

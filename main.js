@@ -3,7 +3,7 @@
 // =======================================================
 
 import { openModal, closeModal, initializeModals } from './ui.js';
-import { initializeSwiper, initializeAnimations, initializeIntroAnimation } from './animations.js';
+import { initializeAnimations, initializeIntroAnimation } from './animations.js';
 import { menu } from './cart.js';
 
 // --- INIZIALIZZAZIONE PRINCIPALE ---
@@ -28,12 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMobileMenu();
     initializeMenuGallery();
     
-    // Inizializza Swiper immediatamente
-    initializeSwiper();
-    
-    // Renderizza menu completo con filtri (rimosso - ora usiamo Hover Gallery)
-    // renderFullMenu();
-    
     // Event listener principale per i clic
     document.body.addEventListener('click', (event) => {
         const target = event.target;
@@ -41,11 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Logica per il pulsante "Scopri il menu"
         if (target.id === 'discover-menu-btn') {
             event.preventDefault();
-            // Vai al secondo slide (Panini)
-            const swiper = document.querySelector('.swiper').swiper;
-            if (swiper) {
-                swiper.slideTo(1, 1000); // Slide to index 1 (Panini slide)
-            }
+            // Apri il modal del menu
+            openModal('full-menu-modal');
         }
     });
 });
