@@ -1323,6 +1323,18 @@ main {
     margin-bottom: 20px;
 }
 
+/* Кінематографічні переходи між екранами меню */
+#category-gallery-container, #dish-grid-container {
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+/* Клас для екрану, який "виїжджає" */
+.is-exiting {
+    position: absolute; /* Важливо для плавного переходу */
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
 /* Menu item card */
 .menu-item-card {
     background: white;
