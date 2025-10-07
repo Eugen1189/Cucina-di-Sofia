@@ -57,15 +57,6 @@ export function initializeModals() {
         });
     }
     
-    // Event listener per prenotazione
-    const reservationBtn = document.getElementById('open-reservation-btn');
-    if (reservationBtn) {
-        reservationBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal('reservation-modal');
-        });
-    }
-    
 }
 
 // --- NOTIFICHE ---

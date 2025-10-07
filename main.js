@@ -53,68 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    
-    // Gestione form prenotazione
-    const reservationForm = document.getElementById('reservation-form');
-    if (reservationForm) {
-        reservationForm.addEventListener('submit', handleReservationSubmit);
-    }
 });
-
-// --- GESTIONE FORM PRENOTAZIONE ---
-function handleReservationSubmit(event) {
-    event.preventDefault();
-    
-    const submitButton = document.getElementById('submit-reservation-btn');
-    const spinner = submitButton.querySelector('.spinner');
-    const buttonText = submitButton.querySelector('.button-text');
-    const form = event.target;
-    const successMessage = document.getElementById('reservation-success-message');
-    
-    // Mostra spinner
-    submitButton.classList.add('is-loading');
-    submitButton.disabled = true;
-    spinner.classList.remove('hidden');
-    buttonText.textContent = 'Invio in corso...';
-    
-    // Prepara dati per Netlify Forms
-    const formData = new FormData(form);
-    
-    // Invia tramite Netlify Forms
-    fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
-    })
-    .then(response => {
-        if (response.ok) {
-            // Successo
-            form.classList.add('hidden');
-            successMessage.classList.remove('hidden');
-            
-            // Chiudi automaticamente dopo 3 secondi
-    setTimeout(() => {
-                closeModal('reservation-modal');
-                form.classList.remove('hidden');
-                successMessage.classList.add('hidden');
-                form.reset();
-            }, 3000);
-        } else {
-            throw new Error('Errore invio');
-        }
-    })
-    .catch(error => {
-        console.error('Errore:', error);
-        alert('Si è verificato un errore. Per favore chiama direttamente: +39 012 345 6789');
-    })
-    .finally(() => {
-        // Nascondi spinner
-        submitButton.classList.remove('is-loading');
-        submitButton.disabled = false;
-        spinner.classList.add('hidden');
-        buttonText.textContent = 'Invia Prenotazione';
-    });
-}
 
 // --- MOBILE MENU FUNCTIONALITY ---
 function initializeMobileMenu() {
@@ -168,9 +107,6 @@ function initializeMobileMenu() {
             } else if (linkId === 'mobile-open-story') {
                 e.preventDefault();
                 openModal('story-modal');
-            } else if (linkId === 'mobile-open-reservation') {
-                e.preventDefault();
-                openModal('reservation-modal');
             }
         });
     });

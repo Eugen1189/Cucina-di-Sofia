@@ -41,8 +41,6 @@
             <a href="#" id="open-menu-link" class="nav-link">Il Nostro Menu</a>
             <a href="#" id="open-philosophy-link" class="nav-link">La Nostra Storia</a>
         </nav>
-        
-        <a href="#" id="open-reservation-btn" class="reserve-button desktop-nav">Prenota un tavolo</a>
 
         <button id="mobile-menu-toggle" class="mobile-menu-button" aria-label="Toggle mobile menu">
             <span></span>
@@ -55,7 +53,6 @@
     <div id="mobile-menu" class="mobile-menu-container">
         <a href="#" class="mobile-menu-link" id="mobile-open-menu">Il Nostro Menu</a>
         <a href="#" class="mobile-menu-link" id="mobile-open-story">La Nostra Storia</a>
-        <a href="#" class="mobile-menu-link reserve-button-mobile" id="mobile-open-reservation">Prenota un tavolo</a>
     </div>
 
     <main role="main" aria-label="Italian Food Showcase">
@@ -268,89 +265,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Модальне вікно резервації -->
-    <div id="reservation-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content reservation-content">
-            <div class="modal-header">
-                <h2>Prenota un Tavolo</h2>
-                <button id="close-reservation-modal" class="close-button" aria-label="Chiudi prenotazione" type="button">&times;</button>
-            </div>
-            
-            <div id="reservation-success-message" class="hidden">
-                <h3>✅ Prenotazione Ricevuta!</h3>
-                <p>Grazie! Abbiamo ricevuto la tua richiesta di prenotazione. Ti contatteremo presto per confermare.</p>
-            </div>
-            
-            <form id="reservation-form" name="reservation" data-netlify="true">
-                <input type="hidden" name="form-name" value="reservation" />
-                
-                <p class="reservation-intro">Compila il modulo sottostante e ti contatteremo per confermare la tua prenotazione.</p>
-                
-                <fieldset>
-                    <legend>I tuoi dati</legend>
-                    <div class="form-group">
-                        <label for="res-name">Nome completo *</label>
-                        <input type="text" id="res-name" name="name" placeholder="Mario Rossi" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="res-phone">Telefono *</label>
-                        <input type="tel" id="res-phone" name="phone" placeholder="+39 123 456 789" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="res-email">Email</label>
-                        <input type="email" id="res-email" name="email" placeholder="mario.rossi@email.it">
-                    </div>
-                </fieldset>
-                
-                <fieldset>
-                    <legend>Dettagli prenotazione</legend>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="res-date">Data *</label>
-                            <input type="date" id="res-date" name="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="res-time">Ora *</label>
-                            <input type="time" id="res-time" name="time" min="12:00" max="23:00" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="res-guests">Numero di persone *</label>
-                        <select id="res-guests" name="guests" required>
-                            <option value="">Seleziona...</option>
-                            <option value="1">1 persona</option>
-                            <option value="2">2 persone</option>
-                            <option value="3">3 persone</option>
-                            <option value="4">4 persone</option>
-                            <option value="5">5 persone</option>
-                            <option value="6">6 persone</option>
-                            <option value="6+">6+ persone</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="res-notes">Note aggiuntive (opzionale)</label>
-                        <textarea id="res-notes" name="notes" rows="3" placeholder="Es. allergie, occasioni speciali, richieste particolari..."></textarea>
-                    </div>
-                </fieldset>
-                
-                <button type="submit" id="submit-reservation-btn" class="form-submit-btn">
-                    <span class="button-text">Invia Prenotazione</span>
-                    <div class="spinner hidden"></div>
-                </button>
-                
-                <p class="form-note">* Campi obbligatori. Ti contatteremo per confermare la prenotazione.</p>
-            </form>
-            
-            <div class="contact-alternative">
-                <p><strong>Preferisci chiamare?</strong></p>
-                <p>📞 <a href="tel:+390123456789">+39 012 345 6789</a></p>
-                <p class="info-note">Lunedì - Domenica: 10:00 - 22:00</p>
-            </div>
-        </div>
-    </div>
-
     <!-- Скрипти -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
