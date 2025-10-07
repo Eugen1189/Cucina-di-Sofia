@@ -2,6 +2,9 @@
 // ANIMATIONS MODULE - GSAP animations
 // =======================================================
 
+// Запобіжник для intro анімації
+let hasIntroPlayed = false;
+
 // --- MAIN SITE INITIALIZATION ---
 export function initializeMainSite() {
     console.log('Main site initialized');
@@ -18,6 +21,12 @@ export function initializeAnimations() {
 
 // --- INTRO ANIMATION ---
 export function initializeIntroAnimation() {
+    // Запобіжник: якщо анімація вже була, нічого не робимо
+    if (hasIntroPlayed) {
+        console.log('Intro animation already played, skipping...');
+        return;
+    }
+    
     const introTitles = document.querySelectorAll('.intro-title');
     const panelLeft = document.querySelector('.panel-left');
     const panelRight = document.querySelector('.panel-right');
@@ -42,33 +51,36 @@ export function initializeIntroAnimation() {
         console.error('GSAP non è disponibile!');
         return;
     }
+    
+    // Встановлюємо прапорець, що анімація почалась
+    hasIntroPlayed = true;
 
     // Початково ховаємо основний екран та блок з історією
     gsap.set(heroSection, { autoAlpha: 0 });
     gsap.set(storyTextBlock, { autoAlpha: 0 });
 
     // Створюємо головну анімаційну послідовність
-    const masterTl = gsap.timeline({
-        onComplete: () => {
-            console.log("Animazione intro completata!");
-            
-            const introScreen = document.getElementById('intro-screen');
-            if (introScreen) {
-                introScreen.style.display = 'none';
-                introScreen.style.pointerEvents = 'none';
-            }
-            
+        const masterTl = gsap.timeline({
+            onComplete: () => {
+                console.log("Animazione intro completata!");
+                
+                const introScreen = document.getElementById('intro-screen');
+                if (introScreen) {
+                    introScreen.style.display = 'none';
+                    introScreen.style.pointerEvents = 'none';
+                }
+                
             // Set dark background for intro screen
             document.body.style.backgroundColor = '#2d2d2d';
         }
     });
 
     // Додаємо анімації
-    masterTl
-        .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
+        masterTl
+            .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
         .to({}, { duration: 0.5 }) // Невелика пауза
-        .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
-        .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
+            .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
+            .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
         .to(heroSection, { duration: 0.1, autoAlpha: 1 }, "-=1.5") // Миттєво показуємо hero-section, коли штори починають роз'їжджатись
         
         // 👇 ВІДНОВЛЮЄМО АНІМАЦІЮ ПОЯВИ ТЕКСТУ 👇
