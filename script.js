@@ -41,6 +41,16 @@ const swiper = new Swiper('.swiper', {
 // =======================================================
 
 // --- 1. MODELLO DATI ---
+
+// Categorie del menu con immagini
+const menuCategories = [
+    { name: 'Panini', image: 'images/category-panini.jpg' },
+    { name: 'Pizza', image: 'images/category-pizza.jpg' },
+    { name: 'Pasta', image: 'images/category-pasta.jpg' },
+    { name: 'Insalate', image: 'images/category-insalate.jpg' },
+    { name: 'Bevande', image: 'images/category-bevande.jpg' }
+];
+
 const menu = [
   // PANINI
   { 
