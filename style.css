@@ -3965,6 +3965,177 @@ a.phone-link:hover {
     font-weight: 600;
 }
 
+/* ======================================================= */
+/* MENU BOOK - Il Libro di Sofia */
+/* ======================================================= */
+
+.menu-book-content {
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border-radius: 0;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.book-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.book-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+/* Книга */
+.menu-book {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.1),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Сторінки книги */
+.book-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fffef7;
+    padding: 50px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.book-page.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 10;
+}
+
+.book-page.prev {
+    transform: translateX(-100px);
+    opacity: 0;
+}
+
+/* Контент сторінок */
+.page-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Обкладинка */
+.cover-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cover-page h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: #2d2d2d;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cover-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.cover-decoration {
+    font-size: 3rem;
+    margin-top: 20px;
+}
+
+/* Заголовки категорій */
+.book-page h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #2d2d2d;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #D9534F;
+    text-align: center;
+}
+
+/* Список страв */
+.menu-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Навігація книги */
+.book-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
 /* Адаптація для мобільних */
 @media (max-width: 768px) {
     .contacts-body {
@@ -3976,6 +4147,47 @@ a.phone-link:hover {
         border-left: none;
         padding-top: 20px;
         border-top: 1px solid #eee;
+    }
+    
+    /* Menu Book mobile */
+    .menu-book-content {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .menu-book {
+        height: 500px;
+    }
+    
+    .book-page {
+        padding: 30px 20px;
+    }
+    
+    .cover-page h1 {
+        font-size: 2.5rem;
+    }
+    
+    .cover-subtitle {
+        font-size: 1rem;
+    }
+    
+    .book-page h2 {
+        font-size: 1.8rem;
+    }
+    
+    .book-navigation {
+        margin-top: 20px;
+        padding: 0 10px;
+    }
+    
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    
+    .page-indicator {
+        font-size: 0.95rem;
     }
 }
 
