@@ -3433,6 +3433,17 @@ main {
     pointer-events: none; /* Дозволяє клікати крізь текст */
 }
 
+/* Назви категорій в gallery (базові стилі для desktop) */
+.category-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: white !important; /* Гарантуємо білий колір */
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* Посилюємо тінь для читабельності */
+    opacity: 1 !important; /* Гарантуємо видимість */
+    position: relative; /* Щоб текст був поверх градієнту */
+    z-index: 2;
+}
+
 /* Content visibility control */
 .product-image,
 .ingredient,
