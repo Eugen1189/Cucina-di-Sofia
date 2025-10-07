@@ -289,19 +289,6 @@ export function initializeIntroAnimation() {
             .to({}, { duration: 1 })
             .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
             .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
-            .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5")
-            .fromTo('#cart-icon', { 
-                opacity: 0, 
-                x: 100, 
-                y: -80, 
-                scale: 0.2 
-            }, { 
-                opacity: 1, 
-                x: 0, 
-                y: 0, 
-                scale: 1, 
-                duration: 1.3, 
-                ease: "back.out(1.5)" 
-            }, "-=0.8");
+            .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5");
 }
 
