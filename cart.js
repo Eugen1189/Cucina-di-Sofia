@@ -4,23 +4,133 @@
 
 // --- 1. MODELLO DATI ---
 export const menu = [
-  { id: 1, name: 'Prosciutto e Mozzarella', description: 'Panini italiano classico con mozzarella fresca e prosciutto saporito', price: 150, image: 'images/panini.png', category: 'panini', isSpecial: true },
-  { id: 2, name: 'Caprese', description: 'Pomodori succosi, mozzarella di bufala e basilico fresco', price: 130, image: 'images/panini.png', category: 'panini' },
-  { id: 201, name: 'Pizza Margherita', description: 'Pizza italiana tradizionale con salsa di pomodoro e mozzarella fresca', price: 200, image: 'images/pizza.png', category: 'pizza', isSpecial: true },
-  { id: 301, name: 'Pasta Carbonara', description: 'Pasta classica con pancetta, tuorlo d\'uovo, parmigiano e pepe nero', price: 180, image: 'images/pasta.png', category: 'pasta', isSpecial: true },
-  { id: 302, name: 'Pasta al Pesto', description: 'Pasta aromatica con pesto fatto in casa, basilico e pinoli', price: 170, image: 'images/pasta.png', category: 'pasta' },
-  { id: 303, name: 'Spaghetti Aglio e Olio', description: 'Spaghetti semplici con aglio, olio d\'oliva e prezzemolo fresco', price: 160, image: 'images/pasta.png', category: 'pasta' },
-  { id: 401, name: 'Insalata Caprese', description: 'Pomodori freschi, mozzarella di bufala, basilico e olio d\'oliva', price: 140, image: 'images/panini.png', category: 'insalate', isSpecial: true },
-  { id: 402, name: 'Insalata Caesar', description: 'Lattuga romana, crostini, parmigiano e salsa Caesar', price: 150, image: 'images/panini.png', category: 'insalate' },
-  { id: 403, name: 'Insalata Verde', description: 'Mix di insalate fresche con pomodorini e cetrioli', price: 120, image: 'images/panini.png', category: 'insalate' },
-  {
-    id: 101,
-    name: 'Acqua Minerale',
-    description: 'Acqua minerale pura dalle sorgenti italiane, gassata o naturale.',
-    price: 40,
-    image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    category: 'bevande'
-  }
+    // ===============================================
+    //                  PANINI
+    // ===============================================
+    {
+        id: 1,
+        name: 'Prosciutto e Mozzarella',
+        description: 'Класика, доведена до досконалості: ніжна прошутто ді Парма, свіжа моцарела, рукола та краплина оливкової олії на хрусткій чіабатті.',
+        price: 150,
+        image: 'images/panini.png',
+        category: 'panini',
+        isSpecial: true // Позначка "Хіт"
+    },
+    {
+        id: 2,
+        name: 'Caprese',
+        description: 'Смак літньої Італії: соковиті томати, моцарела ді Буфала, свіжий базилік та соус песто власного виробництва.',
+        price: 130,
+        image: 'images/panini.png',
+        category: 'panini'
+    },
+    {
+        id: 3,
+        name: 'Salame e Peperoni',
+        description: 'Пікантна салямі з регіону Калабрія, солодкі перці на грилі та ніжний сир проволоне — справжній італійський характер.',
+        price: 140,
+        image: 'images/panini.png',
+        category: 'panini'
+    },
+
+    // ===============================================
+    //                   PIZZA
+    // ===============================================
+    {
+        id: 201,
+        name: 'Margherita di Sofia',
+        description: 'Наша королева, приготована за рецептом нонни Софії: томатний соус San Marzano, моцарела фіор ді латте, свіжий базилік та оливкова олія.',
+        price: 200,
+        image: 'images/pizza.png',
+        category: 'pizza',
+        isSpecial: true // Позначка "Хіт"
+    },
+    {
+        id: 202,
+        name: 'Diavola',
+        description: 'Для поціновувачів гострих відчуттів: пікантна салямі "вентричина", томатний соус та моцарела.',
+        price: 220,
+        image: 'images/pizza.png',
+        category: 'pizza'
+    },
+    {
+        id: 203,
+        name: 'Quattro Formaggi',
+        description: 'Симфонія сирів: моцарела, горгонзола, пармезан та фонтіна, що тануть на вершковій основі.',
+        price: 240,
+        image: 'images/pizza.png',
+        category: 'pizza'
+    },
+
+    // ===============================================
+    //                   PASTA
+    // ===============================================
+    {
+        id: 301,
+        name: 'Carbonara',
+        description: 'Справжня римська класика: спагеті з ніжним соусом з яєчних жовтків, сиру Пекоріно Романо, гуанчале та свіжомеленого чорного перцю.',
+        price: 180,
+        image: 'images/pasta.png',
+        category: 'pasta',
+        isSpecial: true // Позначка "Хіт"
+    },
+    {
+        id: 302,
+        name: 'Bolognese della Nonna',
+        description: 'Тальятелле з насиченим м\'ясним рагу, яке повільно готувалося 4 години за секретним рецептом нашої бабусі.',
+        price: 190,
+        image: 'images/pasta.png',
+        category: 'pasta'
+    },
+    {
+        id: 303,
+        name: 'Pesto Genovese',
+        description: 'Аромат Лігурії у вашій тарілці: паста трофіє з соусом песто власного виробництва, кедровими горішками та пармезаном.',
+        price: 170,
+        image: 'images/pasta.png',
+        category: 'pasta'
+    },
+
+    // ===============================================
+    //                  INSALATE
+    // ===============================================
+    {
+        id: 401,
+        name: 'Insalata Caprese',
+        description: 'Поєднання свіжих томатів, моцарели ді Буфала, базиліку та оливкової олії екстра вірджин — справжній смак італійського літа.',
+        price: 140,
+        image: 'images/panini.png',
+        category: 'insalate',
+        isSpecial: true
+    },
+    {
+        id: 402,
+        name: 'Insalata Caesar',
+        description: 'Хрустка латука романо, пармезан, кростіні та фірмовий соус Цезар, що готується щодня.',
+        price: 150,
+        image: 'images/panini.png',
+        category: 'insalate'
+    },
+    {
+        id: 403,
+        name: 'Insalata Verde',
+        description: 'Мікс свіжих сезонних салатів з томатами черрі, огірками та лимонно-оливковою заправкою.',
+        price: 120,
+        image: 'images/panini.png',
+        category: 'insalate'
+    },
+
+    // ===============================================
+    //                  BEVANDE
+    // ===============================================
+    {
+        id: 101,
+        name: 'Acqua Minerale',
+        description: 'Чиста мінеральна вода з італійських джерел, газована або негазована.',
+        price: 40,
+        image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+        category: 'bevande'
+    }
 ];
 
 let cartItems = [];
