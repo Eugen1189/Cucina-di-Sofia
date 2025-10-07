@@ -104,6 +104,7 @@ function initializeMenuGallery() {
     }
 
     const categoryContainer = menuModal.querySelector('#category-gallery-container ul');
+    const categoryScreen = menuModal.querySelector('#category-gallery-container');
     const dishContainer = menuModal.querySelector('#dish-grid-container');
     const menuTitle = menuModal.querySelector('#menu-title');
     const backButton = menuModal.querySelector('#menu-back-btn');
@@ -141,17 +142,27 @@ function initializeMenuGallery() {
     // --- Функція для перемикання екранів меню ---
     function showDishScreen(categoryName) {
         renderDishes(categoryName);
-        menuModal.querySelector('#category-gallery-container').classList.add('hidden');
-        dishContainer.classList.remove('hidden');
-        menuTitle.textContent = categoryName;
-        backButton.classList.remove('hidden');
+        categoryScreen.classList.add('is-exiting'); // Починаємо анімацію "виїзду"
+
+        setTimeout(() => { // Чекаємо завершення анімації
+            categoryScreen.classList.add('hidden');
+            categoryScreen.classList.remove('is-exiting'); // Очищуємо
+            dishContainer.classList.remove('hidden');
+            menuTitle.textContent = categoryName;
+            backButton.classList.remove('hidden');
+        }, 400); // 400ms = тривалість transition в CSS
     }
 
     function showCategoryScreen() {
-        menuModal.querySelector('#category-gallery-container').classList.remove('hidden');
-        dishContainer.classList.add('hidden');
-        menuTitle.textContent = 'Il Nostro Menu';
-        backButton.classList.add('hidden');
+        // Логіка для повернення назад, аналогічна
+        dishContainer.classList.add('is-exiting');
+        setTimeout(() => {
+            dishContainer.classList.add('hidden');
+            dishContainer.classList.remove('is-exiting');
+            categoryScreen.classList.remove('hidden');
+            menuTitle.textContent = 'Il Nostro Menu';
+            backButton.classList.add('hidden');
+        }, 400);
     }
 
     // --- Основні обробники подій ---
