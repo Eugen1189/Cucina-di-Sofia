@@ -2,7 +2,7 @@
 // MAIN MODULE - Punto di ingresso principale
 // =======================================================
 
-import { openModal, closeModal, initializeModals, renderMenuItems, renderFullMenu } from './ui.js';
+import { openModal, closeModal, initializeModals } from './ui.js';
 import { initializeSwiper, initializeAnimations, initializeIntroAnimation } from './animations.js';
 import { menu } from './cart.js';
 
@@ -31,15 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inizializza Swiper immediatamente
     initializeSwiper();
     
-    // Renderizza elementi del menu
-    renderMenuItems('panini', 'menu-panini-container');
-    renderMenuItems('pizza', 'menu-pizza-container');
-    renderMenuItems('pasta', 'menu-pasta-container');
-    renderMenuItems('insalate', 'menu-insalate-container');
-    renderMenuItems('bevande', 'menu-bevande-container');
-    
-    // Renderizza menu completo con filtri
-    renderFullMenu();
+    // Renderizza menu completo con filtri (rimosso - ora usiamo Hover Gallery)
+    // renderFullMenu();
     
     // Event listener principale per i clic
     document.body.addEventListener('click', (event) => {
