@@ -308,15 +308,149 @@ main {
     visibility: hidden; /* Початково приховано для анімації */
 }
 
-.product-image {
+/* Старий стиль product-image видалено - тепер використовується .dish-container .product-image */
+
+/* ======================================================= */
+/* УНІКАЛЬНА ФІШКА: "CHEF'S TABLE" */
+/* ======================================================= */
+
+.dish-container {
+    position: relative; /* База для позиціонування */
+    width: 600px; /* Задаємо фіксовану ширину для стабільності */
+    height: 600px; /* Фіксована висота */
+    margin: 0 auto; /* Центруємо контейнер */
+}
+
+.dish-container .product-image {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%; /* Страва займає центральну частину */
+    width: auto;
+    height: auto;
+    max-height: 70%;
     z-index: var(--z-product);
-    max-width: 650px;
-    width: 75%;
     filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
-    animation: pulseAnimation 8s ease-in-out infinite;
+    transition: transform 0.5s ease;
     opacity: 0; /* Початково приховано для анімації */
-    transform: translateY(30px) scale(0.9); /* Початкове зміщення та масштаб */
+}
+
+/* Анімація появи страви (контролюється через GSAP) */
+.swiper-slide-active .dish-container .product-image {
+    animation: fadeInDish 1s ease-out forwards;
+}
+
+@keyframes fadeInDish {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0) scale(1);
+    }
+}
+
+/* --- Карта інгредієнтів та її елементи --- */
+.ingredient-map {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    
+    /* Стан за замовчуванням: приховано */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.ingredient-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px; /* Трохи збільшимо ширину */
+    transform: scale(0.8); /* Початковий менший розмір */
+    transition: transform 0.4s ease;
+}
+
+.ingredient-node img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.2));
+}
+
+.ingredient-info {
+    text-align: center;
+    margin-top: 5px;
+    background: rgba(255,255,255,0.9);
+    padding: 5px 8px;
+    border-radius: 12px;
+    min-width: 90px;
+}
+
+.ingredient-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    line-height: 1.2;
+}
+
+.ingredient-weight {
+    font-size: 12px;
+    color: #888;
+    display: block;
+    margin-top: 2px;
+    font-weight: 500;
+}
+
+/* === ОРБІТАЛЬНЕ ПОЗИЦІОНУВАННЯ ІНГРЕДІЄНТІВ === */
+/* Розміщуємо інгредієнти "по годиннику" навколо страви */
+
+/* Позиція 1: Зліва зверху (10 годин) */
+.ingredient-node.node-1 {
+    top: 0;
+    left: 10%;
+}
+
+/* Позиція 2: Справа зверху (2 години) */
+.ingredient-node.node-2 {
+    top: 10%;
+    right: 0;
+}
+
+/* Позиція 3: Зліва знизу (7 годин) */
+.ingredient-node.node-3 {
+    bottom: 5%;
+    left: 0;
+}
+
+/* Позиція 4: Справа знизу (5 годин) */
+.ingredient-node.node-4 {
+    bottom: 15%;
+    right: 10%;
+}
+
+/* --- ЛОГІКА ПОЯВИ ПРИ НАВЕДЕННІ --- */
+
+.dish-container:hover .ingredient-map,
+.dish-container.active .ingredient-map {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dish-container:hover .product-image,
+.dish-container.active .product-image {
+    transform: translate(-50%, -50%) scale(0.85); /* Зменшуємо страву, зберігаючи центрування */
+}
+
+.dish-container:hover .ingredient-node,
+.dish-container.active .ingredient-node {
+    transform: scale(1); /* Збільшуємо інгредієнти до нормального розміру */
 }
 
 /* ======================================================= */
@@ -910,6 +1044,36 @@ main {
     transform: translateY(0);
 }
 
+/* Кнопка резервації */
+.reserve-button {
+    background: linear-gradient(135deg, #D9534F, #C44741);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
+    display: inline-block;
+}
+
+.reserve-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(217, 83, 79, 0.4);
+    background: linear-gradient(135deg, #C44741, #B03D37);
+}
+
+.reserve-button:active {
+    transform: translateY(0) scale(1);
+}
+
+/* Темна версія кнопки для світлих слайдів */
+.main-header.text-dark .reserve-button {
+    background: linear-gradient(135deg, #D9534F, #C44741);
+    color: white;
+}
+
 /* Modal styles */
 .modal {
     position: fixed;
@@ -1024,6 +1188,135 @@ main {
     margin: 0;
 }
 
+/* === Стилі для модального вікна резервації === */
+.reservation-content {
+    max-width: 700px;
+}
+
+.reservation-body {
+    padding: 20px 0;
+}
+
+.reservation-intro {
+    font-size: 1.1rem;
+    text-align: center;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.reservation-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.info-block {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #D9534F;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.info-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.info-block p {
+    font-size: 1rem;
+    color: #555;
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+.info-block a {
+    color: #D9534F;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.info-block a:hover {
+    color: #C44741;
+    text-decoration: underline;
+}
+
+.info-note {
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+}
+
+.reservation-cta {
+    background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 30px;
+    border: 2px solid #D9534F;
+}
+
+.reservation-cta p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.reservation-cta strong {
+    color: #D9534F;
+    font-size: 1.2rem;
+}
+
+/* Стилі для форми резервації */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+.contact-alternative {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 2px solid #eee;
+    text-align: center;
+}
+
+.contact-alternative p {
+    margin: 8px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.contact-alternative a {
+    color: #D9534F;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.contact-alternative a:hover {
+    color: #C44741;
+    text-decoration: underline;
+}
+
 /* Menu header */
 .menu-header {
     text-align: center;
@@ -1105,6 +1398,20 @@ main {
 
 .menu-item-card.special::before {
     content: "⭐ Хіт";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.special-badge {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -2495,12 +2802,14 @@ main {
 /* Responsive Design for Story Slide */
 @media (max-width: 768px) {
     .story-text-block {
+        width: 90%; /* Обмежуємо ширину блоку */
         max-width: 90%;
-        padding: 15px;
+        padding: 0 15px; /* Додаємо бічні відступи */
+        margin: 0 auto; /* Центруємо */
     }
     
     .story-text-block h2 {
-        font-size: 2.2rem;
+        font-size: 2.5rem; /* Трохи зменшуємо заголовок */
         margin-bottom: 15px;
     }
     
@@ -2525,6 +2834,118 @@ main {
     
     .slide-background-image {
         filter: brightness(0.8); /* Більше затемнюємо на планшетах */
+    }
+    
+    /* === АДАПТАЦІЯ "CHEF'S TABLE" ДЛЯ МОБІЛЬНИХ === */
+    
+    /* Перетворюємо на flex-колонку для мобільного вигляду */
+    .dish-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* Скидаємо абсолютне позиціонування */
+    .dish-container .product-image {
+        position: static;
+        transform: none;
+        max-width: 90%;
+        margin: 0 auto;
+        opacity: 1; /* Завжди видима на мобільних */
+    }
+    
+    /* Стрічка інгредієнтів */
+    .ingredient-map {
+        order: 2; /* Розміщуємо після страви */
+        position: static;
+        display: flex; /* Горизонтальна стрічка */
+        justify-content: center;
+        gap: 15px;
+        width: 100%;
+        padding: 20px 0;
+        
+        /* За замовчуванням приховано */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+    
+    /* Логіка появи при кліку на .active */
+    .dish-container.active .ingredient-map {
+        max-height: 200px; /* Достатньо висоти для відображення */
+        opacity: 1;
+    }
+    
+    /* Прибираємо зменшення страви при кліку */
+    .dish-container:hover .product-image,
+    .dish-container.active .product-image {
+        transform: none;
+    }
+    
+    /* Скидаємо абсолютне позиціонування для самих інгредієнтів */
+    .ingredient-node {
+        position: static !important;
+        transform: none !important;
+        width: 60px;
+    }
+    
+    .ingredient-node img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .ingredient-info {
+        padding: 3px 5px;
+        min-width: 60px;
+    }
+    
+    .ingredient-name {
+        font-size: 10px;
+        white-space: nowrap; /* Текст в один рядок */
+    }
+    
+    .ingredient-weight {
+        font-size: 9px;
+        margin-top: 1px;
+    }
+    
+    /* === АДАПТАЦІЯ ФОРМИ РЕЗЕРВАЦІЇ === */
+    
+    .form-row {
+        grid-template-columns: 1fr; /* Одна колонка на планшетах */
+    }
+    
+    .reservation-info {
+        grid-template-columns: 1fr; /* Одна колонка для інфо блоків */
+    }
+    
+    /* === АДАПТАЦІЯ ХЕДЕРА === */
+    
+    .main-header {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+    
+    .logo {
+        flex: 1 1 100%;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    
+    .main-nav {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+    
+    .reserve-button {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 0.9rem;
     }
 }
 
@@ -2560,6 +2981,40 @@ main {
     
     .slide-background-image {
         filter: brightness(0.7); /* Ще більше затемнюємо на мобільних */
+    }
+    
+    /* === АДАПТАЦІЯ "CHEF'S TABLE" ДЛЯ МАЛЕНЬКИХ ЕКРАНІВ === */
+    
+    .ingredient-node {
+        width: 50px; /* Ще менший розмір для маленьких екранів */
+    }
+    
+    .ingredient-node img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .ingredient-info {
+        padding: 2px 4px;
+        min-width: 50px;
+    }
+    
+    .ingredient-name {
+        font-size: 9px; /* Дуже маленький шрифт */
+    }
+    
+    .ingredient-weight {
+        font-size: 8px;
+        margin-top: 0;
+    }
+    
+    .ingredient-map {
+        gap: 10px; /* Менший відступ між інгредієнтами */
+        padding: 15px 0;
+    }
+    
+    .dish-container.active .ingredient-map {
+        max-height: 150px; /* Менша висота для компактності */
     }
 }
 

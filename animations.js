@@ -305,32 +305,3 @@ export function initializeIntroAnimation() {
             }, "-=0.8");
 }
 
-// --- SCROLL TRIGGER ANIMATION FOR GLASS WATER ---
-export function initializeWaterAnimation() {
-    gsap.to("#water", {
-        transform: "translate(0, 0)",
-        duration: 2,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: "#bevande-section",
-            start: "top center",
-            end: "bottom center",
-            scrub: 1,
-            onUpdate: function(self) {
-                console.log('Water animation progress:', self.progress);
-            }
-        }
-    });
-
-    gsap.to("#glass-animation circle", {
-        fill: "#4A90E2",
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: "#bevande-section",
-            start: "top center",
-            end: "bottom center",
-            scrub: 1
-        }
-    });
-}

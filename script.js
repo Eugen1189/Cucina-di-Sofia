@@ -42,23 +42,151 @@ const swiper = new Swiper('.swiper', {
 
 // --- 1. MODELLO DATI ---
 const menu = [
-  { id: 1, name: 'Prosciutto e Mozzarella', description: 'Panini italiano classico con mozzarella fresca e prosciutto saporito', price: 150, image: 'images/panini.png', category: 'panini' },
-  { id: 2, name: 'Caprese', description: 'Pomodori succosi, mozzarella di bufala e basilico fresco', price: 130, image: 'images/panini.png', category: 'panini' },
-  // Aggiungi qui le tue pizze e paste con le categorie corrette
-  { id: 201, name: 'Pizza Margherita', description: 'Pizza italiana tradizionale con salsa di pomodoro e mozzarella fresca', price: 200, image: 'images/pizza.png', category: 'pizza' },
-  { id: 301, name: 'Pasta Carbonara', description: 'Pasta aromatica con pesto fatto in casa con basilico e parmigiano', price: 180, image: 'images/pasta.png', category: 'pasta' },
-  // Bevande
+  // PANINI
+  { 
+    id: 1, 
+    name: 'Prosciutto e Mozzarella', 
+    description: 'Классика, доведена до досконалості. Свіжий прошутто ді Парма, ніжна моцарела фіор ді латте та хрустка рукола на артезанській чіабатті.', 
+    price: 150, 
+    image: 'images/panini-prosciutto-mozzarella.png', 
+    category: 'panini', 
+    isSpecial: true,
+    ingredients: [
+      { name: 'Prosciutto', nameIt: 'Prosciutto di Parma', image: 'images/ingredient-prosciutto.png', weight: '40g' },
+      { name: 'Mozzarella Fresca', nameIt: 'Mozzarella Fior di Latte', image: 'images/ingredient-mozzarella.png', weight: '60g' },
+      { name: 'Rucola', nameIt: 'Rucola Fresca', image: 'images/ingredient-arugula.png', weight: '15g' },
+      { name: 'Pane Ciabatta', nameIt: 'Ciabatta Artigianale', image: 'images/ingredient-ciabatta.png', weight: '90g' }
+    ]
+  },
+  { id: 2, name: 'Caprese Panini', description: 'Смак літньої Італії у кожному шматочку. Стиглі томати, крем-сир та свіжий базилік – просто та божественно.', price: 130, image: 'images/panini-caprese.png', category: 'panini' },
+  { id: 3, name: 'Salame e Peperoni', description: 'Пікантна салямі з регіону Калабрія та солодкий перець гриль. Для справжніх гурманів італійської кухні.', price: 140, image: 'images/panini-salame-peperoni.png', category: 'panini' },
+  
+  // PIZZA
+  { 
+    id: 201, 
+    name: 'Margherita di Sofia', 
+    description: 'Наша королева, приготована за рецептом нонни Софії. Соус із свіжих помідорів Сан-Марцано, моцарела ді буфала та листочки базиліку.', 
+    price: 200, 
+    image: 'images/pizza-margherita.png', 
+    category: 'pizza', 
+    isSpecial: true,
+    ingredients: [
+      { name: 'Pomodoro', nameIt: 'Pomodoro San Marzano', image: 'images/ingredient-tomato.png', weight: '80g' },
+      { name: 'Mozzarella', nameIt: 'Mozzarella di Bufala', image: 'images/ingredient-mozzarella-pizza.png', weight: '100g' },
+      { name: 'Basilico Fresco', nameIt: 'Basilico Fresco', image: 'images/ingredient-basil.png', weight: '5g' },
+      { name: 'Olio d\'Oliva', nameIt: 'Olio Extra Vergine', image: 'images/ingredient-olive-oil.png', weight: '10ml' }
+    ]
+  },
+  { id: 202, name: 'Diavola', description: 'Для поціновувачів гострих відчуттів. Пікантна вентричіна, моцарела, томатний соус та чілі пепероніно.', price: 220, image: 'images/pizza-diavola.png', category: 'pizza' },
+  { id: 203, name: 'Quattro Formaggi', description: 'Симфонія сирів: горгонзола, фонтіна, пармеджано та моцарела. Для справжніх шанувальників сирної насолоди.', price: 240, image: 'images/pizza-quattro-formaggi.png', category: 'pizza' },
+  
+  // PASTA
+  { 
+    id: 301, 
+    name: 'Carbonara', 
+    description: 'Справжня римська класика. Спагетті з гуанчале, яєчним жовтком, сиром Пекоріно Романо та свіжомеленим чорним перцем.', 
+    price: 180, 
+    image: 'images/pasta-carbonara.png', 
+    category: 'pasta', 
+    isSpecial: true,
+    ingredients: [
+      { name: 'Guanciale', nameIt: 'Guanciale Romano', image: 'images/ingredient-guanciale.png', weight: '50g' },
+      { name: 'Pecorino Romano', nameIt: 'Pecorino Romano DOP', image: 'images/ingredient-pecorino.png', weight: '30g' },
+      { name: 'Tuorlo d\'uovo', nameIt: 'Tuorlo Fresco', image: 'images/ingredient-egg.png', weight: '2 pz' },
+      { name: 'Pepe Nero', nameIt: 'Pepe Nero Macinato', image: 'images/ingredient-pepper.png', weight: '2g' }
+    ]
+  },
+  { id: 302, name: 'Bolognese della Nonna', description: 'Тальятелле з насиченим м\'ясним рагу за старовинним рецептом нашої бабусі. Томлене годинами з любов\'ю.', price: 190, image: 'images/pasta-bolognese.png', category: 'pasta' },
+  { id: 303, name: 'Pesto Genovese', description: 'Аромат Лігурії у вашій тарілці. Трофі з соусом песто з свіжого базиліку, кедрових горішків та пармеджано.', price: 170, image: 'images/pasta-pesto.png', category: 'pasta' },
+  
+  // INSALATE
+  { 
+    id: 402, 
+    name: 'Cesare con Pollo', 
+    description: 'Класичний салат "Цезар" з соковитою курячою грудкою гриль, пармеджано, крутонами та домашнім соусом.', 
+    price: 150, 
+    image: 'images/insalata-cesare.png', 
+    category: 'insalate',
+    isSpecial: true,
+    ingredients: [
+      { name: 'Pollo Grigliato', nameIt: 'Petto di Pollo Grigliato', image: 'images/ingredient-chicken.png', weight: '100g' },
+      { name: 'Parmigiano', nameIt: 'Parmigiano Reggiano DOP', image: 'images/ingredient-parmesan.png', weight: '30g' },
+      { name: 'Crostini', nameIt: 'Crostini Croccanti', image: 'images/ingredient-croutons.png', weight: '40g' },
+      { name: 'Lattuga Romana', nameIt: 'Lattuga Romana Fresca', image: 'images/ingredient-lettuce.png', weight: '80g' }
+    ]
+  },
+  { id: 402, name: 'Cesare con Pollo', description: 'Класичний салат "Цезар" з соковитою курячою грудкою гриль, пармеджано, крутонами та домашнім соусом.', price: 150, image: 'images/insalata-cesare.png', category: 'insalate', isSpecial: true },
+  { id: 403, name: 'Caprese Classico', description: 'Простота та досконалість: стиглі томати, моцарела ді буфала, свіжий базилік та бальзамічний крем.', price: 130, image: 'images/insalata-caprese.png', category: 'insalate' },
+  
+  // BEVANDE
   {
     id: 101,
     name: 'Acqua Minerale',
-    description: 'Acqua minerale pura dalle sorgenti italiane, gassata o naturale.',
+    description: 'Чиста мінеральна вода з італійських джерел Альп. Доступна у натуральному та газованому варіантах.', 
     price: 40,
-    image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    category: 'bevande'
+    image: 'images/acqua-minerale.png', 
+    category: 'bevande',
+    ingredients: [
+      { name: 'Bottiglia di Vetro', nameIt: 'Bottiglia Riciclabile', image: 'images/ingredient-spring-water.png', weight: '500ml' },
+      { name: 'Con Ghiaccio', nameIt: 'Ghiaccio Fresco', image: 'images/ingredient-minerals.png', weight: '-' },
+      { name: 'Fetta di Limone', nameIt: 'Limone Bio', image: 'images/ingredient-natural.png', weight: '1 fetta' },
+      { name: 'Acqua Frizzante', nameIt: 'Versione Gassata', image: 'images/ingredient-sparkle.png', weight: 'opz.' }
+    ]
   }
 ];
 
 let cartItems = [];
+
+// --- ФУНКЦІЯ ГЕНЕРАЦІЇ ІНГРЕДІЄНТІВ ---
+function generateIngredientMap(dish) {
+    if (!dish.ingredients || dish.ingredients.length === 0) {
+        return ''; // Повертаємо пустий рядок, якщо інгредієнтів немає
+    }
+
+    const ingredientNodesHTML = dish.ingredients.map((ing, index) => `
+        <div class="ingredient-node node-${index + 1}">
+            <img src="${ing.image}" alt="${ing.nameIt}">
+            <div class="ingredient-info">
+                <span class="ingredient-name">${ing.nameIt}</span>
+                <span class="ingredient-weight">${ing.weight}</span>
+            </div>
+        </div>
+    `).join('');
+
+    return ingredientNodesHTML;
+}
+
+// --- ФУНКЦІЯ ІНІЦІАЛІЗАЦІЇ ІНГРЕДІЄНТІВ ---
+function initializeIngredients() {
+    // Знаходимо всі слайди зі стравами (які мають data-dish-id)
+    const swiperSlides = document.querySelectorAll('.swiper-slide[data-dish-id]');
+    
+    console.log(`🔍 Знайдено ${swiperSlides.length} слайдів зі стравами`);
+    
+    swiperSlides.forEach(slide => {
+        const dishContainer = slide.querySelector('.dish-container');
+        if (dishContainer) {
+            // Отримуємо ID страви з атрибута data-dish-id
+            const dishId = parseInt(slide.dataset.dishId);
+            
+            // Знаходимо страву в меню
+            const dish = menu.find(item => item.id === dishId);
+            
+            if (dish && dish.ingredients) {
+                // Генеруємо і вставляємо карту інгредієнтів
+                const ingredientMap = dishContainer.querySelector('.ingredient-map');
+                if (ingredientMap) {
+                    ingredientMap.innerHTML = generateIngredientMap(dish);
+                    console.log(`✅ Інгредієнти додані для "${dish.name}" (ID: ${dishId})`);
+                }
+            } else if (!dish) {
+                console.warn(`⚠️ Страву з ID ${dishId} не знайдено в меню`);
+            }
+        }
+    });
+    
+    console.log('🎉 Всі інгредієнти ініціалізовані!');
+}
 
 // Sezioni prodotti rimosse - tutti i pulsanti del carrello si trovano negli slide Swiper
 
@@ -450,7 +578,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Popoliamo le sezioni del menu con i prodotti
     renderMenuItems('panini', 'menu-panini-container');
     renderMenuItems('pizza', 'menu-pizza-container');
-    // renderMenuItems('bevande', 'menu-bevande-container'); // Закоментовано, оскільки HTML для напоїв прописаний вручну
+    renderMenuItems('pasta', 'menu-pasta-container');
+    renderMenuItems('insalate', 'menu-insalate-container');
+    renderMenuItems('bevande', 'menu-bevande-container');
     
     // Логіка для кнопки "Vai al Menu" в порожньому кошику
     const goToMenuBtn = document.getElementById('go-to-menu-btn');
@@ -481,6 +611,15 @@ document.addEventListener('DOMContentLoaded', () => {
             storyModal.classList.add('hidden');
         });
     }
+
+    // --- ЛОГІКА ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ: "CHEF'S TABLE" ---
+    // На мобільних пристроях :hover не працює, тому додаємо клік
+    document.querySelectorAll('.dish-container').forEach(container => {
+        container.addEventListener('click', () => {
+            // Перемикаємо клас 'active', який буде імітувати :hover
+            container.classList.toggle('active');
+        });
+    });
 });
 
 // --- PRIMA DICHIARIAMO TUTTE LE FUNZIONI ---
@@ -518,6 +657,26 @@ function initializeMainSite() {
         });
     }
 
+    // Функція для приховування/показування стрілок навігації
+    function updateNavigationButtons(swiper) {
+        const nextButton = document.querySelector('.swiper-button-next');
+        const prevButton = document.querySelector('.swiper-button-prev');
+        
+        // Ховаємо праву стрілку на останньому слайді
+        if (swiper.isEnd) {
+            nextButton.style.display = 'none';
+        } else {
+            nextButton.style.display = '';
+        }
+        
+        // Ховаємо ліву стрілку на першому слайді
+        if (swiper.isBeginning) {
+            prevButton.style.display = 'none';
+        } else {
+            prevButton.style.display = '';
+        }
+    }
+
     const swiper = new Swiper('.swiper', {
       loop: false, effect: 'fade',
       fadeEffect: { crossFade: true },
@@ -528,9 +687,13 @@ function initializeMainSite() {
             setBackgroundColor(swiper);
                 // Avviamo l'animazione per il primo slide, già visibile
             runAssemblyAnimation(swiper.slides[swiper.activeIndex]);
+            // Оновлюємо стрілки навігації
+            updateNavigationButtons(swiper);
         },
         slideChange: function (swiper) {
             setBackgroundColor(swiper); // Змінюємо фон при кожній зміні слайду
+            // Оновлюємо стрілки навігації
+            updateNavigationButtons(swiper);
         },
         slideChangeTransitionStart: function (swiper) {
             setBackgroundColor(swiper);
@@ -695,6 +858,9 @@ const masterTl = gsap.timeline({
             window.cartLogic.initializeCart();
         }
     }
+    
+    // Ініціалізуємо інгредієнти для всіх слайдів
+    initializeIngredients();
 });
 
 // Controlliamo se l'utente ha già visitato il sito (ha elementi nel carrello)
@@ -745,33 +911,3 @@ if (hasVisitedBefore) {
             ease: "back.out(1.5)" 
         }, "-=0.8");
 }
-
-// ===== SCROLL TRIGGER ANIMATION FOR GLASS WATER =====
-// Animazione dell'acqua nel bicchiere quando si scorre alla sezione bevande
-gsap.to("#water", {
-    transform: "translate(0, 0)", // Muoviamo il liquido verso la sua posizione finale
-    scrollTrigger: {
-        trigger: "#bevande-section", // ID della sezione bevande
-        start: "top center",      // L'animazione inizierà quando la parte superiore della sezione raggiunge il centro dello schermo
-        end: "bottom center",     // L'animazione finirà quando la parte inferiore della sezione raggiunge il centro
-        scrub: true,              // "Lega" l'animazione al progresso dello scroll
-        markers: false,           // Marcatori disabilitati per produzione (si può abilitare per debug)
-        onUpdate: (self) => {
-            // Logica aggiuntiva durante l'aggiornamento dell'animazione (opzionale)
-            console.log('Water animation progress:', self.progress);
-        }
-    }
-});
-
-// Animazione aggiuntiva per le bolle nell'acqua
-gsap.to("#glass-animation circle", {
-    scale: 1.2,
-    opacity: 0.8,
-    scrollTrigger: {
-        trigger: "#bevande-section",
-        start: "top center",
-        end: "bottom center",
-        scrub: 0.5, // Sensibilità ridotta per un'animazione più fluida
-        markers: false
-    }
-});

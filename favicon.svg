@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Італійський прапор як фон -->
+  <rect x="0" y="0" width="33.33" height="100" fill="#009246"/>
+  <rect x="33.33" y="0" width="33.33" height="100" fill="#FFFFFF"/>
+  <rect x="66.66" y="0" width="33.34" height="100" fill="#CE2B37"/>
+  
+  <!-- Іконка вилки та ножа -->
+  <g transform="translate(50, 50)">
+    <!-- Вилка -->
+    <path d="M-15,-25 L-15,-5 L-12,-5 L-12,-25 M-18,-25 L-18,-15 L-12,-15 M-21,-25 L-21,-15 L-15,-15" 
+          stroke="#333" stroke-width="2" fill="none"/>
+    
+    <!-- Ніж -->
+    <path d="M15,-25 L15,5 M15,-25 L20,-20 L15,-15" 
+          stroke="#333" stroke-width="2" fill="none"/>
+    
+    <!-- Тарілка -->
+    <circle cx="0" cy="15" r="20" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+</svg>
+

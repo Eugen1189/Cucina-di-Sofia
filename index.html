@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cucina di Sofia 🇮🇹</title>
     
+    <!-- Favicon -->
+    <link rel="icon" href="favicon-pizza.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
+    
     <style>
         body {
             background-color: #A8FF00; /* Яскравий лаймовий фон для glassmorphism ефекту */
@@ -31,20 +35,13 @@
 
     <!-- Елегантна навігаційна панель -->
     <header class="main-header">
-        <div class="logo">
-            Cucina di Sofia
-        </div>
+        <div class="logo">Cucina di Sofia</div>
         <nav class="main-nav">
             <a href="#" id="open-menu-link" class="nav-link">Il Nostro Menu</a>
             <a href="#" id="open-philosophy-link" class="nav-link">La Nostra Storia</a>
-            <a href="#" id="open-contacts-link" class="nav-link">Contatti</a>
         </nav>
+        <a href="#" id="open-reservation-btn" class="reserve-button">Prenota un tavolo</a>
     </header>
-
-    <!-- Іконка кошика -->
-    <button id="cart-icon" class="cart-button" aria-label="Apri carrello" type="button">
-        🛒 <span id="cart-counter" aria-label="Numero di articoli nel carrello">0</span>
-    </button>
 
     <main role="main" aria-label="Italian Food Showcase">
         <div class="swiper" role="region" aria-label="Food slideshow">
@@ -66,117 +63,90 @@
                     </div>
                 </div>
 
-                <section class="swiper-slide text-dark-theme" data-bg-color="#F5EFE1" aria-label="Sezione Panini">
+                <section class="swiper-slide text-dark-theme" data-bg-color="#F5EFE1" data-dish-id="1" aria-label="Sezione Panini">
                     <div class="slide-content">
-                        <h1>PANINI</h1>
-                        
                         <div class="description-block">
                             <h3>Prosciutto e Mozzarella</h3>
                             <p>Panini italiano classico con mozzarella fresca, prosciutto saporito e rucola su pane ciabatta croccante.</p>
                         </div>
                         
-                        <img class="product-image" loading="lazy" src="images/panini.png" alt="Panini Italiano con prosciutto, mozzarella e rucola su pane ciabatta">
-                        
-                        <img class="ingredient arugula-1 foreground" loading="lazy" src="images/arugula-1.png" alt="Foglia di rucola">
-                        <img class="ingredient arugula-2" loading="lazy" src="images/arugula-2.png" alt="Foglia di rucola">
-                        <img class="ingredient prosciutto-1" loading="lazy" src="images/prosciutto-1.png" alt="Fetta di prosciutto">
-                        <img class="ingredient prosciutto-2 background" loading="lazy" src="images/prosciutto-2.png" alt="Fetta di prosciutto">
-                        <img class="ingredient mozzarella-1 foreground" loading="lazy" src="images/mozzarella-1.png" alt="Pallina di mozzarella">
-                        <img class="ingredient mozzarella-2 background" loading="lazy" src="images/mozzarella-2.png" alt="Pallina di mozzarella">
-                        <img class="ingredient croutons-1" loading="lazy" src="images/croutons-1.png" alt="Crotoni">
-                        
-                        <button class="add-to-cart-btn" data-id="1">
-                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 6V4a4 4 0 00-8 0v2H4v14h16V6h-4zm-6-2a2 2 0 014 0v2H8V4z"/>
-                                <path d="M9 12l2 2 4-4"/>
-                            </svg>
-                            <span class="btn-text">Aggiungi</span>
-                        </button>
+                        <div class="dish-container">
+                            <img class="product-image" loading="lazy" src="images/panini-prosciutto-mozzarella.png" alt="Panini Italiano con prosciutto, mozzarella e rucola su pane ciabatta">
+
+                            <div class="ingredient-map">
+                                <!-- Інгредієнти генеруються динамічно через JavaScript -->
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <section class="swiper-slide" data-bg-color="#D9534F" aria-label="Sezione Pizza">
+                <section class="swiper-slide" data-bg-color="#D9534F" data-dish-id="201" aria-label="Sezione Pizza">
                     <div class="slide-content">
-                        <h1>PIZZA</h1>
-                        
                         <div class="description-block">
                             <h3>Margherita Classica</h3>
                             <p>Pizza italiana tradizionale con salsa di pomodoro, mozzarella fresca, basilico e olio d'oliva su pasta sottile.</p>
                         </div>
                         
-                        <img class="product-image" loading="lazy" src="images/pizza.png" alt="Pizza Margherita con pomodoro, mozzarella e basilico su pasta sottile">
+                        <div class="dish-container">
+                            <img class="product-image" loading="lazy" src="images/pizza-margherita.png" alt="Pizza Margherita con pomodoro, mozzarella e basilico su pasta sottile">
                         
-                        <img class="ingredient basil-1 foreground" loading="lazy" src="images/basil-1.png" alt="Foglia di basilico">
-                        <img class="ingredient pepperoni-1 background" loading="lazy" src="images/basil-2.png" alt="Peperoni">
-                        <img class="ingredient tomato-1" loading="lazy" src="images/tomato-1.png" alt="Pomodoro">
-                        <img class="ingredient tomato-2 background" loading="lazy" src="images/tomato-2.png" alt="Pomodorini">
-                        <img class="ingredient olive-1" loading="lazy" src="images/olive-1.png" alt="Oliva">
-                        <img class="ingredient olive-2 background" loading="lazy" src="images/olive-2.png" alt="Oliva">
-                        
-                        <button class="add-to-cart-btn" data-id="201">
-                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 6V4a4 4 0 00-8 0v2H4v14h16V6h-4zm-6-2a2 2 0 014 0v2H8V4z"/>
-                                <path d="M9 12l2 2 4-4"/>
-                            </svg>
-                            <span class="btn-text">Aggiungi</span>
-                        </button>
+                            <div class="ingredient-map">
+                                <!-- Інгредієнти генеруються динамічно через JavaScript -->
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <section class="swiper-slide" data-bg-color="#849458" aria-label="Sezione Pasta">
+                <section class="swiper-slide" data-bg-color="#849458" data-dish-id="301" aria-label="Sezione Pasta">
                     <div class="slide-content">
-                        <h1>PASTA</h1>
-                        
                         <div class="description-block">
                             <h3>Pasta Carbonara</h3>
-                            <p>Pasta classica con pancetta, tuorlo d'uovo, parmigiano e pepe nero - un capolavoro della cucina romana.</p>
+                            <p>Un vero classico romano: spaghetti con una delicata salsa di tuorli d'uovo, formaggio Pecorino Romano, guanciale e pepe nero appena macinato.</p>
                         </div>
                         
-                        <img class="product-image" loading="lazy" src="images/pasta.png" alt="Pasta Carbonara con pancetta, tuorlo d'uovo e parmigiano">
-                        
-                        <img class="ingredient parmesan-1 foreground" loading="lazy" src="images/parmesan-1.png" alt="Parmigiano">
-                        <img class="ingredient parmesan-2 background" loading="lazy" src="images/parmesan-2.png" alt="Parmigiano">
-                        <img class="ingredient farfalle-1" loading="lazy" src="images/farfalle-1.png" alt="Pasta farfalle">
-                        <img class="ingredient farfalle-2 background" loading="lazy" src="images/farfalle-2.png" alt="Pasta farfalle">
-                        <img class="ingredient rosemary-1 background" loading="lazy" src="images/rosemary-1.png" alt="Rametto di rosmarino">
-                        <img class="ingredient rosemary-2" loading="lazy" src="images/rosemary-2.png" alt="Rametto di rosmarino">
-                        
-                        <button class="add-to-cart-btn" data-id="301">
-                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 6V4a4 4 0 00-8 0v2H4v14h16V6h-4zm-6-2a2 2 0 014 0v2H8V4z"/>
-                                <path d="M9 12l2 2 4-4"/>
-                            </svg>
-                            <span class="btn-text">Aggiungi</span>
-                        </button>
+                        <div class="dish-container">
+                            <img class="product-image" loading="lazy" src="images/pasta-carbonara.png" alt="Pasta Carbonara con guanciale, tuorlo d'uovo e Pecorino Romano">
+
+                            <div class="ingredient-map">
+                                <!-- Інгредієнти генеруються динамічно через JavaScript -->
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Insalate Section -->
-                <section class="swiper-slide" data-bg-color="#8BC34A" aria-label="Sezione Insalate">
+                <section class="swiper-slide" data-bg-color="#8BC34A" data-dish-id="402" aria-label="Sezione Insalate">
                     <div class="slide-content">
-                        <h1>INSALATE</h1>
-                        
                         <div class="description-block">
-                            <h3>Insalata Caprese</h3>
-                            <p>Pomodori freschi, mozzarella di bufala, basilico e olio d'oliva - la freschezza dell'estate italiana.</p>
+                            <h3>Insalata Cesare con Pollo</h3>
+                            <p>Il classico Caesar Salad con petto di pollo grigliato succoso, scaglie di Parmigiano Reggiano, crostini croccanti e la nostra salsa Caesar fatta in casa.</p>
                         </div>
                         
-                        <img class="product-image" loading="lazy" src="images/panini.png" alt="Insalata Caprese con pomodori, mozzarella e basilico">
+                        <div class="dish-container">
+                            <img class="product-image" loading="lazy" src="images/insalata-cesare.png" alt="Insalata Cesare con pollo grigliato e Parmigiano">
+
+                            <div class="ingredient-map">
+                                <!-- Інгредієнти генеруються динамічно через JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bevande Section -->
+                <section class="swiper-slide" data-bg-color="#4A90E2" data-dish-id="101" aria-label="Sezione Bevande">
+                    <div class="slide-content">
+                        <div class="description-block">
+                            <h3>Acqua Minerale</h3>
+                            <p>Acqua minerale italiana pura dalle sorgenti naturali delle Alpi, ricca di minerali essenziali e disponibile sia naturale che frizzante.</p>
+                        </div>
                         
-                        <img class="ingredient basil-1 foreground" loading="lazy" src="images/basil-1.png" alt="Foglia di basilico">
-                        <img class="ingredient basil-2 background" loading="lazy" src="images/basil-2.png" alt="Foglia di basilico">
-                        <img class="ingredient tomato-1" loading="lazy" src="images/tomato-1.png" alt="Pomodoro">
-                        <img class="ingredient tomato-2 background" loading="lazy" src="images/tomato-2.png" alt="Pomodorini">
-                        <img class="ingredient mozzarella-1 foreground" loading="lazy" src="images/mozzarella-1.png" alt="Pallina di mozzarella">
-                        <img class="ingredient mozzarella-2 background" loading="lazy" src="images/mozzarella-2.png" alt="Pallina di mozzarella">
-                        
-                        <button class="add-to-cart-btn" data-id="401">
-                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 6V4a4 4 0 00-8 0v2H4v14h16V6h-4zm-6-2a2 2 0 014 0v2H8V4z"/>
-                                <path d="M9 12l2 2 4-4"/>
-                            </svg>
-                            <span class="btn-text">Aggiungi</span>
-                        </button>
+                        <div class="dish-container">
+                            <img class="product-image" loading="lazy" src="images/acqua-minerale.png" alt="Acqua Minerale italiana naturale e frizzante">
+
+                            <div class="ingredient-map">
+                                <!-- Інгредієнти генеруються динамічно через JavaScript -->
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -188,78 +158,6 @@
 
 
     <!-- Модальні вікна -->
-    <div id="order-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Completamento ordine</h2>
-                <button id="close-order-modal-btn" class="close-button" aria-label="Chiudi finestra ordine" type="button">&times;</button>
-            </div>
-            
-            <div id="form-success-message" class="hidden">
-                <h3>Grazie!</h3>
-                <p>Il tuo ordine è stato ricevuto. Ti contatteremo presto.</p>
-            </div>
-            
-            <form id="order-form" name="order" data-netlify="true">
-                <input type="hidden" name="form-name" value="order" />
-                <input type="hidden" name="product" id="product-name">
-                
-                <fieldset>
-                    <legend>Informazioni personali</legend>
-                    <div class="form-group">
-                        <label for="name">Il tuo nome</label>
-                        <input type="text" id="name" name="name" placeholder="Mario Rossi" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Numero di telefono</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+39 123 456789" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">La tua email</label>
-                        <input type="email" id="email" name="email" placeholder="mario.rossi@email.com" required>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Indirizzo di consegna</legend>
-                    <div class="form-group">
-                        <label for="address">Indirizzo completo</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Via Roma 1, 10121 Torino TO" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Note aggiuntive (opzionale)</label>
-                        <textarea id="message" name="message" rows="3" placeholder="Es. citofono rotto, allergie..."></textarea>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Metodo di pagamento</legend>
-                    <div class="payment-options-new">
-                        <label class="payment-option-new">
-                            <input type="radio" name="payment" value="cash" checked>
-                            <div class="payment-box-new">
-                            <span class="payment-icon">💰</span>
-                            <span class="payment-text">Pagamento alla consegna</span>
-                        </div>
-                    </label>
-                        <label class="payment-option-new">
-                            <input type="radio" name="payment" value="card">
-                            <div class="payment-box-new">
-                            <span class="payment-icon">💳</span>
-                            <span class="payment-text">Pagamento con carta</span>
-                        </div>
-                    </label>
-                </div>
-                </fieldset>
-
-                <button type="submit" id="submit-button" class="form-submit-btn">
-                    <span class="button-text">Completa il tuo ordine</span>
-                    <div class="spinner hidden"></div>
-                </button>
-            </form>
-        </div>
-    </div>
 
     <!-- Модальне вікно філософії -->
     <div id="philosophy-modal" class="modal hidden">
@@ -271,7 +169,7 @@
             </div>
             <div class="philosophy-body">
                 <div class="philosophy-image-container">
-                    <img src="photo_5413503919956556100_y.jpg" alt="La nostra tavola italiana con ingredienti freschi" class="philosophy-image">
+                    <img src="images/photo_5413503919956556100_y.jpg" alt="La nostra tavola italiana con ingredienti freschi" class="philosophy-image">
                 </div>
                 <div class="philosophy-text-container">
                     <h3>Più che cibo, un ricordo del cuore</h3>
@@ -285,33 +183,6 @@
                         <p><em>Con amore,<br>La famiglia di Nonna Sofia</em></p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальне вікно кошика -->
-    <div id="cart-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content cart-content">
-            <div class="modal-header">
-                <h2>Il Tuo Carrello</h2>
-                <button id="close-cart-btn" class="close-button" aria-label="Chiudi carrello" type="button">&times;</button>
-            </div>
-            
-            <div id="cart-items-container">
-                <div class="empty-cart-view">
-                    <h3>Il tuo carrello è vuoto</h3>
-                    <p>È il momento di aggiungere qualcosa di delizioso!</p>
-                    <button id="go-to-menu-btn" class="primary-button">Vai al Menu</button>
-                </div>
-            </div>
-
-            <div class="cart-summary hidden">
-                <div class="cart-total">
-                    <strong>Totale:</strong>
-                    <span id="cart-total-price">€ 0</span>
-                </div>
-                <button id="checkout-btn" class="primary-button">Completa Ordine</button>
             </div>
         </div>
     </div>
@@ -353,23 +224,6 @@
                 <section class="menu-category-section">
                     <h3>Bevande</h3>
                     <div id="menu-bevande-container" class="menu-items-grid">
-                        <div class="menu-item-card">
-                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Bottiglia di acqua minerale italiana" class="menu-item-image">
-                            <div class="menu-item-info">
-                                <div class="menu-item-name">Acqua Minerale</div>
-                                <div class="menu-item-description">Acqua minerale pura dalle sorgenti italiane, gassata o naturale.</div>
-                                <div class="menu-item-footer">
-                                    <span class="menu-item-price">€</span>
-                                    <button class="menu-item-add-btn add-to-cart-btn" data-id="101" aria-label="Aggiungi Acqua Minerale al carrello" type="button">
-                                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M16 6V4a4 4 0 00-8 0v2H4v14h16V6h-4zm-6-2a2 2 0 014 0v2H8V4z"/>
-                                            <path d="M9 12l2 2 4-4"/>
-                                        </svg>
-                                        <span class="btn-text">Aggiungi</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </section>
             </div>
@@ -396,6 +250,88 @@
                     
                     <p><strong>Benvenuti a casa.</strong></p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно резервації -->
+    <div id="reservation-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content reservation-content">
+            <div class="modal-header">
+                <h2>Prenota un Tavolo</h2>
+                <button id="close-reservation-modal" class="close-button" aria-label="Chiudi prenotazione" type="button">&times;</button>
+            </div>
+            
+            <div id="reservation-success-message" class="hidden">
+                <h3>✅ Prenotazione Ricevuta!</h3>
+                <p>Grazie! Abbiamo ricevuto la tua richiesta di prenotazione. Ti contatteremo presto per confermare.</p>
+            </div>
+            
+            <form id="reservation-form" name="reservation" data-netlify="true">
+                <input type="hidden" name="form-name" value="reservation" />
+                
+                <p class="reservation-intro">Compila il modulo sottostante e ti contatteremo per confermare la tua prenotazione.</p>
+                
+                <fieldset>
+                    <legend>I tuoi dati</legend>
+                    <div class="form-group">
+                        <label for="res-name">Nome completo *</label>
+                        <input type="text" id="res-name" name="name" placeholder="Mario Rossi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-phone">Telefono *</label>
+                        <input type="tel" id="res-phone" name="phone" placeholder="+39 123 456 789" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-email">Email</label>
+                        <input type="email" id="res-email" name="email" placeholder="mario.rossi@email.it">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Dettagli prenotazione</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-date">Data *</label>
+                            <input type="date" id="res-date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="res-time">Ora *</label>
+                            <input type="time" id="res-time" name="time" min="12:00" max="23:00" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-guests">Numero di persone *</label>
+                        <select id="res-guests" name="guests" required>
+                            <option value="">Seleziona...</option>
+                            <option value="1">1 persona</option>
+                            <option value="2">2 persone</option>
+                            <option value="3">3 persone</option>
+                            <option value="4">4 persone</option>
+                            <option value="5">5 persone</option>
+                            <option value="6">6 persone</option>
+                            <option value="6+">6+ persone</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-notes">Note aggiuntive (opzionale)</label>
+                        <textarea id="res-notes" name="notes" rows="3" placeholder="Es. allergie, occasioni speciali, richieste particolari..."></textarea>
+                    </div>
+                </fieldset>
+                
+                <button type="submit" id="submit-reservation-btn" class="form-submit-btn">
+                    <span class="button-text">Invia Prenotazione</span>
+                    <div class="spinner hidden"></div>
+                </button>
+                
+                <p class="form-note">* Campi obbligatori. Ti contatteremo per confermare la prenotazione.</p>
+            </form>
+            
+            <div class="contact-alternative">
+                <p><strong>Preferisci chiamare?</strong></p>
+                <p>📞 <a href="tel:+390123456789">+39 012 345 6789</a></p>
+                <p class="info-note">Lunedì - Domenica: 10:00 - 22:00</p>
             </div>
         </div>
     </div>

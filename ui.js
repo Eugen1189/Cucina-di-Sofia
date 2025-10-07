@@ -39,12 +39,6 @@ export function initializeModals() {
         }
     });
     
-    // Event listener per apertura carrello
-    const cartIcon = document.getElementById('cart-icon');
-    if (cartIcon) {
-        cartIcon.addEventListener('click', () => openModal('cart-modal'));
-    }
-    
     // Event listener per apertura menu
     const menuLink = document.getElementById('open-menu-link');
     if (menuLink) {
@@ -63,32 +57,15 @@ export function initializeModals() {
         });
     }
     
-    // Event listener per contatti (placeholder)
-    const contactsLink = document.getElementById('open-contacts-link');
-    if (contactsLink) {
-        contactsLink.addEventListener('click', (e) => {
+    // Event listener per prenotazione
+    const reservationBtn = document.getElementById('open-reservation-btn');
+    if (reservationBtn) {
+        reservationBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // TODO: Implementare modal contatti
-            console.log('Contatti clicked - da implementare');
+            openModal('reservation-modal');
         });
     }
     
-    // Event listener per checkout
-    const checkoutBtn = document.getElementById('checkout-btn');
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            closeModal('cart-modal');
-            openModal('order-modal');
-        });
-    }
-    
-    // Event listener per continue shopping
-    const continueShoppingBtn = document.getElementById('continue-shopping-btn');
-    if (continueShoppingBtn) {
-        continueShoppingBtn.addEventListener('click', () => {
-            closeModal('cart-modal');
-        });
-    }
 }
 
 // --- NOTIFICHE ---
@@ -145,15 +122,13 @@ export async function renderMenuItems(category, containerId) {
     const categoryItems = menu.filter(item => item.category === category);
     container.innerHTML = categoryItems.map(item => `
         <div class="menu-item-card ${item.isSpecial ? 'special' : ''}">
+            ${item.isSpecial ? '<div class="special-badge">⭐ Chef\'s Special</div>' : ''}
             <img src="${item.image}" alt="${item.name}" class="menu-item-image">
             <div class="menu-item-info">
                 <div class="menu-item-name">${item.name}</div>
                 <div class="menu-item-description">${item.description}</div>
                 <div class="menu-item-footer">
-                    <span class="menu-item-price">€</span>
-                    <button class="menu-item-add-btn add-to-cart-btn" data-id="${item.id}">
-                        Aggiungi
-                    </button>
+                    <span class="menu-item-price">€${item.price}</span>
                 </div>
             </div>
         </div>
@@ -191,15 +166,13 @@ export async function renderFullMenu() {
         <div class="menu-items-grid" id="menu-items-grid">
             ${menu.map(item => `
                 <div class="menu-item-card ${item.isSpecial ? 'special' : ''}" data-category="${item.category}">
+                    ${item.isSpecial ? '<div class="special-badge">⭐ Chef\'s Special</div>' : ''}
                     <img src="${item.image}" alt="${item.name}" class="menu-item-image">
                     <div class="menu-item-info">
                         <div class="menu-item-name">${item.name}</div>
                         <div class="menu-item-description">${item.description}</div>
                         <div class="menu-item-footer">
-                            <span class="menu-item-price">€</span>
-                            <button class="menu-item-add-btn add-to-cart-btn" data-id="${item.id}">
-                                Aggiungi
-                            </button>
+                            <span class="menu-item-price">€${item.price}</span>
                         </div>
                     </div>
                 </div>
