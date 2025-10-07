@@ -4114,19 +4114,16 @@ a.phone-link:hover {
     .hover-gallery ul {
         flex-direction: column;
         height: auto;
-        gap: 15px;
     }
     
     .hover-gallery li {
-        min-height: 200px;
-        flex: none !important; /* Скидаємо flex для мобільних */
+        flex: 1;
+        height: 150px;
     }
     
-    .hover-gallery .content {
-        transform: translateY(0);
-        opacity: 1;
-        position: relative;
-        background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.4));
+    .hover-gallery li.active {
+        flex: 5;
+        height: 300px; /* Розширення по висоті */
     }
     
     .hover-gallery .content h2 {
