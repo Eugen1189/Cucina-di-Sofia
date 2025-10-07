@@ -107,6 +107,9 @@ function initializeMobileMenu() {
             } else if (linkId === 'mobile-open-story') {
                 e.preventDefault();
                 openModal('story-modal');
+            } else if (linkId === 'mobile-open-contacts') {
+                e.preventDefault();
+                openModal('contacts-modal');
             }
         });
     });

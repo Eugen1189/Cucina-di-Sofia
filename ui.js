@@ -57,6 +57,15 @@ export function initializeModals() {
         });
     }
     
+    // Event listener per contatti
+    const contactsLink = document.getElementById('open-contacts-link');
+    if (contactsLink) {
+        contactsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('contacts-modal');
+        });
+    }
+    
 }
 
 // --- NOTIFICHE ---

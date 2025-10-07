@@ -1083,6 +1083,70 @@ main {
     color: white;
 }
 
+/* ======================================================= */
+/* HEADER PHONE LINK - Main CTA */
+/* ======================================================= */
+
+.header-phone-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #D9534F, #C44741);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
+}
+
+.header-phone-link:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(217, 83, 79, 0.4);
+    background: linear-gradient(135deg, #C44741, #B03D37);
+}
+
+.header-phone-link:active {
+    transform: translateY(0) scale(1);
+}
+
+.phone-icon {
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+.phone-text {
+    font-family: var(--font-body);
+    letter-spacing: 0.5px;
+}
+
+/* Темна версія для світлих слайдів */
+.main-header.text-dark .header-phone-link {
+    background: linear-gradient(135deg, #D9534F, #C44741);
+    color: white;
+}
+
+/* Phone link in mobile menu */
+.phone-link-mobile {
+    background: linear-gradient(135deg, #D9534F, #C44741) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    margin-top: 20px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 20px !important;
+    font-size: 1.1rem !important;
+}
+
+.phone-link-mobile:hover {
+    background: linear-gradient(135deg, #C44741, #B03D37) !important;
+    transform: translateX(-5px) scale(1.02);
+}
+
 /* Modal styles */
 .modal {
     position: fixed;
@@ -3657,6 +3721,157 @@ body.story-slide-active .swiper-button-next {
     color: #2d2d2d;
     font-size: 1.2rem;
     margin-bottom: 0;
+}
+
+/* ======================================================= */
+/* CONTACTS MODAL */
+/* ======================================================= */
+
+.contacts-content {
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contacts-content .modal-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+    border-bottom: none;
+}
+
+.contacts-content .modal-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.contacts-content .close-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.contacts-content .close-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.contacts-body {
+    padding: 30px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+    font-size: 2rem;
+    display: inline-block;
+}
+
+.contact-details h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    color: #2d2d2d;
+    font-family: var(--font-heading);
+}
+
+.contact-details p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.contact-link {
+    color: #D9534F;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contact-link:hover {
+    color: #C44741;
+    text-decoration: underline;
+}
+
+.contact-hours {
+    font-size: 0.9rem !important;
+    color: #888 !important;
+    margin-top: 5px !important;
+}
+
+.contact-cta {
+    text-align: center;
+    margin-top: 15px;
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(217, 83, 79, 0.1), rgba(196, 71, 65, 0.1));
+    border-radius: 15px;
+}
+
+.contact-cta p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #2d2d2d;
+}
+
+.cta-phone-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #D9534F, #C44741);
+    color: white;
+    padding: 15px 35px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
+}
+
+.cta-phone-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(217, 83, 79, 0.4);
+    background: linear-gradient(135deg, #C44741, #B03D37);
+}
+
+.cta-phone-button:active {
+    transform: translateY(0) scale(1);
 }
 
 /* Responsive story modal */

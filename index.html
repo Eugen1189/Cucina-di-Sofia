@@ -40,7 +40,13 @@
         <nav class="main-nav desktop-nav">
             <a href="#" id="open-menu-link" class="nav-link">Il Nostro Menu</a>
             <a href="#" id="open-philosophy-link" class="nav-link">La Nostra Storia</a>
+            <a href="#" id="open-contacts-link" class="nav-link">Contatti</a>
         </nav>
+        
+        <a href="tel:+390212345678" class="header-phone-link desktop-nav">
+            <span class="phone-icon">📞</span>
+            <span class="phone-text">+39 02 1234 5678</span>
+        </a>
 
         <button id="mobile-menu-toggle" class="mobile-menu-button" aria-label="Toggle mobile menu">
             <span></span>
@@ -53,6 +59,11 @@
     <div id="mobile-menu" class="mobile-menu-container">
         <a href="#" class="mobile-menu-link" id="mobile-open-menu">Il Nostro Menu</a>
         <a href="#" class="mobile-menu-link" id="mobile-open-story">La Nostra Storia</a>
+        <a href="#" class="mobile-menu-link" id="mobile-open-contacts">Contatti</a>
+        <a href="tel:+390212345678" class="mobile-menu-link phone-link-mobile">
+            <span class="phone-icon">📞</span>
+            <span class="phone-text">+39 02 1234 5678</span>
+        </a>
     </div>
 
     <main role="main" aria-label="Italian Food Showcase">
@@ -265,6 +276,54 @@
             </div>
         </div>
     </div>
+
+    <!-- Модальне вікно "Contatti" -->
+    <div id="contacts-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content contacts-content">
+            <div class="modal-header">
+                <h2>Contatti</h2>
+                <button id="close-contacts-modal" class="close-button" aria-label="Chiudi contatti" type="button">&times;</button>
+            </div>
+            <div class="contacts-body">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div class="contact-details">
+                            <h3>Telefono</h3>
+                            <a href="tel:+390212345678" class="contact-link">+39 02 1234 5678</a>
+                            <p class="contact-hours">Lunedì - Domenica: 10:00 - 22:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <a href="mailto:info@cucinadisofia.it" class="contact-link">info@cucinadisofia.it</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div class="contact-details">
+                            <h3>Indirizzo</h3>
+                            <p>Via Roma 123, Milano, Italia</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-cta">
+                        <p><strong>Chiamaci per prenotare!</strong></p>
+                        <a href="tel:+390212345678" class="cta-phone-button">
+                            <span class="phone-icon">📞</span>
+                            <span>+39 02 1234 5678</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Скрипти -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
