@@ -150,17 +150,27 @@ export const menu = [
     {
         id: 101,
         name: 'Acqua Minerale',
-        description: 'Acqua minerale pura dalle sorgenti alpine italiane. Disponibile naturale e frizzante.',
+        description: 'Acqua minerale pura dalle sorgenti italiane, naturale o frizzante.',
         price: 40,
-        image: 'images/acqua-minerale.png',
+        image: 'images/bevande-acqua-minerale.png',
+        category: 'bevande'
+    },
+    {
+        id: 102,
+        name: 'Limonata Artigianale',
+        description: 'Limonata fresca fatta in casa, preparata con limoni siciliani freschi e menta.',
+        price: 70,
+        image: 'images/bevande-limonata.png',
         category: 'bevande',
-        isSpecial: true,
-        ingredients: [
-            { name: 'Bottiglia di Vetro', nameIt: 'Bottiglia Riciclabile', image: 'images/ingredient-spring-water.png', weight: '500ml' },
-            { name: 'Con Ghiaccio', nameIt: 'Ghiaccio Fresco', image: 'images/ingredient-minerals.png', weight: '-' },
-            { name: 'Fetta di Limone', nameIt: 'Limone Bio', image: 'images/ingredient-natural.png', weight: '1 fetta' },
-            { name: 'Acqua Frizzante', nameIt: 'Versione Gassata', image: 'images/ingredient-sparkle.png', weight: 'opz.' }
-        ]
+        isSpecial: true
+    },
+    {
+        id: 103,
+        name: 'Aranciata Rossa',
+        description: 'Bevanda italiana classica con il sapore intenso delle arance rosse cresciute sulle pendici dell\'Etna.',
+        price: 70,
+        image: 'images/bevande-aranciata-rossa.png',
+        category: 'bevande'
     }
 ];
 
