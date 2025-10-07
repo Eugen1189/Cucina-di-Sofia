@@ -3921,7 +3921,8 @@ a.phone-link:hover {
 }
 
 .hover-gallery ul {
-    display: flex;
+    display: flex !important; /* Гарантуємо горизонтальне відображення */
+    flex-direction: row !important; /* Чітко вказуємо напрямок */
     width: 100%;
     height: 70vh; /* Висота галереї */
     padding: 0;
@@ -4135,5 +4136,79 @@ a.phone-link:hover {
         font-size: 2rem;
         color: white;
         text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+}
+
+/* ======================================================= */
+/* ПРЕМІАЛЬНИЙ РЕДИЗАЙН КАРТОК МЕНЮ */
+/* ======================================================= */
+
+.menu-category {
+    margin-bottom: 50px;
+}
+
+.menu-category h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; /* Збільшуємо назву категорії */
+    text-align: center; /* Центруємо */
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.menu-dish {
+    display: grid; /* Використовуємо Grid для кращого контролю */
+    grid-template-columns: 200px 1fr; /* Колонка для фото і колонка для тексту */
+    gap: 25px; /* Простір між фото і текстом */
+    align-items: center; /* Вирівнюємо по центру по вертикалі */
+    margin-bottom: 30px;
+}
+
+/* --- Зображення страви --- */
+.menu-dish-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* --- Текстовий блок --- */
+.menu-dish-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #222;
+    margin: 0 0 10px 0;
+}
+
+.menu-dish-info p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.menu-dish-info .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    color: #333;
+}
+
+.menu-dish-info .price span {
+    font-size: 1rem;
+    color: #888;
+    margin-left: 5px;
+}
+
+/* --- Адаптація для мобільних --- */
+@media (max-width: 768px) {
+    .menu-dish {
+        grid-template-columns: 1fr; /* На мобільних все йде в одну колонку */
+        text-align: center;
+    }
+    .menu-dish-image {
+        width: 100%;
+        height: 250px; /* Робимо фото більшим */
     }
 }
