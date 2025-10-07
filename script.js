@@ -882,6 +882,15 @@ const masterTl = gsap.timeline({
     
     // Ініціалізуємо інгредієнти для всіх слайдів
     initializeIngredients();
+    
+    // --- ЛОГІКА ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ: "CHEF'S TABLE" ---
+    // На мобільних пристроях :hover не працює, тому додаємо клік
+    document.querySelectorAll('.dish-container').forEach(container => {
+        container.addEventListener('click', () => {
+            // Перемикаємо клас 'active', який буде імітувати :hover
+            container.classList.toggle('active');
+        });
+    });
 });
 
 // Controlliamo se l'utente ha già visitato il sito (ha elementi nel carrello)
