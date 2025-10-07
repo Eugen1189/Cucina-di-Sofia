@@ -93,91 +93,88 @@ const menuCategories = [
     { name: 'Bevande', image: 'images/category-bevande.jpg' }
 ];
 
+// --- ФІНАЛЬНА ЛОГІКА ДЛЯ ДВОРІВНЕВОГО МЕНЮ ---
 function initializeMenuGallery() {
     const menuModal = document.getElementById('full-menu-modal');
-    const categoryGalleryList = document.getElementById('category-gallery-list');
-    const categoryContainer = document.getElementById('category-gallery-container');
-    const dishContainer = document.getElementById('dish-grid-container');
-    const menuTitle = document.getElementById('menu-title');
-    const backButton = document.getElementById('menu-back-btn');
-    
-    if (!categoryGalleryList || !dishContainer) {
-        console.warn('Menu navigation elements not found');
+
+    if (!menuModal) {
+        console.warn('Menu modal not found');
         return;
     }
-    
+
+    const categoryContainer = menuModal.querySelector('#category-gallery-container ul');
+    const dishContainer = menuModal.querySelector('#dish-grid-container');
+    const menuTitle = menuModal.querySelector('#menu-title');
+    const backButton = menuModal.querySelector('#menu-back-btn');
+
     // --- Функція 1: Рендерить галерею категорій ---
     function renderCategories() {
-        const categoriesHTML = menuCategories.map(cat => `
-            <li style="--bg-image: url('${cat.image}');" data-category="${cat.name}">
+        if (!categoryContainer) return; // Додаткова перевірка
+        
+        // Використовуємо масив menuCategories
+        categoryContainer.innerHTML = menuCategories.map(cat => `
+            <li data-category="${cat.name}">
                 <div class="category-content">${cat.name}</div>
             </li>
         `).join('');
-        
-        categoryGalleryList.innerHTML = categoriesHTML;
-        
-        // Додаємо hover/click для мобільних
-        document.querySelectorAll('#category-gallery-list li').forEach(item => {
-            item.addEventListener('click', () => {
-                document.querySelectorAll('#category-gallery-list li').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            });
-        });
     }
-    
-    // --- Функція 2: Рендерить сітку страв для обраної категорії ---
+
+    // --- Функція 2: Рендерить сітку страв ---
     function renderDishes(categoryName) {
+        if (!dishContainer || !menu) return;
+
         const dishes = menu.filter(item => item.category.toLowerCase() === categoryName.toLowerCase());
         
-        const dishesHTML = dishes.map(dish => `
-            <div class="menu-item-card">
+        dishContainer.innerHTML = dishes.map(dish => `
+            <div class="menu-item-card" data-dish-id="${dish.id}">
                 <img src="${dish.image}" alt="${dish.name}" class="menu-item-image">
-                <div class="menu-item-info">
-                    <h3 class="menu-item-name">${dish.name}</h3>
-                    <p class="menu-item-description">${dish.description}</p>
-                    <div class="menu-item-footer">
-                        <span class="menu-item-price">${dish.price} ₴</span>
-                    </div>
+                <div class="menu-item-name">${dish.name}</div>
+                <div class="menu-item-description">${dish.description}</div>
+                <div class="menu-item-footer">
+                    <span class="menu-item-price">${dish.price} ₴</span>
                 </div>
             </div>
         `).join('');
-        
-        dishContainer.innerHTML = dishesHTML;
     }
-    
-    // --- Основна логіка ---
-    
-    // 1. При завантаженні сторінки одразу генеруємо категорії
-    renderCategories();
-    
-    // 2. Обробник кліків на галерею категорій
-    categoryGalleryList.addEventListener('click', (e) => {
-        const categoryItem = e.target.closest('li');
-        if (categoryItem && categoryItem.dataset.category) {
-            const categoryName = categoryItem.dataset.category;
-            
-            // Рендеримо страви цієї категорії
-            renderDishes(categoryName);
-            
-            // Показуємо екран зі стравами і ховаємо категорії
-            categoryContainer.classList.add('hidden');
-            dishContainer.classList.remove('hidden');
-            
-            // Оновлюємо заголовок і показуємо кнопку "Назад"
-            menuTitle.textContent = categoryName;
-            backButton.classList.remove('hidden');
-        }
-    });
-    
-    // 3. Обробник кліку на кнопку "Назад"
-    backButton.addEventListener('click', () => {
-        // Робимо все навпаки
-        categoryContainer.classList.remove('hidden');
+
+    // --- Функція для перемикання екранів меню ---
+    function showDishScreen(categoryName) {
+        renderDishes(categoryName);
+        menuModal.querySelector('#category-gallery-container').classList.add('hidden');
+        dishContainer.classList.remove('hidden');
+        menuTitle.textContent = categoryName;
+        backButton.classList.remove('hidden');
+    }
+
+    function showCategoryScreen() {
+        menuModal.querySelector('#category-gallery-container').classList.remove('hidden');
         dishContainer.classList.add('hidden');
-        
         menuTitle.textContent = 'Il Nostro Menu';
         backButton.classList.add('hidden');
-    });
-    
+    }
+
+    // --- Основні обробники подій ---
+
+    // ГАРАНТОВАНО запускаємо рендеринг категорій при завантаженні
+    renderCategories();
+
+    // Обробник кліків на галерею категорій
+    if (categoryContainer) {
+        categoryContainer.addEventListener('click', (e) => {
+            const categoryItem = e.target.closest('li');
+            if (categoryItem) {
+                const categoryName = categoryItem.dataset.category;
+                showDishScreen(categoryName);
+            }
+        });
+    }
+
+    // Обробник кліку на кнопку "Назад"
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            showCategoryScreen();
+        });
+    }
+
     console.log('✅ Menu navigation initialized');
 }
