@@ -4048,40 +4048,36 @@ a.phone-link:hover {
 }
 
 /* ======================================================= */
-/* АДАПТАЦІЯ МЕНЮ КАТЕГОРІЙ ДЛЯ МОБІЛЬНИХ */
+/* ФІНАЛЬНИЙ ВИГЛЯД МЕНЮ КАТЕГОРІЙ ДЛЯ МОБІЛЬНИХ */
 /* ======================================================= */
 
 @media (max-width: 768px) {
-    /* --- Змінюємо вигляд самої галереї --- */
-    .hover-gallery ul {
-        flex-direction: column; /* Головна зміна: робимо список вертикальним */
-        height: auto; /* Висота тепер автоматична */
-        gap: 10px;
+    /* --- Головний контейнер категорій --- */
+    #category-gallery-container ul {
+        display: block; /* Замість flex, просто блокові елементи */
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 
-    .hover-gallery li {
-        flex: 1; /* Прибираємо логіку зміни ширини */
-        height: 120px; /* Задаємо фіксовану висоту для кожного пункту */
-        border-radius: 12px; /* Менше заокруглення */
+    #category-gallery-container li {
+        padding: 25px 20px;
+        border-bottom: 1px solid #eee; /* Розділювач між пунктами */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
     }
 
-    /* --- Повністю змінюємо вигляд назви категорії --- */
-    .category-content {
-        /* Розташовуємо зліва, а не по центру */
-        top: 50%;
-        left: 20px;
-        transform: translateY(-50%);
-        font-size: 1.8rem; /* Трохи менший шрифт */
-        text-align: left;
-    }
-    
-    /* --- Прибираємо hover-ефекти, які не потрібні на мобільних --- */
-    .hover-gallery li:hover {
-        flex: 1; /* Забороняємо розширення */
+    #category-gallery-container li:hover {
+        background-color: #f8f9fa; /* Ледь помітний фон при натисканні */
     }
 
-    .hover-gallery li:hover .content {
-        transform: translateY(100%); /* Гарантуємо, що старий контент не з'явиться */
-        opacity: 0;
+    /* --- Прибираємо фонове фото, воно тут зайве --- */
+    #category-gallery-container .category-content {
+        position: static;
+        transform: none;
+        color: #333; /* Темний колір тексту */
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        text-shadow: none;
     }
 }
