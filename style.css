@@ -4104,43 +4104,28 @@ a.phone-link:hover {
 /* ======================================================= */
 
 @media (max-width: 768px) {
-    /* --- Головний контейнер категорій --- */
     #category-gallery-container ul {
-        display: flex;
-        flex-direction: column;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        gap: 15px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px;
     }
-
-    /* Стильна картка категорії */
+    
     .category-card {
         height: 120px;
-        border-radius: 15px;
+        border-radius: 12px;
         background-size: cover;
         background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
-
-    .category-card:active {
-        transform: scale(0.98);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Назва категорії на картці */
+    
     .category-card-title {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        color: white;
         font-family: 'Playfair Display', serif;
         font-size: 2rem;
-        font-weight: 700;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        color: white;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
     }
 }
