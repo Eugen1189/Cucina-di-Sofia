@@ -1762,27 +1762,19 @@ main {
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    background: transparent;
+    background: none;
     border: none;
-    color: #333;
-    font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
+    font-size: 1rem;
+    color: #333;
     padding: 8px 15px;
-    border-radius: 8px;
     transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 5px;
 }
 
 .menu-back-button:hover {
-    background: rgba(0, 0, 0, 0.05);
+    color: #D9534F;
     transform: translateY(-50%) translateX(-3px);
-}
-
-.menu-back-button.hidden {
-    display: none;
 }
 
 /* ======================================================= */
@@ -3534,7 +3526,21 @@ main {
 /* ======================================================= */
 
 .hidden {
-    display: none;
+    display: none !important;
+}
+
+/* Category content (text on category cards) */
+.category-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    text-align: center;
+    pointer-events: none; /* Дозволяє клікати крізь текст */
 }
 
 /* Content visibility control */
