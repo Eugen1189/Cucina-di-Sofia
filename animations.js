@@ -21,17 +21,19 @@ export function initializeIntroAnimation() {
     const introTitles = document.querySelectorAll('.intro-title');
     const panelLeft = document.querySelector('.panel-left');
     const panelRight = document.querySelector('.panel-right');
-    const mainContent = document.querySelector('main');
+    const heroSection = document.querySelector('.hero-section');
+    const storyTextBlock = document.querySelector('.story-text-block');
 
     console.log('Elementi intro trovati:', {
         introTitles: introTitles.length,
         panelLeft: !!panelLeft,
         panelRight: !!panelRight,
-        mainContent: !!mainContent
+        heroSection: !!heroSection,
+        storyTextBlock: !!storyTextBlock
     });
 
-    if (!mainContent) {
-        console.error('Elemento main non trovato!');
+    if (!heroSection) {
+        console.error('Elemento .hero-section non trovato!');
         return;
     }
 
@@ -41,38 +43,39 @@ export function initializeIntroAnimation() {
         return;
     }
 
-    // Nascondi il contenuto principale
-    gsap.set(mainContent, { autoAlpha: 0 });
+    // Початково ховаємо основний екран та блок з історією
+    gsap.set(heroSection, { autoAlpha: 0 });
+    gsap.set(storyTextBlock, { autoAlpha: 0 });
 
-    // Sempre esegui l'animazione intro (rimosso il controllo hasVisitedBefore)
-    console.log("Eseguiamo sempre l'animazione intro");
-    
-    // Rimuovi il vecchio flag se esiste
-    localStorage.removeItem('hasVisitedBefore');
-    
-    // Esegui sempre l'animazione completa
-    console.log("Elementi per animazione:", { introTitles: introTitles.length, panelLeft: !!panelLeft, panelRight: !!panelRight });
-        
-        const masterTl = gsap.timeline({
-            onComplete: () => {
-                console.log("Animazione intro completata!");
-                
-                const introScreen = document.getElementById('intro-screen');
-                if (introScreen) {
-                    introScreen.style.display = 'none';
-                    introScreen.style.pointerEvents = 'none';
-                }
-                
-                // Set dark background for intro screen
-                document.body.style.backgroundColor = '#2d2d2d';
+    // Створюємо головну анімаційну послідовність
+    const masterTl = gsap.timeline({
+        onComplete: () => {
+            console.log("Animazione intro completata!");
+            
+            const introScreen = document.getElementById('intro-screen');
+            if (introScreen) {
+                introScreen.style.display = 'none';
+                introScreen.style.pointerEvents = 'none';
             }
-        });
+            
+            // Set dark background for intro screen
+            document.body.style.backgroundColor = '#2d2d2d';
+        }
+    });
 
-        masterTl
-            .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
-            .to({}, { duration: 1 })
-            .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
-            .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
-            .to(mainContent, { duration: 1.2, autoAlpha: 1, ease: "power2.out" }, "-=1.5");
+    // Додаємо анімації
+    masterTl
+        .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
+        .to({}, { duration: 0.5 }) // Невелика пауза
+        .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
+        .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
+        .to(heroSection, { duration: 0.1, autoAlpha: 1 }, "-=1.5") // Миттєво показуємо hero-section, коли штори починають роз'їжджатись
+        
+        // 👇 ВІДНОВЛЮЄМО АНІМАЦІЮ ПОЯВИ ТЕКСТУ 👇
+        .fromTo(storyTextBlock, 
+            { y: 30, opacity: 0 }, 
+            { duration: 1.5, y: 0, opacity: 1, autoAlpha: 1, ease: "power2.out" }, 
+            "-=0.8" // Починається трохи після початку роз'їзду штор
+        );
 }
 
