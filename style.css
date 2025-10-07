@@ -3731,6 +3731,49 @@ body.story-slide-active .swiper-button-next {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Wider contacts modal with grid layout */
+.contacts-content-large {
+    max-width: 1100px; /* Робимо вікно значно ширшим */
+}
+
+.contacts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr; /* Три колонки */
+    gap: 30px;
+}
+
+/* Grid columns */
+.contact-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-column h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #2d2d2d;
+    border-bottom: 2px solid #D9534F;
+    padding-bottom: 10px;
+}
+
+/* Philosophy column (третя колонка - ширша) */
+.philosophy-column {
+    grid-column: 3;
+}
+
+/* Responsive grid */
+@media (max-width: 968px) {
+    .contacts-grid {
+        grid-template-columns: 1fr; /* Одна колонка на планшетах */
+    }
+    
+    .philosophy-column {
+        grid-column: 1;
+    }
+}
+
 .contacts-content .modal-header {
     background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
     color: white;
