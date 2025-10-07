@@ -213,72 +213,15 @@
     <!-- Модальне вікно повного меню -->
     <div id="full-menu-modal" class="modal hidden">
         <div class="modal-overlay"></div>
-        <div class="modal-content menu-book-content">
-            <button id="close-menu-btn" class="close-button book-close" aria-label="Chiudi menu" type="button">&times;</button>
-            
-            <div id="menu-book" class="menu-book">
-                <!-- Обкладинка -->
-                <div class="book-page active" data-page="0">
-                    <div class="page-content cover-page">
-                        <h1>Il Libro di Sofia</h1>
-                        <p class="cover-subtitle">La nostra cucina tradizionale</p>
-                        <div class="cover-decoration">🍕 🍝 🥗</div>
-                    </div>
-                </div>
-                
-                <!-- Сторінка 1: Panini -->
-                <div class="book-page" data-page="1">
-                    <div class="page-content">
-                        <h2>Panini</h2>
-                        <div id="menu-panini-container" class="menu-items-list"></div>
-                    </div>
-                </div>
-                
-                <!-- Сторінка 2: Pizza -->
-                <div class="book-page" data-page="2">
-                    <div class="page-content">
-                        <h2>Pizza</h2>
-                        <div id="menu-pizza-container" class="menu-items-list"></div>
-                    </div>
-                </div>
-                
-                <!-- Сторінка 3: Pasta -->
-                <div class="book-page" data-page="3">
-                    <div class="page-content">
-                        <h2>Pasta</h2>
-                        <div id="menu-pasta-container" class="menu-items-list"></div>
-                    </div>
-                </div>
-                
-                <!-- Сторінка 4: Insalate -->
-                <div class="book-page" data-page="4">
-                    <div class="page-content">
-                        <h2>Insalate</h2>
-                        <div id="menu-insalate-container" class="menu-items-list"></div>
-                                </div>
-                            </div>
-                
-                <!-- Сторінка 5: Bevande -->
-                <div class="book-page" data-page="5">
-                    <div class="page-content">
-                        <h2>Bevande</h2>
-                        <div id="menu-bevande-container" class="menu-items-list"></div>
-                    </div>
-                </div>
+        <div class="modal-content full-menu-content hover-gallery">
+            <div class="modal-header">
+                <h2>Il Nostro Menu</h2>
+                <button id="close-menu-btn" class="close-button" aria-label="Chiudi menu" type="button">&times;</button>
             </div>
             
-            <!-- Навігація книги -->
-            <div class="book-navigation">
-                <button id="prev-page-btn" class="nav-btn prev-btn" aria-label="Pagina precedente">
-                    <span>‹</span>
-                </button>
-                <span class="page-indicator">
-                    <span id="current-page">1</span> / <span id="total-pages">6</span>
-                </span>
-                <button id="next-page-btn" class="nav-btn next-btn" aria-label="Pagina successiva">
-                    <span>›</span>
-                </button>
-            </div>
+            <ul id="menu-gallery-list">
+                <!-- Елементи генеруються динамічно через JavaScript -->
+            </ul>
         </div>
     </div>
 

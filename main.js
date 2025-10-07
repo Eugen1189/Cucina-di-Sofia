@@ -4,6 +4,7 @@
 
 import { openModal, closeModal, initializeModals, renderMenuItems, renderFullMenu } from './ui.js';
 import { initializeSwiper, initializeAnimations, initializeIntroAnimation } from './animations.js';
+import { menu } from './cart.js';
 
 // --- INIZIALIZZAZIONE PRINCIPALE ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeAnimations();
     initializeIntroAnimation();
     initializeMobileMenu();
-    initializeMenuBook();
+    initializeMenuGallery();
     
     // Inizializza Swiper immediatamente
     initializeSwiper();
@@ -118,76 +119,30 @@ function initializeMobileMenu() {
     console.log('✅ Mobile menu initialized');
 }
 
-// --- MENU BOOK FUNCTIONALITY ---
-function initializeMenuBook() {
-    const prevBtn = document.getElementById('prev-page-btn');
-    const nextBtn = document.getElementById('next-page-btn');
-    const currentPageSpan = document.getElementById('current-page');
-    const totalPagesSpan = document.getElementById('total-pages');
-    const bookPages = document.querySelectorAll('.book-page');
+// --- MENU GALLERY FUNCTIONALITY ---
+function initializeMenuGallery() {
+    const galleryList = document.getElementById('menu-gallery-list');
     
-    if (!prevBtn || !nextBtn || bookPages.length === 0) {
-        console.warn('Menu book elements not found');
+    if (!galleryList) {
+        console.warn('Menu gallery list not found');
         return;
     }
     
-    let currentPage = 0;
-    const totalPages = bookPages.length;
+    // Фільтруємо тільки спеціальні страви (isSpecial) для галереї
+    const specialItems = menu.filter(item => item.isSpecial);
     
-    totalPagesSpan.textContent = totalPages;
+    // Генеруємо HTML для кожної страви
+    const galleryHTML = specialItems.map(item => `
+        <li style="--bg-image: url('${item.image}');">
+            <div class="content">
+                <h2>${item.name}</h2>
+                <p>${item.description}</p>
+                <span>${item.price}</span>
+            </div>
+        </li>
+    `).join('');
     
-    function updatePage() {
-        // Прибираємо активний клас з усіх сторінок
-        bookPages.forEach((page, index) => {
-            page.classList.remove('active', 'prev');
-            
-            if (index === currentPage) {
-                page.classList.add('active');
-            } else if (index < currentPage) {
-                page.classList.add('prev');
-            }
-        });
-        
-        // Оновлюємо індикатор
-        currentPageSpan.textContent = currentPage + 1;
-        
-        // Керуємо кнопками
-        prevBtn.disabled = currentPage === 0;
-        nextBtn.disabled = currentPage === totalPages - 1;
-    }
+    galleryList.innerHTML = galleryHTML;
     
-    function nextPage() {
-        if (currentPage < totalPages - 1) {
-            currentPage++;
-            updatePage();
-        }
-    }
-    
-    function prevPage() {
-        if (currentPage > 0) {
-            currentPage--;
-            updatePage();
-        }
-    }
-    
-    // Event listeners
-    prevBtn.addEventListener('click', prevPage);
-    nextBtn.addEventListener('click', nextPage);
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        const menuModal = document.getElementById('full-menu-modal');
-        if (menuModal && !menuModal.classList.contains('hidden')) {
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                prevPage();
-            } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                nextPage();
-            }
-        }
-    });
-    
-    // Ініціалізуємо першу сторінку
-    updatePage();
-    
-    console.log('✅ Menu book initialized');
+    console.log(`✅ Menu gallery initialized with ${specialItems.length} items`);
 }
