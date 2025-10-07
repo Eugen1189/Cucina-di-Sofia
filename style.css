@@ -2006,8 +2006,14 @@ main {
         width: 70%;
     }
     
+    /* Стилізуємо назву страви (старий h1) */
     .slide-content h1 {
-        font-size: 20vw;
+        font-size: 15vw; /* Зменшуємо розмір */
+        position: static;
+        order: 3; /* Розміщуємо після зображення та опису */
+        margin-top: 20px;
+        color: inherit; /* Успадковуємо колір для кращої читабельності */
+        opacity: 0.8;
     }
     
     .ingredient {
@@ -2018,11 +2024,11 @@ main {
     .slide-content {
     display: flex;
         flex-direction: column; /* Головний напрямок - стовпчик */
-        justify-content: space-between; /* Рівномірно розподілити простір */
-        padding: 60px 0 20px 0; /* Додаємо відступи зверху і знизу */
+        justify-content: center; /* Головна зміна: центруємо контент */
     align-items: center;
-        text-align: center;
         height: 100%;
+        padding: 20px;
+        text-align: center;
         position: relative;
     }
     
@@ -2032,7 +2038,6 @@ main {
         transform: none !important;
         order: 1; /* Перший по порядку */
         text-align: center;
-        margin-bottom: 20px;
         width: 90%;
         flex-shrink: 0;
         left: auto !important;
@@ -2040,6 +2045,7 @@ main {
         max-width: none !important;
         opacity: 1 !important;
         visibility: visible !important;
+        /* Прибираємо margin-bottom, бо flexbox сам розподілить простір */
     }
     
     /* 2. Головне зображення страви */
@@ -2047,8 +2053,8 @@ main {
         position: static !important; /* Скидаємо абсолютне позиціонування! */
         transform: none !important;
         order: 2; /* Другий по порядку */
-        max-width: 90%; /* Збільшуємо розмір продукції */
-        margin: 0 auto 20px auto; /* Центруємо і додаємо відступ */
+        max-width: 70%; /* Зменшуємо максимальну ширину зображення */
+        margin-bottom: 20px;
         flex-shrink: 0;
         z-index: 10 !important; /* Зберігаємо z-index для роботи з інгредієнтами */
     }
