@@ -54,7 +54,7 @@ function initializeMobileMenu() {
     
     // Функція відкриття/закриття меню
     function toggleMobileMenu() {
-        const isOpen = mobileMenu.classList.contains('open');
+        const isOpen = document.body.classList.contains('mobile-menu-open');
         
         if (isOpen) {
             closeMobileMenu();
@@ -64,13 +64,13 @@ function initializeMobileMenu() {
     }
     
     function openMobileMenu() {
-        mobileMenu.classList.add('open');
+        document.body.classList.add('mobile-menu-open');
         menuToggle.classList.add('open');
         document.body.style.overflow = 'hidden'; // Блокуємо прокрутку фону
     }
     
     function closeMobileMenu() {
-        mobileMenu.classList.remove('open');
+        document.body.classList.remove('mobile-menu-open');
         menuToggle.classList.remove('open');
         document.body.style.overflow = ''; // Відновлюємо прокрутку
     }
