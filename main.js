@@ -43,53 +43,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- MOBILE MENU FUNCTIONALITY ---
 function initializeMobileMenu() {
-    const menuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     
-    if (!menuToggle || !mobileMenu) {
-        console.warn('Mobile menu elements not found');
+    if (!mobileMenuToggle) {
+        console.warn('Mobile menu toggle button not found');
         return;
     }
     
-    // Функція відкриття/закриття меню
-    function toggleMobileMenu() {
-        const isOpen = document.body.classList.contains('mobile-menu-open');
-        
-        if (isOpen) {
-            closeMobileMenu();
-        } else {
-            openMobileMenu();
-        }
-    }
+    // Toggle меню
+    mobileMenuToggle.addEventListener('click', () => {
+        document.body.classList.toggle('mobile-menu-open');
+        mobileMenuToggle.classList.toggle('open');
+    });
     
-    function openMobileMenu() {
-        document.body.classList.add('mobile-menu-open');
-        menuToggle.classList.add('open');
-        document.body.style.overflow = 'hidden'; // Блокуємо прокрутку фону
-    }
-    
-    function closeMobileMenu() {
-        document.body.classList.remove('mobile-menu-open');
-        menuToggle.classList.remove('open');
-        document.body.style.overflow = ''; // Відновлюємо прокрутку
-    }
-    
-    // Event listener для бургер-кнопки
-    menuToggle.addEventListener('click', toggleMobileMenu);
-    
-    // Event listeners для посилань в меню
-    mobileMenuLinks.forEach(link => {
+    // Логіка закриття меню при кліку на посилання
+    document.querySelectorAll('.mobile-menu-link').forEach(link => {
         link.addEventListener('click', (e) => {
             const linkId = link.id;
             
-            // Закриваємо мобільне меню
-            closeMobileMenu();
+            // Закриваємо меню
+            document.body.classList.remove('mobile-menu-open');
+            mobileMenuToggle.classList.remove('open');
             
             // Обробляємо клік залежно від ID
             if (linkId === 'mobile-open-menu') {
                 e.preventDefault();
-                openModal('menu-modal');
+                openModal('full-menu-modal');
             } else if (linkId === 'mobile-open-story') {
                 e.preventDefault();
                 openModal('story-modal');
