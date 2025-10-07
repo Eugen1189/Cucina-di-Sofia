@@ -3686,9 +3686,9 @@ body.story-slide-active .swiper-button-next {
 }
 
 .story-content .modal-header {
-    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     color: white;
-    padding: 25px 30px;
+    padding: 30px 40px;
     border-radius: 20px 20px 0 0;
     margin: 0;
     border-bottom: none;
@@ -3696,9 +3696,10 @@ body.story-slide-active .swiper-button-next {
 
 .story-content .modal-header h2 {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 700;
     text-align: center;
+    letter-spacing: 0.5px;
 }
 
 .story-content .close-button {
@@ -3810,9 +3811,9 @@ body.story-slide-active .swiper-button-next {
 }
 
 .contacts-content .modal-header {
-    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     color: white;
-    padding: 25px 30px;
+    padding: 30px 40px;
     border-radius: 20px 20px 0 0;
     margin: 0;
     border-bottom: none;
@@ -3820,9 +3821,10 @@ body.story-slide-active .swiper-button-next {
 
 .contacts-content .modal-header h2 {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 700;
     text-align: center;
+    letter-spacing: 0.5px;
 }
 
 .contacts-content .close-button {
