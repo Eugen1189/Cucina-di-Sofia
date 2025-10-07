@@ -4046,7 +4046,8 @@ a.phone-link:hover {
 }
 
 /* Магія при наведенні */
-.hover-gallery li:hover {
+.hover-gallery li:hover,
+.hover-gallery li.active {
     flex: 5; /* Розширюємо елемент в 5 разів */
 }
 
@@ -4066,7 +4067,8 @@ a.phone-link:hover {
     transition: all 0.5s ease;
 }
 
-.hover-gallery li:hover .content {
+.hover-gallery li:hover .content,
+.hover-gallery li.active .content {
     transform: translateY(0);
     opacity: 1;
 }

@@ -144,5 +144,14 @@ function initializeMenuGallery() {
     
     galleryList.innerHTML = galleryHTML;
     
+    // Адаптація для мобільних (клік замість hover)
+    document.querySelectorAll('.hover-gallery li').forEach(item => {
+        item.addEventListener('click', () => {
+            // Прибираємо клас 'active' з усіх, крім натиснутого
+            document.querySelectorAll('.hover-gallery li').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
+    
     console.log(`✅ Menu gallery initialized with ${specialItems.length} items`);
 }
