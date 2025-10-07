@@ -3936,6 +3936,35 @@ a.phone-link:hover {
     margin-bottom: 15px;
 }
 
+/* Inspirations Section */
+.inspirations-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.inspirations-section h3 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 15px;
+}
+
+.inspiration-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.inspiration-item {
+    background: #f1f1f1;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 /* Адаптація для мобільних */
 @media (max-width: 768px) {
     .contacts-body {
