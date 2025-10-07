@@ -44,15 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- MOBILE MENU FUNCTIONALITY ---
 function initializeMobileMenu() {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
     
-    if (!mobileMenuToggle) {
-        console.warn('Mobile menu toggle button not found');
+    if (!mobileMenuToggle || !mobileMenu) {
+        console.warn('Mobile menu elements not found');
         return;
     }
     
     // Toggle меню
     mobileMenuToggle.addEventListener('click', () => {
-        document.body.classList.toggle('mobile-menu-open');
+        mobileMenu.classList.toggle('open');
         mobileMenuToggle.classList.toggle('open');
     });
     
@@ -62,7 +63,7 @@ function initializeMobileMenu() {
             const linkId = link.id;
             
             // Закриваємо меню
-            document.body.classList.remove('mobile-menu-open');
+            mobileMenu.classList.remove('open');
             mobileMenuToggle.classList.remove('open');
             
             // Обробляємо клік залежно від ID
