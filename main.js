@@ -127,16 +127,29 @@ function initializeMenuGallery() {
 
         const dishes = menu.filter(item => item.category.toLowerCase() === categoryName.toLowerCase());
         
-        dishContainer.innerHTML = dishes.map(dish => `
-            <div class="menu-item-card" data-dish-id="${dish.id}">
-                <img src="${dish.image}" alt="${dish.name}" class="menu-item-image">
-                <div class="menu-item-name">${dish.name}</div>
-                <div class="menu-item-description">${dish.description}</div>
-                <div class="menu-item-footer">
-                    <span class="menu-item-price">${dish.price}<span class="currency">€</span></span>
-                </div>
-            </div>
-        `).join('');
+        // Форматуємо назву категорії (перша літера велика)
+        const formattedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
+        
+        const categoryHTML = `
+            <section class="menu-category">
+                <h2>${formattedCategoryName}</h2>
+                ${dishes.map(dish => `
+                    <div class="menu-dish">
+                        <img src="${dish.image}" alt="${dish.name}" class="menu-dish-image">
+                        
+                        <div class="menu-dish-info">
+                            <h3>${dish.name}</h3>
+                            <p>${dish.description}</p>
+                            <div class="price">
+                                ${dish.price} <span>EUR</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </section>
+        `;
+        
+        dishContainer.innerHTML = categoryHTML;
     }
 
     // --- Функція для перемикання екранів меню ---
