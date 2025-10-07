@@ -10,6 +10,9 @@ export const menu = [
   { id: 301, name: 'Pasta Carbonara', description: 'Pasta classica con pancetta, tuorlo d\'uovo, parmigiano e pepe nero', price: 180, image: 'images/pasta.png', category: 'pasta', isSpecial: true },
   { id: 302, name: 'Pasta al Pesto', description: 'Pasta aromatica con pesto fatto in casa, basilico e pinoli', price: 170, image: 'images/pasta.png', category: 'pasta' },
   { id: 303, name: 'Spaghetti Aglio e Olio', description: 'Spaghetti semplici con aglio, olio d\'oliva e prezzemolo fresco', price: 160, image: 'images/pasta.png', category: 'pasta' },
+  { id: 401, name: 'Insalata Caprese', description: 'Pomodori freschi, mozzarella di bufala, basilico e olio d\'oliva', price: 140, image: 'images/panini.png', category: 'insalate', isSpecial: true },
+  { id: 402, name: 'Insalata Caesar', description: 'Lattuga romana, crostini, parmigiano e salsa Caesar', price: 150, image: 'images/panini.png', category: 'insalate' },
+  { id: 403, name: 'Insalata Verde', description: 'Mix di insalate fresche con pomodorini e cetrioli', price: 120, image: 'images/panini.png', category: 'insalate' },
   {
     id: 101,
     name: 'Acqua Minerale',

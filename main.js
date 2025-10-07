@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Renderizza elementi del menu
     renderMenuItems('panini', 'menu-panini-container');
     renderMenuItems('pizza', 'menu-pizza-container');
-    renderMenuItems('pasta', 'menu-pasta-container'); // <-- ДОДАЙТЕ ЦЕЙ РЯДОК
+    renderMenuItems('pasta', 'menu-pasta-container');
+    renderMenuItems('insalate', 'menu-insalate-container');
     // renderMenuItems('bevande', 'menu-bevande-container'); // Commentato perché ora è statico
     
     // Renderizza menu completo con filtri
