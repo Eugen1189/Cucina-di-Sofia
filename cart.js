@@ -10,7 +10,7 @@ export const menu = [
     {
         id: 1,
         name: 'Prosciutto e Mozzarella',
-        description: 'Классика, доведена до досконалості. Свіжий прошутто ді Парма, ніжна моцарела фіор ді латте та хрустка рукола на артезанській чіабатті.',
+        description: 'Il classico portato alla perfezione. Prosciutto di Parma fresco, delicata mozzarella fior di latte e rucola croccante su ciabatta artigianale.',
         price: 150,
         image: 'images/panini-prosciutto-mozzarella.png',
         category: 'panini',
@@ -25,7 +25,7 @@ export const menu = [
     {
         id: 2,
         name: 'Caprese Panini',
-        description: 'Смак літньої Італії у кожному шматочку. Стиглі томати, крем-сир та свіжий базилік – просто та божественно.',
+        description: 'Il sapore dell\'estate italiana in ogni morso. Pomodori maturi, formaggio cremoso e basilico fresco – semplice e divino.',
         price: 130,
         image: 'images/panini-caprese.png',
         category: 'panini'
@@ -33,7 +33,7 @@ export const menu = [
     {
         id: 3,
         name: 'Salame e Peperoni',
-        description: 'Пікантна салямі з регіону Калабрія та солодкий перець гриль. Для справжніх гурманів італійської кухні.',
+        description: 'Salame piccante dalla Calabria e peperoni dolci grigliati. Per i veri intenditori della cucina italiana.',
         price: 140,
         image: 'images/panini-salame-peperoni.png',
         category: 'panini'
@@ -45,7 +45,7 @@ export const menu = [
     {
         id: 201,
         name: 'Margherita di Sofia',
-        description: 'Наша королева, приготована за рецептом нонни Софії. Соус із свіжих помідорів Сан-Марцано, моцарела ді буфала та листочки базиліку.',
+        description: 'La nostra regina, preparata secondo la ricetta della nonna Sofia. Salsa di pomodori San Marzano freschi, mozzarella di bufala e foglie di basilico.',
         price: 200,
         image: 'images/pizza-margherita.png',
         category: 'pizza',
@@ -60,7 +60,7 @@ export const menu = [
     {
         id: 202,
         name: 'Diavola',
-        description: 'Для поціновувачів гострих відчуттів. Пікантна вентричіна, моцарела, томатний соус та чілі пепероніно.',
+        description: 'Per gli amanti del piccante. Ventricina speziata, mozzarella, salsa di pomodoro e peperoncino calabrese.',
         price: 220,
         image: 'images/pizza-diavola.png',
         category: 'pizza'
@@ -68,7 +68,7 @@ export const menu = [
     {
         id: 203,
         name: 'Quattro Formaggi',
-        description: 'Симфонія сирів: горгонзола, фонтіна, пармеджано та моцарела. Для справжніх шанувальників сирної насолоди.',
+        description: 'Sinfonia di formaggi: gorgonzola, fontina, parmigiano e mozzarella. Per i veri amanti del piacere caseario.',
         price: 240,
         image: 'images/pizza-quattro-formaggi.png',
         category: 'pizza'
@@ -80,7 +80,7 @@ export const menu = [
     {
         id: 301,
         name: 'Carbonara',
-        description: 'Справжня римська класика. Спагетті з гуанчале, яєчним жовтком, сиром Пекоріно Романо та свіжомеленим чорним перцем.',
+        description: 'L\'autentico classico romano. Spaghetti con guanciale, tuorlo d\'uovo, Pecorino Romano e pepe nero appena macinato.',
         price: 180,
         image: 'images/pasta-carbonara.png',
         category: 'pasta',
@@ -95,7 +95,7 @@ export const menu = [
     {
         id: 302,
         name: 'Bolognese della Nonna',
-        description: 'Тальятелле з насиченим м\'ясним рагу за старовинним рецептом нашої бабусі. Томлене годинами з любов\'ю.',
+        description: 'Tagliatelle con ricco ragù di carne secondo l\'antica ricetta della nonna. Cotto lentamente per ore con amore.',
         price: 190,
         image: 'images/pasta-bolognese.png',
         category: 'pasta'
@@ -103,7 +103,7 @@ export const menu = [
     {
         id: 303,
         name: 'Pesto Genovese',
-        description: 'Аромат Лігурії у вашій тарілці. Трофі з соусом песто з свіжого базиліку, кедрових горішків та пармеджано.',
+        description: 'Il profumo della Liguria nel vostro piatto. Trofie con pesto intenso di basilico fresco, pinoli e Parmigiano.',
         price: 170,
         image: 'images/pasta-pesto.png',
         category: 'pasta'
@@ -115,7 +115,7 @@ export const menu = [
     {
         id: 401,
         name: 'Insalata Greca',
-        description: 'Свіжість середземномор\'я. Хрусткі огірки, соковиті томати, фета, оливки каламата та орегано.',
+        description: 'La freschezza del Mediterraneo. Cetrioli croccanti, pomodori succosi, feta, olive di Kalamata e origano.',
         price: 120,
         image: 'images/insalata-greca.png',
         category: 'insalate',
@@ -129,7 +129,7 @@ export const menu = [
     {
         id: 402,
         name: 'Cesare con Pollo',
-        description: 'Класичний салат "Цезар" з соковитою курячою грудкою гриль, пармеджано, крутонами та домашнім соусом.',
+        description: 'Il classico Caesar con petto di pollo grigliato succoso, Parmigiano, crostini e salsa fatta in casa.',
         price: 150,
         image: 'images/insalata-cesare.png',
         category: 'insalate',
@@ -138,7 +138,7 @@ export const menu = [
     {
         id: 403,
         name: 'Caprese Classico',
-        description: 'Простота та досконалість: стиглі томати, моцарела ді буфала, свіжий базилік та бальзамічний крем.',
+        description: 'Semplicità e perfezione: pomodori maturi, mozzarella di bufala, basilico fresco e crema balsamica.',
         price: 130,
         image: 'images/insalata-caprese.png',
         category: 'insalate'
@@ -150,7 +150,7 @@ export const menu = [
     {
         id: 101,
         name: 'Acqua Minerale',
-        description: 'Чиста мінеральна вода з італійських джерел Альп. Доступна у натуральному та газованому варіантах.',
+        description: 'Acqua minerale pura dalle sorgenti alpine italiane. Disponibile naturale e frizzante.',
         price: 40,
         image: 'images/acqua-minerale.png',
         category: 'bevande',
