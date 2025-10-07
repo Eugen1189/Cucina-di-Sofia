@@ -1824,6 +1824,15 @@ main {
         color: #F2F2F7;
     }
     
+    /* Перемикаємо відео для мобільних */
+    .desktop-video {
+        display: none; /* Ховаємо desktop відео */
+    }
+    
+    .mobile-video {
+        display: block; /* Показуємо mobile відео */
+    }
+    
     .logo {
         font-size: 1.5rem;
     }
@@ -2743,6 +2752,16 @@ main {
     object-fit: cover;
     z-index: -2;
     opacity: 0.8;
+}
+
+/* Desktop video - показуємо за замовчуванням */
+.desktop-video {
+    display: block;
+}
+
+/* Mobile video - ховаємо за замовчуванням */
+.mobile-video {
+    display: none;
 }
 
 /* Fallback фон для браузерів без підтримки відео */

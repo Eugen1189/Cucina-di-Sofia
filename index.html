@@ -53,13 +53,15 @@
         </button>
     </header>
 
-        <main role="main" aria-label="Italian Food Showcase">
+    <main role="main" aria-label="Italian Food Showcase">
         <div class="hero-section" data-bg-color="#2d2d2d">
             <div class="story-slide-content">
-                        <video class="story-video-bg" autoplay muted loop playsinline>
+                <video class="story-video-bg desktop-video" autoplay muted loop playsinline>
+                    <source src="images/document_5415755719314013745.mp4" type="video/mp4">
+                </video>
+                
+                <video class="story-video-bg mobile-video" autoplay muted loop playsinline>
                             <source src="images/document_5415755719314013745.mp4" type="video/mp4">
-                            <!-- Fallback для браузерів, які не підтримують відео -->
-                            <div class="story-fallback-bg"></div>
                         </video>
 
                         <div class="story-text-block">
@@ -68,7 +70,7 @@
                             <a href="#menu" id="discover-menu-btn" class="story-button">Scopri il menu</a>
                         </div>
                     </div>
-        </div>
+                </div>
     </main>
 
     <!-- Мобільне меню -->
@@ -80,7 +82,7 @@
             <span class="phone-icon">📞</span>
             <span class="phone-text">+39 02 1234 5678</span>
         </a>
-    </div>
+                        </div>
 
 
     <!-- Модальні вікна -->
@@ -122,13 +124,13 @@
                 <h2 id="menu-title">Il Nostro Menu</h2>
                 <button id="close-menu-btn" class="close-button" aria-label="Chiudi menu" type="button">&times;</button>
             </div>
-
+            
             <!-- Екран категорій -->
             <div id="category-gallery-container" class="hover-gallery">
                 <ul id="category-gallery-list">
                     <!-- Категорії генеруються динамічно через JavaScript -->
                 </ul>
-            </div>
+                    </div>
 
             <!-- Екран страв категорії -->
             <div id="dish-grid-container" class="menu-items-grid hidden">
