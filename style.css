@@ -1432,6 +1432,14 @@ main {
     font-family: var(--font-heading);
 }
 
+/* Витончена валюта */
+.currency {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #999;
+    margin-left: 2px;
+}
+
 .menu-item-add-btn {
     background-color: #2d2d2d; /* Темний елегантний фон */
     color: white;

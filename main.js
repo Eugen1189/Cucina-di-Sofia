@@ -133,7 +133,7 @@ function initializeMenuGallery() {
                 <div class="menu-item-name">${dish.name}</div>
                 <div class="menu-item-description">${dish.description}</div>
                 <div class="menu-item-footer">
-                    <span class="menu-item-price">${dish.price} ₴</span>
+                    <span class="menu-item-price">${dish.price}<span class="currency">€</span></span>
                 </div>
             </div>
         `).join('');
