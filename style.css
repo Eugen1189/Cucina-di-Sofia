@@ -3765,6 +3765,9 @@ body.story-slide-active .swiper-button-next {
 
 .contacts-body {
     padding: 30px;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start; /* Вирівнюємо колонки по верху */
 }
 
 .contact-info {
@@ -3870,10 +3873,10 @@ body.story-slide-active .swiper-button-next {
 
 /* Contact Details Section */
 .contact-details {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-bottom: 30px;
 }
 
 .contact-details .contact-item {
@@ -3900,48 +3903,51 @@ body.story-slide-active .swiper-button-next {
     font-size: 0.95rem;
 }
 
-.phone-link {
-    color: #D9534F;
+a.phone-link {
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
-.phone-link:hover {
-    color: #C44741;
+a.phone-link:hover {
     text-decoration: underline;
 }
 
 /* Booking Philosophy Section */
 .booking-philosophy {
-    background: linear-gradient(135deg, rgba(217, 83, 79, 0.05), rgba(196, 71, 65, 0.05));
-    padding: 25px;
-    border-radius: 15px;
-    border-left: 4px solid #D9534F;
+    flex: 1;
+    min-width: 300px;
+    padding-left: 30px;
+    border-left: 1px solid #eee;
 }
 
 .booking-philosophy h4 {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
     margin-bottom: 15px;
-    color: #2d2d2d;
+    color: #333;
 }
 
 .booking-philosophy p {
-    line-height: 1.7;
+    font-size: 0.95rem;
     color: #555;
-    margin-bottom: 12px;
-    text-align: justify;
+    line-height: 1.7;
+    margin-bottom: 15px;
 }
 
-.booking-philosophy p:last-child {
-    text-align: center;
-    font-weight: 600;
-    color: #D9534F;
-    font-size: 1.1rem;
-    margin-bottom: 0;
-    margin-top: 15px;
+/* Адаптація для мобільних */
+@media (max-width: 768px) {
+    .contacts-body {
+        flex-direction: column;
+    }
+    
+    .booking-philosophy {
+        padding-left: 0;
+        border-left: none;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
 }
 
 /* Responsive story modal */
