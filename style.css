@@ -2983,9 +2983,9 @@ h1,
 body.story-slide-active #cart-icon,
 body.story-slide-active .swiper-button-prev,
 body.story-slide-active .swiper-button-next {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none; /* Забороняємо кліки на невидимі елементи */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important; /* Забороняємо кліки на невидимі елементи */
 }
 
 /* ======================================================= */
