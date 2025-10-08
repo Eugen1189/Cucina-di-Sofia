@@ -24,8 +24,7 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
     top: 0;
     width: 50vw;
     height: 100%;
-    /* ✨ NEW: Градієнт для імітації світла на тканині */
-    background: linear-gradient(to right, #1a1a1a 0%, #2c2c2c 50%, #1a1a1a 100%);
+    background-color: #000000; /* ✨ Абсолютно чорний колір */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +32,16 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 }
 .panel-left { left: 0; }
 .panel-right { right: 0; }
-.intro-title { font-family: 'Cormorant Garamond', serif; font-size: 6.5vw; color: #FFFFFF; text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3); opacity: 0; visibility: hidden; }
+.intro-title {
+    color: #FFFFFF; /* ✨ Сліпучо-білий колір */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8.5vw; /* ✨ Значно збільшений розмір */
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.4); /* Посилюємо світіння */
+    opacity: 0;
+    visibility: hidden;
+    width: 50vw;
+    text-align: center;
+}
 
 /* --- 4. Головний хедер (Версія "Преміум" з червоною кнопкою) --- */
 
@@ -696,4 +704,20 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3); /* 30% чорного затемнення */
     z-index: 0;
+}
+
+/* ============================================== */
+/* === ФІНАЛЬНЕ ЦЕНТРУВАННЯ В СПИСКУ СТРАВ (МОБІЛЬНІ) === */
+/* ============================================== */
+
+@media (max-width: 768px) {
+    /* Центруємо назву страви */
+    .dish-item-info h3 {
+        text-align: center;
+    }
+
+    /* Центруємо опис ("історію") страви */
+    .dish-item-info p {
+        text-align: center;
+    }
 }
