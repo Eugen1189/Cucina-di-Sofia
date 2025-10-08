@@ -3,6 +3,7 @@
 /* ======================================================= */
 
 /* --- 1. Глобальні налаштування та шрифти --- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap');
 :root {
     --font-heading: 'Playfair Display', serif;
@@ -18,10 +19,10 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 
 /* --- 3. Інтро-анімація --- */
 #intro-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; overflow: hidden; }
-.intro-panel { position: absolute; top: 0; width: 50vw; height: 100%; background-color: var(--panini-bg); display: flex; justify-content: center; align-items: center; }
+.intro-panel { position: absolute; top: 0; width: 50vw; height: 100%; background-color: #1a1a1a; display: flex; justify-content: center; align-items: center; }
 .panel-left { left: 0; }
 .panel-right { right: 0; }
-.intro-title { font-family: var(--font-heading); font-size: 6vw; color: var(--text-color); opacity: 0; visibility: hidden; }
+.intro-title { font-family: 'Cormorant Garamond', serif; font-size: 6.5vw; color: #e0e0e0; opacity: 0; visibility: hidden; }
 
 /* --- 4. Головний хедер (Версія "Преміум" з червоною кнопкою) --- */
 
@@ -672,4 +673,16 @@ body {
         overflow-y: auto; /* Вмикаємо прокрутку по вертикалі */
         -webkit-overflow-scrolling: touch; /* Забезпечує плавну прокрутку на iOS */
     }
+}
+
+/* Затемнення для фонового відео */
+.hero-video-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* 30% чорного затемнення */
+    z-index: 0;
 }
