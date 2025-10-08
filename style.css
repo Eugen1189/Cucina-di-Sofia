@@ -630,15 +630,34 @@ body {
     .dish-item-image-wrapper { width: 100%; height: auto; max-width: 250px; }
 
     /* Модальні вікна "Контакти" */
+    .contacts-content {
+        padding: 0; /* Скидаємо головні відступи, щоб хедер прилягав */
+    }
+
     .contacts-body {
-        grid-template-columns: 1fr;
+        padding: 20px; /* Додаємо нові відступи для самого контенту */
+    }
+
+    .contacts-header h2 {
+        font-size: 1.8rem; /* Трохи зменшуємо головний заголовок */
         padding: 20px;
     }
-    .contacts-content {
-        padding: 10px;
-        overflow: hidden;
+
+    /* ✨ Головне виправлення: перетворюємо сітку на один стовпчик */
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
-    
-    .contact-grid { grid-template-columns: 1fr; }
-    .cta-phone-button { font-size: 1rem; padding: 12px 20px; }
+
+    .contact-cta h3 {
+        font-size: 1.5rem;
+    }
+
+    .cta-phone-button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+
+    .philosophy-block h4 {
+        font-size: 1.1rem;
+    }
 }
