@@ -135,6 +135,15 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 .story-text-block { max-width: 600px; text-align: center; margin: 25vh auto; }
 .story-text-block h2 { font-family: var(--font-heading); font-size: 3.5rem; }
 
+/* Correzione del "flash" del contenuto (FOUC)
+   Nascondiamo il contenuto dello schermo principale per impostazione predefinita.
+   L'animazione GSAP lo farà apparire gradualmente.
+*/
+.story-text-block {
+    opacity: 0;
+    visibility: hidden;
+}
+
 /* --- 6. Stili base per le finestre modali --- */
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; }
 .modal-content { background: rgba(28, 28, 30, 0.85); backdrop-filter: blur(20px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); width: 90vw; height: 90vh; position: relative; }
