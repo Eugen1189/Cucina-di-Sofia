@@ -78,10 +78,20 @@ export function initializeIntroAnimation() {
     // Aggiungiamo le animazioni
         masterTl
             .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
-        .to({}, { duration: 0.5 }) // Piccola pausa
-            .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
-            .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
-        .to(heroSection, { duration: 0.1, autoAlpha: 1 }, "-=1.5") // Mostriamo istantaneamente hero-section quando i pannelli iniziano ad aprirsi
+        .to({}, { duration: 0.5 }) // Пауза
+            .to(panelLeft, {
+                duration: 2.5, // Збільшуємо тривалість для більшої величності
+                xPercent: -100,
+                skewX: -15,    // Нахиляємо панель, створюючи перспективу
+                ease: "power3.inOut" // Робимо рух більш драматичним
+            })
+            .to(panelRight, {
+                duration: 2.5,
+                xPercent: 100,
+                skewX: 15,     // Нахиляємо в інший бік
+                ease: "power3.inOut"
+            }, "<") // "<" змушує анімації запускатися одночасно
+        .to(heroSection, { duration: 0.1, autoAlpha: 1 }, "-=2.5") // Mostriamo istantaneamente hero-section quando i pannelli iniziano ad aprirsi
         
         // Ripristiniamo l'animazione di apparizione del testo
         .fromTo(storyTextBlock, 
