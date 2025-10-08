@@ -21,6 +21,9 @@ export function initializeModals() {
             e.preventDefault();
             const modalId = button.dataset.modalTarget;
             openModal(modalId);
+            
+            // Закриваємо мобільне меню, якщо відкрито
+            closeMobileMenu();
         });
     });
 
@@ -33,4 +36,42 @@ export function initializeModals() {
             }
         });
     });
+}
+
+// Функція для відкриття/закриття мобільного меню
+export function initializeMobileMenu() {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+    
+    if (!mobileMenuButton || !mobileMenuContainer) return;
+    
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenuButton.classList.toggle('open');
+        mobileMenuContainer.classList.toggle('open');
+        
+        // Блокуємо скрол body коли меню відкрито
+        if (mobileMenuContainer.classList.contains('open')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Закриваємо меню при кліку на посилання
+    document.querySelectorAll('.mobile-menu-link').forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileMenu();
+        });
+    });
+}
+
+function closeMobileMenu() {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+    
+    if (mobileMenuButton && mobileMenuContainer) {
+        mobileMenuButton.classList.remove('open');
+        mobileMenuContainer.classList.remove('open');
+        document.body.style.overflow = '';
+    }
 }

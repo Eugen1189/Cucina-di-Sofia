@@ -1,11 +1,12 @@
 // main.js - Фінальна версія з повною логікою меню
 
-import { initializeModals, openModal, closeModal } from './ui.js';
+import { initializeModals, initializeMobileMenu, openModal, closeModal } from './ui.js';
 import { initializeIntroAnimation } from './animations.js';
 import { menu } from './cart.js'; // Імпортуємо дані меню
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeModals();
+    initializeMobileMenu();
     initializeIntroAnimation();
     initializeHoverGallery();
 });

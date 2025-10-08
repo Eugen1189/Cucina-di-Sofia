@@ -35,12 +35,26 @@
     <header class="main-header">
         <a href="index.html" class="logo">Cucina di Sofia</a>
 
+        <!-- Бургер-меню для мобільних -->
+        <button class="mobile-menu-button" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <div class="header-right-group">
             <nav class="main-nav">
                 <a href="#" class="nav-link" data-modal-target="story-modal">La Nostra Storia</a>
                 <a href="#" class="nav-link" data-modal-target="contacts-modal">Contatti</a>
             </nav>
             <a href="tel:+390212345678" class="header-cta-btn">Prenota un tavolo</a>
+        </div>
+
+        <!-- Мобільне меню -->
+        <div class="mobile-menu-container">
+            <a href="#" class="mobile-menu-link" data-modal-target="story-modal">La Nostra Storia</a>
+            <a href="#" class="mobile-menu-link" data-modal-target="contacts-modal">Contatti</a>
+            <a href="tel:+390212345678" class="mobile-menu-link cta">Prenota un tavolo</a>
         </div>
     </header>
 
@@ -126,20 +140,24 @@
     <!-- Modale "La Nostra Storia" -->
     <div id="story-modal" class="modal hidden">
         <div class="modal-content story-content">
-            <button class="close-button">&times;</button>
+            <button class="close-button">×</button>
             <div class="story-body">
+                
                 <div class="story-image-container">
-                    <img src="images/photo_5413503919956556100_y.jpg" alt="Cucina tradizionale italiana" class="story-image">
+                    <img src="images/story-image.jpg" alt="Cucina tradizionale italiana" class="story-image">
                 </div>
+
                 <div class="story-text-container">
                     <h3>Più che cibo, un ricordo del cuore.</h3>
                     <p>La nostra storia non inizia in una cucina professionale, ma in un piccolo e soleggiato cortile nel cuore dell'Emilia-Romagna, dove ogni domenica la nostra nonna Sofia riuniva tutta la famiglia attorno a un grande tavolo.</p>
                     <p>L'aria si riempiva del profumo di basilico fresco, del sugo di pomodoro che sobbolliva lentamente per ore e del pane appena sfornato. È lì che abbiamo imparato che il segreto della vera cucina è la qualità senza compromessi e l'amore in ogni piatto.</p>
+
                     <div class="story-signature">
                         <p>Con affetto,</p>
                         <p>La famiglia di Cucina di Sofia</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
