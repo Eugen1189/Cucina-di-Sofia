@@ -416,93 +416,7 @@ body {
 /* ============================================== */
 /* === МОБІЛЬНА АДАПТАЦІЯ === */
 /* ============================================== */
-
-@media (max-width: 768px) {
-
-    /* --- 1. Адаптація хедера --- */
-    .main-header {
-        padding: 15px 20px;
-    }
-    
-    /* --- 2. Мобільний вигляд головного меню ("Hover Gallery") --- */
-    #hover-gallery-menu .category-list {
-        flex-direction: column; /* Стовпчик замість рядка */
-    }
-    #hover-gallery-menu .category-strip {
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-        transition: flex 0.4s ease;
-    }
-    #hover-gallery-menu .category-strip:hover {
-        flex: 3; /* Зменшуємо ефект розширення */
-    }
-    #hover-gallery-menu .strip-title {
-        writing-mode: horizontal-tb; /* Текст завжди горизонтальний */
-        transform: translateX(-50%);
-        font-size: 2rem;
-        bottom: 50%;
-        transform: translate(-50%, 50%); /* Ідеальне центрування */
-    }
-    #hover-gallery-menu .category-strip:hover .strip-title {
-        font-size: 2.5rem;
-        bottom: 50%;
-        transform: translate(-50%, 50%);
-    }
-
-    /* --- 3. Мобільний вигляд списку страв --- */
-    .dish-list-container {
-        padding: 60px 20px 20px 20px;
-    }
-    .dish-list-title {
-        font-size: 3rem;
-        margin-bottom: 30px;
-    }
-    .dish-item {
-        grid-template-columns: 1fr; /* Одна колонка */
-        text-align: center;
-        gap: 15px;
-    }
-    .dish-item-image-wrapper {
-    margin: 0 auto;
-        width: 250px;
-        height: 250px;
-    }
-
-    /* --- 4. Мобільний вигляд модальних вікон --- */
-    
-    /* "La Nostra Storia" */
-.story-body {
-        grid-template-columns: 1fr; /* Одна колонка */
-    }
-    .story-text-container h3 {
-    font-size: 2rem;
-    text-align: center;
-    }
-    .story-content {
-        padding: 20px;
-    }
-
-    /* "Контакти" */
-.contacts-content {
-        padding: 0;
-    }
-.contacts-body {
-    padding: 20px;
-    }
-    .contact-grid {
-        grid-template-columns: 1fr; /* Одна колонка */
-    }
-.cta-phone-button {
-        font-size: 1rem;
-        padding: 12px 20px;
-    }
-    
-    /* Загальне для всіх модалок */
-    .modal-content {
-    width: 95%;
-        height: 90%;
-    }
-}
+/* Всі мобільні стилі знаходяться в кінці файлу */
 
 /* --- Фінальне шліфування модального вікна "La Nostra Storia" --- */
 
@@ -533,16 +447,6 @@ body {
 
 .story-signature {
     text-align: center; /* Підпис також по центру */
-}
-
-/* --- Адаптація для мобільних пристроїв --- */
-@media (max-width: 768px) {
-    .story-content {
-        padding: 30px 20px; /* Зменшуємо відступи на мобільних */
-    }
-    .story-text-container h3 {
-        font-size: 1.8rem;
-    }
 }
 
 /* ============================================== */
@@ -651,22 +555,27 @@ body {
 }
 
 /* ============================================== */
-/* === ФІНАЛЬНЕ ВИПРАВЛЕННЯ МОБІЛЬНОГО ХЕДЕРА === */
+/* === ФІНАЛЬНА МОБІЛЬНА АДАПТАЦІЯ (Преміум) === */
 /* ============================================== */
 
 @media (max-width: 768px) {
-    /* 1. Надійно приховуємо десктопну навігацію на мобільних */
+
+    /* --- 1. Адаптація хедера та нова кнопка-бургер --- */
+    .main-header {
+        padding: 15px 20px;
+    }
+    
     .header-right-group {
-        display: none !important;
+        display: none;
     }
 
-    /* 2. Надійно показуємо кнопку-бургер на мобільних */
+    /* ✨ NEW: Елегантна кнопка-бургер */
     .mobile-menu-button {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-between;
         width: 30px;
-        height: 24px;
+        height: 22px; /* Трохи компактніше */
         background: transparent;
         border: none;
         cursor: pointer;
@@ -676,98 +585,73 @@ body {
 
     .mobile-menu-button span {
         width: 100%;
-        height: 3px;
+        height: 2px; /* Тонші лінії */
         background: white;
-        border-radius: 10px;
-        transition: all 0.3s linear;
-        position: relative;
-        transform-origin: 1px;
+        border-radius: 2px; /* Легке скруглення */
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Плавна анімація */
+        transform-origin: center;
     }
 
-    /* Анімація бургер-меню в "X" */
+    /* ✨ NEW: Витончена анімація в "X" */
     .mobile-menu-button.open span:nth-child(1) {
-        transform: rotate(45deg);
+        transform: translateY(10px) rotate(45deg);
     }
-    
     .mobile-menu-button.open span:nth-child(2) {
+        transform: scaleX(0); /* Середня лінія зникає */
         opacity: 0;
-        transform: translateX(20px);
     }
-    
     .mobile-menu-button.open span:nth-child(3) {
-        transform: rotate(-45deg);
+        transform: translateY(-10px) rotate(-45deg);
     }
 
-    /* Повноекранне меню */
+    /* Повноекранне меню (без змін) */
     .mobile-menu-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(10, 10, 10, 0.95);
-        backdrop-filter: blur(15px);
-        z-index: 2000;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        visibility: hidden;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px);
+        z-index: 2000; display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        opacity: 0; visibility: hidden;
         transition: opacity 0.4s ease, visibility 0.4s ease;
     }
+    .mobile-menu-container.open { opacity: 1; visibility: visible; }
+    .mobile-menu-link { color: white; text-decoration: none; font-size: 2.2rem; margin: 20px 0; font-family: var(--font-heading); }
+    .mobile-menu-link.cta { background: #D9534F; padding: 10px 25px; border-radius: 8px; font-size: 1.5rem; margin-top: 30px; }
+
+    /* --- 2. Відступи для модальних вікон --- */
     
-    .mobile-menu-container.open {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .mobile-menu-link {
-        color: white;
-        text-decoration: none;
-        font-size: 2.2rem;
-        margin: 20px 0;
-        font-family: var(--font-heading);
-    }
-    
-    .mobile-menu-link.cta {
-        background: #D9534F;
-        padding: 10px 25px;
-        border-radius: 8px;
-        font-size: 1.5rem;
-        margin-top: 30px;
+    /* ✨ NEW: Загальний стиль для всіх модалок на мобільних */
+    .modal-content {
+        width: 92%; /* Не на весь екран, щоб були відступи */
+        height: auto; /* Висота по контенту */
+        max-height: 85vh; /* Максимальна висота */
     }
 
-    /* 3. Виправлення тексту на hero-секції */
-    .story-text-block {
+    /* Головне меню ("Hover Gallery") */
+    #hover-gallery-menu {
+        padding: 10px; /* ✨ NEW: Відступи всередині меню */
+    }
+    #hover-gallery-menu .category-list { flex-direction: column; gap: 10px; }
+    #hover-gallery-menu .category-strip { border-right: none; border-radius: 12px; }
+    #hover-gallery-menu .strip-title { writing-mode: horizontal-tb; transform: translate(-50%, 50%); font-size: 2rem; }
+    #hover-gallery-menu .category-strip:hover { flex: 1; } /* Відключаємо hover-ефект на мобільних */
+    #hover-gallery-menu .category-strip:active { transform: scale(0.98); } /* Ефект натискання */
+    
+    /* Список страв */
+    .dish-list-container {
+        padding: 60px 20px 20px 20px;
+    }
+    .dish-list-title { font-size: 2.5rem; }
+    .dish-item { grid-template-columns: 1fr; }
+    .dish-item-image-wrapper { width: 100%; height: auto; max-width: 250px; }
+
+    /* Модальні вікна "Історія" та "Контакти" */
+    .story-body, .contacts-body {
+        grid-template-columns: 1fr;
         padding: 20px;
-        max-width: 100%;
-        width: 100%;
-        box-sizing: border-box;
     }
-
-    .story-text-block h2 {
-        font-size: 1.8rem;
-        line-height: 1.3;
-        margin-bottom: 15px;
-        word-wrap: break-word;
+    .story-content, .contacts-content {
+        padding: 10px;
     }
-
-    .story-text-block p {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        word-wrap: break-word;
-    }
-
-    /* 4. Зменшуємо логотип на мобільних */
-    .logo {
-        font-size: 1.3rem !important;
-    }
-
-    /* 5. Зменшуємо кнопку на hero-секції */
-    .hero-cta-button {
-        font-size: 0.85rem;
-        padding: 10px 20px;
-        margin-top: 15px;
-    }
+    .contact-grid { grid-template-columns: 1fr; }
+    .cta-phone-button { font-size: 1rem; padding: 12px 20px; }
 }
