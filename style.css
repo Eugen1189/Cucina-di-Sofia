@@ -722,3 +722,17 @@ body {
         text-align: center;
     }
 }
+
+/* ============================================== */
+/* === CENTRATURA FINALE NEL MENU MOBILE === */
+/* ============================================== */
+
+@media (max-width: 768px) {
+    #hover-gallery-menu .strip-title {
+        top: 50%;
+        left: 50%;
+        bottom: auto; /* Resettiamo il vecchio posizionamento dal basso */
+        transform: translate(-50%, -50%); /* Applichiamo la centratura perfetta */
+        font-size: 2.2rem; /* Dimensione ottimale per mobile */
+    }
+}
