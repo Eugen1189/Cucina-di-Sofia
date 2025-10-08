@@ -270,18 +270,27 @@ body {
     scrollbar-width: none;  /* Для Firefox */
 }
 
-/* --- Преміум-стилі для модального вікна "La Nostra Storia" --- */
+/* =================================================================== */
+/* === ФІНАЛЬНИЙ СТИЛЬ: МОДАЛЬНЕ ВІКНО "LA NOSTRA STORIA" (Адаптивне) === */
+/* =================================================================== */
+
+/* --- 1. Стилі для десктопу (широкі екрани) --- */
 .story-content {
-    max-width: 900px;
-    background: #1C1C1E; /* Глибокий темний фон */
-    padding: 30px;
+    max-width: 600px;
+    width: auto;
+    background: #1C1C1E;
+    padding: 40px;
+    border-radius: 16px; /* Більш плавне скруглення */
 }
 
 .story-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Дві рівні колонки */
-    gap: 40px;
-    align-items: center;
+    display: block;
+    text-align: center;
+}
+
+.story-image-container {
+    margin: 0 auto 30px auto;
+    max-width: 100%;
 }
 
 .story-image {
@@ -296,23 +305,40 @@ body {
     color: white;
     margin-bottom: 20px;
     line-height: 1.2;
+    text-align: center;
 }
 
 .story-text-container p {
     font-size: 1rem;
     line-height: 1.7;
     margin-bottom: 20px;
-    color: #AEAEB2; /* М'який сірий для тексту */
+    color: #AEAEB2;
+    text-align: justify;
+    hyphens: auto;
 }
 
 .story-signature {
+    border-top: none;
+    padding-top: 0;
     margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    text-align: right;
+    text-align: center;
     font-family: var(--font-heading);
     font-style: italic;
+    font-size: 1.1rem;
     color: #ccc;
+}
+
+
+/* --- 2. Адаптація для мобільних пристроїв --- */
+@media (max-width: 768px) {
+    .story-content {
+        padding: 30px 25px; /* ✨ Зменшуємо бічні відступи */
+        max-height: 90vh;
+    }
+
+    .story-text-container h3 {
+        font-size: 2rem; /* ✨ Трохи зменшуємо заголовок */
+    }
 }
 
 /* --- Преміум-стилі для модального вікна "Контакти" --- */
@@ -418,37 +444,6 @@ body {
 /* ============================================== */
 /* Всі мобільні стилі знаходяться в кінці файлу */
 
-/* --- Фінальне шліфування модального вікна "La Nostra Storia" --- */
-
-    .story-content {
-    max-width: 600px; /* Зменшуємо максимальну ширину вікна */
-    width: auto;      /* Дозволяємо вікну підлаштовуватися під контент, але не більше max-width */
-    padding: 40px;    /* Збільшуємо внутрішні відступи для "повітря" */
-    }
-    
-    .story-body {
-    display: block; /* Змінюємо макет на одноколонковий (вертикальний) */
-    text-align: center; /* Центруємо весь вміст */
-}
-
-.story-image-container {
-    margin: 0 auto 30px auto; /* Центруємо зображення та додаємо відступ знизу */
-    max-width: 100%;
-}
-
-.story-text-container h3 {
-    text-align: center; /* Заголовок по центру */
-}
-
-.story-text-container p {
-    text-align: justify; /* Вирівнюємо текст по ширині для акуратного вигляду */
-    hyphens: auto;       /* Додаємо автоматичні переноси для вузьких блоків */
-}
-
-.story-signature {
-    text-align: center; /* Підпис також по центру */
-}
-
 /* ============================================== */
 /* === ФІНАЛЬНІ ВИПРАВЛЕННЯ ІНТЕРФЕЙСУ (гарантовані) === */
 /* ============================================== */
@@ -529,16 +524,6 @@ body {
     color: #2d2d2d; /* Темний колір тексту при наведенні */
     transform: scale(1.05); /* Легке збільшення */
     box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
-}
-
-/* Фінальне виправлення для підпису у вікні "La Nostra Storia" */
-.story-signature {
-    border-top: none;      /* Прибираємо роздільну лінію */
-    padding-top: 0;        /* Прибираємо відступ, що був над лінією */
-    margin-top: 30px;      /* Залишаємо гарний відступ від основного тексту */
-    text-align: center;    /* Гарантуємо, що підпис буде по центру */
-    font-size: 1.1rem;     /* Робимо текст трохи виразнішим */
-    color: #ccc;
 }
 
 /* ============================================== */
@@ -644,34 +629,14 @@ body {
     .dish-item { grid-template-columns: 1fr; }
     .dish-item-image-wrapper { width: 100%; height: auto; max-width: 250px; }
 
-    /* Модальні вікна "Історія" та "Контакти" */
-    .story-body, .contacts-body {
+    /* Модальні вікна "Контакти" */
+    .contacts-body {
         grid-template-columns: 1fr;
         padding: 20px;
     }
-    .story-content, .contacts-content {
+    .contacts-content {
         padding: 10px;
         overflow: hidden;
-    }
-    
-    .story-text-container {
-        padding: 10px;
-        box-sizing: border-box;
-        width: 100%;
-        overflow: hidden;
-    }
-    
-    .story-signature {
-        font-size: 0.9rem;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        padding: 10px;
-        margin-top: 20px;
-    }
-    
-    .story-signature p {
-        margin: 5px 0;
-        word-wrap: break-word;
     }
     
     .contact-grid { grid-template-columns: 1fr; }
