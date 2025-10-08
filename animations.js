@@ -24,7 +24,7 @@ export function initializeIntroAnimation() {
     const introScreen = document.getElementById('intro-screen');
     if (!introScreen) return;
     
-    // Перевірка, щоб анімація не грала двічі
+    // Controllo per evitare che l'animazione si ripeta due volte
     if (introScreen.classList.contains('played')) return;
     introScreen.classList.add('played');
 
@@ -53,19 +53,19 @@ export function initializeIntroAnimation() {
             duration: 2.5,
             xPercent: -100,
             skewX: -10,
-            ease: "expo.in" // ✨ ЗМІНЕНО: тепер куліси прискорюються до кінця
+            ease: "expo.in" // ✨ MODIFICATO: ora le tende accelerano verso la fine
         })
         .to(panelRight, {
             duration: 2.5,
             xPercent: 100,
             skewX: 10,
-            ease: "expo.in" // ✨ ЗМІНЕНО: тепер куліси прискорюються до кінця
+            ease: "expo.in" // ✨ MODIFICATO: ora le tende accelerano verso la fine
         }, "<")
         .to(mainContent, { 
             duration: 1.8, 
             autoAlpha: 1, 
             y: 0,
             ease: "expo.out"
-        }, "-=2.0"); // ✨ ЗМІНЕНО: запускаємо контент ще раніше для ідеальної синхронізації 
+        }, "-=2.0"); // ✨ MODIFICATO: avviamo il contenuto ancora prima per una sincronizzazione perfetta 
 }
 

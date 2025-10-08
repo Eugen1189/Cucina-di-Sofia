@@ -1,8 +1,8 @@
-// main.js - Фінальна версія з повною логікою меню
+// main.js - Versione finale con logica completa del menu
 
 import { initializeModals, initializeMobileMenu, openModal, closeModal } from './ui.js';
 import { initializeIntroAnimation } from './animations.js';
-import { menu } from './cart.js'; // Імпортуємо дані меню
+import { menu } from './cart.js'; // Importiamo i dati del menu
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeModals();
@@ -16,7 +16,7 @@ function initializeHoverGallery() {
     const dishListContainer = document.getElementById('dish-list-container');
     
     if (!galleryContainer || !dishListContainer) {
-        console.error("Не знайдено елементи для меню.");
+        console.error("Elementi del menu non trovati.");
         return;
     }
 
@@ -24,7 +24,7 @@ function initializeHoverGallery() {
     const dishListContent = document.getElementById('dish-list-content');
     const backButton = document.getElementById('menu-back-btn');
 
-    // Функція для показу списку страв
+    // Funzione per mostrare la lista dei piatti
     function showDishes(category) {
         const categoryDishes = menu.filter(item => item.category.toLowerCase() === category.toLowerCase());
         
@@ -44,12 +44,12 @@ function initializeHoverGallery() {
         dishListContainer.classList.remove('hidden');
     }
 
-    // Функція для повернення до галереї
+    // Funzione per tornare alla galleria
     function showGallery() {
         dishListContainer.classList.add('hidden');
     }
 
-    // Обробник для кліку -> показати страви
+    // Gestore per il click -> mostrare i piatti
     strips.forEach(strip => {
         strip.addEventListener('click', () => {
             const category = strip.dataset.category;
@@ -57,8 +57,8 @@ function initializeHoverGallery() {
         });
     });
 
-    // Обробник для кнопки "Назад"
+    // Gestore per il pulsante "Indietro"
     backButton.addEventListener('click', showGallery);
 
-    console.log('✅ Premium Hover Gallery (Static Blocks) ініціалізовано');
+    console.log('✅ Premium Hover Gallery (Blocchi Statici) inizializzata');
 }

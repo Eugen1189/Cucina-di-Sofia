@@ -2,7 +2,7 @@
 /* FINAL CLEAN CSS - Cucina di Sofia */
 /* ======================================================= */
 
-/* --- 1. Глобальні налаштування та шрифти --- */
+/* --- 1. Impostazioni globali e font --- */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap');
 :root {
@@ -14,17 +14,17 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 
-/* --- 2. Утиліти --- */
+/* --- 2. Utilità --- */
 .hidden { display: none !important; }
 
-/* --- 3. Інтро-анімація --- */
+/* --- 3. Animazione intro --- */
 #intro-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; overflow: hidden; }
 .intro-panel {
     position: absolute;
     top: 0;
     width: 50vw;
     height: 100%;
-    background-color: #000000; /* ✨ Абсолютно чорний колір */
+    background-color: #000000; /* ✨ Nero assoluto */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,17 +33,17 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 .panel-left { left: 0; }
 .panel-right { right: 0; }
 .intro-title {
-    color: #FFFFFF; /* ✨ Сліпучо-білий колір */
+    color: #FFFFFF; /* ✨ Bianco abbagliante */
     font-family: 'Cormorant Garamond', serif;
-    font-size: 8.5vw; /* ✨ Значно збільшений розмір */
-    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.4); /* Посилюємо світіння */
+    font-size: 8.5vw; /* ✨ Dimensione significativamente aumentata */
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.4); /* Rafforziamo il bagliore */
     opacity: 0;
     visibility: hidden;
     width: 50vw;
     text-align: center;
 }
 
-/* --- 4. Головний хедер (Версія "Преміум" з червоною кнопкою) --- */
+/* --- 4. Header principale (Versione "Premium" con pulsante rosso) --- */
 
 .main-header {
     position: fixed;
@@ -52,15 +52,15 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
     width: 100%; 
     padding: 20px 40px;
     display: flex;
-    justify-content: space-between; /* Розносить лого та праву групу по краях */
+    justify-content: space-between; /* Distribuisce logo e gruppo destro ai bordi */
     align-items: center;
     z-index: 1000;
     color: white;
     transition: all 0.4s ease;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent); /* Затемнення як на референсі */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent); /* Oscuramento come nel riferimento */
 }
 
-/* --- Логотип --- */
+/* --- Logo --- */
 .logo {
     font-family: var(--font-heading);
     font-size: 1.8rem;
@@ -69,30 +69,30 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
     font-weight: 700;
 }
 
-/* ✨ NEW: Контейнер для правої групи */
+/* ✨ NUOVO: Contenitore per il gruppo destro */
 .header-right-group {
     display: flex;
     align-items: center;
-    gap: 40px; /* Відстань між навігацією та кнопкою */
+    gap: 40px; /* Distanza tra navigazione e pulsante */
 }
 
-/* --- Центральна навігація --- */
+/* --- Navigazione centrale --- */
 .main-nav {
     display: flex;
-    gap: 35px; /* Відстань між посиланнями */
+    gap: 35px; /* Distanza tra i link */
 }
 
 .nav-link {
-    font-size: 1.1rem; /* ✨ NEW: Збільшений текст */
+    font-size: 1.1rem; /* ✨ NUOVO: Testo ingrandito */
     font-weight: 600;
     color: inherit;
     text-decoration: none;
     padding: 10px 0;
     position: relative;
-    letter-spacing: 0.5px; /* ✨ NEW: Додає "повітря" та витонченості */
+    letter-spacing: 0.5px; /* ✨ NUOVO: Aggiunge "aria" ed eleganza */
 }
 
-/* Ефект підкреслення при наведенні */
+/* Effetto sottolineatura al passaggio del mouse */
 .nav-link::after {
     content: '';
     position: absolute;
@@ -110,36 +110,36 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
     transform: scaleX(1);
 }
 
-/* ✨ NEW: Стиль для червоної кнопки-дзвінка */
+/* ✨ NUOVO: Stile per il pulsante rosso di chiamata */
 .header-cta-btn {
-    background-color: #D9534F; /* Червоний колір */
+    background-color: #D9534F; /* Colore rosso */
     color: white;
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
     border: none;
     padding: 12px 24px;
-    border-radius: 8px; /* Скруглені кути */
+    border-radius: 8px; /* Angoli arrotondati */
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .header-cta-btn:hover {
-    background-color: #C44741; /* Темніший червоний при наведенні */
+    background-color: #C44741; /* Rosso più scuro al passaggio del mouse */
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(217, 83, 79, 0.3);
 }
 
-/* --- 5. Секція Hero (фон) --- */
+/* --- 5. Sezione Hero (sfondo) --- */
 .hero-video-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
 .hero-video-background video { width: 100%; height: 100%; object-fit: cover; }
 .story-text-block { max-width: 600px; text-align: center; margin: 25vh auto; }
 .story-text-block h2 { font-family: var(--font-heading); font-size: 3.5rem; }
 
-/* --- 6. Базові стилі для модальних вікон --- */
+/* --- 6. Stili base per le finestre modali --- */
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; }
 .modal-content { background: rgba(28, 28, 30, 0.85); backdrop-filter: blur(20px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); width: 90vw; height: 90vh; position: relative; }
 
-/* --- 7. Стилі для Hover Gallery (Версія з видимими блоками) --- */
+/* --- 7. Stili per Hover Gallery (Versione con blocchi visibili) --- */
 
 #hover-gallery-menu { display: flex; overflow: hidden; height: 100%; padding: 0; }
 
@@ -151,9 +151,9 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
     overflow: hidden;
     cursor: pointer;
     transition: flex 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    border-right: 1px solid rgba(0, 0, 0, 0.5); /* Більш темна межа */
+    border-right: 1px solid rgba(0, 0, 0, 0.5); /* Bordo più scuro */
 
-    /* ✨ NEW: Властивості фону тепер тут */
+    /* ✨ NUOVO: Proprietà dello sfondo ora qui */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -161,7 +161,7 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 
 .category-strip:last-child { border-right: none; }
 
-/* ✨ NEW: Затемнюючий шар для кожної смуги для читабельності тексту */
+/* ✨ NUOVO: Strato di oscuramento per ogni striscia per la leggibilità del testo */
 .category-strip::before {
     content: '';
     position: absolute;
@@ -173,37 +173,38 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
     transition: background-color 0.5s ease;
 }
 
-/* ✨ NEW: При наведенні шар стає світлішим, "підсвічуючи" блок */
+/* ✨ NUOVO: Al passaggio del mouse lo strato diventa più chiaro, "illuminando" il blocco */
 .category-strip:hover::before {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
 .category-strip:hover { flex: 5; }
 
+/* MODIFICATO: Stile per il titolo - ora al centro */
 .strip-title {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;                                 /* ✨ Posizioniamo 50% dall'alto */
+    left: 50%;                                /* Posizioniamo 50% da sinistra */
+    transform: translate(-50%, -50%);         /* ✨ Trucco magico per centratura perfetta */
     width: 100%;
     text-align: center;
     color: white;
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.8rem;                        /* Rendiamo la dimensione base un po' più grande */
     font-weight: 700;
     white-space: nowrap;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Rafforziamo l'ombra per una migliore leggibilità */
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+/* MODIFICATO: Effetto al passaggio del mouse sul titolo */
 .category-strip:hover .strip-title {
-    font-size: 2.2rem;
-    bottom: 30px;
+    font-size: 2.5rem; /* Semplicemente aumentiamo la dimensione, la posizione rimane al centro */
 }
 
 .close-button { position: absolute; top: 20px; right: 20px; z-index: 4; background: none; border: none; font-size: 2rem; color: white; cursor: pointer; }
 
-/* --- 8. Стилі для списку страв --- */
+/* --- 8. Stili per la lista dei piatti --- */
 .dish-list-container {
     position: absolute;
     top: 0;
@@ -252,55 +253,55 @@ body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 .dish-item-info p { color: #ccc; line-height: 1.6; margin-bottom: 15px; }
 .dish-item-info .price { font-size: 1.5rem; font-weight: 700; }
 
-/* Повністю приховуємо блок мобільного меню */
+/* Nascondiamo completamente il blocco del menu mobile */
 #mobile-menu {
     display: none !important;
 }
 
-/* ✨ Затемнення для хедера, щоб текст завжди було видно */
+/* ✨ Oscuramento per l'header, affinché il testo sia sempre visibile */
 .hero-video-background::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 150px; /* Висота затемнення, можна налаштувати */
+    height: 150px; /* Altezza dell'oscuramento, regolabile */
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
-    z-index: 0; /* Розміщуємо під хедером, але над відео */
-    pointer-events: none; /* Градієнт не буде заважати клікам */
+    z-index: 0; /* Posizioniamo sotto l'header ma sopra il video */
+    pointer-events: none; /* Il gradiente non interferirà con i click */
 }
 
-/* Переконуємось, що хедер знаходиться вище градієнту */
+/* Assicuriamoci che l'header sia sopra il gradiente */
 .main-header {
     z-index: 1000 !important;
 }
 
-/* ✨ Приховуємо зайві елементи керування, як-от стрілки слайдера */
+/* ✨ Nascondiamo gli elementi di controllo superflui, come le frecce dello slider */
 .swiper-button-next,
 .swiper-button-prev {
     display: none !important;
 }
 
-/* ✨ Приховує скролбар для всього сайту (альтернативне рішення) */
+/* ✨ Nasconde la scrollbar per tutto il sito (soluzione alternativa) */
 body::-webkit-scrollbar {
-    display: none; /* Для Chrome, Safari, Opera */
+    display: none; /* Per Chrome, Safari, Opera */
 }
 body {
-    -ms-overflow-style: none;  /* Для IE та Edge */
-    scrollbar-width: none;  /* Для Firefox */
+    -ms-overflow-style: none;  /* Per IE ed Edge */
+    scrollbar-width: none;  /* Per Firefox */
 }
 
 /* =================================================================== */
-/* === ФІНАЛЬНИЙ СТИЛЬ: МОДАЛЬНЕ ВІКНО "LA NOSTRA STORIA" (Адаптивне) === */
+/* === STILE FINALE: FINESTRA MODALE "LA NOSTRA STORIA" (Responsive) === */
 /* =================================================================== */
 
-/* --- 1. Стилі для десктопу (широкі екрани) --- */
+/* --- 1. Stili per desktop (schermi larghi) --- */
 .story-content {
     max-width: 600px;
     width: auto;
     background: #1C1C1E;
     padding: 40px;
-    border-radius: 16px; /* Більш плавне скруглення */
+    border-radius: 16px; /* Arrotondamento più morbido */
 }
 
 .story-body {
@@ -349,23 +350,23 @@ body {
 }
 
 
-/* --- 2. Адаптація для мобільних пристроїв --- */
+/* --- 2. Adattamento per dispositivi mobili --- */
 @media (max-width: 768px) {
     .story-content {
-        padding: 30px 25px; /* ✨ Зменшуємо бічні відступи */
+        padding: 30px 25px; /* ✨ Riduciamo i margini laterali */
         max-height: 90vh;
     }
 
     .story-text-container h3 {
-        font-size: 2rem; /* ✨ Трохи зменшуємо заголовок */
+        font-size: 2rem; /* ✨ Riduciamo leggermente il titolo */
     }
 }
 
-/* --- Преміум-стилі для модального вікна "Контакти" --- */
+/* --- Stili premium per la finestra modale "Contatti" --- */
 .contacts-content {
     max-width: 800px;
     background: #1C1C1E;
-    padding: 0; /* Прибираємо старі відступи, щоб хедер прилягав */
+    padding: 0; /* Rimuoviamo i vecchi margini per far aderire l'header */
 }
 
 .contacts-header {
@@ -384,7 +385,7 @@ body {
 }
 
 .contact-cta {
-    background: rgba(217, 83, 79, 0.1); /* Легкий червоний фон */
+    background: rgba(217, 83, 79, 0.1); /* Sfondo rosso leggero */
     border: 1px solid rgba(217, 83, 79, 0.5);
     border-radius: 12px;
     padding: 25px;
@@ -460,26 +461,26 @@ body {
 }
 
 /* ============================================== */
-/* === МОБІЛЬНА АДАПТАЦІЯ === */
+/* === ADATTAMENTO MOBILE === */
 /* ============================================== */
-/* Всі мобільні стилі знаходяться в кінці файлу */
+/* Tutti gli stili mobile si trovano alla fine del file */
 
 /* ============================================== */
-/* === ФІНАЛЬНІ ВИПРАВЛЕННЯ ІНТЕРФЕЙСУ (гарантовані) === */
+/* === CORREZIONI FINALI DELL'INTERFACCIA (garantite) === */
 /* ============================================== */
 
-/* 1. Гарантовано приховуємо дублікат мобільного меню */
+/* 1. Nascondiamo garantito il duplicato del menu mobile */
 #mobile-menu {
     display: none !important;
 }
 
-/* 2. Гарантовано приховуємо старі стрілки від слайдера */
+/* 2. Nascondiamo garantito le vecchie frecce dello slider */
 .swiper-button-next,
 .swiper-button-prev {
     display: none !important;
 }
 
-/* 3. Розширене приховування всіх можливих залишкових елементів */
+/* 3. Nascondimento esteso di tutti i possibili elementi residui */
 .swiper-pagination,
 .swiper-scrollbar,
 .swiper-pagination-bullet,
@@ -501,56 +502,56 @@ body {
 }
 
 /* ============================================== */
-/* === ФІНАЛЬНІ ШТРИХИ: ЕЛЕГАНТНИЙ ТЕКСТ І КНОПКА === */
+/* === TOCCHI FINALI: TESTO ELEGANTE E PULSANTE === */
 /* ============================================== */
 
-/* --- 1. Покращуємо читабельність тексту --- */
+/* --- 1. Miglioriamo la leggibilità del testo --- */
 
 .story-text-block h2,
 .story-text-block p {
-    /* Додаємо легку тінь, щоб текст "відривався" від фону */
+    /* Aggiungiamo un'ombra leggera per far "staccare" il testo dallo sfondo */
     text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
 }
 
 .story-text-block h2 {
-    line-height: 1.2; /* Покращуємо інтерліньяж для великого заголовка */
+    line-height: 1.2; /* Miglioriamo l'interlinea per il grande titolo */
 }
 
 .story-text-block p {
-    line-height: 1.7; /* Робимо текст-опис більш читабельним */
-    font-size: 1.1rem; /* Трохи збільшуємо розмір */
+    line-height: 1.7; /* Rendiamo il testo descrittivo più leggibile */
+    font-size: 1.1rem; /* Aumentiamo leggermente la dimensione */
 }
 
 
-/* --- 2. Стилізуємо кнопку "Scopri il menu" --- */
+/* --- 2. Stilizziamo il pulsante "Scopri il menu" --- */
 
 .hero-cta-button {
-    display: inline-block; /* Робимо елемент блочним для застосування стилів */
+    display: inline-block; /* Rendiamo l'elemento a blocco per applicare gli stili */
     margin-top: 20px;
     padding: 12px 30px;
-    border: 2px solid white; /* Створюємо стиль "ghost button" */
-    border-radius: 50px; /* Повністю скруглені кути */
+    border: 2px solid white; /* Creiamo lo stile "ghost button" */
+    border-radius: 50px; /* Angoli completamente arrotondati */
     color: white;
     text-decoration: none;
     font-weight: 700;
-    text-transform: uppercase; /* Великі літери */
-    letter-spacing: 1px; /* Збільшуємо відстань між літерами */
+    text-transform: uppercase; /* Lettere maiuscole */
+    letter-spacing: 1px; /* Aumentiamo la distanza tra le lettere */
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Ефект при наведенні курсору */
+/* Effetto al passaggio del mouse */
 .hero-cta-button:hover {
     background-color: white;
-    color: #2d2d2d; /* Темний колір тексту при наведенні */
-    transform: scale(1.05); /* Легке збільшення */
+    color: #2d2d2d; /* Colore scuro del testo al passaggio del mouse */
+    transform: scale(1.05); /* Leggero ingrandimento */
     box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
 }
 
 /* ============================================== */
-/* === БУРГЕР-МЕНЮ (базові стилі) === */
+/* === MENU BURGER (stili base) === */
 /* ============================================== */
 
-/* На десктопі бургер-меню приховано */
+/* Sul desktop il menu burger è nascosto */
 .mobile-menu-button {
     display: none;
 }
@@ -560,12 +561,12 @@ body {
 }
 
 /* ============================================== */
-/* === ФІНАЛЬНА МОБІЛЬНА АДАПТАЦІЯ (Преміум) === */
+/* === ADATTAMENTO MOBILE FINALE (Premium) === */
 /* ============================================== */
 
 @media (max-width: 768px) {
 
-    /* --- 1. Адаптація хедера та нова кнопка-бургер --- */
+    /* --- 1. Adattamento dell'header e nuovo pulsante burger --- */
     .main-header {
         padding: 15px 20px;
     }
@@ -574,13 +575,13 @@ body {
         display: none;
     }
 
-    /* ✨ NEW: Елегантна кнопка-бургер */
+    /* ✨ NUOVO: Pulsante burger elegante */
     .mobile-menu-button {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 30px;
-        height: 22px; /* Трохи компактніше */
+        height: 22px; /* Un po' più compatto */
         background: transparent;
         border: none;
         cursor: pointer;
@@ -590,26 +591,26 @@ body {
 
     .mobile-menu-button span {
         width: 100%;
-        height: 2px; /* Тонші лінії */
+        height: 2px; /* Linee più sottili */
         background: white;
-        border-radius: 2px; /* Легке скруглення */
-        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Плавна анімація */
+        border-radius: 2px; /* Arrotondamento leggero */
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Animazione fluida */
         transform-origin: center;
     }
 
-    /* ✨ NEW: Витончена анімація в "X" */
+    /* ✨ NUOVO: Animazione raffinata in "X" */
     .mobile-menu-button.open span:nth-child(1) {
         transform: translateY(10px) rotate(45deg);
     }
     .mobile-menu-button.open span:nth-child(2) {
-        transform: scaleX(0); /* Середня лінія зникає */
+        transform: scaleX(0); /* La linea centrale scompare */
         opacity: 0;
     }
     .mobile-menu-button.open span:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
     }
 
-    /* Повноекранне меню (без змін) */
+    /* Menu a schermo intero (senza modifiche) */
     .mobile-menu-container {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px);
@@ -622,26 +623,26 @@ body {
     .mobile-menu-link { color: white; text-decoration: none; font-size: 2.2rem; margin: 20px 0; font-family: var(--font-heading); }
     .mobile-menu-link.cta { background: #D9534F; padding: 10px 25px; border-radius: 8px; font-size: 1.5rem; margin-top: 30px; }
 
-    /* --- 2. Відступи для модальних вікон --- */
+    /* --- 2. Margini per le finestre modali --- */
     
-    /* ✨ NEW: Загальний стиль для всіх модалок на мобільних */
+    /* ✨ NUOVO: Stile generale per tutte le modali sui mobile */
     .modal-content {
-        width: 92%; /* Не на весь екран, щоб були відступи */
-        height: auto; /* Висота по контенту */
-        max-height: 85vh; /* Максимальна висота */
+        width: 92%; /* Non a schermo intero, per avere margini */
+        height: auto; /* Altezza in base al contenuto */
+        max-height: 85vh; /* Altezza massima */
     }
 
-    /* Головне меню ("Hover Gallery") */
+    /* Menu principale ("Hover Gallery") */
     #hover-gallery-menu {
-        padding: 10px; /* ✨ NEW: Відступи всередині меню */
+        padding: 10px; /* ✨ NUOVO: Margini all'interno del menu */
     }
     #hover-gallery-menu .category-list { flex-direction: column; gap: 10px; }
     #hover-gallery-menu .category-strip { border-right: none; border-radius: 12px; }
     #hover-gallery-menu .strip-title { writing-mode: horizontal-tb; transform: translate(-50%, 50%); font-size: 2rem; }
-    #hover-gallery-menu .category-strip:hover { flex: 1; } /* Відключаємо hover-ефект на мобільних */
-    #hover-gallery-menu .category-strip:active { transform: scale(0.98); } /* Ефект натискання */
+    #hover-gallery-menu .category-strip:hover { flex: 1; } /* Disattiviamo l'effetto hover sui mobile */
+    #hover-gallery-menu .category-strip:active { transform: scale(0.98); } /* Effetto di pressione */
     
-    /* Список страв */
+    /* Lista dei piatti */
     .dish-list-container {
         padding: 60px 20px 20px 20px;
     }
@@ -649,21 +650,21 @@ body {
     .dish-item { grid-template-columns: 1fr; }
     .dish-item-image-wrapper { width: 100%; height: auto; max-width: 250px; }
 
-    /* Модальні вікна "Контакти" */
+    /* Finestre modali "Contatti" */
     .contacts-content {
-        padding: 0; /* Скидаємо головні відступи, щоб хедер прилягав */
+        padding: 0; /* Resettiamo i margini principali per far aderire l'header */
     }
 
     .contacts-body {
-        padding: 20px; /* Додаємо нові відступи для самого контенту */
+        padding: 20px; /* Aggiungiamo nuovi margini per il contenuto stesso */
     }
 
     .contacts-header h2 {
-        font-size: 1.8rem; /* Трохи зменшуємо головний заголовок */
+        font-size: 1.8rem; /* Riduciamo leggermente il titolo principale */
         padding: 20px;
     }
 
-    /* ✨ Головне виправлення: перетворюємо сітку на один стовпчик */
+    /* ✨ Correzione principale: trasformiamo la griglia in una singola colonna */
     .contact-grid {
         grid-template-columns: 1fr;
     }
@@ -683,18 +684,18 @@ body {
 }
 
 /* ============================================== */
-/* === ФІНАЛЬНЕ ВИПРАВЛЕННЯ: ПРОКРУТКА В МОДАЛЬНИХ ВІКНАХ === */
+/* === CORREZIONE FINALE: SCROLL NELLE FINESTRE MODALI === */
 /* ============================================== */
 
 @media (max-width: 768px) {
-    /* Додаємо вертикальну прокрутку для всіх модальних вікон на мобільних */
+    /* Aggiungiamo lo scroll verticale per tutte le finestre modali sui mobile */
     .modal-content {
-        overflow-y: auto; /* Вмикаємо прокрутку по вертикалі */
-        -webkit-overflow-scrolling: touch; /* Забезпечує плавну прокрутку на iOS */
+        overflow-y: auto; /* Attiviamo lo scroll verticale */
+        -webkit-overflow-scrolling: touch; /* Garantisce uno scroll fluido su iOS */
     }
 }
 
-/* Затемнення для фонового відео */
+/* Oscuramento per il video di sfondo */
 .hero-video-background::before {
     content: '';
     position: absolute;
@@ -702,21 +703,21 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3); /* 30% чорного затемнення */
+    background-color: rgba(0, 0, 0, 0.3); /* 30% di oscuramento nero */
     z-index: 0;
 }
 
 /* ============================================== */
-/* === ФІНАЛЬНЕ ЦЕНТРУВАННЯ В СПИСКУ СТРАВ (МОБІЛЬНІ) === */
+/* === CENTRATURA FINALE NELLA LISTA DEI PIATTI (MOBILE) === */
 /* ============================================== */
 
 @media (max-width: 768px) {
-    /* Центруємо назву страви */
+    /* Centriamo il nome del piatto */
     .dish-item-info h3 {
         text-align: center;
     }
 
-    /* Центруємо опис ("історію") страви */
+    /* Centriamo la descrizione ("storia") del piatto */
     .dish-item-info p {
         text-align: center;
     }

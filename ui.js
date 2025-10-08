@@ -1,4 +1,4 @@
-// ui.js - Керування модальними вікнами
+// ui.js - Gestione delle finestre modali
 
 export function openModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -15,19 +15,19 @@ export function closeModal(modalId) {
 }
 
 export function initializeModals() {
-    // Обробник для всіх кнопок, що відкривають модальні вікна
+    // Gestore per tutti i pulsanti che aprono finestre modali
     document.querySelectorAll('[data-modal-target]').forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const modalId = button.dataset.modalTarget;
             openModal(modalId);
             
-            // Закриваємо мобільне меню, якщо відкрито
+            // Chiudiamo il menu mobile se aperto
             closeMobileMenu();
         });
     });
 
-    // Обробник для всіх кнопок закриття
+    // Gestore per tutti i pulsanti di chiusura
     document.querySelectorAll('.close-button').forEach(button => {
         button.addEventListener('click', () => {
             const modal = button.closest('.modal');
@@ -38,7 +38,7 @@ export function initializeModals() {
     });
 }
 
-// Функція для відкриття/закриття мобільного меню
+// Funzione per aprire/chiudere il menu mobile
 export function initializeMobileMenu() {
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const mobileMenuContainer = document.querySelector('.mobile-menu-container');
@@ -49,7 +49,7 @@ export function initializeMobileMenu() {
         mobileMenuButton.classList.toggle('open');
         mobileMenuContainer.classList.toggle('open');
         
-        // Блокуємо скрол body коли меню відкрито
+        // Blocchiamo lo scroll del body quando il menu è aperto
         if (mobileMenuContainer.classList.contains('open')) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -57,7 +57,7 @@ export function initializeMobileMenu() {
         }
     });
     
-    // Закриваємо меню при кліку на посилання
+    // Chiudiamo il menu al click sul link
     document.querySelectorAll('.mobile-menu-link').forEach(link => {
         link.addEventListener('click', () => {
             closeMobileMenu();
