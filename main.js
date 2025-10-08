@@ -36,7 +36,7 @@ function initializeHoverGallery() {
                     <div class="dish-item-info">
                             <h3>${dish.name}</h3>
                             <p>${dish.description}</p>
-                        <div class="price">${dish.price} EUR</div>
+                        <div class="price">€</div>
                         </div>
                     </div>
                 `).join('')}
