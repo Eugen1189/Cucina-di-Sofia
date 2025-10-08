@@ -53,20 +53,19 @@ export function initializeIntroAnimation() {
             duration: 2.5,
             xPercent: -100,
             skewX: -10,
-            ease: "expo.inOut" // ✨ NEW: Більш драматичне прискорення
+            ease: "expo.in" // ✨ ЗМІНЕНО: тепер куліси прискорюються до кінця
         })
         .to(panelRight, {
             duration: 2.5,
             xPercent: 100,
             skewX: 10,
-            ease: "expo.inOut"
+            ease: "expo.in" // ✨ ЗМІНЕНО: тепер куліси прискорюються до кінця
         }, "<")
-        // ✨ NEW: Анімація контенту запускається за 1.5 секунди ДО завершення руху куліс
         .to(mainContent, { 
             duration: 1.8, 
             autoAlpha: 1, 
             y: 0,
             ease: "expo.out"
-        }, "-=1.5"); 
+        }, "-=2.0"); // ✨ ЗМІНЕНО: запускаємо контент ще раніше для ідеальної синхронізації 
 }
 
