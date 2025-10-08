@@ -33,61 +33,38 @@
 
     <!-- Елегантна навігаційна панель -->
     <header class="main-header">
-        <div class="logo">Cucina di Sofia</div>
-        
-        <nav class="main-nav desktop-nav">
-            <a href="#" id="open-menu-link" class="nav-link">Il Nostro Menu</a>
-            <a href="#" id="open-philosophy-link" class="nav-link">La Nostra Storia</a>
-            <a href="#" id="open-contacts-link" class="nav-link">Contatti</a>
-        </nav>
-        
-        <a href="tel:+390212345678" class="header-phone-link desktop-nav">
-            <span class="phone-icon">📞</span>
-            <span class="phone-text">+39 02 1234 5678</span>
-        </a>
+        <a href="index.html" class="logo">Cucina di Sofia</a>
 
-        <button id="mobile-menu-toggle" class="mobile-menu-button" aria-label="Toggle mobile menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <div class="header-right-group">
+            <nav class="main-nav">
+                <a href="#" class="nav-link" data-modal-target="story-modal">La Nostra Storia</a>
+                <a href="#" class="nav-link" data-modal-target="contacts-modal">Contatti</a>
+            </nav>
+            <a href="tel:+390212345678" class="header-cta-btn">Prenota un tavolo</a>
+        </div>
     </header>
 
     <main role="main" aria-label="Italian Food Showcase">
         <div class="hero-section" data-bg-color="#2d2d2d">
             <div class="story-slide-content">
-                <video class="story-video-bg desktop-video" autoplay muted loop playsinline>
-                    <source src="images/document_5415755719314013745.mp4" type="video/mp4">
-                </video>
-                
-                <video class="story-video-bg mobile-video" autoplay muted loop playsinline>
-                            <source src="images/document_5415755719314013745.mp4" type="video/mp4">
-                        </video>
+                <div class="hero-video-background">
+                    <video playsinline autoplay muted loop poster="images/photo_5413503919956556100_y.jpg" id="bgvid">
+                        <source src="images/document_5415755719314013745.mp4" type="video/mp4">
+                    </video>
+                </div>
 
                         <div class="story-text-block">
                             <h2>Più che cibo, un ricordo del cuore.</h2>
                             <p>La nostra storia inizia nel soleggiato cortile di nonna Sofia, in Emilia-Romagna, dove abbiamo imparato che il segreto della vera cucina è la qualità senza compromessi e l'amore in ogni piatto.</p>
-                            <a href="#menu" id="discover-menu-btn" class="story-button">Scopri il menu</a>
+                            <a href="#menu" id="discover-menu-btn" class="story-button hero-cta-button" data-modal-target="full-menu-modal">Scopri il menu</a>
                         </div>
                     </div>
                 </div>
     </main>
 
-    <!-- Мобільне меню -->
-    <div id="mobile-menu" class="mobile-menu-container">
-        <a href="#" class="mobile-menu-link" id="mobile-open-menu">Il Nostro Menu</a>
-        <a href="#" class="mobile-menu-link" id="mobile-open-story">La Nostra Storia</a>
-        <a href="#" class="mobile-menu-link" id="mobile-open-contacts">Contatti</a>
-        <a href="tel:+390212345678" class="mobile-menu-link phone-link-mobile">
-            <span class="phone-icon">📞</span>
-            <span class="phone-text">+39 02 1234 5678</span>
-        </a>
-                        </div>
+    <!-- Modali -->
 
-
-    <!-- Модальні вікна -->
-
-    <!-- Модальне вікно філософії -->
+    <!-- Modale Filosofia -->
     <div id="philosophy-modal" class="modal hidden">
         <div class="modal-overlay"></div>
         <div class="modal-content philosophy-content">
@@ -115,94 +92,91 @@
         </div>
     </div>
 
-    <!-- Модальне вікно повного меню -->
+    <!-- Modale Menu Completo -->
     <div id="full-menu-modal" class="modal hidden">
         <div class="modal-overlay"></div>
-        <div class="modal-content full-menu-content">
-            <div class="modal-header">
-                <button id="menu-back-btn" class="menu-back-button hidden">←</button>
-                <h2 id="menu-title">Il Nostro Menu</h2>
-                <button id="close-menu-btn" class="close-button" aria-label="Chiudi menu" type="button">&times;</button>
-            </div>
-            
-            <!-- Екран категорій -->
-            <div id="category-gallery-container" class="hover-gallery">
-                <ul id="category-gallery-list">
-                    <!-- Категорії генеруються динамічно через JavaScript -->
-                </ul>
-                    </div>
+        <div class="modal-content" id="hover-gallery-menu">
+            <ul class="category-list">
+                <li class="category-strip" data-category="Panini" style="background-image: url('images/category-panini.jpg');">
+                    <span class="strip-title">Panini</span>
+                </li>
+                <li class="category-strip" data-category="Pizza" style="background-image: url('images/category-pizza.jpg');">
+                    <span class="strip-title">Pizza</span>
+                </li>
+                <li class="category-strip" data-category="Pasta" style="background-image: url('images/category-pasta.jpg');">
+                    <span class="strip-title">Pasta</span>
+                </li>
+                <li class="category-strip" data-category="Insalate" style="background-image: url('images/category-insalate.jpg');">
+                    <span class="strip-title">Insalate</span>
+                </li>
+                <li class="category-strip" data-category="Bevande" style="background-image: url('images/category-bevande.jpg');">
+                    <span class="strip-title">Bevande</span>
+                </li>
+            </ul>
 
-            <!-- Екран страв категорії -->
-            <div id="dish-grid-container" class="menu-items-grid hidden">
-                <!-- Страви категорії генеруються динамічно через JavaScript -->
+            <div id="dish-list-container" class="dish-list-container hidden">
+                <button id="menu-back-btn" class="menu-back-btn">&larr; Indietro</button>
+                <div id="dish-list-content"></div>
             </div>
+
+            <button id="close-menu-btn" class="close-button">&times;</button>
         </div>
     </div>
 
-    <!-- Модальне вікно "La Nostra Storia" -->
+    <!-- Modale "La Nostra Storia" -->
     <div id="story-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
         <div class="modal-content story-content">
-            <div class="modal-header">
-                <h2>La Nostra Storia</h2>
-                <button id="close-story-modal" class="close-button" aria-label="Chiudi storia" type="button">&times;</button>
-            </div>
+            <button class="close-button">&times;</button>
             <div class="story-body">
-                <img src="images/photo_5413503919956556100_y.jpg" alt="Atmosfera della cucina italiana">
-                <div class="story-text">
+                <div class="story-image-container">
+                    <img src="images/photo_5413503919956556100_y.jpg" alt="Cucina tradizionale italiana" class="story-image">
+                </div>
+                <div class="story-text-container">
                     <h3>Più che cibo, un ricordo del cuore.</h3>
-                    <p>La nostra storia non inizia in una cucina professionale, ma in un piccolo e soleggiato cortile nel cuore dell'Emilia-Romagna, dove ogni domenica la nostra nonna Sofia riuniva tutta la famiglia attorno a un grande tavolo. L'aria si riempiva del profumo di basilico fresco, del sugo di pomodoro che sobbolliva lentamente per ore e del pane appena sfornato.</p>
-                    
-                    <p>Sofia non ha mai seguito una ricetta. Cucinava con il cuore, trasmettendo il suo amore per la terra e il rispetto per ogni singolo ingrediente. È stata lei a insegnarci che il segreto della vera cucina italiana non è la complessità, ma la qualità senza compromessi: un olio d'oliva che profuma di sole, un parmigiano stagionato due anni e la pasta, fatta a mano con pazienza e amore.</p>
-                    
-                    <p>"Cucina di Sofia" è la nostra promessa. La promessa di custodire quella stessa autenticità e quel calore. Noi non prepariamo solo cibo. Condividiamo con voi un pezzo della nostra famiglia, il sapore di un'Italia vera che il nostro cuore ricorda.</p>
-                    
-                    <p><strong>Benvenuti a casa.</strong></p>
+                    <p>La nostra storia non inizia in una cucina professionale, ma in un piccolo e soleggiato cortile nel cuore dell'Emilia-Romagna, dove ogni domenica la nostra nonna Sofia riuniva tutta la famiglia attorno a un grande tavolo.</p>
+                    <p>L'aria si riempiva del profumo di basilico fresco, del sugo di pomodoro che sobbolliva lentamente per ore e del pane appena sfornato. È lì che abbiamo imparato che il segreto della vera cucina è la qualità senza compromessi e l'amore in ogni piatto.</p>
+                    <div class="story-signature">
+                        <p>Con affetto,</p>
+                        <p>La famiglia di Cucina di Sofia</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Модальне вікно "Contatti" -->
+    <!-- Modale "Contatti" -->
     <div id="contacts-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
         <div class="modal-content contacts-content">
-            <div class="modal-header">
+            <button class="close-button">&times;</button>
+            <div class="contacts-header">
                 <h2>Contatti e Prenotazioni</h2>
-                <button id="close-contacts-modal" class="close-button" aria-label="Chiudi contatti" type="button">&times;</button>
             </div>
             <div class="contacts-body">
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <span class="contact-icon">📞</span>
-                        <div>
-                            <strong>Prenota il tuo tavolo</strong>
-                            <p><a href="tel:+390212345678" class="phone-link">+39 02 1234 5678</a></p>
-                        </div>
+                <div class="contact-cta">
+                    <h3>Prenota il tuo tavolo</h3>
+                    <p>La vostra serata perfetta inizia con un semplice dialogo.</p>
+                    <a href="tel:+390212345678" class="cta-phone-button">
+                        📞 Chiama: +39 02 1234 5678
+                    </a>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="info-block">
+                        <h4>📍 Indirizzo</h4>
+                        <p>Via Dante, 14, 20121 Milano MI, Italia</p>
                     </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <div>
-                            <strong>Indirizzo</strong>
-                            <p>Via Dante, 14, 20121 Milano MI, Italia</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">🕒</span>
-                        <div>
-                            <strong>Orari di apertura</strong>
-                            <p>Martedì – Domenica: 12:30–15:00, 19:30–23:00</p>
-                            <p>Lunedì: Chiuso</p>
-                        </div>
+                    <div class="info-block">
+                        <h4>🕒 Orari di apertura</h4>
+                        <p>Martedì – Domenica: 12:30–15:00, 19:30–23:00</p>
+                        <p>Lunedì: Chiuso</p>
                     </div>
                 </div>
-                
-                <div class="booking-philosophy">
-                    <h4>Perché una telefonata?</h4>
-                    <p>Crediamo che l'ospitalità non inizi quando aprite la nostra porta, ma dal momento in cui decidete di essere nostri ospiti. Una conversazione personale ci permette di accogliervi molto prima del vostro arrivo.</p>
-                    <p>Una telefonata ci dà l'opportunità di comprendere meglio i vostri desideri. È un'occasione speciale? Avete preferenze particolari? Vogliamo che la vostra serata sia perfetta, e tutto inizia con un semplice dialogo.</p>
-                    <p>Nonna Sofia non avrebbe mai inviato una conferma via email. Avrebbe parlato con i suoi ospiti, assicurandosi che tutto fosse pronto per loro. Noi seguiamo la sua tradizione: per noi, ogni prenotazione è un rapporto di fiducia, non una transazione.</p>
-                    <p><strong>Attendiamo la vostra chiamata.</strong></p>
+
+                <div class="philosophy-block">
+                    <h4>Perché per noi è importante proprio la vostra chiamata?</h4>
+                    <p>In un mondo di messaggi istantanei e prenotazioni automatizzate, rimaniamo fedeli alle tradizioni della vera ospitalità italiana. Per noi voi non siete solo un altro ordine nel sistema. La vostra prenotazione è l'inizio della nostra storia personale insieme.</p>
+                    <p>Una telefonata ci dà l'opportunità di ascoltarvi. Forse state pianificando una celebrazione speciale? O avete delle preferenze dietetiche? O volete semplicemente un consiglio sul tavolo migliore? È proprio nel dialogo dal vivo che nasce la fiducia e quella stessa magia che una volta Nonna Sofia creava accogliendo personalmente ogni ospite.</p>
+                    <p>Non usiamo i messenger perché apprezziamo il vostro tempo e vogliamo garantire che ogni dettaglio della vostra visita sia considerato immediatamente. <strong>La vostra chiamata per noi non è una transazione. È una conversazione.</strong></p>
                 </div>
             </div>
         </div>
@@ -211,6 +185,6 @@
     <!-- Скрипти -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="main.js" type="module"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

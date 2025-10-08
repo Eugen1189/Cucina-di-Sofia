@@ -2,13 +2,13 @@
 // ANIMATIONS MODULE - GSAP animations
 // =======================================================
 
-// Запобіжник для intro анімації
+// Flag per l'animazione intro
 let hasIntroPlayed = false;
 
-// --- MAIN SITE INITIALIZATION ---
+// --- INIZIALIZZAZIONE SITO PRINCIPALE ---
 export function initializeMainSite() {
-    console.log('Main site initialized');
-    // Встановлюємо темний фон для intro екрану
+    console.log('Sito principale inizializzato');
+    // Impostiamo lo sfondo scuro per la schermata intro
     document.body.style.backgroundColor = '#2d2d2d';
 }
 
@@ -19,11 +19,11 @@ export function initializeAnimations() {
     console.log('GSAP animations initialized');
 }
 
-// --- INTRO ANIMATION ---
+// --- ANIMAZIONE INTRO ---
 export function initializeIntroAnimation() {
-    // Запобіжник: якщо анімація вже була, нічого не робимо
+    // Controllo: se l'animazione è già stata eseguita, non facciamo nulla
     if (hasIntroPlayed) {
-        console.log('Intro animation already played, skipping...');
+        console.log('Animazione intro già eseguita, salto...');
         return;
     }
     
@@ -52,14 +52,14 @@ export function initializeIntroAnimation() {
         return;
     }
     
-    // Встановлюємо прапорець, що анімація почалась
+    // Impostiamo il flag che l'animazione è iniziata
     hasIntroPlayed = true;
 
-    // Початково ховаємо основний екран та блок з історією
+    // Inizialmente nascondiamo la schermata principale e il blocco storia
     gsap.set(heroSection, { autoAlpha: 0 });
     gsap.set(storyTextBlock, { autoAlpha: 0 });
 
-    // Створюємо головну анімаційну послідовність
+    // Creiamo la sequenza principale di animazioni
         const masterTl = gsap.timeline({
             onComplete: () => {
                 console.log("Animazione intro completata!");
@@ -70,24 +70,24 @@ export function initializeIntroAnimation() {
                     introScreen.style.pointerEvents = 'none';
                 }
                 
-            // Set dark background for intro screen
+            // Impostiamo lo sfondo scuro per la schermata intro
             document.body.style.backgroundColor = '#2d2d2d';
         }
     });
 
-    // Додаємо анімації
+    // Aggiungiamo le animazioni
         masterTl
             .to(introTitles, { duration: 1.5, autoAlpha: 1, ease: "power2.out", stagger: 0.1 })
-        .to({}, { duration: 0.5 }) // Невелика пауза
+        .to({}, { duration: 0.5 }) // Piccola pausa
             .to(panelLeft, { duration: 1.5, xPercent: -100, ease: "power2.inOut" })
             .to(panelRight, { duration: 1.5, xPercent: 100, ease: "power2.inOut" }, "<")
-        .to(heroSection, { duration: 0.1, autoAlpha: 1 }, "-=1.5") // Миттєво показуємо hero-section, коли штори починають роз'їжджатись
+        .to(heroSection, { duration: 0.1, autoAlpha: 1 }, "-=1.5") // Mostriamo istantaneamente hero-section quando i pannelli iniziano ad aprirsi
         
-        // 👇 ВІДНОВЛЮЄМО АНІМАЦІЮ ПОЯВИ ТЕКСТУ 👇
+        // Ripristiniamo l'animazione di apparizione del testo
         .fromTo(storyTextBlock, 
             { y: 30, opacity: 0 }, 
             { duration: 1.5, y: 0, opacity: 1, autoAlpha: 1, ease: "power2.out" }, 
-            "-=0.8" // Починається трохи після початку роз'їзду штор
+            "-=0.8" // Inizia poco dopo l'apertura dei pannelli
         );
 }
 

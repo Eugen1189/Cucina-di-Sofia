@@ -1,1755 +1,437 @@
 /* ======================================================= */
-/* OPTIMIZED CSS - Italian Restaurant */
+/* FINAL CLEAN CSS - Cucina di Sofia */
 /* ======================================================= */
 
-/* STEP 1: FONT IMPORTS AND GLOBAL SETTINGS */
+/* --- 1. Глобальні налаштування та шрифти --- */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap');
-
 :root {
-    /* Typography */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Lato', sans-serif;
-
-    /* Colors */
-    --panini-bg: #F5EFE1;
-    --pizza-bg: #D9534F;
-    --pasta-bg: #849458;
-    --bevande-bg: #4A90E2;
-    --button-bg: #333;
-    --button-text: #fff;
     --text-color: #333;
-    
-    /* Transitions */
-    --transition-fast: 0.3s ease;
-    --transition-medium: 0.5s ease;
-    --transition-slow: 1s ease;
-    
-    /* Z-index layers */
-    --z-splash: 1;
-    --z-product: 2;
-    --z-ingredient: 3;
-    --z-description: 10;
-    --z-preloader: 9999;
-    
-    /* Ingredient positioning variables */
-    --ingredient-size-base: 280px; /* Збільшено з 220px */
-    --ingredient-size-tablet: 220px; /* Збільшено з 180px */
-    --ingredient-size-mobile: 70px; /* Збільшено з 45px */
-    
-    /* PANINI ingredient positions - розширена розкладка */
-    --panini-rucola-1-top: 20%;
-    --panini-rucola-1-right: 20%;
-    --panini-rucola-1-width: 180px;
-    --panini-rucola-1-rotate: -15deg;
-    
-    --panini-prosciutto-1-top: 25%;
-    --panini-prosciutto-1-left: 20%;
-    --panini-prosciutto-1-width: 160px;
-    --panini-prosciutto-1-rotate: 10deg;
-    
-    --panini-mozzarella-1-bottom: 20%;
-    --panini-mozzarella-1-left: 20%;
-    --panini-mozzarella-1-width: 180px;
-    --panini-mozzarella-1-rotate: 5deg;
-    
-    /* PIZZA ingredient positions - розширена розкладка */
-    --pizza-basil-top: 20%;
-    --pizza-basil-left: 20%;
-    --pizza-basil-width: 160px;
-    --pizza-basil-rotate: 20deg;
-    
-    --pizza-tomato-bottom: 20%;
-    --pizza-tomato-left: 15%;
-    --pizza-tomato-width: 140px;
-    --pizza-tomato-rotate: -10deg;
-    
-    --pizza-olive-top: 25%;
-    --pizza-olive-right: 20%;
-    --pizza-olive-width: 120px;
-    --pizza-olive-rotate: 15deg;
-    
-    /* PASTA ingredient positions - розширена розкладка */
-    --pasta-farfalle-bottom: 20%;
-    --pasta-farfalle-right: 20%;
-    --pasta-farfalle-width: 140px;
-    --pasta-farfalle-rotate: -25deg;
-    
-    --pasta-parmesan-top: 15%;
-    --pasta-parmesan-left: 20%;
-    --pasta-parmesan-width: 180px;
-    --pasta-parmesan-rotate: 15deg;
-    
-    --pasta-rosemary-top: 25%;
-    --pasta-rosemary-right: 15%;
-    --pasta-rosemary-width: 150px;
-    --pasta-rosemary-rotate: 10deg;
+    --panini-bg: #F5EFE1;
 }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); background-color: #2d2d2d; color: white; }
 
-/* ======================================================= */
-/* RESET AND BASE STYLES */
-/* ======================================================= */
+/* --- 2. Утиліти --- */
+.hidden { display: none !important; }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100%; /* ВАЖЛИВО: задаємо висоту 100% для html і body */
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Ховаємо будь-який скрол */
-}
-
-body {
-    font-family: var(--font-body);
-    background-color: #f0f0f0; /* Світлий фоновий колір */
-    transition: background-color 0.8s ease; /* Плавна зміна фону */
-}
-
-/* ======================================================= */
-/* INTRO SCREEN STYLES */
-/* ======================================================= */
-
-#intro-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: var(--z-preloader);
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.intro-panel {
-    position: absolute;
-    top: 0;
-    width: 50vw;
-    height: 100%;
-    background-color: var(--panini-bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: auto;
-}
-
+/* --- 3. Інтро-анімація --- */
+#intro-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; overflow: hidden; }
+.intro-panel { position: absolute; top: 0; width: 50vw; height: 100%; background-color: var(--panini-bg); display: flex; justify-content: center; align-items: center; }
 .panel-left { left: 0; }
 .panel-right { right: 0; }
+.intro-title { font-family: var(--font-heading); font-size: 6vw; color: var(--text-color); opacity: 0; visibility: hidden; }
 
-.intro-title {
-    font-family: var(--font-heading);
-    font-size: 6vw;
-    color: var(--text-color);
-    opacity: 0;
-    visibility: hidden;
-    width: 50vw;
-    text-align: center;
-}
-
-/* ======================================================= */
-/* MAIN CONTENT AND SLIDER */
-/* ======================================================= */
-
-main {
-    width: 100vw;
-    height: 100vh;
-}
-
-/* Hero Section (previously .swiper) */
-.hero-section {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* ======================================================= */
-/* BACKGROUND TEXT AND PRODUCT IMAGE */
-/* ======================================================= */
-    
-.slide-content h1 {
-    position: absolute;
-    z-index: var(--z-splash);
-    font-family: var(--font-heading);
-    font-size: 20vw;
-    color: rgba(0, 0, 0, 0.05);
-    text-transform: uppercase;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    pointer-events: none;
-    opacity: 0; /* Початково приховано для анімації */
-    visibility: hidden; /* Початково приховано для анімації */
-}
-
-/* Старий стиль product-image видалено - тепер використовується .dish-container .product-image */
-
-/* ======================================================= */
-/* УНІКАЛЬНА ФІШКА: "CHEF'S TABLE" */
-/* ======================================================= */
-
-.dish-container {
-    position: relative; /* База для позиціонування */
-    width: 600px; /* Задаємо фіксовану ширину для стабільності */
-    height: 600px; /* Фіксована висота */
-    margin: 0 auto; /* Центруємо контейнер */
-}
-
-.dish-container .product-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 80%; /* Страва займає центральну частину */
-    width: auto;
-    height: auto;
-    max-height: 70%;
-    z-index: var(--z-product);
-    filter: drop-shadow(10px 15px 15px rgba(0, 0, 0, 0.2));
-    transition: transform 0.5s ease;
-    opacity: 0; /* Початково приховано для анімації */
-}
-
-/* Анімація появи страви (контролюється через GSAP) */
-.dish-container .product-image {
-    animation: fadeInDish 1s ease-out forwards;
-}
-
-@keyframes fadeInDish {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -50%) translateY(30px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%) translateY(0) scale(1);
-    }
-}
-
-/* --- Карта інгредієнтів та її елементи --- */
-.ingredient-map {
-    position: absolute;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    
-    /* Стан за замовчуванням: приховано */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.ingredient-node {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100px; /* Трохи збільшимо ширину */
-    transform: scale(0.8); /* Початковий менший розмір */
-    transition: transform 0.4s ease;
-}
-
-.ingredient-node img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.2));
-}
-
-.ingredient-info {
-    text-align: center;
-    margin-top: 5px;
-    background: rgba(255,255,255,0.9);
-    padding: 5px 8px;
-    border-radius: 12px;
-    min-width: 90px;
-}
-
-.ingredient-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    display: block;
-    line-height: 1.2;
-}
-
-.ingredient-weight {
-    font-size: 12px;
-    color: #888;
-    display: block;
-    margin-top: 2px;
-    font-weight: 500;
-}
-
-/* === ОРБІТАЛЬНЕ ПОЗИЦІОНУВАННЯ ІНГРЕДІЄНТІВ === */
-/* Розміщуємо інгредієнти "по годиннику" навколо страви */
-
-/* Позиція 1: Зліва зверху (10 годин) */
-.ingredient-node.node-1 {
-    top: 0;
-    left: 10%;
-}
-
-/* Позиція 2: Справа зверху (2 години) */
-.ingredient-node.node-2 {
-    top: 10%;
-    right: 0;
-}
-
-/* Позиція 3: Зліва знизу (7 годин) */
-.ingredient-node.node-3 {
-    bottom: 5%;
-    left: 0;
-}
-
-/* Позиція 4: Справа знизу (5 годин) */
-.ingredient-node.node-4 {
-    bottom: 15%;
-    right: 10%;
-}
-
-/* --- ЛОГІКА ПОЯВИ ПРИ НАВЕДЕННІ --- */
-
-.dish-container:hover .ingredient-map,
-.dish-container.active .ingredient-map {
-    opacity: 1;
-    visibility: visible;
-}
-
-.dish-container:hover .product-image,
-.dish-container.active .product-image {
-    transform: translate(-50%, -50%) scale(0.85); /* Зменшуємо страву, зберігаючи центрування */
-}
-
-.dish-container:hover .ingredient-node,
-.dish-container.active .ingredient-node {
-    transform: scale(1); /* Збільшуємо інгредієнти до нормального розміру */
-}
-
-/* ======================================================= */
-/* INGREDIENTS - OPTIMIZED WITH VARIABLES */
-/* ======================================================= */
-
-/* ======================================================= */
-/* СТИЛІ ДЛЯ СТВОРЕННЯ ГЛИБИНИ ІНГРЕДІЄНТІВ */
-/* ======================================================= */
-
-/* Motion Blur анімація для динамічних інгредієнтів */
-@keyframes motionBlur {
-    0% {
-        filter: blur(0.5px) brightness(1);
-        transform: translateX(0);
-    }
-    50% {
-        filter: blur(2.5px) brightness(1.1); /* В середині руху розмиття сильніше */
-        transform: translateX(15px);
-    }
-    100% {
-        filter: blur(0.5px) brightness(1);
-        transform: translateX(0);
-    }
-}
-
-/* Варіація motion blur для вертикального руху */
-@keyframes motionBlurVertical {
-    0% {
-        filter: blur(0.5px) brightness(1);
-        transform: translateY(0);
-    }
-    50% {
-        filter: blur(2px) brightness(1.05);
-        transform: translateY(-12px);
-    }
-    100% {
-        filter: blur(0.5px) brightness(1);
-        transform: translateY(0);
-    }
-}
-
-/* Варіація motion blur для діагонального руху */
-@keyframes motionBlurDiagonal {
-    0% {
-        filter: blur(0.5px) brightness(1);
-        transform: translate(0, 0);
-    }
-    50% {
-        filter: blur(2.2px) brightness(1.08);
-        transform: translate(10px, -8px);
-    }
-    100% {
-        filter: blur(0.5px) brightness(1);
-        transform: translate(0, 0);
-    }
-}
-
-/* ВАЖЛИВО: z-index працює тільки для позиціонованих елементів (position: absolute/relative/etc.) */
-
-    .product-image {
-    position: relative; /* Обов'язково для роботи z-index */
-    z-index: 10;
-}
-
-/* --- Інгредієнти на ПЕРЕДНЬОМУ плані --- */
-.ingredient.foreground {
-    transform: scale(1.15); /* Трохи збільшуємо */
-    filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.25)); /* Більш глибока тінь */
-    z-index: 11; /* Буде НАД головною стравою */
-}
-
-/* --- Інгредієнти на ЗАДНЬОМУ плані --- */
-.ingredient.background {
-    transform: scale(0.8); /* Зменшуємо */
-    filter: blur(1.5px) drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2)); /* Розмиття + легка тінь */
-    opacity: 0.85; /* Трохи зменшуємо контрастність */
-    z-index: 9;  /* Буде ЗА головною стравою */
-    animation-name: motionBlur, floatAnimation; /* Комбінуємо анімації */
-    animation-duration: 5s, 18s; /* Різна тривалість для кожної */
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-}
-
-.ingredient {
-    position: absolute;
-    z-index: var(--z-ingredient);
-    width: var(--ingredient-size-base);
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
-    transition: transform var(--transition-fast);
-    animation: floatAnimation 15s ease-in-out infinite;
-    pointer-events: none;
-    opacity: 0; /* Початково приховано для анімації */
-    transform: scale(0.8) translateY(20px); /* Початкове зміщення та масштаб */
-}
-
-/* PANINI ingredients */
-.ingredient[alt="Foglia di rucola"] {
-    top: var(--panini-rucola-1-top);
-    right: var(--panini-rucola-1-right);
-    width: var(--panini-rucola-1-width);
-    transform: rotate(var(--panini-rucola-1-rotate));
-}
-
-.ingredient[alt="Fetta di prosciutto"] {
-    top: var(--panini-prosciutto-1-top);
-    left: var(--panini-prosciutto-1-left);
-    width: var(--panini-prosciutto-1-width);
-    transform: rotate(var(--panini-prosciutto-1-rotate));
-}
-
-.ingredient[alt="Pallina di mozzarella"] {
-    bottom: var(--panini-mozzarella-1-bottom);
-    left: var(--panini-mozzarella-1-left);
-    width: var(--panini-mozzarella-1-width);
-    transform: rotate(var(--panini-mozzarella-1-rotate));
-}
-
-.ingredient[alt="Crotoni"] {
-    width: 100px;
-    bottom: 20%;
-    left: 30%;
-    z-index: 5;
-    transform: rotate(-20deg);
-}
-
-/* Спеціальні motion blur анімації для PANINI інгредієнтів */
-.ingredient[alt="Foglia di rucola"].background {
-    animation-name: motionBlurVertical, floatAnimation;
-    animation-duration: 4s, 16s;
-}
-
-.ingredient[alt="Fetta di prosciutto"].background {
-    animation-name: motionBlurDiagonal, floatAnimation;
-    animation-duration: 5.5s, 19s;
-}
-
-.ingredient[alt="Pallina di mozzarella"].background {
-    animation-name: motionBlur, floatAnimation;
-    animation-duration: 6s, 17s;
-}
-
-/* PIZZA ingredients */
-.ingredient[alt="Foglia di basilico"] {
-    top: var(--pizza-basil-top);
-    left: var(--pizza-basil-left);
-    width: var(--pizza-basil-width);
-    transform: rotate(var(--pizza-basil-rotate));
-}
-
-.ingredient[alt="Peperoni"] {
-    width: 100px;
-    bottom: 25%;
-    right: 20%;
-    z-index: 2;
-    transform: rotate(-15deg);
-}
-
-.ingredient[alt="Pomodoro"] {
-    bottom: var(--pizza-tomato-bottom);
-    left: var(--pizza-tomato-left);
-    width: var(--pizza-tomato-width);
-    transform: rotate(var(--pizza-tomato-rotate));
-}
-
-.ingredient[alt="Pomodorini"] {
-    width: 70px;
-    bottom: 30%;
-    left: 25%;
-    z-index: 3;
-    transform: rotate(-10deg);
-}
-
-.ingredient[alt="Oliva"] {
-    top: var(--pizza-olive-top);
-    right: var(--pizza-olive-right);
-    width: var(--pizza-olive-width);
-    transform: rotate(var(--pizza-olive-rotate));
-}
-
-/* Спеціальні motion blur анімації для PIZZA інгредієнтів */
-.ingredient[alt="Peperoni"].background {
-    animation-name: motionBlurVertical, floatAnimation;
-    animation-duration: 4.5s, 18s;
-}
-
-.ingredient[alt="Pomodorini"].background {
-    animation-name: motionBlurDiagonal, floatAnimation;
-    animation-duration: 5s, 16s;
-}
-
-.ingredient[alt="Oliva"].background {
-    animation-name: motionBlur, floatAnimation;
-    animation-duration: 6.5s, 20s;
-}
-
-/* PASTA ingredients */
-.ingredient[alt="Parmigiano"] {
-    top: var(--pasta-parmesan-top);
-    right: var(--pasta-parmesan-right);
-    width: var(--pasta-parmesan-width);
-    transform: rotate(var(--pasta-parmesan-rotate));
-}
-
-.ingredient[alt="Pasta farfalle"] {
-    bottom: var(--pasta-farfalle-bottom);
-    right: var(--pasta-farfalle-right);
-    width: var(--pasta-farfalle-width);
-    transform: rotate(var(--pasta-farfalle-rotate));
-}
-
-.ingredient[alt="Rametto di rosmarino"] {
-    top: var(--pasta-rosemary-top);
-    left: var(--pasta-rosemary-left);
-    width: var(--pasta-rosemary-width);
-    transform: rotate(var(--pasta-rosemary-rotate));
-}
-
-/* Спеціальні motion blur анімації для PASTA інгредієнтів */
-.ingredient[alt="Parmigiano"].background {
-    animation-name: motionBlurVertical, floatAnimation;
-    animation-duration: 4s, 17s;
-}
-
-.ingredient[alt="Pasta farfalle"].background {
-    animation-name: motionBlurDiagonal, floatAnimation;
-    animation-duration: 5.5s, 19s;
-}
-
-.ingredient[alt="Rametto di rosmarino"].background {
-    animation-name: motionBlur, floatAnimation;
-    animation-duration: 6s, 18s;
-}
-
-/* ======================================================= */
-/* BUTTONS AND INTERACTIVE ELEMENTS */
-/* ======================================================= */
-
-/* ======================================================= */
-/* ЄДИНИЙ СТИЛЬ ДЛЯ КНОПКИ "ДОДАТИ В КОШИК" V2.0 */
-/* ======================================================= */
-
-.add-to-cart-btn {
-    background-color: #2d2d2d; /* Темний елегантний фон */
-    color: white;
-    border: none;
-    border-radius: 50px; /* Створює ідеальну форму "пігулки" */
-    padding: 15px 30px; /* Оптимізовані відступи */
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 1rem; /* 16px */
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    transition: all 0.3s ease; /* Плавні переходи */
-    box-shadow: 0 4px 15px rgba(45, 45, 45, 0.3);
-    
-    /* --- СТИЛІ ПОЗИЦІОНУВАННЯ --- */
-    position: absolute;
-    bottom: 12%; /* Відступ від нижнього краю екрану */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    opacity: 0; /* Початково приховано для анімації */
-    visibility: hidden; /* Початково приховано для анімації */
-    
-    /* Flexbox для іконки та тексту */
-    display: inline-flex; /* Для вирівнювання іконки і тексту */
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Оптимізований gap */
-    
-    /* Преміальні ефекти */
-    overflow: hidden;
-    position: relative;
-}
-
-/* SVG іконка */
-.btn-icon {
-    width: 20px;
-    height: 20px;
-    fill: currentColor; /* Змінюємо з stroke на fill */
-    transition: transform 0.3s ease; /* Спрощуємо transition */
-}
-
-/* Текст кнопки */
-.btn-text {
-    transition: all 0.3s ease;
-    transform: translateX(5px);
-}
-
-/* Ефект блиску при hover */
-.add-to-cart-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.add-to-cart-btn:hover::before {
-    left: 100%;
-}
-
-/* Ваш стиль для hover-ефекту */
-.add-to-cart-btn:hover {
-    transform: translateX(-50%) scale(1.05);
-}
-
-/* Анімація іконки при hover */
-.add-to-cart-btn:hover .btn-icon {
-    transform: scale(1.2); /* Спрощуємо до простого масштабування */
-}
-
-/* Анімація тексту при hover */
-.add-to-cart-btn:hover .btn-text {
-    transform: translateX(0);
-}
-
-/* Стиль для анімації після додавання в кошик */
-.add-to-cart-btn.added {
-    background: linear-gradient(135deg, #28a745 0%, #34ce57 100%); /* Зелений градієнт успіху */
-    cursor: default;
-    transform: translateX(-50%) scale(1.05);
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
-}
-
-/* Анімація іконки при додаванні */
-.add-to-cart-btn.added .btn-icon {
-    transform: translateX(0) scale(1.2);
-        opacity: 1;
-}
-
-/* Анімація тексту при додаванні */
-.add-to-cart-btn.added .btn-text {
-    transform: translateX(0);
-}
-    
-    .order-button {
-    position: absolute;
-    z-index: 4;
-    bottom: 15%;
-    padding: 15px 35px;
-    border: 2px solid var(--text-color);
-    background-color: transparent;
-    color: var(--text-color);
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
-
-/* ======================================================= */
-/* DESCRIPTION BLOCK */
-/* ======================================================= */
-
-.description-block {
-    position: absolute;
-    left: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-    max-width: 320px;
-    color: var(--text-color);
-    z-index: var(--z-description);
-    opacity: 0;
-    visibility: hidden;
-}
-
-.description-block h3 {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.description-block p {
-    font-family: var(--font-body);
-        font-size: 1rem;
-    line-height: 1.6;
-}
-
-/* ======================================================= */
-/* WATER PROMO SECTION */
-/* ======================================================= */
-
-.water-promo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px 20px;
-    height: 100%;
-}
-
-.water-bottle-image {
-    max-width: 250px;
-    margin-bottom: 20px;
-    animation: float 3s ease-in-out infinite;
-}
-
-.water-promo-text h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-.water-promo-text p {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    max-width: 400px;
-}
-
-.water-promo-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 300px;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.water-promo-price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-    font-family: var(--font-heading);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Pasta promo footer */
-.pasta-promo-footer {
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 300px;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 25px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.pasta-promo-price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--pasta-bg);
-    font-family: var(--font-heading);
-}
-
-/* ======================================================= */
-/* CART AND MODAL STYLES */
-/* ======================================================= */
-
-.cart-button {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 25px;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    z-index: 1001;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #333; /* Темний колір для контрасту */
-}
-
-.cart-button:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
-}
-
-#cart-counter {
-    font-size: 1rem;
-    margin-top: 0.2rem;
-    background-color: #ff4757;
-    color: white;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-}
-
-/* ======================================================= */
-/* ЕЛЕГАНТНА НАВІГАЦІЙНА ПАНЕЛЬ */
-/* ======================================================= */
+/* --- 4. Головний хедер (Версія "Преміум" з червоною кнопкою) --- */
 
 .main-header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    padding: 25px 40px;
+    width: 100%; 
+    padding: 20px 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Розносить лого та праву групу по краях */
     align-items: center;
     z-index: 1000;
-    
-    /* ЗМІНИ ТУТ: */
-    background-color: transparent !important; /* !important для гарантії */
-    color: white; /* Початковий колір тексту - білий */
-    transition: color 0.8s ease; /* Плавна зміна кольору тексту */
+    color: white;
+    transition: all 0.4s ease;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent); /* Затемнення як на референсі */
 }
 
-/* Новий клас для темного тексту на світлих слайдах */
-.main-header.text-dark {
-    color: #333;
-}
-
-/* ======================================================= */
-/* BURGER MENU - Mobile Navigation */
-/* ======================================================= */
-
-/* --- Спочатку ховаємо мобільні елементи на десктопі --- */
-.mobile-menu-button, .mobile-menu-container {
-    display: none;
-}
-
+/* --- Логотип --- */
 .logo {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
-    font-weight: 700;
-    color: inherit; /* Наслідує колір від хедера */
+    color: inherit;
     text-decoration: none;
-    letter-spacing: 1px;
-    transition: color 0.8s ease; /* Плавна зміна кольору */
+    font-weight: 700;
 }
 
+/* ✨ NEW: Контейнер для правої групи */
+.header-right-group {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Відстань між навігацією та кнопкою */
+}
+
+/* --- Центральна навігація --- */
 .main-nav {
     display: flex;
-    gap: 30px;
-    align-items: center;
+    gap: 35px; /* Відстань між посиланнями */
 }
 
 .nav-link {
-    font-family: 'Lato', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem; /* ✨ NEW: Збільшений текст */
     font-weight: 600;
-    color: inherit; /* Наслідує колір від хедера */
+    color: inherit;
     text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 25px;
-    transition: all 0.3s ease;
+    padding: 10px 0;
     position: relative;
-    overflow: hidden;
+    letter-spacing: 0.5px; /* ✨ NEW: Додає "повітря" та витонченості */
 }
 
-.nav-link::before {
+/* Ефект підкреслення при наведенні */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; 
+    height: 2px;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* ✨ NEW: Стиль для червоної кнопки-дзвінка */
+.header-cta-btn {
+    background-color: #D9534F; /* Червоний колір */
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px; /* Скруглені кути */
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.header-cta-btn:hover {
+    background-color: #C44741; /* Темніший червоний при наведенні */
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(217, 83, 79, 0.3);
+}
+
+/* --- 5. Секція Hero (фон) --- */
+.hero-video-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+.hero-video-background video { width: 100%; height: 100%; object-fit: cover; }
+.story-text-block { max-width: 600px; text-align: center; margin: 25vh auto; }
+.story-text-block h2 { font-family: var(--font-heading); font-size: 3.5rem; }
+
+/* --- 6. Базові стилі для модальних вікон --- */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; }
+.modal-content { background: rgba(28, 28, 30, 0.85); backdrop-filter: blur(20px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); width: 90vw; height: 90vh; position: relative; }
+
+/* --- 7. Стилі для Hover Gallery (Версія з видимими блоками) --- */
+
+#hover-gallery-menu { display: flex; overflow: hidden; height: 100%; padding: 0; }
+
+.category-list { display: flex; width: 100%; height: 100%; list-style: none; margin: 0; padding: 0; z-index: 3; }
+
+.category-strip {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    border-right: 1px solid rgba(0, 0, 0, 0.5); /* Більш темна межа */
+
+    /* ✨ NEW: Властивості фону тепер тут */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.category-strip:last-child { border-right: none; }
+
+/* ✨ NEW: Затемнюючий шар для кожної смуги для читабельності тексту */
+.category-strip::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
+        left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.5s ease;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color 0.5s ease;
 }
 
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* ✨ NEW: При наведенні шар стає світлішим, "підсвічуючи" блок */
+.category-strip:hover::before {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
-/* Темний hover для світлих слайдів */
-.main-header.text-dark .nav-link:hover {
-    background: rgba(0, 0, 0, 0.1);
-}
+.category-strip:hover { flex: 5; }
 
-.nav-link:hover::before {
-    left: 100%;
-}
-
-.nav-link:active {
-    transform: translateY(0);
-}
-
-/* Кнопка резервації */
-.reserve-button {
-    background: linear-gradient(135deg, #D9534F, #C44741);
+.strip-title {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
     color: white;
-    padding: 12px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
-    display: inline-block;
-}
-
-.reserve-button:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 25px rgba(217, 83, 79, 0.4);
-    background: linear-gradient(135deg, #C44741, #B03D37);
-}
-
-.reserve-button:active {
-    transform: translateY(0) scale(1);
-}
-
-/* Темна версія кнопки для світлих слайдів */
-.main-header.text-dark .reserve-button {
-    background: linear-gradient(135deg, #D9534F, #C44741);
-    color: white;
-}
-
-/* ======================================================= */
-/* HEADER PHONE LINK - Main CTA */
-/* ======================================================= */
-
-.header-phone-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: inherit; /* Успадковує колір тексту хедера */
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
     font-weight: 700;
-    border: 2px solid currentColor; /* Рамка в колір тексту */
-    padding: 8px 15px;
-    border-radius: 50px;
-    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.header-phone-link:hover {
-    background-color: currentColor; /* Заливка кольором тексту */
-    color: #fff; /* Текст стає білим */
+.category-strip:hover .strip-title {
+    font-size: 2.2rem;
+    bottom: 30px;
 }
 
-.phone-icon {
-    font-size: 1.2rem;
-    display: inline-block;
-}
+.close-button { position: absolute; top: 20px; right: 20px; z-index: 4; background: none; border: none; font-size: 2rem; color: white; cursor: pointer; }
 
-.phone-text {
-    font-family: var(--font-body);
-    letter-spacing: 0.5px;
-}
-
-/* Ховаємо текст на дуже маленьких екранах, залишаючи іконку */
-@media (max-width: 480px) {
-    .phone-text {
-        display: none;
-    }
-}
-
-/* Phone link in mobile menu */
-.phone-link-mobile {
-    background: linear-gradient(135deg, #D9534F, #C44741) !important;
-    color: white !important;
-    font-weight: 700 !important;
-    margin-top: 20px;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 15px 20px !important;
-    font-size: 1.1rem !important;
-}
-
-.phone-link-mobile:hover {
-    background: linear-gradient(135deg, #C44741, #B03D37) !important;
-    transform: translateX(-5px) scale(1.02);
-}
-
-/* Modal styles */
-.modal {
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal.hidden {
-    display: none;
-}
-
-.modal-overlay {
+/* --- 8. Стилі для списку страв --- */
+.dish-list-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-/* ======================================================= */
-/* ЄДИНИЙ СТИЛЬ ДЛЯ ВСІХ МОДАЛЬНИХ ВІКОН */
-/* ======================================================= */
-
-.modal-content {
-    background: rgba(28, 28, 30, 0.85); /* Напівпрозорий темно-сірий */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    color: #F2F2F7; /* Світлий колір тексту */
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 90vh;
-    position: relative;
-    font-family: var(--font-body);
+    background: rgba(10, 10, 10, 0.9);
+    z-index: 5;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
     overflow-y: auto;
+    padding: 60px 40px;
+    }
+.dish-list-container:not(.hidden) {
+        opacity: 1;
+        visibility: visible;
+    }
+.menu-back-btn {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.dish-list-title {
+    font-family: var(--font-heading);
+        font-size: 3rem;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.dish-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 25px;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+}
+.dish-item-image { width: 100%; border-radius: 12px; }
+.dish-item-info h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 10px; }
+.dish-item-info p { color: #ccc; line-height: 1.6; margin-bottom: 15px; }
+.dish-item-info .price { font-size: 1.5rem; font-weight: 700; }
+
+/* Повністю приховуємо блок мобільного меню */
+#mobile-menu {
+    display: none !important;
 }
 
-.modal-header h2 { 
-    color: #FFFFFF; 
+/* ✨ Затемнення для хедера, щоб текст завжди було видно */
+.hero-video-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* Висота затемнення, можна налаштувати */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+    z-index: 0; /* Розміщуємо під хедером, але над відео */
+    pointer-events: none; /* Градієнт не буде заважати клікам */
 }
 
-.close-button, .menu-back-button { 
-    color: #ccc; 
+/* Переконуємось, що хедер знаходиться вище градієнту */
+.main-header {
+    z-index: 1000 !important;
 }
 
-.close-button:hover, .menu-back-button:hover { 
-    color: #fff; 
+/* ✨ Приховуємо зайві елементи керування, як-от стрілки слайдера */
+.swiper-button-next,
+.swiper-button-prev {
+    display: none !important;
 }
 
-/* Стилі для модального вікна філософії */
-.philosophy-content {
+/* ✨ Приховує скролбар для всього сайту (альтернативне рішення) */
+body::-webkit-scrollbar {
+    display: none; /* Для Chrome, Safari, Opera */
+}
+body {
+    -ms-overflow-style: none;  /* Для IE та Edge */
+    scrollbar-width: none;  /* Для Firefox */
+}
+
+/* --- Преміум-стилі для модального вікна "La Nostra Storia" --- */
+.story-content {
     max-width: 900px;
-    max-height: 85vh;
-    overflow-y: auto;
+    background: #1C1C1E; /* Глибокий темний фон */
+    padding: 30px;
 }
 
-.philosophy-body {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-    margin-top: 20px;
+.story-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Дві рівні колонки */
+    gap: 40px;
+    align-items: center;
 }
 
-.philosophy-image-container {
-    flex: 1;
-    min-width: 300px;
-}
-
-.philosophy-image {
+.story-image {
     width: 100%;
     height: auto;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
 }
 
-.philosophy-image:hover {
-    transform: scale(1.02);
-}
-
-.philosophy-text-container {
-    flex: 1;
-    padding-left: 20px;
-}
-
-.philosophy-text-container h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--text-color);
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.philosophy-text-container p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin-bottom: 20px;
-    color: #555;
-}
-
-.philosophy-text-container strong {
-    color: var(--text-color);
-    font-weight: 600;
-}
-
-.philosophy-signature {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 2px solid #eee;
-    text-align: right;
-}
-
-.philosophy-signature p {
-    font-style: italic;
-    color: #777;
-    font-size: 1rem;
-    margin: 0;
-}
-
-/* === Стилі для модального вікна резервації === */
-.reservation-content {
-    max-width: 700px;
-}
-
-.reservation-body {
-    padding: 20px 0;
-}
-
-.reservation-intro {
-    font-size: 1.1rem;
-    text-align: center;
-    color: #555;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-
-.reservation-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin: 30px 0;
-}
-
-.info-block {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 4px solid #D9534F;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.info-block:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.info-block h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 12px;
-}
-
-.info-block p {
-    font-size: 1rem;
-    color: #555;
-    margin: 8px 0;
-    line-height: 1.6;
-}
-
-.info-block a {
-    color: #D9534F;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.info-block a:hover {
-    color: #C44741;
-    text-decoration: underline;
-}
-
-.info-note {
-    font-size: 0.9rem;
-    color: #999;
-    font-style: italic;
-}
-
-.reservation-cta {
-    background: linear-gradient(135deg, #fff5f5, #ffe8e8);
-    padding: 25px;
-    border-radius: 12px;
-    text-align: center;
-    margin-top: 30px;
-    border: 2px solid #D9534F;
-}
-
-.reservation-cta p {
-    margin: 10px 0;
-    font-size: 1rem;
-    color: #555;
-}
-
-.reservation-cta strong {
-    color: #D9534F;
-    font-size: 1.2rem;
-}
-
-/* Стилі для форми резервації */
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.form-note {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #999;
-    margin-top: 15px;
-    font-style: italic;
-}
-
-.contact-alternative {
-    margin-top: 30px;
-    padding-top: 25px;
-    border-top: 2px solid #eee;
-    text-align: center;
-}
-
-.contact-alternative p {
-    margin: 8px 0;
-    font-size: 1rem;
-    color: #555;
-}
-
-.contact-alternative a {
-    color: #D9534F;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-.contact-alternative a:hover {
-    color: #C44741;
-    text-decoration: underline;
-}
-
-/* Menu header */
-.menu-header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--panini-bg);
-}
-
-.menu-header h2 {
+.story-text-container h3 {
     font-family: var(--font-heading);
     font-size: 2.5rem;
-    color: var(--text-color);
-    margin-bottom: 10px;
-}
-
-.menu-header p {
-    color: #666;
-    font-size: 1.1rem;
-}
-
-/* Category filter buttons */
-.category-filters {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.category-btn {
-    background: transparent;
-    border: 2px solid var(--pasta-bg);
-    color: var(--pasta-bg);
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.category-btn:hover,
-.category-btn.active {
-    background: var(--pasta-bg);
     color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(132, 148, 88, 0.3);
-}
-
-/* Menu items grid */
-.menu-items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
     margin-bottom: 20px;
+    line-height: 1.2;
 }
 
-/* Кінематографічні переходи між екранами меню */
-#category-gallery-container, #dish-grid-container {
-    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+.story-text-container p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #AEAEB2; /* М'який сірий для тексту */
 }
 
-/* Клас для екрану, який "виїжджає" */
-.is-exiting {
-    position: absolute; /* Важливо для плавного переходу */
-    transform: translateX(-50px);
-    opacity: 0;
+.story-signature {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: right;
+    font-family: var(--font-heading);
+    font-style: italic;
+    color: #ccc;
 }
 
-/* Menu item card */
-.menu-item-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: all var(--transition-medium);
-    position: relative;
-    border: 1px solid #f0f0f0;
-    display: flex;
-    flex-direction: column; /* Розташовуємо елементи вертикально */
-    justify-content: space-between; /* Розтягуємо контент на всю висоту */
-    height: 100%; /* Забезпечуємо однакову висоту всіх карток */
+/* --- Преміум-стилі для модального вікна "Контакти" --- */
+.contacts-content {
+    max-width: 800px;
+    background: #1C1C1E;
+    padding: 0; /* Прибираємо старі відступи, щоб хедер прилягав */
 }
 
-.menu-item-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+.contacts-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
 }
-
-.menu-item-card.special::before {
-    content: "⭐ Хіт";
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+.contacts-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
     color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
 }
 
-.special-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+.contacts-body {
+    padding: 30px;
+}
+
+.contact-cta {
+    background: rgba(217, 83, 79, 0.1); /* Легкий червоний фон */
+    border: 1px solid rgba(217, 83, 79, 0.5);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.contact-cta h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
     color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    margin: 0;
 }
-
-.menu-item-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: transform var(--transition-medium);
+.contact-cta p {
+    color: #AEAEB2;
+    margin: 10px 0 20px 0;
 }
-
-.menu-item-card:hover .menu-item-image {
+.cta-phone-button {
+    display: inline-block;
+    background-color: #D9534F;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.cta-phone-button:hover {
+    background-color: #C44741;
     transform: scale(1.05);
 }
 
-.menu-item-info {
-    padding: 20px;
-}
-
-.menu-item-name {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
-
-.menu-item-description {
-    color: #666;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 15px;
-    min-height: 60px;
-}
-
-.menu-item-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto; /* Притискаємо footer до низу */
-    padding-top: 15px;
-    border-top: 1px solid #f0f0f0;
-}
-
-.menu-item-price {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--pasta-bg);
-    font-family: var(--font-heading);
-}
-
-/* Витончена валюта */
-.currency {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #999;
-    margin-left: 2px;
-}
-
-.menu-item-add-btn {
-    background-color: #2d2d2d; /* Темний елегантний фон */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    min-width: 80px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* SVG іконка для кнопок в меню */
-.menu-item-add-btn .btn-icon {
-    width: 16px;
-    height: 16px;
-    fill: currentColor; /* Змінюємо з stroke на fill */
-    transition: transform 0.3s ease; /* Спрощуємо transition */
-}
-
-/* Текст для кнопок в меню */
-.menu-item-add-btn .btn-text {
-    transition: all 0.3s ease;
-    transform: translateX(3px);
-}
-
-.menu-item-add-btn:hover {
-    background-color: #3d3d3d; /* Світліший відтінок при hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(45, 45, 45, 0.4);
-}
-
-.menu-item-add-btn:hover .btn-icon {
-    transform: scale(1.2); /* Спрощуємо до простого масштабування */
-}
-
-.menu-item-add-btn:hover .btn-text {
-    transform: translateX(0);
-}
-
-.menu-item-add-btn:active {
-    transform: translateY(0);
-}
-
-/* Empty state */
-.menu-empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #666;
-}
-
-.menu-empty-state h3 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    color: var(--text-color);
-}
-
-.menu-empty-state p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
-/* Responsive menu */
-@media (max-width: 768px) {
-.modal-content {
-        width: 95%;
-        padding: 15px;
-    }
-    
-    /* Мобільні стилі для модального вікна філософії */
-    .philosophy-body {
-    flex-direction: column;
-        gap: 20px;
-    }
-    
-    .philosophy-image-container {
-        min-width: 100%;
-    }
-    
-    .philosophy-text-container {
-        padding-left: 0;
-    }
-    
-    .philosophy-text-container h3 {
-        font-size: 1.5rem;
-    }
-    
-    .philosophy-text-container p {
-    font-size: 1rem;
-    }
-    
-    .menu-header h2 {
-    font-size: 2rem;
-    }
-    
-    .category-filters {
-        gap: 10px;
-    }
-    
-    .category-btn {
-        padding: 10px 18px;
-        font-size: 0.9rem;
-    }
-    
-    .menu-items-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .menu-item-card {
-        margin: 0 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .category-filters {
-        flex-direction: column;
-    align-items: center;
-    }
-    
-    .category-btn {
-        width: 200px;
-    }
-    
-    .menu-item-info {
-        padding: 15px;
-    display: flex;
-    flex-direction: column;
-        flex-grow: 1;
-    }
-    
-    .menu-item-name {
-        font-size: 1.2rem;
-    }
-    
-    .menu-item-description {
-        font-size: 0.9rem;
-        min-height: 50px;
-        flex-grow: 1;
-    }
-    
-    .menu-item-footer {
-        flex-direction: column;
-        gap: 10px;
-        align-items: stretch;
-        margin-top: 15px;
-    }
-    
-    .menu-item-price {
-        font-size: 1.2rem;
-    text-align: center;
-    }
-    
-    .menu-item-add-btn {
-    width: 100%;
-        padding: 12px 20px;
-    font-size: 1rem;
-    }
-}
-
-/* ======================================================= */
-/* ОРИГІНАЛЬНА КНОПКА ЗАКРИТТЯ МОДАЛЬНОГО ВІКНА */
-/* ======================================================= */
-
-.modal-header {
-    position: relative; /* Необхідно для позиціонування кнопки */
-    text-align: center;
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
     margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--panini-bg);
 }
 
-.modal-header h2 {
+.info-block {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+}
+.info-block h4 {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--text-color);
+    font-size: 1.2rem;
+    color: white;
     margin-bottom: 10px;
 }
-
-.close-button {
-    position: absolute; /* Позиціонуємо відносно .modal-header */
-    top: 10px;
-    right: 10px;
-
-    /* Дизайн */
-    background-color: #f1f1f1;
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    
-    /* Стиль для "хрестика" */
-    font-size: 24px;
-    line-height: 36px; /* Вертикальне вирівнювання хрестика */
-    text-align: center;
-    color: #888;
-    
-    transition: all 0.3s ease;
+.info-block p {
+    color: #AEAEB2;
+    line-height: 1.6;
+    margin: 0;
 }
 
-.close-button:hover {
-    background-color: #e0e0e0;
-    color: #333;
-    transform: rotate(90deg); /* Ефект обертання при наведенні */
+.philosophy-block {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.philosophy-block h4 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 10px;
+}
+.philosophy-block p {
+    color: #AEAEB2;
+    line-height: 1.6;
+        font-size: 0.9rem;
+    text-align: justify;
 }
 
-/* Menu back button */
-.menu-back-button {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #333;
-    padding: 8px 15px;
-    transition: all 0.3s ease;
-}
+/* ============================================== */
+/* === МОБІЛЬНА АДАПТАЦІЯ === */
+/* ============================================== */
 
-.menu-back-button:hover {
-    color: #D9534F;
-    transform: translateY(-50%) translateX(-3px);
-}
-
-/* ======================================================= */
-/* ANIMATIONS - SINGLE DEFINITION */
-/* ======================================================= */
-
-@keyframes floatAnimation {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(5px, -10px); }
-    50% { transform: translate(-5px, 5px); }
-    75% { transform: translate(5px, 10px); }
-    100% { transform: translate(0, 0); }
-}
-
-@keyframes pulseAnimation {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes waterRise {
-    0% { transform: translate(0, 120px); }
-    100% { transform: translate(0, 80px); }
-}
-
-@keyframes ripple {
-    0% { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(1.5); }
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* ======================================================= */
-/* RESPONSIVE DESIGN */
-/* ======================================================= */
-
-/* Tablets */
 @media (max-width: 768px) {
-    /* Навігаційна панель для планшетів */
+
+    /* --- 1. Адаптація хедера --- */
     .main-header {
-        padding: 12px 20px;
+        padding: 15px 20px;
     }
     
     /* Ховаємо десктопну навігацію */
-    .desktop-nav {
-        display: none !important;
+    .header-right-group {
+        display: none;
     }
 
-    /* Показуємо і стилізуємо кнопку "бургер" */
+    /* Показуємо і стилізуємо кнопку-бургер */
     .mobile-menu-button {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
         justify-content: space-around;
         width: 30px;
@@ -1757,2485 +439,270 @@ main {
         background: transparent;
         border: none;
         cursor: pointer;
-        padding: 0;
-        z-index: 2001; /* Поверх всього */
+        z-index: 2001; /* Поверх усього */
     }
 
     .mobile-menu-button span {
         width: 30px;
         height: 3px;
-        background: currentColor; /* Успадковує колір тексту хедера */
+        background: white;
         border-radius: 10px;
         transition: all 0.3s linear;
         position: relative;
         transform-origin: 1px;
     }
 
-    /* Анімація бургера в "X" при відкритті */
-    /* Контейнер мобільного меню з преміальним glassmorphism */
+    /* Анімація бургер-меню в "X" */
+    .mobile-menu-button.open span:nth-child(1) { transform: rotate(45deg); }
+    .mobile-menu-button.open span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+    .mobile-menu-button.open span:nth-child(3) { transform: rotate(-45deg); }
+
+    /* Повноекранне меню */
     .mobile-menu-container {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        /* ВИКОРИСТОВУЄМО ЕФЕКТ СКЛА */
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        
-        display: flex !important;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(15px);
+        z-index: 2000;
+        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        z-index: 2000;
-        
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
     }
-
     .mobile-menu-container.open {
         opacity: 1;
         visibility: visible;
     }
-
     .mobile-menu-link {
         color: white;
         text-decoration: none;
-        font-size: 2rem;
+        font-size: 2.2rem;
         margin: 20px 0;
-        font-family: 'Playfair Display', serif;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    /* Анімація появи посилань з затримкою */
-    .mobile-menu-container.open .mobile-menu-link {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .mobile-menu-container.open .mobile-menu-link:nth-child(1) { transition-delay: 0.1s; }
-    .mobile-menu-container.open .mobile-menu-link:nth-child(2) { transition-delay: 0.2s; }
-    .mobile-menu-container.open .mobile-menu-link:nth-child(3) { transition-delay: 0.3s; }
-    .mobile-menu-container.open .mobile-menu-link:nth-child(4) { transition-delay: 0.4s; }
-
-    /* Анімація іконки "бургер" -> "хрестик" */
-    .mobile-menu-button { z-index: 2001; }
-    .mobile-menu-button.open span:nth-child(1) { transform: rotate(45deg); }
-    .mobile-menu-button.open span:nth-child(2) { opacity: 0; }
-    .mobile-menu-button.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-    
-    /* Преміальний стиль для всіх модальних вікон на мобільних */
-    .modal-content {
-        background: #1C1C1E; /* Глибокий темно-сірий */
-        color: #F2F2F7; /* Світлий колір тексту */
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        width: 90%;
-        max-width: 500px;
-    }
-
-    .modal-header {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .modal-header h2 {
-        color: #FFFFFF; /* Чистий білий для заголовків */
-    }
-
-    /* Оновлюємо стилі для контенту всередині модальних вікон */
-    .story-body img {
-        border-radius: 12px;
-    }
-    
-    .story-text p, .contact-item p {
-        color: #AEAEB2; /* М'який сірий для тексту */
-    }
-    
-    .contact-item strong {
-        color: #F2F2F7;
-    }
-    
-    /* Перемикаємо відео для мобільних */
-    .desktop-video {
-        display: none; /* Ховаємо desktop відео */
-    }
-    
-    .mobile-video {
-        display: block; /* Показуємо mobile відео */
-    }
-    
-    .logo {
-        font-size: 1.5rem;
-    }
-    
-    .main-nav {
-        gap: 20px;
-    }
-    
-    .nav-link {
-        font-size: 0.9rem;
-        padding: 6px 12px;
-    }
-    
-    .cart-button {
-        top: 15px;
-        right: 20px;
-        padding: 10px 16px;
-        font-size: 14px;
-    }
-    
-    
-    .product-image {
-        max-width: 400px;
-        width: 65%;
-    }
-    
-    .slide-content h1 {
-        font-size: 25vw;
-    }
-    
-    .ingredient {
-        width: var(--ingredient-size-tablet);
-    }
-    
-    /* Планшетні стилі для ефекту глибини */
-    .ingredient.foreground {
-        transform: scale(1.12) !important; /* Проміжне збільшення для планшетів */
-        filter: drop-shadow(7px 7px 12px rgba(0, 0, 0, 0.22)) !important; /* Проміжна тінь */
-        z-index: 11 !important; /* Буде НАД головною стравою */
-    }
-    
-    .ingredient.background {
-        transform: scale(0.82) !important; /* Проміжне зменшення для планшетів */
-        filter: blur(1.2px) drop-shadow(2.5px 2.5px 4.5px rgba(0, 0, 0, 0.18)) !important; /* Проміжне розмиття */
-        opacity: 0.87 !important; /* Проміжна прозорість */
-        z-index: 9 !important; /* Буде ЗА головною стравою */
-        animation-name: motionBlur, floatAnimation !important; /* Комбінуємо анімації */
-        animation-duration: 6s, 20s !important; /* Трохи довша тривалість для планшетів */
-        animation-iteration-count: infinite !important;
-        animation-timing-function: ease-in-out !important;
-    }
-    
-    .water-bottle-image {
-        max-width: 180px;
-    }
-    
-    .water-promo-text h2 {
-        font-size: 2rem;
-    }
-    
-    .pasta-promo-footer {
-        position: static;
-        transform: none;
-        margin-top: 20px;
-        max-width: 90%;
-    }
-    
-}
-
-/* Mobile phones */
-@media (max-width: 480px) {
-    /* Навігаційна панель для мобільних */
-    .main-header {
-        padding: 10px 15px;
-        flex-direction: column;
-        gap: 10px;
-        position: relative;
-    }
-    
-    .logo {
-        font-size: 1.3rem;
-        order: 1;
-    }
-    
-    .main-nav {
-        gap: 15px;
-        order: 2;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .nav-link {
-        font-size: 0.8rem;
-        padding: 5px 10px;
-        border-radius: 20px;
-    }
-    
-    .cart-button {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        padding: 8px 12px;
-        font-size: 13px;
-        border-radius: 20px;
-    }
-    
-    
-    .product-image {
-        max-width: 280px;
-        width: 70%;
-    }
-    
-    /* Стилізуємо назву страви (старий h1) */
-    .slide-content h1 {
-        font-size: 15vw; /* Зменшуємо розмір */
-        position: static;
-        order: 3; /* Розміщуємо після зображення та опису */
-        margin-top: 20px;
-        color: inherit; /* Успадковуємо колір для кращої читабельності */
-        opacity: 0.8;
-    }
-    
-    .ingredient {
-        width: var(--ingredient-size-mobile);
-    }
-    
-    /* Mobile layout with Flexbox */
-    .slide-content {
-    display: flex;
-        flex-direction: column; /* Головний напрямок - стовпчик */
-        justify-content: center; /* Головна зміна: центруємо контент */
-    align-items: center;
-        height: 100%;
-        padding: 20px;
-        text-align: center;
-        position: relative;
-    }
-    
-    /* 1. Блок з текстом */
-    .description-block {
-        position: static !important; /* Скидаємо абсолютне позиціонування! */
-        transform: none !important;
-        order: 1; /* Перший по порядку */
-        text-align: center;
-        width: 90%;
-        flex-shrink: 0;
-        left: auto !important;
-        top: auto !important;
-        max-width: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        /* Прибираємо margin-bottom, бо flexbox сам розподілить простір */
-    }
-    
-    /* 2. Головне зображення страви */
-    .product-image {
-        position: static !important; /* Скидаємо абсолютне позиціонування! */
-        transform: none !important;
-        order: 2; /* Другий по порядку */
-        max-width: 70%; /* Зменшуємо максимальну ширину зображення */
-        margin-bottom: 20px;
-        flex-shrink: 0;
-        z-index: 10 !important; /* Зберігаємо z-index для роботи з інгредієнтами */
-    }
-    
-    /* 3. Кнопка "Додати" */
-    .add-to-cart-btn {
-        position: static !important; /* Скидаємо абсолютне позиціонування! */
-        transform: none !important;
-        order: 3; /* Третя по порядку */
-        margin: 0 auto; /* Центруємо кнопку */
-        padding: 15px 35px; /* Зменшені відступи для мобільних */
-        font-size: 0.9rem; /* Трохи менший шрифт */
-        flex-shrink: 0;
-        bottom: auto !important;
-        left: auto !important;
-        z-index: auto !important;
-        gap: 10px; /* Зменшений gap для мобільних */
-    }
-    
-    /* SVG іконка для мобільних */
-    .add-to-cart-btn .btn-icon {
-        width: 18px;
-        height: 18px;
-    }
-    
-    /* Hover ефекти для мобільних */
-    .add-to-cart-btn:hover {
-        transform: none !important; /* Відключаємо hover трансформації на мобільних */
-        box-shadow: 0 8px 20px rgba(90, 107, 72, 0.3);
-    }
-    
-    
-    /* Приборкуємо декоративні інгредієнти */
-    .ingredient {
-        position: absolute; /* Інгредієнти залишаються абсолютними */
-        width: 80px; /* Збільшено з 60px */
-        z-index: -1; /* Ховаємо їх ЗА основний контент, щоб не заважали тексту */
-    }
-    
-    /* Мобільні стилі для ефекту глибини */
-    .ingredient.foreground {
-        transform: scale(1.1) !important; /* Менше збільшення на мобільних */
-        filter: drop-shadow(5px 5px 8px rgba(0, 0, 0, 0.2)) !important; /* Менша тінь */
-        z-index: 11 !important; /* Буде НАД головною стравою */
-    }
-    
-    .ingredient.background {
-        transform: scale(0.85) !important; /* Менше зменшення на мобільних */
-        filter: blur(1px) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.15)) !important; /* Менше розмиття */
-        opacity: 0.9 !important; /* Менше зменшення прозорості */
-        z-index: 9 !important; /* Буде ЗА головною стравою */
-        animation-name: motionBlur, floatAnimation !important; /* Комбінуємо анімації */
-        animation-duration: 7s, 22s !important; /* Найдовша тривалість для мобільних */
-        animation-iteration-count: infinite !important;
-        animation-timing-function: ease-in-out !important;
-    }
-    
-    /* Позиціонування для інгредієнтів паніні */
-    .ingredient[alt="Fetta di prosciutto"] {
-    top: 15%;
-        left: 10%;
-        width: 90px; /* Збільшено з 70px */
-    }
-    
-.ingredient[alt="Foglia di rucola"] {
-        top: 25%;
-    right: 25%;
-        width: 80px; /* Збільшено з 60px */
-    }
-    
-.ingredient[alt="Pallina di mozzarella"] {
-        bottom: 25%;
-        left: 30%;
-        width: 90px; /* Збільшено з 70px */
-    }
-    
-.ingredient[alt="Crotoni"] {
-        bottom: 28%;
-        right: 25%;
-        width: 70px; /* Збільшено з 50px */
-    }
-    
-    /* Позиціонування для інгредієнтів піци */
-.ingredient[alt="Foglia di basilico"] {
-        top: 25%;
-    left: 25%;
-        width: 75px; /* Збільшено з 55px */
-}
-
-.ingredient[alt="Pomodoro"] {
-    bottom: 25%;
-        left: 28%;
-        width: 85px; /* Збільшено з 65px */
-    }
-    
-.ingredient[alt="Pomodorini"] {
-    bottom: 30%;
-    left: 40%;
-        width: 65px; /* Збільшено з 45px */
-}
-
-.ingredient[alt="Oliva"] {
-        top: 28%;
-        right: 25%;
-        width: 70px; /* Збільшено з 50px */
-    }
-    
-    /* Позиціонування для інгредієнтів пасти - розділити пармезан і пасту */
-.ingredient[alt="Parmigiano"] {
-        top: 25%;
-        left: 25%;
-        width: 80px; /* Збільшено з 60px */
-    }
-    
-.ingredient[alt="Pasta farfalle"] {
-        bottom: 25%;
-        right: 28%;
-        width: 75px; /* Збільшено з 55px */
-    }
-    
-.ingredient[alt="Rametto di rosmarino"] {
-        top: 30%;
-        right: 25%;
-        width: 70px; /* Збільшено з 50px */
-    }
-}
-
-/* ======================================================= */
-/* ACCESSIBILITY */
-/* ======================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .swiper {
-        transition: none !important;
-    }
-    
-    body {
-        transition: none !important;
-        /* Повноекранний режим на мобільних */
-        display: block !important;
-        height: 100% !important;
-        width: 100% !important;
-    }
-    
-    .ingredient {
-        transition: none !important;
-    }
-}
-
-.order-button:focus,
-.swiper-button-prev:focus,
-.swiper-button-next:focus {
-    outline: 3px solid #007bff;
-    outline-offset: 2px;
-}
-
-@media (prefers-contrast: high) {
-    .order-button {
-        border-width: 3px;
-        font-weight: 900;
-    }
-    
-    .slide-content h1 {
-        /* Варіант А: Зробити майже прозорим */
-        opacity: 0.03;
-        
-        /* Варіант Б (рекомендовано): Повністю приховати для чистоти */
-        display: none;
-        
-        /* Якщо вирішимо залишити текст, то по центру */
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    width: 100%;
-    }
-}
-
-/* ======================================================= */
-/* CART STYLES */
-/* ======================================================= */
-
-.cart-modal .modal-content {
-    max-width: 500px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.cart-header {
-    text-align: center;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--panini-bg);
-}
-
-.cart-header h2 {
     font-family: var(--font-heading);
-    font-size: 2rem;
-    color: var(--text-color);
-    margin-bottom: 5px;
-}
-
-.cart-header p {
-    color: #666;
-    font-size: 1rem;
-}
-
-/* Cart items */
-.cart-items-container {
-    margin-bottom: 25px;
-}
-
-.cart-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    margin-bottom: 15px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all var(--transition-fast);
-    border: 1px solid #f0f0f0;
-}
-
-.cart-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.cart-item-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
+    }
+    .mobile-menu-link.cta {
+        background: #D9534F;
+        padding: 10px 25px;
     border-radius: 8px;
-    margin-right: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.cart-item-details {
-    flex-grow: 1;
-}
-
-.cart-item-name {
-    font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 8px;
-    font-size: 1rem;
-}
-
-.cart-item-controls {
-    display: flex;
-        align-items: center;
-    gap: 10px;
-}
-
-.quantity-btn {
-    width: 30px;
-    height: 30px;
-    border: 2px solid var(--pasta-bg);
-    background: transparent;
-    color: var(--pasta-bg);
-    border-radius: 50%;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: all var(--transition-fast);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.quantity-btn:hover {
-    background: var(--pasta-bg);
-    color: white;
-    transform: scale(1.1);
-}
-
-.cart-item-quantity {
-    font-weight: 600;
-    color: var(--text-color);
-    min-width: 20px;
-    text-align: center;
-}
-
-.cart-item-price-section {
-    display: flex;
-        flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-}
-
-.cart-item-price {
-    font-weight: 700;
-    color: var(--pasta-bg);
-    font-size: 1.1rem;
-}
-
-.remove-from-cart-btn {
-    width: 25px;
-    height: 25px;
-    border: none;
-    background: #ff4757;
-    color: white;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: all var(--transition-fast);
-        display: flex;
-        align-items: center;
-    justify-content: center;
-}
-
-.remove-from-cart-btn:hover {
-    background: #ff3742;
-    transform: scale(1.1);
-}
-
-/* Cart total */
-.cart-total {
-    padding: 20px;
-    background: linear-gradient(135deg, var(--panini-bg), #f8f9fa);
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #e9ecef;
-}
-
-.cart-total-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-        margin-bottom: 10px;
-    }
-    
-.cart-total-label {
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.cart-total-price {
-    font-weight: 700;
-    color: var(--pasta-bg);
-    font-size: 1.3rem;
-}
-
-/* Empty cart state */
-.cart-empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #666;
-}
-
-.cart-empty-state .empty-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    opacity: 0.5;
-}
-
-.cart-empty-state h3 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    color: var(--text-color);
-}
-
-.cart-empty-state p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 25px;
-}
-
-.cart-empty-state .go-to-menu-btn {
-    background: linear-gradient(45deg, var(--pasta-bg), #6b8e23);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.cart-empty-state .go-to-menu-btn:hover {
-    background: linear-gradient(45deg, #6b8e23, var(--pasta-bg));
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(132, 148, 88, 0.3);
-}
-
-/* Recommendations */
-.cart-recommendations {
-    margin-top: 20px;
-    padding: 20px;
-    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-    border-radius: 12px;
-    border-left: 4px solid #ffc107;
-}
-
-.cart-recommendations h4 {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    color: var(--text-color);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.cart-recommendations p {
-    color: #856404;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 15px;
-}
-
-.recommendation-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background: white;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    border: 1px solid #ffeaa7;
-}
-
-.recommendation-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
-}
-
-.recommendation-item img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-right: 12px;
-}
-
-.recommendation-item-info {
-        flex-grow: 1;
-}
-
-.recommendation-item-name {
-    font-weight: 600;
-    color: var(--text-color);
-    font-size: 0.9rem;
-}
-
-.recommendation-item-price {
-    color: var(--pasta-bg);
-    font-weight: 600;
-    font-size: 0.85rem;
-}
-
-/* Cart buttons */
-.cart-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.cart-actions .btn {
-    flex: 1;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.btn-secondary {
-    background: transparent;
-    border: 2px solid var(--pasta-bg);
-    color: var(--pasta-bg);
-}
-
-.btn-secondary:hover {
-    background: var(--pasta-bg);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.btn-primary {
-    background: linear-gradient(45deg, var(--pasta-bg), #6b8e23);
-    border: none;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(45deg, #6b8e23, var(--pasta-bg));
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(132, 148, 88, 0.3);
-}
-
-/* Responsive cart */
-@media (max-width: 768px) {
-    .cart-modal .modal-content {
-        width: 95%;
-        max-height: 90vh;
-    }
-    
-    .cart-item {
-        padding: 12px;
-    }
-    
-    .cart-item-image {
-        width: 50px;
-        height: 50px;
-        margin-right: 12px;
-    }
-    
-    .cart-item-name {
-        font-size: 0.9rem;
-    }
-    
-    .cart-actions {
-        flex-direction: column;
-    }
-    
-    .cart-actions .btn {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .cart-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-    
-    .cart-item-image {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-    
-    .cart-item-price-section {
-        align-items: center;
-        flex-direction: row;
-        gap: 15px;
-    }
-}
-
-/* ======================================================= */
-/* НОВИЙ ДИЗАЙН КОШИКА */
-/* ======================================================= */
-
-.cart-content {
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.cart-content .modal-header {
-    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-    color: white;
-    padding: 25px 30px;
-    border-radius: 20px 20px 0 0;
-    margin: 0;
-    border-bottom: none;
-}
-
-.cart-content .modal-header h2 {
-    margin: 0;
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-align: center;
-}
-
-.cart-content .close-button {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    font-size: 18px;
-    transition: all 0.3s ease;
-}
-
-.cart-content .close-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(90deg);
-}
-
-/* Empty cart view */
-.empty-cart-view {
-    text-align: center;
-    padding: 60px 30px;
-    color: #666;
-}
-
-.empty-cart-view h3 {
     font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: 600;
-}
-
-.empty-cart-view p {
-    font-size: 1rem;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-
-.primary-button {
-    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(45, 45, 45, 0.3);
-}
-
-.primary-button:hover {
-    background: linear-gradient(135deg, #3d3d3d 0%, #4d4d4d 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(45, 45, 45, 0.4);
-}
-
-/* Cart summary */
-.cart-summary {
-    padding: 25px 30px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 0 0 20px 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.cart-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.cart-total strong {
-    font-size: 1.2rem;
-    color: #333;
-    font-weight: 600;
-}
-
-.cart-total span {
-    font-size: 1.4rem;
-    color: #2d2d2d;
-    font-weight: 700;
-}
-
-/* Responsive cart */
-@media (max-width: 768px) {
-    .cart-content {
-        width: 95%;
-        max-height: 95vh;
-        margin: 20px;
-    }
-    
-    .cart-content .modal-header {
-        padding: 20px 25px;
-    }
-    
-    .cart-content .modal-header h2 {
-        font-size: 1.5rem;
-    }
-    
-    .empty-cart-view {
-        padding: 40px 20px;
-    }
-    
-    .cart-summary {
-        padding: 20px 25px;
-    }
-}
-
-@media (max-width: 480px) {
-    .cart-content {
-        width: 98%;
-        margin: 10px;
-        border-radius: 15px;
-    }
-    
-    .cart-content .modal-header {
-        padding: 15px 20px;
-        border-radius: 15px 15px 0 0;
-    }
-    
-    .cart-content .modal-header h2 {
-        font-size: 1.3rem;
-    }
-    
-    .empty-cart-view {
-        padding: 30px 15px;
-    }
-    
-    .empty-cart-view h3 {
-        font-size: 1.3rem;
-    }
-    
-    .primary-button {
-        padding: 12px 25px;
-        font-size: 0.9rem;
-    }
-    
-    .cart-summary {
-        padding: 15px 20px;
-        border-radius: 0 0 15px 15px;
-    }
-}
-
-/* ======================================================= */
-/* СТИЛІ ДЛЯ СЛАЙДУ-ІСТОРІЇ */
-/* ======================================================= */
-
-.story-slide-content {
-    position: relative; /* Додаємо, щоб відеофон працював коректно */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    overflow: hidden; /* Ховаємо все, що виходить за межі */
-}
-
-/* Відео фон для першого слайду */
-.story-video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
-    opacity: 0.8;
-}
-
-/* Desktop video - показуємо за замовчуванням */
-.desktop-video {
-    display: block;
-}
-
-/* Mobile video - ховаємо за замовчуванням */
-.mobile-video {
-    display: none;
-}
-
-/* Fallback фон для браузерів без підтримки відео */
-.story-fallback-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-}
-
-/* Темний оверлей поверх відео для кращої читабельності тексту */
-.story-slide-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
-    z-index: -1;
-}
-
-/* Фонове зображення для слайду з напоями */
-.slide-background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.9); /* Трохи затемнюємо для читабельності */
-    z-index: 0;
-}
-
-.story-text-block {
-    max-width: 600px;
-    padding: 20px;
-    opacity: 0; /* Початково приховано для анімації */
-    transform: translateY(30px); /* Початкове зміщення */
-}
-
-.story-text-block h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem; /* Збільшуємо розмір для ефектності */
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 15px rgba(0,0,0,0.8);
-    font-weight: 700;
-}
-
-.story-text-block p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 40px; /* Збільшуємо відступ */
-    max-width: 500px; /* Обмежуємо ширину для читабельності */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.story-button {
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-    padding: 15px 35px; /* Збільшуємо padding */
-    border-radius: 50px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    opacity: 0; /* Початково приховано для анімації */
-    transform: translateY(20px); /* Початкове зміщення */
-}
-
-.story-button:hover {
-    background: white;
-    color: #2d2d2d;
-}
-
-/* Responsive Design for Story Slide */
-@media (max-width: 768px) {
-    .story-text-block {
-        width: 90%; /* Обмежуємо ширину блоку */
-        max-width: 90%;
-        padding: 0 15px; /* Додаємо бічні відступи */
-        margin: 0 auto; /* Центруємо */
-    }
-    
-    .story-text-block h2 {
-        font-size: 2.5rem; /* Трохи зменшуємо заголовок */
-        margin-bottom: 15px;
-    }
-    
-    .story-text-block p {
-        font-size: 1rem;
-        margin-bottom: 25px;
-    }
-    
-    .story-button {
-        padding: 12px 25px;
-        font-size: 0.9rem;
-    }
-    
-    /* Мобільні стилі для відео */
-    .story-video-bg {
-        opacity: 0.7; /* Трохи менша прозорість на мобільних */
-    }
-    
-    .story-slide-content::before {
-        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)); /* Темніший оверлей на мобільних */
-    }
-    
-    .slide-background-image {
-        filter: brightness(0.8); /* Більше затемнюємо на планшетах */
-    }
-    
-    /* === АДАПТАЦІЯ "CHEF'S TABLE" ДЛЯ МОБІЛЬНИХ === */
-    
-    /* Перетворюємо на flex-колонку для мобільного вигляду */
-    .dish-container {
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    /* Скидаємо абсолютне позиціонування */
-    .dish-container .product-image {
-        position: static;
-        transform: none;
-        max-width: 90%;
-        margin: 0 auto;
-        opacity: 1; /* Завжди видима на мобільних */
-    }
-    
-    /* Стрічка інгредієнтів */
-    .ingredient-map {
-        order: 2; /* Розміщуємо після страви */
-        position: static;
-        display: flex; /* Горизонтальна стрічка */
-        justify-content: center;
-        gap: 15px;
-        width: 100%;
-        padding: 20px 0;
-        
-        /* За замовчуванням приховано */
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transition: all 0.5s ease;
-    }
-    
-    /* Логіка появи при кліку на .active */
-    .dish-container.active .ingredient-map {
-        max-height: 200px; /* Достатньо висоти для відображення */
-        opacity: 1;
-    }
-    
-    /* Прибираємо зменшення страви при кліку */
-    .dish-container:hover .product-image,
-    .dish-container.active .product-image {
-        transform: none;
-    }
-    
-    /* Скидаємо абсолютне позиціонування для самих інгредієнтів */
-    .ingredient-node {
-        position: static !important;
-        transform: none !important;
-        width: 60px;
-    }
-    
-    .ingredient-node img {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .ingredient-info {
-        padding: 3px 5px;
-        min-width: 60px;
-    }
-    
-    .ingredient-name {
-        font-size: 10px;
-        white-space: nowrap; /* Текст в один рядок */
-    }
-    
-    .ingredient-weight {
-        font-size: 9px;
-        margin-top: 1px;
-    }
-    
-    /* === АДАПТАЦІЯ ФОРМИ РЕЗЕРВАЦІЇ === */
-    
-    .form-row {
-        grid-template-columns: 1fr; /* Одна колонка на планшетах */
-    }
-    
-    .reservation-info {
-        grid-template-columns: 1fr; /* Одна колонка для інфо блоків */
-    }
-    
-    /* === АДАПТАЦІЯ ХЕДЕРА === */
-    
-    .main-header {
-        flex-wrap: wrap;
-        padding: 15px 20px;
-        gap: 15px;
-    }
-    
-    .logo {
-        flex: 1 1 100%;
-        text-align: center;
-        font-size: 1.5rem;
-    }
-    
-    .main-nav {
-        flex: 1 1 auto;
-        justify-content: center;
-    }
-    
-    .reserve-button {
-        flex: 1 1 auto;
-        text-align: center;
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .story-text-block {
-        max-width: 95%;
-        padding: 10px;
-    }
-    
-    .story-text-block h2 {
-        font-size: 1.8rem;
-        margin-bottom: 12px;
-    }
-    
-    .story-text-block p {
-        font-size: 0.9rem;
-        margin-bottom: 20px;
-    }
-    
-    .story-button {
-        padding: 10px 20px;
-        font-size: 0.8rem;
-    }
-    
-    /* Мобільні стилі для відео на маленьких екранах */
-    .story-video-bg {
-        opacity: 0.6; /* Ще менша прозорість на маленьких екранах */
-    }
-    
-    .story-slide-content::before {
-        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)); /* Ще темніший оверлей */
-    }
-    
-    .slide-background-image {
-        filter: brightness(0.7); /* Ще більше затемнюємо на мобільних */
-    }
-    
-    /* === АДАПТАЦІЯ "CHEF'S TABLE" ДЛЯ МАЛЕНЬКИХ ЕКРАНІВ === */
-    
-    .ingredient-node {
-        width: 50px; /* Ще менший розмір для маленьких екранів */
-    }
-    
-    .ingredient-node img {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .ingredient-info {
-        padding: 2px 4px;
-        min-width: 50px;
-    }
-    
-    .ingredient-name {
-        font-size: 9px; /* Дуже маленький шрифт */
-    }
-    
-    .ingredient-weight {
-        font-size: 8px;
-        margin-top: 0;
-    }
-    
-    .ingredient-map {
-        gap: 10px; /* Менший відступ між інгредієнтами */
-        padding: 15px 0;
-    }
-    
-    .dish-container.active .ingredient-map {
-        max-height: 150px; /* Менша висота для компактності */
-    }
-}
-
-/* ======================================================= */
-/* STORIA SECTION */
-/* ======================================================= */
-
-.storia-section {
-    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #D2691E 100%);
-    color: white;
-    padding: 80px 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.storia-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    opacity: 0.3;
-    pointer-events: none;
-}
-
-.storia-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
-    z-index: 2;
-}
-
-.storia-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.storia-title {
-    font-family: var(--font-heading);
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(45deg, #FFD700, #FFA500);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.storia-slogan {
-    font-size: 1.4rem;
-    font-style: italic;
-    opacity: 0.9;
-    font-weight: 300;
-    letter-spacing: 1px;
-}
-
-.storia-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-
-.storia-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    text-align: justify;
-}
-
-.storia-paragraph {
-    margin-bottom: 25px;
-    opacity: 0.95;
-}
-
-.storia-paragraph:first-child {
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.storia-welcome {
-    font-size: 1.3rem;
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.storia-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.storia-placeholder {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 40px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.storia-icon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 20px;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-}
-
-.storia-placeholder p {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Responsive Design for Storia Section */
-@media (max-width: 768px) {
-    .storia-section {
-        padding: 60px 0;
-    }
-    
-    .storia-title {
-        font-size: 2.5rem;
-    }
-    
-    .storia-slogan {
-        font-size: 1.2rem;
-    }
-    
-    .storia-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-    
-    .storia-text {
-        font-size: 1rem;
-        text-align: left;
-    }
-    
-    .storia-paragraph:first-child {
-        font-size: 1.1rem;
-    }
-    
-    .storia-welcome {
-        font-size: 1.1rem;
         margin-top: 30px;
     }
     
-    .storia-placeholder {
-        padding: 30px;
+    /* --- 2. Мобільний вигляд головного меню ("Hover Gallery") --- */
+    #hover-gallery-menu .category-list {
+        flex-direction: column; /* Стовпчик замість рядка */
     }
-    
-    .storia-icon {
-        font-size: 3rem;
+    #hover-gallery-menu .category-strip {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        transition: flex 0.4s ease;
     }
-}
-
-@media (max-width: 480px) {
-    .storia-section {
-        padding: 40px 0;
+    #hover-gallery-menu .category-strip:hover {
+        flex: 3; /* Зменшуємо ефект розширення */
     }
-    
-    .storia-title {
+    #hover-gallery-menu .strip-title {
+        writing-mode: horizontal-tb; /* Текст завжди горизонтальний */
+        transform: translateX(-50%);
         font-size: 2rem;
+        bottom: 50%;
+        transform: translate(-50%, 50%); /* Ідеальне центрування */
     }
-    
-    .storia-slogan {
-        font-size: 1rem;
-    }
-    
-    .storia-text {
-        font-size: 0.95rem;
-    }
-    
-    .storia-welcome {
-        font-size: 1rem;
-        padding: 15px;
-    }
-    
-    .storia-placeholder {
-        padding: 20px;
-    }
-    
-    .storia-icon {
+    #hover-gallery-menu .category-strip:hover .strip-title {
         font-size: 2.5rem;
+        bottom: 50%;
+        transform: translate(-50%, 50%);
     }
-}
 
-/* ======================================================= */
-/* НОВИЙ ЕЛЕГАНТНИЙ ДИЗАЙН ДЛЯ ФОРМИ ЗАМОВЛЕННЯ */
-/* ======================================================= */
-
-/* --- Загальний контейнер форми --- */
-#order-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px; /* Простір між секціями */
-}
-
-#order-form fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-
-#order-form legend {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem; /* 21px */
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #eee;
-    width: 100%;
-}
-
-/* --- Група "лейбл + поле вводу" --- */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    font-size: 0.9rem; /* 14.4px */
-    color: #555;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group textarea {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: 'Lato', sans-serif;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #333;
-    box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.1);
-}
-
-/* --- Нові радіокнопки оплати --- */
-.payment-options-new {
-    display: flex;
+    /* --- 3. Мобільний вигляд списку страв --- */
+    .dish-list-container {
+        padding: 60px 20px 20px 20px;
+    }
+    .dish-list-title {
+        font-size: 3rem;
+        margin-bottom: 30px;
+    }
+    .dish-item {
+        grid-template-columns: 1fr; /* Одна колонка */
+        text-align: center;
         gap: 15px;
     }
-    
-.payment-option-new {
-    flex: 1;
-    cursor: pointer;
-}
-
-.payment-option-new input[type="radio"] {
-    display: none; /* Ховаємо стандартну кнопку */
-}
-
-.payment-box-new {
-        padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
-    transition: all 0.3s ease;
-    background: white;
-}
-
-.payment-option-new input[type="radio"]:checked + .payment-box-new {
-    border-color: #333;
-    background: #f8f9fa;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-.payment-box-new .payment-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-
-.payment-box-new .payment-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-/* --- Фінальна кнопка замовлення --- */
-.form-submit-btn {
-    width: 100%;
-    background-color: #2d2d2d; /* Елегантний темний */
-    color: white;
-    border: none;
-    padding: 18px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.form-submit-btn:hover {
-    background-color: #555;
-}
-
-/* Стилі для стану завантаження (спінер) */
-.form-submit-btn.is-loading .button-text {
-    display: none;
-}
-.form-submit-btn.is-loading .spinner {
-    display: block;
+    .dish-item-image-wrapper {
     margin: 0 auto;
+        width: 250px;
+        height: 250px;
+    }
+
+    /* --- 4. Мобільний вигляд модальних вікон --- */
+    
+    /* "La Nostra Storia" */
+.story-body {
+        grid-template-columns: 1fr; /* Одна колонка */
+    }
+    .story-text-container h3 {
+    font-size: 2rem;
+    text-align: center;
+    }
+    .story-content {
+        padding: 20px;
+    }
+
+    /* "Контакти" */
+.contacts-content {
+        padding: 0;
+    }
+.contacts-body {
+    padding: 20px;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr; /* Одна колонка */
+    }
+.cta-phone-button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+    
+    /* Загальне для всіх модалок */
+    .modal-content {
+    width: 95%;
+        height: 90%;
+    }
 }
 
-/* ======================================================= */
-/* UTILITY CLASSES */
-/* ======================================================= */
+/* --- Фінальне шліфування модального вікна "La Nostra Storia" --- */
 
-.hidden {
+    .story-content {
+    max-width: 600px; /* Зменшуємо максимальну ширину вікна */
+    width: auto;      /* Дозволяємо вікну підлаштовуватися під контент, але не більше max-width */
+    padding: 40px;    /* Збільшуємо внутрішні відступи для "повітря" */
+    }
+    
+    .story-body {
+    display: block; /* Змінюємо макет на одноколонковий (вертикальний) */
+    text-align: center; /* Центруємо весь вміст */
+}
+
+.story-image-container {
+    margin: 0 auto 30px auto; /* Центруємо зображення та додаємо відступ знизу */
+    max-width: 100%;
+}
+
+.story-text-container h3 {
+    text-align: center; /* Заголовок по центру */
+}
+
+.story-text-container p {
+    text-align: justify; /* Вирівнюємо текст по ширині для акуратного вигляду */
+    hyphens: auto;       /* Додаємо автоматичні переноси для вузьких блоків */
+}
+
+.story-signature {
+    text-align: center; /* Підпис також по центру */
+}
+
+/* --- Адаптація для мобільних пристроїв --- */
+@media (max-width: 768px) {
+    .story-content {
+        padding: 30px 20px; /* Зменшуємо відступи на мобільних */
+    }
+    .story-text-container h3 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ============================================== */
+/* === ФІНАЛЬНІ ВИПРАВЛЕННЯ ІНТЕРФЕЙСУ (гарантовані) === */
+/* ============================================== */
+
+/* 1. Гарантовано приховуємо дублікат мобільного меню */
+#mobile-menu {
     display: none !important;
 }
 
-/* Category content (text on category cards) */
-.category-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-    text-align: center;
-    pointer-events: none; /* Дозволяє клікати крізь текст */
+/* 2. Гарантовано приховуємо старі стрілки від слайдера */
+.swiper-button-next,
+.swiper-button-prev {
+    display: none !important;
 }
 
-/* Назви категорій в gallery (базові стилі для desktop) */
-.category-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: white;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    z-index: 2;
-}
-
-/* Content visibility control */
-.product-image,
-.ingredient,
-h1,
-.order-button,
-.description-block,
-.drinks-display,
-.drink-item,
-.drink-image {
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Water promo elements should be visible */
-.water-promo-container,
-.water-bottle-image,
-.water-promo-text,
-.water-promo-footer {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-#cart-icon {
-    opacity: 1;
-    transform: translateX(0) translateY(0) scale(1);
-}
-
-/* ======================================================= */
-/* СТИЛІ ДЛЯ ВИПРАВЛЕННЯ ЗНИКЛОГО КОШИКА */
-/* ======================================================= */
-
-#cart-icon {
-    display: flex !important; /* Гарантує, що елемент буде видимим */
-    opacity: 1 !important; /* Гарантує, що він не буде прозорим */
-    visibility: visible !important; /* Гарантує видимість */
-    position: fixed; /* Завжди на одному місці екрану */
-    top: 20px;
-    right: 20px;
-    z-index: 1001; /* Поверх більшості елементів */
-    
-    /* Інші стилі для красивого вигляду */
-    background-color: white;
-    color: #333;
-        padding: 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-#cart-icon:hover {
-    transform: scale(1.1);
-}
-
-#cart-counter {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: #D9534F; /* Червоний, як у вашому бренді */
-    color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    border: 2px solid white;
-}
-
-/* ======================================================= */
-/* ПЛАВНЕ ПРИХОВУВАННЯ UI НА ПЕРШОМУ СЛАЙДІ */
-/* ======================================================= */
-
-/* Додаємо плавність для появи/зникнення елементів */
-#cart-icon,
-.swiper-button-prev,
-.swiper-button-next {
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-/* Правила, які спрацюють, коли перший слайд активний */
-body.story-slide-active #cart-icon,
-body.story-slide-active .swiper-button-prev,
-body.story-slide-active .swiper-button-next {
+/* 3. Розширене приховування всіх можливих залишкових елементів */
+.swiper-pagination,
+.swiper-scrollbar,
+.swiper-pagination-bullet,
+.swiper-pagination-bullets,
+.arrow-next,
+.arrow-prev,
+.slider-control,
+.slider-nav,
+.nav-arrow,
+.carousel-control-next,
+.carousel-control-prev,
+.slick-arrow,
+.slick-next,
+.slick-prev {
+    display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
-    pointer-events: none !important; /* Забороняємо кліки на невидимі елементи */
+    pointer-events: none !important;
 }
 
-/* ======================================================= */
-/* ГАРАНТОВАНЕ ВІДОБРАЖЕННЯ КНОПКИ "ДОДАТИ" */
-/* ======================================================= */
+/* ============================================== */
+/* === ФІНАЛЬНІ ШТРИХИ: ЕЛЕГАНТНИЙ ТЕКСТ І КНОПКА === */
+/* ============================================== */
 
-/* Це правило гарантує, що кнопка буде видимою на активному слайді */
-.swiper-slide-active .add-to-cart-btn {
-    opacity: 1 !important;
-    visibility: visible !important;
-    /* Позиціонування, яке ми визначили раніше */
-    position: absolute;
-    bottom: 12%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+/* --- 1. Покращуємо читабельність тексту --- */
+
+.story-text-block h2,
+.story-text-block p {
+    /* Додаємо легку тінь, щоб текст "відривався" від фону */
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Додаткове правило для гарантованої видимості після GSAP анімації */
-.swiper-slide-active .add-to-cart-btn {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
+.story-text-block h2 {
+    line-height: 1.2; /* Покращуємо інтерліньяж для великого заголовка */
 }
 
-/* Мобільні стилі для кнопки "Додати" */
-@media (max-width: 480px) {
-    .swiper-slide-active .add-to-cart-btn {
-        position: static !important;
-        transform: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        margin: 0 auto;
-        padding: 15px 35px;
-        font-size: 0.9rem;
-        z-index: auto !important;
-    }
+.story-text-block p {
+    line-height: 1.7; /* Робимо текст-опис більш читабельним */
+    font-size: 1.1rem; /* Трохи збільшуємо розмір */
 }
 
-/* ======================================================= */
-/* МОДАЛЬНЕ ВІКНО "LA NOSTRA STORIA" */
-/* ======================================================= */
 
-.story-content {
-    max-width: 800px; /* Робимо вікно ширшим */
-    max-height: 90vh;
-    overflow-y: auto;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
+/* --- 2. Стилізуємо кнопку "Scopri il menu" --- */
 
-.story-content .modal-header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+.hero-cta-button {
+    display: inline-block; /* Робимо елемент блочним для застосування стилів */
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: 2px solid white; /* Створюємо стиль "ghost button" */
+    border-radius: 50px; /* Повністю скруглені кути */
     color: white;
-    padding: 30px 40px;
-    border-radius: 20px 20px 0 0;
-    margin: 0;
-    border-bottom: none;
-}
-
-.story-content .modal-header h2 {
-    margin: 0;
-    font-size: 2.2rem;
-    font-weight: 700;
-    text-align: center;
-    letter-spacing: 0.5px;
-}
-
-.story-content .close-button {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    font-size: 18px;
-    transition: all 0.3s ease;
-}
-
-.story-content .close-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(90deg);
-}
-
-.story-body {
-    padding: 10px 20px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.story-body img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 25px;
-}
-
-.story-text h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.story-text p {
-    line-height: 1.7;
-    color: #555;
-    text-align: justify; /* Вирівнювання тексту по ширині */
-}
-
-.story-text p:last-child {
-    text-align: center;
-    font-weight: 600;
-    color: #2d2d2d;
-    font-size: 1.2rem;
-    margin-bottom: 0;
-}
-
-/* ======================================================= */
-/* CONTACTS MODAL */
-/* ======================================================= */
-
-.contacts-content {
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Wider contacts modal with grid layout */
-.contacts-content-large {
-    max-width: 1100px; /* Робимо вікно значно ширшим */
-}
-
-.contacts-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.2fr; /* Три колонки */
-    gap: 30px;
-}
-
-/* Grid columns */
-.contact-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.contact-column h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #2d2d2d;
-    border-bottom: 2px solid #D9534F;
-    padding-bottom: 10px;
-}
-
-/* Philosophy column (третя колонка - ширша) */
-.philosophy-column {
-    grid-column: 3;
-}
-
-/* Responsive grid */
-@media (max-width: 968px) {
-    .contacts-grid {
-        grid-template-columns: 1fr; /* Одна колонка на планшетах */
-    }
-    
-    .philosophy-column {
-        grid-column: 1;
-    }
-}
-
-.contacts-content .modal-header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    color: white;
-    padding: 30px 40px;
-    border-radius: 20px 20px 0 0;
-    margin: 0;
-    border-bottom: none;
-}
-
-.contacts-content .modal-header h2 {
-    margin: 0;
-    font-size: 2.2rem;
-    font-weight: 700;
-    text-align: center;
-    letter-spacing: 0.5px;
-}
-
-.contacts-content .close-button {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    font-size: 18px;
-    transition: all 0.3s ease;
-}
-
-.contacts-content .close-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(90deg);
-}
-
-.contacts-body {
-    padding: 30px;
-    display: flex;
-    gap: 30px;
-    align-items: flex-start; /* Вирівнюємо колонки по верху */
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.contact-item:hover {
-    background: rgba(255, 255, 255, 0.8);
-    transform: translateX(5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.contact-icon {
-    font-size: 2rem;
-    display: inline-block;
-}
-
-.contact-details h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.2rem;
-    color: #2d2d2d;
-    font-family: var(--font-heading);
-}
-
-.contact-details p {
-    margin: 0;
-    color: #666;
-    font-size: 0.95rem;
-}
-
-.contact-link {
-    color: #D9534F;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.contact-link:hover {
-    color: #C44741;
-    text-decoration: underline;
-}
-
-.contact-hours {
-    font-size: 0.9rem !important;
-    color: #888 !important;
-    margin-top: 5px !important;
-}
-
-.contact-cta {
-    text-align: center;
-    margin-top: 15px;
-    padding: 25px;
-    background: linear-gradient(135deg, rgba(217, 83, 79, 0.1), rgba(196, 71, 65, 0.1));
-    border-radius: 15px;
-}
-
-.contact-cta p {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: #2d2d2d;
-}
-
-.cta-phone-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #D9534F, #C44741);
-    color: white;
-    padding: 15px 35px;
-    border-radius: 30px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
+    text-transform: uppercase; /* Великі літери */
+    letter-spacing: 1px; /* Збільшуємо відстань між літерами */
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.cta-phone-button:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 25px rgba(217, 83, 79, 0.4);
-    background: linear-gradient(135deg, #C44741, #B03D37);
+/* Ефект при наведенні курсору */
+.hero-cta-button:hover {
+    background-color: white;
+    color: #2d2d2d; /* Темний колір тексту при наведенні */
+    transform: scale(1.05); /* Легке збільшення */
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
 }
 
-.cta-phone-button:active {
-    transform: translateY(0) scale(1);
-}
-
-/* Contact Details Section */
-.contact-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.contact-details .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.contact-details strong {
-    display: block;
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-    color: #2d2d2d;
-    font-family: var(--font-heading);
-}
-
-.contact-details p {
-    margin: 3px 0;
-    color: #666;
-    font-size: 0.95rem;
-}
-
-a.phone-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-a.phone-link:hover {
-    text-decoration: underline;
-}
-
-/* Booking Philosophy Section */
-.booking-philosophy {
-    flex: 1;
-    min-width: 300px;
-    padding-left: 30px;
-    border-left: 1px solid #eee;
-}
-
-.booking-philosophy h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.booking-philosophy p {
-    font-size: 0.95rem;
-    color: #555;
-    line-height: 1.7;
-    margin-bottom: 15px;
-}
-
-/* ======================================================= */
-/* HOVER GALLERY MENU - Il Nostro Menu */
-/* ======================================================= */
-
-.hover-gallery {
-    max-width: 95%;
-    width: 95%;
-    max-height: 90vh;
-}
-
-.hover-gallery .modal-header {
-    margin-bottom: 20px;
-}
-
-.hover-gallery ul {
-    display: flex !important;
-    flex-direction: row !important;
-    width: 100%;
-    height: 75vh;
-    padding: 20px;
-    list-style: none;
-    gap: 15px;
-}
-
-.hover-gallery li {
-    flex: 1;
-    height: 100%;
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-position: center;
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: flex 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-/* Магія при наведенні */
-.hover-gallery li:hover { 
-    flex: 4; 
-}
-
-/* Контент, що з'являється */
-.hover-gallery .content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    padding: 80px 20px 20px 20px;
-    color: white;
-    
-    /* Сховано за замовчуванням */
-    transform: translateY(100%);
-    opacity: 0;
-    transition: all 0.5s ease;
-}
-
-.hover-gallery li:hover .content,
-.hover-gallery li.active .content {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.hover-gallery .content h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.hover-gallery .content p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 15px;
-    opacity: 0.9;
-}
-
-.hover-gallery .content span {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #D9534F;
-}
-
-.hover-gallery .content span::after {
-    content: ' ₴';
-    font-size: 1.2rem;
-}
-
-/* Адаптація для мобільних */
-@media (max-width: 768px) {
-    .contacts-body {
-        flex-direction: column;
-    }
-    
-    .booking-philosophy {
-        padding-left: 0;
-        border-left: none;
-        padding-top: 20px;
-        border-top: 1px solid #eee;
-    }
-    
-    /* Hover Gallery mobile */
-    .hover-gallery ul {
-        flex-direction: column;
-        height: auto;
-    }
-    
-    .hover-gallery li {
-        flex: 1;
-        height: 150px;
-    }
-    
-    .hover-gallery li.active {
-        flex: 5;
-        height: 300px; /* Розширення по висоті */
-    }
-    
-    .hover-gallery .content h2 {
-        font-size: 1.5rem;
-    }
-    
-    .hover-gallery .content p {
-        font-size: 0.85rem;
-    }
-    
-    .hover-gallery .content span {
-        font-size: 1.2rem;
-    }
-}
-
-/* Responsive story modal */
-@media (max-width: 768px) {
-    .story-content {
-        width: 95%;
-        max-height: 95vh;
-        margin: 20px;
-    }
-    
-    .story-content .modal-header {
-        padding: 20px 25px;
-    }
-    
-    .story-content .modal-header h2 {
-        font-size: 1.5rem;
-    }
-    
-    .story-body {
-        padding: 20px 25px;
-        gap: 20px;
-    }
-    
-    .story-body img {
-        height: 250px;
-    }
-    
-    .story-text h3 {
-        font-size: 1.5rem;
-    }
-    
-    .story-text p {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .story-content {
-        width: 98%;
-        margin: 10px;
-        border-radius: 15px;
-    }
-    
-    .story-content .modal-header {
-        padding: 15px 20px;
-        border-radius: 15px 15px 0 0;
-    }
-    
-    .story-content .modal-header h2 {
-        font-size: 1.3rem;
-    }
-    
-    .story-body {
-        padding: 15px 20px;
-        gap: 15px;
-    }
-    
-    .story-body img {
-        height: 200px;
-        border-radius: 10px;
-    }
-    
-    .story-text h3 {
-        font-size: 1.3rem;
-    }
-    
-    .story-text p {
-        font-size: 0.95rem;
-        text-align: left;
-    }
-}
-
-/* ======================================================= */
-/* ФІНАЛЬНИЙ ВИГЛЯД МЕНЮ КАТЕГОРІЙ ДЛЯ МОБІЛЬНИХ */
-/* ======================================================= */
-
-@media (max-width: 768px) {
-    #category-gallery-container ul {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 10px;
-    }
-    
-    .category-card {
-        height: 120px;
-        border-radius: 12px;
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-    
-    .category-card-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 2rem;
-        color: white;
-        text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-    }
-}
-
-/* ======================================================= */
-/* ПРЕМІАЛЬНИЙ РЕДИЗАЙН КАРТОК МЕНЮ */
-/* ======================================================= */
-
-.menu-category {
-    margin-bottom: 50px;
-}
-
-.menu-category h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: #FFFFFF;
-}
-
-/* Преміальний вигляд для списку страв */
-.menu-dish {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 25px;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.menu-dish:last-child { 
-    border-bottom: none; 
-}
-
-.menu-dish-image {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.menu-dish-info h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: #FFFFFF;
-    margin-bottom: 10px;
-}
-
-.menu-dish-info p {
-    color: #AEAEB2; /* М'який сірий для опису */
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-.menu-dish-info .price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #FFFFFF;
-}
-
-.menu-dish-info .price span {
-    font-size: 1rem;
-    color: #AEAEB2;
-}
-
-/* --- Адаптація для мобільних --- */
-@media (max-width: 768px) {
-    .menu-dish {
-        grid-template-columns: 1fr; /* На мобільних все йде в одну колонку */
-        text-align: center;
-    }
-    .menu-dish-image {
-        width: 100%;
-        height: 250px; /* Робимо фото більшим */
-    }
+/* Фінальне виправлення для підпису у вікні "La Nostra Storia" */
+.story-signature {
+    border-top: none;      /* Прибираємо роздільну лінію */
+    padding-top: 0;        /* Прибираємо відступ, що був над лінією */
+    margin-top: 30px;      /* Залишаємо гарний відступ від основного тексту */
+    text-align: center;    /* Гарантуємо, що підпис буде по центру */
+    font-size: 1.1rem;     /* Робимо текст трохи виразнішим */
+    color: #ccc;
 }
