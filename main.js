@@ -27,20 +27,25 @@ function initializeHoverGallery() {
     // Funzione per mostrare la lista dei piatti
     function showDishes(category) {
         const categoryDishes = menu.filter(item => item.category.toLowerCase() === category.toLowerCase());
+        const dishListTitle = document.getElementById('dish-list-title'); // ✨ NEW
+
+        // ✨ NEW: Вставляємо заголовок в новий елемент
+        if (dishListTitle) {
+            dishListTitle.textContent = category;
+        }
         
-        dishListContent.innerHTML = `
-            <h2 class="dish-list-title">${category}</h2>
-            ${categoryDishes.map(dish => `
-                <div class="dish-item">
+        dishListContent.innerHTML = categoryDishes.map(dish => `
+            <div class="dish-item">
+                <div class="dish-item-image-wrapper">
                     <img src="${dish.image}" alt="${dish.name}" class="dish-item-image">
-                    <div class="dish-item-info">
-                            <h3>${dish.name}</h3>
-                            <p>${dish.description}</p>
-                        <div class="price">€</div>
-                        </div>
-                    </div>
-                `).join('')}
-        `;
+                </div>
+                <div class="dish-item-info">
+                    <h3>${dish.name}</h3>
+                    <p>${dish.description}</p>
+                    <div class="price">${dish.price} EUR</div>
+                </div>
+            </div>
+        `).join('');
         dishListContainer.classList.remove('hidden');
     }
 

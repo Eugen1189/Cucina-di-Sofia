@@ -745,3 +745,56 @@ body {
         font-size: 2.2rem; /* Dimensione ottimale per mobile */
     }
 }
+
+/* ============================================== */
+/* === "ЛИПКИЙ" ХЕДЕР ДЛЯ СПИСКУ СТРАВ (МОБІЛЬНІ) === */
+/* ============================================== */
+
+/* Прибираємо старі відступи з головного контейнера */
+.dish-list-container {
+    padding: 0;
+}
+
+/* Стилізуємо новий "липкий" хедер */
+.dish-list-header {
+    position: sticky; /* ✨ Головна властивість! */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    background: #1a1a1a; /* Фон, щоб контент не просвічувався при скролі */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Розміщуємо кнопку "Назад" зліва */
+.dish-list-header .menu-back-btn {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+}
+
+/* Розміщуємо кнопку "Закрити" справа */
+.dish-list-container .close-button {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 11; /* Поверх усього */
+}
+
+/* Заголовок по центру */
+.dish-list-header .dish-list-title {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* Додаємо верхній відступ для контенту, щоб він не ховався під хедер */
+.dish-list-scrollable-content {
+    padding: 20px;
+}
