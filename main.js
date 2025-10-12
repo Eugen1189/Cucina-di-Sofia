@@ -2,7 +2,7 @@
 
 import { initializeModals, initializeMobileMenu, openModal, closeModal } from './ui.js';
 import { initializeIntroAnimation } from './animations.js';
-import { menu } from './cart.js'; // Importiamo i dati del menu
+import { menu } from './menu.js'; // Importiamo i dati del menu
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeModals();
